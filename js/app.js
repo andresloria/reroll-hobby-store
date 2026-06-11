@@ -298,39 +298,73 @@ function renderGrid(){
 /* ============================================================
    CARRITO
    ============================================================ */
+// consolidar carrito por id y asegurar qty (migración de carritos viejos)
+(function normalizeCart(){
+  const map = new Map();
+  cart.forEach(it=>{
+    if(!it || it.id===undefined) return;
+    if(map.has(it.id)) map.get(it.id).qty += (it.qty||1);
+    else map.set(it.id, { id:it.id, name:it.name, cat:it.cat, price:it.price, emoji:it.emoji, img:it.img, qty: it.qty||1 });
+  });
+  cart = [...map.values()];
+})();
+
+function stockOf(id){ const p=PRODUCTS.find(x=>x.id===id); if(!p) return null; const s=p.stock; return (s===undefined||s===null||s==="")?null:Number(s); }
+function cartCount(){ return cart.reduce((s,c)=>s+(c.qty||1),0); }
+function cartTotal(){ return cart.reduce((s,c)=>s+Number(c.price||0)*(c.qty||1),0); }
+
 function addToCart(id){
-  const p = PRODUCTS.find(x=>x.id===id);
-  if(!p) return;
-  cart.push({ id:p.id, name:p.name, cat:p.cat, price:p.price, emoji:p.emoji, img:p.img });
-  saveCart();
-  toast(`Añadido: ${p.name}`);
-  renderCart();
+  const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+  const st = stockOf(id);
+  const line = cart.find(c=>c.id===id);
+  if(line){
+    if(st!==null && line.qty>=st){ toast(`Solo hay ${st} de ${p.name}`); return; }
+    line.qty++;
+  } else {
+    cart.push({ id:p.id, name:p.name, cat:p.cat, price:p.price, emoji:p.emoji, img:p.img, qty:1 });
+  }
+  saveCart(); toast(`Añadido: ${p.name}`); renderCart();
 }
-function removeFromCart(idx){
-  cart.splice(idx,1);
-  saveCart();
-  renderCart();
+function changeQty(id, delta){
+  const line = cart.find(c=>c.id===id); if(!line) return;
+  const st = stockOf(id);
+  let q = line.qty + delta;
+  if(st!==null && q>st){ q=st; toast(`Solo hay ${st} disponibles`); }
+  if(q<=0){ cart = cart.filter(c=>c.id!==id); }
+  else line.qty = q;
+  saveCart(); renderCart();
 }
-function cartTotal(){ return cart.reduce((s,p)=>s+Number(p.price||0),0); }
+function removeLine(id){ cart = cart.filter(c=>c.id!==id); saveCart(); renderCart(); }
+
 function renderCart(){
-  const cc = $("#cartCount"); if(cc) cc.textContent = cart.length;
+  const cc = $("#cartCount"); if(cc) cc.textContent = cartCount();
   const wrap = $("#drawerItems"); if(!wrap) return;
   if(!cart.length){
     wrap.innerHTML = `<p class="drawer__empty">Tu carrito está vacío.<br>Añade algunas cartas ✨</p>`;
   } else {
     wrap.innerHTML = "";
-    cart.forEach((p,idx)=>{
+    cart.forEach(c=>{
       const row = document.createElement("div");
       row.className = "di";
-      const thumb = p.img ? `<img class="di__photo" src="${p.img}" alt="">` : `<div class="di__emoji">${p.emoji||"🎴"}</div>`;
+      const thumb = c.img ? `<img class="di__photo" src="${c.img}" alt="">` : `<div class="di__emoji">${c.emoji||"🎴"}</div>`;
       row.innerHTML = `
         ${thumb}
         <div class="di__info">
-          <div class="di__name">${p.name}</div>
-          <div class="di__price">${fmt(p.price)} · <span style="color:var(--muted)">${p.cat}</span></div>
+          <div class="di__name">${c.name}</div>
+          <div class="di__price">${fmt(c.price)} c/u · <span style="color:var(--muted)">${c.cat}</span></div>
+          <div class="qty">
+            <button class="qty__btn" data-act="dec" aria-label="Menos">−</button>
+            <span class="qty__n">${c.qty}</span>
+            <button class="qty__btn" data-act="inc" aria-label="Más">+</button>
+          </div>
         </div>
-        <button class="di__rm" aria-label="Quitar">✕</button>`;
-      row.querySelector(".di__rm").onclick = ()=> removeFromCart(idx);
+        <div class="di__right">
+          <div class="di__sub">${fmt(c.price*c.qty)}</div>
+          <button class="di__rm" aria-label="Quitar">✕</button>
+        </div>`;
+      row.querySelector('[data-act="dec"]').onclick = ()=> changeQty(c.id,-1);
+      row.querySelector('[data-act="inc"]').onclick = ()=> changeQty(c.id,+1);
+      row.querySelector(".di__rm").onclick = ()=> removeLine(c.id);
       wrap.appendChild(row);
     });
   }
@@ -342,7 +376,7 @@ function renderCart(){
    ============================================================ */
 function openCheckout(){
   if(!cart.length){ toast("Tu carrito está vacío"); return; }
-  $("#coItems").innerHTML = cart.map(p=>`<div class="co__line"><span>${p.name}</span><b>${fmt(p.price)}</b></div>`).join("");
+  $("#coItems").innerHTML = cart.map(c=>`<div class="co__line"><span>${c.name} ×${c.qty}</span><b>${fmt(c.price*c.qty)}</b></div>`).join("");
   $("#coTotal").textContent = fmt(cartTotal());
   $("#sinpeData").textContent = `${SINPE_NOMBRE} · ${SINPE_NUMERO}`;
   $("#checkoutModal").classList.add("open");
@@ -361,7 +395,7 @@ function submitCheckout(e){
   const entrega = f.get("entrega");
   const pago = f.get("pago");
   const nombre = (f.get("nombre")||"").trim();
-  const items = cart.map(p=>`• ${p.name} (${p.cat}) — ${fmt(p.price)}`).join("%0A");
+  const items = cart.map(c=>`• ${c.name} ×${c.qty} (${c.cat}) — ${fmt(c.price*c.qty)}`).join("%0A");
   let msg = `¡Hola Reroll! Quiero hacer un pedido:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`;
   msg += `%0A%0ANombre: ${nombre}`;
   if(entrega==="envio"){

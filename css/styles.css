@@ -324,8 +324,8 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 /* mosaico con arte de fondo (si existe assets/games/<juego>.jpg) */
 .gametile--art{
   background:
-    linear-gradient(180deg, rgba(14,10,10,.2) 0%, rgba(14,10,10,.55) 55%, rgba(10,7,7,.95) 100%),
-    var(--art) center/cover no-repeat,
+    linear-gradient(180deg, rgba(14,10,10,.02) 0%, rgba(14,10,10,.35) 58%, rgba(10,7,7,.92) 100%),
+    var(--art) center 18%/cover no-repeat,
     linear-gradient(160deg, color-mix(in srgb,var(--g) 28%, #140c0c), #0e0a0a);
 }
 .gametile--art .gametile__art{display:none}
@@ -345,8 +345,8 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 }
 .gbanner.has-art{
   background:
-    linear-gradient(180deg, rgba(14,10,10,.42) 0%, rgba(14,10,10,.72) 60%, rgba(10,7,7,.96) 100%),
-    var(--art) center 28%/cover no-repeat,
+    linear-gradient(90deg, rgba(10,7,7,.92) 0%, rgba(14,10,10,.55) 45%, rgba(14,10,10,.2) 100%),
+    var(--art) center 22%/cover no-repeat,
     linear-gradient(160deg, color-mix(in srgb,var(--g) 30%, #140c0c), #0e0a0a);
 }
 .gbanner__back{position:absolute;top:18px;left:clamp(20px,5vw,80px);font-size:.86rem;color:var(--gold-bright);opacity:.9}
@@ -632,8 +632,14 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .di__info{flex:1;min-width:0}
 .di__name{font-weight:600;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .di__price{color:var(--gold-bright);font-size:.86rem}
+.di__right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.di__sub{font-family:var(--font-serif);font-size:1.05rem;color:var(--cream)}
 .di__rm{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
 .di__rm:hover{color:var(--wine-light)}
+.qty{display:inline-flex;align-items:center;gap:0;margin-top:7px;border:1px solid var(--line);border-radius:999px;overflow:hidden;width:max-content}
+.qty__btn{width:28px;height:28px;background:rgba(255,255,255,.04);border:none;color:var(--cream);font-size:1.05rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.qty__btn:hover{background:var(--wine-light)}
+.qty__n{min-width:30px;text-align:center;font-weight:700;font-size:.9rem}
 .drawer__foot{padding:20px 24px;border-top:1px solid var(--line)}
 .drawer__total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
 .drawer__total strong{font-family:var(--font-serif);font-size:1.7rem;color:var(--gold-bright)}
