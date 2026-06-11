@@ -121,6 +121,31 @@ function selectGame(cat){
 }
 
 /* ============================================================
+   MOSAICOS "EXPLORÁ POR JUEGO"
+   ============================================================ */
+function renderGameTiles(){
+  const wrap = $("#gameTiles"); if(!wrap) return;
+  wrap.innerHTML = "";
+  BRANDS.forEach(b=>{
+    const count = PRODUCTS.filter(p=>p.cat===b.cat).length;
+    const tile = document.createElement("button");
+    tile.className = "gametile";
+    tile.style.setProperty("--g", b.color);
+    tile.title = `Ver ${b.cat}`;
+    const logo = b.logo
+      ? `<span class="gametile__plaque"><img src="${b.logo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
+      : `<span class="gametile__plaque gametile__plaque--text" style="color:${b.color}">${b.cat}</span>`;
+    tile.innerHTML = `
+      <span class="gametile__art" aria-hidden="true">${b.glyph}</span>
+      ${logo}
+      <span class="gametile__name">${b.cat}</span>
+      <span class="gametile__count">${count} ${count===1?"carta":"cartas"}</span>`;
+    tile.onclick = ()=> selectGame(b.cat);
+    wrap.appendChild(tile);
+  });
+}
+
+/* ============================================================
    FILTROS (tipo, expansión, color, orden)
    ============================================================ */
 function uniqueVals(key, base){
@@ -463,7 +488,7 @@ async function loadCatalog(){
       }
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
-  renderGameBar(); renderFilters(); renderGrid(); renderHeroFan();
+  renderGameBar(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles();
   countUp($("#statCount"), PRODUCTS.length);
 }
 
@@ -476,6 +501,7 @@ renderGrid();
 renderCart();
 renderBrands();
 renderHeroFan();
+renderGameTiles();
 loadCatalog();
 $("#year").textContent = new Date().getFullYear();
 $("#catDice")?.addEventListener("click", ()=> document.getElementById("gameBar").scrollIntoView({behavior:"smooth",block:"center"}));
