@@ -156,6 +156,9 @@
             <input name="badge" placeholder="Ej: Destacada, Rara…" />
           </label>
         </div>
+        <label>Cantidad disponible <span style="text-transform:none;letter-spacing:0">(cuántas tenés de esta carta)</span>
+          <input name="stock" type="number" min="0" value="1" />
+        </label>
         <label>Foto</label>
         <div class="filebox" id="drop">
           <b>Elegí o arrastrá</b> la foto de la carta<br><span style="font-size:.8rem">JPG/PNG · se achica a 600px automáticamente</span>
@@ -299,7 +302,8 @@ $('#addForm').addEventListener('submit', e=>{
     cat: f.get('cat'),
     price: Number(f.get('price')||0),
     cond: f.get('cond'),
-    badge: (f.get('badge')||'').trim()
+    badge: (f.get('badge')||'').trim(),
+    stock: Math.max(0, Number(f.get('stock')||1))
   };
   if(pendingImg) it.img = pendingImg; else it.emoji = emojiByCat[it.cat]||"🎴";
   items.push(it);
@@ -332,13 +336,14 @@ function readCSV(file){
     if(rows.length<2){ $('#csvHint').textContent='El archivo está vacío o sin filas.'; return; }
     const head=rows[0].map(h=>h.trim().toLowerCase());
     const idx=n=>head.findIndex(h=>h.includes(n));
-    const iN=idx('nombre'), iC=idx('categ'), iP=idx('precio'), iE=idx('estado'), iB=idx('etiq');
+    const iN=idx('nombre'), iC=idx('categ'), iP=idx('precio'), iE=idx('estado'), iB=idx('etiq'), iS=idx('cantidad');
     let added=0;
     rows.slice(1).forEach(r=>{
       const name=(iN>=0?r[iN]:'').trim(); if(!name) return;
       const cat=(iC>=0?r[iC]:'Otro').trim()||'Otro';
       const it={ id:nextId++, name, cat, price:Number((iP>=0?r[iP]:'0').replace(/[^\d.]/g,''))||0,
         cond:(iE>=0?r[iE]:'Near Mint').trim()||'Near Mint', badge:(iB>=0?r[iB]:'').trim(),
+        stock: iS>=0 ? Math.max(0,Number((r[iS]||'').replace(/[^\d]/g,''))||0) : 1,
         emoji: emojiByCat[cat]||"🎴" };
       items.push(it); added++;
     });
@@ -348,7 +353,7 @@ function readCSV(file){
   r.readAsText(file,'UTF-8');
 }
 $('#tplBtn').onclick=()=>{
-  const csv='nombre,categoria,precio,estado,etiqueta\nCharizard Holo,Pokémon,85000,Near Mint,Destacada\nRiftbound Booster Box,Sellado,78000,Sellado,Sellado\n';
+  const csv='nombre,categoria,precio,estado,etiqueta,cantidad\nCharizard Holo,Pokémon,85000,Near Mint,Destacada,3\nRiftbound Booster Box,Sellado,78000,Sellado,Sellado,5\n';
   download('plantilla-reroll.csv', csv, 'text/csv');
 };
 
@@ -421,10 +426,12 @@ function render(){
   items.forEach((p,idx)=>{
     const el=document.createElement('div'); el.className='item';
     const media = p.img ? `<img src="${p.img}" alt="">` : `<div class="emoji">${p.emoji||'🎴'}</div>`;
+    const stk = (p.stock===undefined||p.stock===null||p.stock==='') ? null : Number(p.stock);
+    const stkTxt = stk===null ? '' : ` · <b style="color:${stk<=0?'#d98a92':(stk<=3?'var(--gold-bright)':'#a9d3a0')}">${stk<=0?'Agotado':stk+' disp.'}</b>`;
     el.innerHTML = `${media}
       <div class="meta">
         <div class="nm">${p.name}</div>
-        <div class="sm">${p.cat} · ${p.cond}${p.badge?' · '+p.badge:''}</div>
+        <div class="sm">${p.cat} · ${p.cond}${p.badge?' · '+p.badge:''}${stkTxt}</div>
       </div>
       <div class="pr">${fmt(p.price)}</div>
       <button class="x" title="Quitar">✕</button>`;

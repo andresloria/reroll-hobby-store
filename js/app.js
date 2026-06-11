@@ -261,8 +261,17 @@ function renderGrid(){
     const metaLine = p.type==="sealed"
       ? `${p.set?p.set+" · ":""}Producto sellado`
       : `${p.set?p.set+" · ":""}${p.cond}`;
+    // cantidad disponible (stock)
+    const stock = (p.stock===undefined || p.stock===null || p.stock==="") ? null : Number(p.stock);
+    const soldOut = stock!==null && stock<=0;
+    let stockHtml = "";
+    if(stock!==null){
+      if(soldOut) stockHtml = `<span class="card__stock card__stock--out">Agotado</span>`;
+      else if(stock<=3) stockHtml = `<span class="card__stock card__stock--low">¡Solo ${stock} disponible${stock>1?"s":""}!</span>`;
+      else stockHtml = `<span class="card__stock">${stock} disponibles</span>`;
+    }
     el.innerHTML = `
-      <div class="card__img${p.img?" card__img--photo":""}">
+      <div class="card__img${p.img?" card__img--photo":""}${soldOut?" card__img--out":""}">
         ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
         <button class="card__fav" aria-label="Favorito" title="Guardar">♡</button>
         ${media(p,"card__photo")}
@@ -271,12 +280,13 @@ function renderGrid(){
         <span class="card__cat">${p.cat}${p.color?" · "+p.color:""}</span>
         <h3 class="card__name">${p.name}</h3>
         <span class="card__meta">${metaLine}</span>
+        ${stockHtml}
         <div class="card__foot">
           <span class="card__price">${fmt(p.price)}</span>
-          <button class="card__add" data-id="${p.id}">Añadir</button>
+          <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
         </div>
       </div>`;
-    el.querySelector(".card__add").onclick = ()=> addToCart(p.id);
+    if(!soldOut) el.querySelector(".card__add").onclick = ()=> addToCart(p.id);
     el.querySelector(".card__fav").onclick = (e)=>{
       e.currentTarget.textContent = e.currentTarget.textContent==="♡" ? "♥" : "♡";
       e.currentTarget.style.color = e.currentTarget.textContent==="♥" ? "var(--gold-bright)" : "";

@@ -498,6 +498,15 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .card__cat{font-size:.74rem;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
 .card__name{font-family:var(--font-serif);font-size:1.25rem;line-height:1.15;color:var(--cream)}
 .card__meta{font-size:.8rem;color:var(--muted)}
+.card__stock{font-size:.78rem;font-weight:600;color:#a9d3a0;display:inline-flex;align-items:center;gap:5px}
+.card__stock::before{content:"";width:7px;height:7px;border-radius:50%;background:#6fbf73;box-shadow:0 0 6px #6fbf73}
+.card__stock--low{color:var(--gold-bright)}
+.card__stock--low::before{background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.card__stock--out{color:#d98a92}
+.card__stock--out::before{background:#c25; box-shadow:none}
+.card__img--out{filter:grayscale(.6) brightness(.7)}
+.card__add[disabled]{opacity:.5;cursor:not-allowed;border-color:var(--line);color:var(--muted)}
+.card__add[disabled]:hover{background:transparent;color:var(--muted)}
 .card__foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px}
 .card__price{font-family:var(--font-serif);font-size:1.4rem;color:var(--gold-bright)}
 .card__add{
