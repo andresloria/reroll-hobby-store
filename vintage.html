@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reroll · Vista previa vintage</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Rye&family=Special+Elite&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#efe7d6; --paper-2:#e6dcc6; --ink:#23201b; --ink-soft:#4a4439;
+    --rule:#3a352c; --accent:#9a2a1e; --accent-soft:#b85b3f; --line:#bcae93;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Special Elite",Courier,monospace;color:var(--ink);
+    background:
+      repeating-linear-gradient(0deg, rgba(120,100,70,.05) 0 2px, transparent 2px 4px),
+      radial-gradient(900px 500px at 50% -10%, rgba(160,140,100,.18), transparent 60%),
+      var(--paper);
+    line-height:1.55;padding:14px;
+  }
+  .sheet{max-width:1040px;margin:0 auto;border:2px solid var(--rule);
+    box-shadow:0 0 0 4px var(--paper), 0 0 0 6px var(--rule), 0 18px 50px -20px rgba(0,0,0,.5);
+    background:linear-gradient(180deg,var(--paper),var(--paper-2));padding:0}
+  h1,h2,h3{font-family:"Playfair Display",serif}
+  .smallcaps{font-family:"IM Fell English SC",serif}
+
+  /* ===== top bar ===== */
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:14px 26px;border-bottom:3px double var(--rule)}
+  .bar nav{display:flex;gap:22px;font-family:"IM Fell English SC",serif;font-size:.92rem;letter-spacing:.04em}
+  .bar nav a{color:var(--ink);text-decoration:none;position:relative}
+  .bar nav a:hover{color:var(--accent)}
+  .brandmark{font-family:"Rye",serif;font-size:2rem;color:var(--ink);letter-spacing:.02em;text-align:center;line-height:1}
+  .brandmark small{display:block;font-family:"IM Fell English SC",serif;font-size:.6rem;letter-spacing:.4em;color:var(--ink-soft)}
+  .cart{font-family:"IM Fell English SC",serif;font-size:.8rem;color:var(--ink-soft);text-align:right}
+
+  /* ===== hero 3 columnas ===== */
+  .hero{display:grid;grid-template-columns:230px 1fr 230px;gap:0;border-bottom:3px double var(--rule)}
+  .col{padding:20px}
+  .col--mid{border-left:1px solid var(--line);border-right:1px solid var(--line);position:relative;
+    background:
+      radial-gradient(60% 60% at 50% 40%, rgba(255,250,240,.5), transparent 70%),
+      repeating-linear-gradient(135deg, rgba(90,70,40,.05) 0 6px, transparent 6px 12px);
+    text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px}
+  .panelbox{border:1px solid var(--rule);margin-bottom:16px}
+  .panelbox h3{font-family:"IM Fell English SC",serif;font-size:.78rem;letter-spacing:.18em;text-align:center;
+    padding:7px;border-bottom:1px solid var(--rule);background:rgba(58,53,44,.06)}
+  .deptgrid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .dept{padding:14px 6px;text-align:center;font-family:"IM Fell English SC",serif;font-size:.72rem;letter-spacing:.06em;
+    border:1px solid var(--line)}
+  .dept .ic{font-size:1.5rem;display:block;filter:grayscale(1) contrast(1.1);margin-bottom:4px}
+  .dept:hover{background:rgba(154,42,30,.08);color:var(--accent)}
+
+  .hero__logo{width:200px;height:auto;filter:grayscale(1) contrast(1.15) brightness(.96);
+    mix-blend-mode:multiply;margin-bottom:6px}
+  .hero__kicker{font-family:"IM Fell English SC",serif;letter-spacing:.34em;font-size:.7rem;color:var(--accent)}
+  .hero__title{font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:clamp(2rem,4.5vw,3.2rem);
+    line-height:1;margin:6px 0;color:var(--ink)}
+  .hero__title b{font-style:normal;letter-spacing:.02em}
+  .hero__sub{font-size:.86rem;max-width:34ch;color:var(--ink-soft);margin:0 auto}
+  .stamp{position:absolute;top:14px;right:14px;width:78px;height:78px;border:2px solid var(--accent);border-radius:50%;
+    color:var(--accent);font-family:"IM Fell English SC",serif;font-size:.56rem;letter-spacing:.1em;text-align:center;
+    display:grid;place-items:center;transform:rotate(-12deg);opacity:.85;line-height:1.2}
+
+  /* newsletter / right column */
+  .news{border:1px solid var(--rule);padding:14px;text-align:center;margin-bottom:16px}
+  .news h3{font-family:"Playfair Display",serif;font-weight:800;font-size:1.3rem;margin-bottom:8px}
+  .news input{width:100%;border:1px solid var(--rule);background:var(--paper);padding:8px;font-family:inherit;font-size:.8rem;margin-bottom:8px}
+  .btn{display:inline-block;border:1px solid var(--rule);background:var(--ink);color:var(--paper);
+    font-family:"IM Fell English SC",serif;letter-spacing:.12em;font-size:.72rem;padding:9px 18px;cursor:pointer;text-decoration:none}
+  .btn:hover{background:var(--accent);border-color:var(--accent)}
+  .btn--block{display:block;text-align:center}
+
+  /* ===== franja inferior ===== */
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+  .strip div{padding:16px;text-align:center;border-right:1px solid var(--line);font-family:"IM Fell English SC",serif;font-size:.74rem;letter-spacing:.06em}
+  .strip div:last-child{border-right:none}
+  .strip .big{display:block;font-family:"Playfair Display",serif;font-size:1.6rem;font-weight:800;color:var(--accent)}
+  .foot{padding:14px;text-align:center;font-family:"IM Fell English SC",serif;font-size:.72rem;color:var(--ink-soft);border-top:3px double var(--rule)}
+
+  .ribbon{background:var(--ink);color:var(--paper);text-align:center;padding:8px;font-family:"IM Fell English SC",serif;
+    letter-spacing:.2em;font-size:.72rem}
+
+  @media(max-width:760px){
+    .hero{grid-template-columns:1fr}
+    .col--side{border-top:1px solid var(--line)}
+    .col--mid{border-left:none;border-right:none;border-top:1px solid var(--line);order:-1}
+    .bar{flex-direction:column;gap:10px}
+    .bar nav{flex-wrap:wrap;justify-content:center;gap:14px}
+    .strip{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+
+    <div class="ribbon">VISTA PREVIA · ESTILO VINTAGE · REROLL HOBBY STORE</div>
+
+    <!-- top bar -->
+    <header class="bar">
+      <nav>
+        <a href="#">Tienda</a>
+        <a href="#">Singles</a>
+        <a href="#">Sellado</a>
+      </nav>
+      <div class="brandmark">Reroll<small>HOBBY STORE · EST. 2026</small></div>
+      <div class="cart">Cartago · CR<br>Carrito (0)</div>
+    </header>
+
+    <!-- hero -->
+    <section class="hero">
+      <!-- izquierda: departamentos -->
+      <div class="col col--side">
+        <div class="panelbox">
+          <h3>POR CATEGORÍA</h3>
+          <div class="deptgrid">
+            <div class="dept"><span class="ic">⚡</span>Pokémon</div>
+            <div class="dept"><span class="ic">✦</span>Magic</div>
+            <div class="dept"><span class="ic">🐉</span>Yu-Gi-Oh</div>
+            <div class="dept"><span class="ic">🏴‍☠️</span>One Piece</div>
+            <div class="dept"><span class="ic">◈</span>Riftbound</div>
+            <div class="dept"><span class="ic">📦</span>Sellado</div>
+          </div>
+        </div>
+        <a href="#" class="btn btn--block">VER CATÁLOGO</a>
+      </div>
+
+      <!-- centro: logo + tagline -->
+      <div class="col col--mid">
+        <div class="stamp">100%<br>JUGADOR<br>VERIFICADO</div>
+        <img class="hero__logo" src="assets/logo.png" alt="Reroll" />
+        <div class="hero__kicker">SINGLES · SELLADO · CRITERIO</div>
+        <h1 class="hero__title">Primero <b>en la mesa</b></h1>
+        <p class="hero__sub">Cartas elegidas por alguien con 20 años de juego y tops de torneo. No vendemos cartas: vendemos criterio para ganar.</p>
+      </div>
+
+      <!-- derecha: newsletter -->
+      <div class="col col--side">
+        <div class="news">
+          <h3>Novedades</h3>
+          <p style="font-size:.76rem;margin-bottom:8px;color:var(--ink-soft)">Enterate de cada drop antes que nadie.</p>
+          <input placeholder="Tu correo…" />
+          <a href="#" class="btn btn--block">SUSCRIBIRME</a>
+        </div>
+        <div class="news">
+          <h3 style="font-size:1.1rem">Próximamente</h3>
+          <p style="font-size:.76rem;color:var(--ink-soft)">🎲 Juegos de mesa<br>llegando en 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- franja de confianza -->
+    <div class="strip">
+      <div><span class="big">20</span>años de juego</div>
+      <div><span class="big">7</span>juegos TCG</div>
+      <div><span class="big">100%</span>verificado</div>
+      <div><span class="big">CR</span>envíos a todo el país</div>
+    </div>
+
+    <div class="foot">© 2026 REROLL HOBBY STORE · CARTAGO, COSTA RICA · UNA MUESTRA DE ESTILO</div>
+  </div>
+</body>
+</html>

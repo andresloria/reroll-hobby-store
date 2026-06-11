@@ -1,0 +1,13 @@
+# Artefactos de build / deploy
+reroll-netlify.zip
+
+# Config local del editor / herramientas
+.claude/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencias (por si en el futuro se usan)
+node_modules/

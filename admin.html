@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Panel · Reroll Hobby Store</title>
+<meta name="robots" content="noindex, nofollow" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --wine:#6E1423;--wine-deep:#4A0D18;--wine-light:#8B1E3F;
+    --gold:#C9A24B;--gold-bright:#E8C77A;--ink:#16100F;--ink-2:#211816;
+    --cream:#FAF6EF;--muted:#9b8d85;--line:rgba(201,162,75,.22);
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Inter",system-ui,sans-serif;color:var(--cream);min-height:100vh;
+    background:
+      radial-gradient(1000px 500px at 90% -10%,rgba(139,30,63,.5),transparent 60%),
+      radial-gradient(900px 500px at -10% 110%,rgba(74,13,24,.6),transparent 60%),
+      linear-gradient(180deg,var(--ink),#1a0c10 60%,var(--ink));
+    padding:0 0 80px;
+  }
+  h1,h2,h3{font-family:"Cormorant Garamond",serif;letter-spacing:-.01em}
+  a{color:var(--gold-bright)}
+  /* header */
+  .top{display:flex;align-items:center;gap:14px;padding:18px clamp(16px,4vw,40px);
+    border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;
+    background:linear-gradient(180deg,rgba(22,16,15,.92),rgba(22,16,15,.7));backdrop-filter:blur(10px)}
+  .top img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5))}
+  .top h1{font-size:1.5rem}
+  .top h1 b{color:var(--gold-bright);font-weight:700}
+  .top .right{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:.85rem;color:var(--muted)}
+  .wrap{max-width:1080px;margin:0 auto;padding:24px clamp(16px,4vw,40px)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .panel{background:linear-gradient(180deg,var(--ink-2),#1a1311);border:1px solid var(--line);
+    border-radius:16px;padding:22px;margin-bottom:22px}
+  .panel h2{font-size:1.5rem;color:var(--gold-bright);margin-bottom:6px}
+  .panel .sub{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+  label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:12px;font-weight:500}
+  input,select{width:100%;margin-top:5px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+    border-radius:10px;padding:11px 13px;color:var(--cream);font-family:inherit;font-size:.95rem;outline:none;
+    transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+  input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.15)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .btn{font-family:inherit;font-weight:600;font-size:.92rem;cursor:pointer;border:1px solid transparent;
+    border-radius:999px;padding:11px 20px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s}
+  .btn:active{transform:scale(.96)}
+  .btn--gold{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#2a1a08;
+    box-shadow:0 10px 30px -14px rgba(201,162,75,.5)}
+  .btn--gold:hover{transform:translateY(-2px)}
+  .btn--ghost{background:rgba(255,255,255,.04);color:var(--cream);border:1px solid var(--line)}
+  .btn--ghost:hover{background:rgba(201,162,75,.12)}
+  .btn--wine{background:linear-gradient(135deg,var(--wine-light),var(--wine));color:#fff;border:1px solid var(--line)}
+  .btn--danger{background:transparent;border:1px solid rgba(180,60,70,.6);color:#e9a3ab}
+  .btn--block{width:100%;justify-content:center}
+  .filebox{border:1.5px dashed var(--line);border-radius:12px;padding:16px;text-align:center;
+    color:var(--muted);cursor:pointer;transition:border-color .2s,background .2s}
+  .filebox:hover{border-color:var(--gold);background:rgba(201,162,75,.06)}
+  .filebox b{color:var(--gold-bright)}
+  .thumbprev{display:flex;align-items:center;gap:12px;margin-top:10px}
+  .thumbprev img{width:60px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+  .hint{font-size:.82rem;color:var(--muted);margin-top:8px}
+  .ok{color:var(--gold-bright)}
+  /* tabla inventario */
+  .invhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .invhead h2{flex:1}
+  .count{background:var(--wine-light);color:#fff;border-radius:999px;font-size:.78rem;padding:2px 11px;font-weight:700}
+  .items{display:flex;flex-direction:column;gap:10px}
+  .item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:9px 12px;
+    background:rgba(255,255,255,.02)}
+  .item img,.item .emoji{width:42px;height:56px;border-radius:7px;object-fit:cover;flex-shrink:0;border:1px solid var(--line)}
+  .item .emoji{display:grid;place-items:center;font-size:1.6rem;background:linear-gradient(150deg,var(--wine),var(--wine-deep))}
+  .item .meta{flex:1;min-width:0}
+  .item .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .item .sm{font-size:.8rem;color:var(--muted)}
+  .item .pr{color:var(--gold-bright);font-weight:700;font-size:.92rem;white-space:nowrap}
+  .item .x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
+  .item .x:hover{color:#e9a3ab}
+  .empty{color:var(--muted);text-align:center;padding:30px 0}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .divider{height:1px;background:var(--line);margin:18px 0}
+  .pub-steps{margin:8px 0 16px 20px;display:flex;flex-direction:column;gap:10px;font-size:.92rem;color:#d8cdc5;line-height:1.5}
+  .pub-steps b{color:var(--gold-bright)}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:var(--gold-bright);font-size:.9rem}
+  code{background:rgba(255,255,255,.06);padding:1px 6px;border-radius:5px;font-size:.85em}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#2a1a08;padding:12px 22px;
+    border-radius:999px;font-weight:600;font-size:.9rem;opacity:0;pointer-events:none;
+    transition:opacity .3s var(--ease),transform .3s var(--ease);z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  /* gate */
+  .gate{position:fixed;inset:0;background:var(--ink);display:grid;place-items:center;z-index:100}
+  .gate .box{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:32px;width:min(360px,90vw);text-align:center}
+  .gate img{width:64px;margin-bottom:14px}
+  .gate h2{color:var(--gold-bright);margin-bottom:6px}
+  .gate p{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<!-- Portón simple (solo para disuadir; NO es seguridad real) -->
+<div class="gate" id="gate">
+  <div class="box">
+    <img src="assets/logo.png" alt="" />
+    <h2>Panel de Reroll</h2>
+    <p>Ingresá la clave para administrar el inventario.</p>
+    <input id="gateInput" type="password" placeholder="Clave" />
+    <button class="btn btn--gold btn--block" id="gateBtn" style="margin-top:12px">Entrar</button>
+    <p class="hint" id="gateHint"></p>
+  </div>
+</div>
+
+<div class="top">
+  <img src="assets/logo.png" alt="Reroll" />
+  <h1>Re<b>roll</b> · Panel</h1>
+  <div class="right">
+    <a href="index.html" target="_blank">Ver tienda ↗</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="grid2">
+    <!-- AGREGAR UNA -->
+    <div class="panel">
+      <h2>Agregar una carta / producto</h2>
+      <p class="sub">Cargá una por una con su foto. La imagen se optimiza sola.</p>
+      <form id="addForm">
+        <label>Nombre
+          <input name="name" required placeholder="Ej: Charizard Holo 1ª ed." />
+        </label>
+        <div class="row">
+          <label>Categoría
+            <select name="cat">
+              <option>Pokémon</option><option>Magic</option><option>Yu-Gi-Oh</option>
+              <option>One Piece</option><option>Riftbound</option><option>Sellado</option><option>Otro</option>
+            </select>
+          </label>
+          <label>Precio (₡)
+            <input name="price" type="number" min="0" required placeholder="25000" />
+          </label>
+        </div>
+        <div class="row">
+          <label>Estado
+            <select name="cond">
+              <option>Mint / Gem</option><option>Near Mint</option><option>Excelente</option>
+              <option>Jugado</option><option>Sellado</option>
+            </select>
+          </label>
+          <label>Etiqueta (opcional)
+            <input name="badge" placeholder="Ej: Destacada, Rara…" />
+          </label>
+        </div>
+        <label>Foto</label>
+        <div class="filebox" id="drop">
+          <b>Elegí o arrastrá</b> la foto de la carta<br><span style="font-size:.8rem">JPG/PNG · se achica a 600px automáticamente</span>
+          <input type="file" id="photo" accept="image/*" hidden />
+        </div>
+        <div class="thumbprev" id="prev" style="display:none">
+          <img id="prevImg" alt="" />
+          <button type="button" class="btn btn--ghost" id="clearPhoto">Quitar foto</button>
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn btn--gold btn--block" type="submit">+ Agregar al inventario</button>
+        </div>
+        <p class="hint" id="addHint"></p>
+      </form>
+    </div>
+
+    <!-- IMPORTAR EXCEL/CSV -->
+    <div class="panel">
+      <h2>Importar desde Excel / CSV</h2>
+      <p class="sub">¿Tenés muchas? Exportá tu Excel como CSV y subilo aquí.</p>
+      <div class="filebox" id="csvDrop">
+        <b>Elegí tu archivo CSV</b><br><span style="font-size:.8rem">Columnas: nombre, categoria, precio, estado, etiqueta</span>
+        <input type="file" id="csvFile" accept=".csv,text/csv" hidden />
+      </div>
+      <p class="hint" id="csvHint"></p>
+      <div class="actions">
+        <button class="btn btn--ghost" id="tplBtn">Descargar plantilla CSV</button>
+      </div>
+      <details>
+        <summary>¿Cómo preparo el Excel?</summary>
+        <p class="hint">Poné estas columnas en la primera fila: <code>nombre, categoria, precio, estado, etiqueta</code>. Llená una fila por carta. En Excel/Google Sheets: <b>Archivo → Descargar → CSV</b>. Las fotos las agregás luego una por una desde el panel de la izquierda (o las dejás con emoji por defecto).</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- INVENTARIO -->
+  <div class="panel">
+    <div class="invhead">
+      <h2>Inventario <span class="count" id="count">0</span></h2>
+      <button class="btn btn--ghost" id="importJsonBtn">Cargar productos.json</button>
+      <input type="file" id="jsonFile" accept="application/json,.json" hidden />
+      <button class="btn btn--danger" id="clearAll">Vaciar todo</button>
+    </div>
+    <div class="items" id="items"></div>
+
+    <div class="divider"></div>
+    <div class="actions">
+      <button class="btn btn--gold" id="exportBtn">⬇ Descargar productos.json</button>
+      <span class="hint" style="align-self:center">Luego subí ese archivo a la tienda (o pasámelo) para publicar.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🚀 Publicar a la tienda</h2>
+    <p class="sub">Cuando termines de cargar o cambiar cartas, publicá así (elegí lo que te sirva):</p>
+    <ol class="pub-steps">
+      <li><b>Lo más rápido:</b> tocá <b>⬇ Descargar productos.json</b> (arriba) y mandámelo por el chat — lo publico al instante.</li>
+      <li><b>Vos mismo (sin esperar):</b> arrastrá ese <code>productos.json</code> a la carpeta del sitio reemplazando el anterior, y luego arrastrá <b>toda la carpeta</b> a la pestaña <b>Deploys</b> de tu sitio en Netlify. Queda en vivo en ~30&nbsp;s.</li>
+    </ol>
+    <a class="btn btn--ghost" href="https://app.netlify.com/projects/reroll-hobby-shop/deploys" target="_blank" rel="noopener">Abrir Deploys en Netlify ↗</a>
+    <p class="hint">La tienda detecta tu <code>productos.json</code> sola y muestra tu inventario real.</p>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== Portón simple (disuasorio, no es seguridad real) ====== */
+const CLAVE = "reroll"; // cambiá esta clave por la que quieras
+const gate = document.getElementById('gate');
+if(sessionStorage.getItem('reroll_admin')==='1') gate.style.display='none';
+function tryGate(){
+  if(document.getElementById('gateInput').value === CLAVE){
+    sessionStorage.setItem('reroll_admin','1'); gate.style.display='none';
+  } else { document.getElementById('gateHint').textContent='Clave incorrecta'; }
+}
+document.getElementById('gateBtn').onclick = tryGate;
+document.getElementById('gateInput').addEventListener('keydown',e=>{if(e.key==='Enter')tryGate();});
+
+/* ====== Estado ====== */
+const $ = s=>document.querySelector(s);
+let items = JSON.parse(localStorage.getItem('reroll_inv')||'[]');
+let nextId = items.reduce((m,p)=>Math.max(m,p.id||0),0)+1;
+let pendingImg = null;
+
+const fmt = n => "₡"+Number(n||0).toLocaleString("es-CR");
+const emojiByCat = {"Pokémon":"⚡","Magic":"🌸","Yu-Gi-Oh":"🐉","One Piece":"🏴‍☠️","Riftbound":"💥","Sellado":"📦","Otro":"🎴"};
+
+function save(){ localStorage.setItem('reroll_inv', JSON.stringify(items)); render(); }
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1900); }
+
+/* ====== Optimizar imagen (achicar a 600px y comprimir) ====== */
+function optimize(file, maxW=600){
+  return new Promise((res,rej)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const scale = Math.min(1, maxW/img.width);
+      const w = Math.round(img.width*scale), h = Math.round(img.height*scale);
+      const c = document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      res(c.toDataURL('image/jpeg',0.82));
+    };
+    img.onerror = rej;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+/* ====== Foto del formulario ====== */
+const drop = $('#drop'), photo = $('#photo');
+drop.onclick = ()=> photo.click();
+drop.ondragover = e=>{e.preventDefault();drop.style.borderColor='var(--gold)';};
+drop.ondragleave = ()=> drop.style.borderColor='';
+drop.ondrop = e=>{e.preventDefault();drop.style.borderColor='';if(e.dataTransfer.files[0])handlePhoto(e.dataTransfer.files[0]);};
+photo.onchange = ()=>{ if(photo.files[0]) handlePhoto(photo.files[0]); };
+async function handlePhoto(file){
+  $('#addHint').textContent='Optimizando foto…';
+  pendingImg = await optimize(file);
+  $('#prevImg').src = pendingImg; $('#prev').style.display='flex';
+  $('#addHint').textContent='';
+}
+$('#clearPhoto').onclick = ()=>{ pendingImg=null; $('#prev').style.display='none'; photo.value=''; };
+
+/* ====== Agregar una ====== */
+$('#addForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const it = {
+    id: nextId++,
+    name: f.get('name').trim(),
+    cat: f.get('cat'),
+    price: Number(f.get('price')||0),
+    cond: f.get('cond'),
+    badge: (f.get('badge')||'').trim()
+  };
+  if(pendingImg) it.img = pendingImg; else it.emoji = emojiByCat[it.cat]||"🎴";
+  items.push(it);
+  pendingImg=null; $('#prev').style.display='none'; e.target.reset(); photo.value='';
+  save(); toast('Agregado: '+it.name);
+});
+
+/* ====== Importar CSV ====== */
+const csvDrop=$('#csvDrop'), csvFile=$('#csvFile');
+csvDrop.onclick=()=>csvFile.click();
+csvDrop.ondragover=e=>{e.preventDefault();csvDrop.style.borderColor='var(--gold)';};
+csvDrop.ondragleave=()=>csvDrop.style.borderColor='';
+csvDrop.ondrop=e=>{e.preventDefault();csvDrop.style.borderColor='';if(e.dataTransfer.files[0])readCSV(e.dataTransfer.files[0]);};
+csvFile.onchange=()=>{ if(csvFile.files[0]) readCSV(csvFile.files[0]); };
+
+function parseCSV(text){
+  const rows=[]; let row=[],val='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){val+='"';i++;} else q=false; } else val+=c; }
+    else { if(c==='"')q=true; else if(c===','){row.push(val);val='';} else if(c==='\n'){row.push(val);rows.push(row);row=[];val='';} else if(c!=='\r')val+=c; }
+  }
+  if(val.length||row.length){row.push(val);rows.push(row);}
+  return rows.filter(r=>r.some(x=>x.trim()!==''));
+}
+function readCSV(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    const rows=parseCSV(r.result);
+    if(rows.length<2){ $('#csvHint').textContent='El archivo está vacío o sin filas.'; return; }
+    const head=rows[0].map(h=>h.trim().toLowerCase());
+    const idx=n=>head.findIndex(h=>h.includes(n));
+    const iN=idx('nombre'), iC=idx('categ'), iP=idx('precio'), iE=idx('estado'), iB=idx('etiq');
+    let added=0;
+    rows.slice(1).forEach(r=>{
+      const name=(iN>=0?r[iN]:'').trim(); if(!name) return;
+      const cat=(iC>=0?r[iC]:'Otro').trim()||'Otro';
+      const it={ id:nextId++, name, cat, price:Number((iP>=0?r[iP]:'0').replace(/[^\d.]/g,''))||0,
+        cond:(iE>=0?r[iE]:'Near Mint').trim()||'Near Mint', badge:(iB>=0?r[iB]:'').trim(),
+        emoji: emojiByCat[cat]||"🎴" };
+      items.push(it); added++;
+    });
+    save(); $('#csvHint').innerHTML='<span class="ok">Importadas '+added+' filas.</span> Agregales fotos desde la izquierda si querés.';
+    toast('Importadas '+added);
+  };
+  r.readAsText(file,'UTF-8');
+}
+$('#tplBtn').onclick=()=>{
+  const csv='nombre,categoria,precio,estado,etiqueta\nCharizard Holo,Pokémon,85000,Near Mint,Destacada\nRiftbound Booster Box,Sellado,78000,Sellado,Sellado\n';
+  download('plantilla-reroll.csv', csv, 'text/csv');
+};
+
+/* ====== Importar productos.json existente ====== */
+$('#importJsonBtn').onclick=()=>$('#jsonFile').click();
+$('#jsonFile').onchange=()=>{
+  const file=$('#jsonFile').files[0]; if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ const data=JSON.parse(r.result); if(Array.isArray(data)){ items=data.map((p,i)=>({id:p.id??i+1,...p})); nextId=items.reduce((m,p)=>Math.max(m,p.id||0),0)+1; save(); toast('Catálogo cargado'); } }catch(e){ toast('JSON inválido'); } };
+  r.readAsText(file);
+};
+
+/* ====== Vaciar ====== */
+$('#clearAll').onclick=()=>{ if(confirm('¿Borrar todo el inventario del panel?')){ items=[]; nextId=1; save(); } };
+
+/* ====== Exportar ====== */
+$('#exportBtn').onclick=()=>{
+  if(!items.length){ toast('No hay nada que exportar'); return; }
+  download('productos.json', JSON.stringify(items,null,2), 'application/json');
+  toast('productos.json descargado');
+};
+function download(name, content, type){
+  const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url);
+}
+
+/* ====== Render inventario ====== */
+function render(){
+  $('#count').textContent=items.length;
+  const wrap=$('#items');
+  if(!items.length){ wrap.innerHTML='<p class="empty">Todavía no hay productos. Agregá el primero arriba 🎴</p>'; return; }
+  wrap.innerHTML='';
+  items.forEach((p,idx)=>{
+    const el=document.createElement('div'); el.className='item';
+    const media = p.img ? `<img src="${p.img}" alt="">` : `<div class="emoji">${p.emoji||'🎴'}</div>`;
+    el.innerHTML = `${media}
+      <div class="meta">
+        <div class="nm">${p.name}</div>
+        <div class="sm">${p.cat} · ${p.cond}${p.badge?' · '+p.badge:''}</div>
+      </div>
+      <div class="pr">${fmt(p.price)}</div>
+      <button class="x" title="Quitar">✕</button>`;
+    el.querySelector('.x').onclick=()=>{ items.splice(idx,1); save(); };
+    wrap.appendChild(el);
+  });
+}
+render();
+</script>
+</body>
+</html>

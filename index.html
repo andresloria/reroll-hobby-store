@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reroll Hobby Store — Tu tienda TCG en Cartago</title>
+  <meta name="description" content="Reroll Hobby Store · Cartago, CR. Singles y sellado de Pokémon, Magic, Yu-Gi-Oh, One Piece y Riftbound. No vendemos cartas: vendemos criterio para ganar. Compra y vende por web, Instagram, Facebook y TikTok." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236E1423'/%3E%3Cg fill='%23E8C77A'%3E%3Ccircle cx='30' cy='30' r='9'/%3E%3Ccircle cx='70' cy='30' r='9'/%3E%3Ccircle cx='50' cy='50' r='9'/%3E%3Ccircle cx='30' cy='70' r='9'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3C/g%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="brand" href="#top" aria-label="Inicio">
+        <img class="brand__logo" src="assets/logo.png" alt="Reroll Hobby Store" />
+        <span class="brand__name">Re<span class="brand__accent">roll</span></span>
+      </a>
+
+      <nav class="nav__links" aria-label="Principal">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#productos">Singles &amp; Sellado</a>
+        <a href="#como">Cómo comprar</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="btn btn--ghost" id="cartBtn" aria-label="Carrito">
+          🛒 <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <a href="#catalogo" class="btn btn--gold">Ver catálogo</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="top">
+    <div class="hero__glow"></div>
+    <div class="hero__inner">
+      <div class="hero__copy reveal">
+        <span class="eyebrow">Cartago, CR · Tienda TCG</span>
+        <h1>Tu tienda<br><span class="text-gold">TCG de confianza</span></h1>
+        <p class="lead">Singles y sellado de Pokémon, Magic, Yu-Gi-Oh, One Piece y Riftbound — elegidos por alguien con 20 años de juego y tops de torneo. No vendemos cartas: vendemos criterio para ganar.</p>
+
+        <form class="search" id="searchForm" role="search">
+          <span class="search__icon">🔎</span>
+          <input id="searchInput" type="search" placeholder="Busca una carta, set o artículo…" aria-label="Buscar" />
+          <button class="btn btn--gold" type="submit">Buscar</button>
+        </form>
+
+        <div class="hero__stats">
+          <div><strong id="statCount">0</strong><span>cartas listadas</span></div>
+          <div><strong>5</strong><span>juegos TCG</span></div>
+          <div><strong>20</strong><span>años de juego</span></div>
+        </div>
+      </div>
+
+      <div class="hero__art reveal">
+        <div class="herofan" id="herofan" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRABAJAMOS CON (franja animada de TCGs) ===== -->
+  <!-- Para usar logos oficiales: poné el archivo en assets/logos/<juego>.png y
+       reemplazá el <span class="brandbadge__txt">…</span> por <img src="assets/logos/<juego>.png" alt="…"> -->
+  <section class="brands" aria-label="Juegos que trabajamos">
+    <p class="brands__title">Trabajamos con</p>
+    <div class="marquee" id="marquee">
+      <div class="marquee__track" id="marqueeTrack"></div>
+    </div>
+  </section>
+
+  <!-- ===== CATÁLOGO ===== -->
+  <section class="cats" id="catalogo">
+    <div class="cathead reveal">
+      <button class="cathead__dice" id="catDice" aria-label="Ir a los juegos">
+        <img src="assets/logo.png" alt="" />
+      </button>
+      <div class="cathead__bubble">
+        <span class="cathead__label">¿Qué buscás hoy?</span>
+        Elegí tu juego y filtrá por tipo, expansión, color o precio.
+      </div>
+    </div>
+
+    <!-- barra de juegos (logos clicables) -->
+    <div class="gamebar" id="gameBar" role="tablist" aria-label="Juegos"></div>
+
+    <!-- filtros -->
+    <div class="filters reveal">
+      <div class="filters__group" id="typeFilter" aria-label="Tipo"></div>
+      <label class="filters__field"><span>Expansión</span>
+        <select id="setFilter" class="filters__select"></select>
+      </label>
+      <label class="filters__field"><span>Color</span>
+        <select id="colorFilter" class="filters__select"></select>
+      </label>
+      <label class="filters__field"><span>Ordenar</span>
+        <select id="sortFilter" class="filters__select">
+          <option value="rel">Relevancia</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="name">Nombre A-Z</option>
+        </select>
+      </label>
+      <span class="filters__count" id="resultCount"></span>
+    </div>
+  </section>
+
+  <!-- ===== GRID DE CARTAS ===== -->
+  <section class="catalog">
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <p class="empty" id="empty" hidden>No encontramos resultados. Probá con otro juego o filtro.</p>
+  </section>
+
+  <!-- ===== SINGLES & SELLADO ===== -->
+  <section class="offer" id="productos">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--gold">Lo que vendo</span>
+      <h2>Singles &amp; producto sellado</h2>
+      <p>Seleccionados a mano por alguien con 20 años de juego y tops de torneo.</p>
+    </div>
+    <div class="offer__grid">
+      <article class="offer__card reveal">
+        <div class="offer__icon">🃏</div>
+        <h3>Singles</h3>
+        <p>Cartas sueltas para armar o mejorar tu mazo: staples de torneo, alt-arts y piezas de colección. Cada una con su estado claro (Mint, Near Mint…).</p>
+        <a href="#catalogo" class="btn btn--ghost">Ver singles</a>
+      </article>
+      <article class="offer__card reveal">
+        <div class="offer__icon">📦</div>
+        <h3>Producto sellado</h3>
+        <p>Booster boxes, Elite Trainer Boxes, sobres y bundles sin abrir — ideal para abrir, regalar o invertir. Stock real y precios de la zona.</p>
+        <a href="#catalogo" class="btn btn--ghost">Ver sellado</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== JUEGOS DE MESA · PRÓXIMAMENTE ===== -->
+  <section class="soon" id="mesa">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--gold">Nuevo</span>
+      <h2>Juegos de mesa <span class="soon__tag">Próximamente</span></h2>
+      <p>Estamos preparando una selección de juegos de mesa para la tienda. ¿Querés que te avisemos cuando lleguen?</p>
+    </div>
+    <div class="soon__grid">
+      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">🏰</div><h3>Estrategia</h3><p>Para los que piensan tres turnos adelante.</p></article>
+      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">👨‍👩‍👧‍👦</div><h3>Familiar</h3><p>Diversión para toda la mesa, de 8 a 80.</p></article>
+      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">🎉</div><h3>Party</h3><p>Risas garantizadas en grupo.</p></article>
+      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">🎲</div><h3>Cartas &amp; dados</h3><p>Rápidos, portátiles y adictivos.</p></article>
+    </div>
+    <div class="soon__cta reveal">
+      <a class="btn btn--gold btn--lg" id="notifyBtn" href="#">Avisame cuando lleguen</a>
+    </div>
+  </section>
+
+  <!-- ===== CÓMO COMPRAR ===== -->
+  <section class="how" id="como">
+    <div class="section-head reveal">
+      <h2>Cómo comprar</h2>
+      <p>Tres pasos, cero complicaciones.</p>
+    </div>
+    <div class="steps">
+      <article class="step reveal"><span class="step__num">01</span><h3>Elegí</h3><p>Buscá tu carta o sellado en el catálogo y agregalo al carrito.</p></article>
+      <article class="step reveal"><span class="step__num">02</span><h3>Escribime</h3><p>El carrito arma tu pedido y me lo envías por WhatsApp en un toque.</p></article>
+      <article class="step reveal"><span class="step__num">03</span><h3>Recibí</h3><p>Coordinamos entrega en Cartago o envío a todo el país. Listo.</p></article>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="contacto">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="brand__name">Re<span class="brand__accent">roll</span> Hobby Store</span>
+        <p>Tu tienda TCG en Cartago, CR. Singles, sellado y criterio para ganar.</p>
+      </div>
+      <div class="footer__social">
+        <a href="https://instagram.com/rerollhobbystore" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        <a href="https://www.facebook.com/share/17bhpdoc7Z/" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+        <a href="https://wa.me/50687807813" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+    <p class="footer__legal">© <span id="year"></span> Reroll Hobby Store · Cartago, Costa Rica.</p>
+  </footer>
+
+  <!-- ===== DRAWER CARRITO ===== -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__backdrop" data-close></div>
+    <aside class="drawer__panel" role="dialog" aria-label="Carrito">
+      <header class="drawer__head">
+        <h3>Tu carrito</h3>
+        <button class="drawer__x" data-close aria-label="Cerrar">✕</button>
+      </header>
+      <div class="drawer__items" id="drawerItems"></div>
+      <footer class="drawer__foot">
+        <div class="drawer__total"><span>Total</span><strong id="drawerTotal">₡0</strong></div>
+        <a class="btn btn--gold btn--lg" id="checkoutOpen" href="#">Finalizar compra</a>
+      </footer>
+    </aside>
+  </div>
+
+  <!-- ===== MODAL CHECKOUT (pago + envío) ===== -->
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="co" role="dialog" aria-label="Finalizar compra">
+      <button class="modal__x" data-close aria-label="Cerrar">✕</button>
+      <h3 class="co__title">Finalizar compra</h3>
+
+      <div class="co__summary">
+        <div class="co__items" id="coItems"></div>
+        <div class="co__line co__line--total"><span>Total</span><b id="coTotal">₡0</b></div>
+      </div>
+
+      <form id="checkoutForm" class="co__form">
+        <label>Tu nombre
+          <input name="nombre" required placeholder="Nombre y apellido" />
+        </label>
+
+        <label>Entrega
+          <select name="entrega" id="coEntrega">
+            <option value="retiro">Retiro en Cartago</option>
+            <option value="envio">Envío por Correos de Costa Rica</option>
+          </select>
+        </label>
+
+        <div id="coEnvioFields" style="display:none">
+          <div class="co__row">
+            <label>Provincia
+              <select name="provincia">
+                <option>San José</option><option>Alajuela</option><option>Cartago</option>
+                <option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option>
+              </select>
+            </label>
+          </div>
+          <label>Dirección de entrega
+            <input name="direccion" placeholder="Señas exactas para Correos de Costa Rica" />
+          </label>
+          <p class="co__note">📦 El costo de envío de Correos de Costa Rica se calcula según el destino y se confirma por WhatsApp.</p>
+        </div>
+
+        <label>Método de pago
+          <select name="pago" id="coPago">
+            <option>SINPE Móvil</option>
+            <option>Tarjeta</option>
+            <option>Efectivo</option>
+          </select>
+        </label>
+
+        <div id="sinpeBox" class="co__sinpe">
+          <strong>SINPE Móvil</strong>
+          <span id="sinpeData">—</span>
+          <small>Hacé el SINPE y enviá el comprobante por WhatsApp al confirmar.</small>
+        </div>
+
+        <button type="submit" class="btn btn--gold btn--lg btn--block">Enviar pedido por WhatsApp</button>
+        <p class="co__note co__note--center">Coordinamos el pago y la entrega por WhatsApp. Sin cargos automáticos.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DADO MASCOTA + NUBE DE TIPS ===== -->
+  <div class="mascot" id="mascot">
+    <div class="mascot__bubble" id="mascotBubble" role="status">
+      <span class="mascot__label">¿Sabías que…?</span>
+      <span class="mascot__text" id="mascotText"></span>
+    </div>
+    <button class="mascot__dice" id="mascotDice" aria-label="Otro dato (reroll)">
+      <img src="assets/logo.png" alt="" />
+    </button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
