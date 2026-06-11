@@ -195,10 +195,12 @@
   <div class="panel">
     <div class="invhead">
       <h2>Inventario <span class="count" id="count">0</span></h2>
-      <button class="btn btn--ghost" id="importJsonBtn">Cargar productos.json</button>
+      <button class="btn btn--ghost" id="syncStore">🔄 Cargar de la tienda</button>
+      <button class="btn btn--ghost" id="importJsonBtn">Importar archivo</button>
       <input type="file" id="jsonFile" accept="application/json,.json" hidden />
       <button class="btn btn--danger" id="clearAll">Vaciar todo</button>
     </div>
+    <p class="hint" id="syncHint" style="margin:-4px 0 12px">Al abrir, el panel carga tu inventario publicado para que no se pierda nada.</p>
     <div class="items" id="items"></div>
 
     <div class="divider"></div>
@@ -431,6 +433,29 @@ function render(){
   });
 }
 render();
+
+/* ====== Cargar / fusionar el inventario publicado en la tienda ====== */
+function reindex(){ items.forEach((p,i)=> p.id = i+1); nextId = items.length+1; }
+async function syncFromStore(announce){
+  const hint = $('#syncHint');
+  try{
+    const r = await fetch('productos.json?t='+Date.now());
+    if(!r.ok) throw new Error('no se pudo leer la tienda');
+    const live = await r.json();
+    if(!Array.isArray(live)) throw new Error('formato inesperado');
+    // fusionar: empezamos con lo de la tienda + agregamos lo local que no esté
+    const seen = new Set(live.map(p=>(p.name||'').toLowerCase()));
+    const merged = [...live];
+    items.forEach(p=>{ if(!seen.has((p.name||'').toLowerCase())) merged.push(p); });
+    items = merged; reindex(); save();
+    if(hint) hint.textContent = `Cargado: ${items.length} producto(s) de tu tienda.`;
+    if(announce) toast('Inventario cargado ('+items.length+')');
+  }catch(e){
+    if(hint) hint.textContent = 'No se pudo cargar el inventario de la tienda (se usa el local).';
+  }
+}
+$('#syncStore').onclick = ()=> syncFromStore(true);
+syncFromStore(false);   // al abrir, cargar lo publicado
 </script>
 </body>
 </html>
