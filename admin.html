@@ -210,13 +210,21 @@
 
   <div class="panel">
     <h2>🚀 Publicar a la tienda</h2>
-    <p class="sub">Cuando termines de cargar o cambiar cartas, publicá así (elegí lo que te sirva):</p>
-    <ol class="pub-steps">
-      <li><b>Lo más rápido:</b> tocá <b>⬇ Descargar productos.json</b> (arriba) y mandámelo por el chat — lo publico al instante.</li>
-      <li><b>Vos mismo (sin esperar):</b> arrastrá ese <code>productos.json</code> a la carpeta del sitio reemplazando el anterior, y luego arrastrá <b>toda la carpeta</b> a la pestaña <b>Deploys</b> de tu sitio en Netlify. Queda en vivo en ~30&nbsp;s.</li>
-    </ol>
-    <a class="btn btn--ghost" href="https://app.netlify.com/projects/reroll-hobby-shop/deploys" target="_blank" rel="noopener">Abrir Deploys en Netlify ↗</a>
-    <p class="hint">La tienda detecta tu <code>productos.json</code> sola y muestra tu inventario real.</p>
+    <p class="sub">Subí tu inventario a la tienda en vivo con un clic. Tu tienda se actualiza sola en ~1 minuto.</p>
+
+    <label>Token de GitHub <span style="text-transform:none;letter-spacing:0">(se guarda solo en este navegador)</span>
+      <input id="ghToken" type="password" placeholder="github_pat_..." autocomplete="off" />
+    </label>
+    <div class="actions">
+      <button class="btn btn--gold" id="publishBtn">🚀 Publicar a la tienda</button>
+      <a class="btn btn--ghost" href="https://www.rerollhobbystore.com" target="_blank" rel="noopener">Ver tienda ↗</a>
+    </div>
+    <p class="hint" id="pubStatus" style="min-height:1.2em"></p>
+
+    <details>
+      <summary>¿Cómo funciona / dónde saco el token?</summary>
+      <p class="hint">Al publicar, tu inventario se sube a GitHub y la tienda (en Vercel) se actualiza sola en ~1&nbsp;min. El token va a <code>github.com/settings/tokens</code> → token <i>fine-grained</i> con permiso <b>Contents: Read and write</b> sobre el repo <code>reroll-hobby-store</code>. Se guarda solo en este navegador; lo pegás una vez. (Si descargás el <code>productos.json</code> con el botón de arriba, también podés mandármelo y lo publico yo.)</p>
+    </details>
   </div>
 
 </div>
@@ -364,6 +372,43 @@ function download(name, content, type){
   const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob);
   const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url);
 }
+
+/* ====== Publicar a la tienda (commit productos.json a GitHub -> Vercel publica solo) ====== */
+const GH_OWNER="andresloria", GH_REPO="reroll-hobby-store", GH_PATH="productos.json", GH_BRANCH="main";
+const ghInput = $('#ghToken');
+ghInput.value = localStorage.getItem('reroll_gh_token') || '';
+ghInput.addEventListener('change', ()=> localStorage.setItem('reroll_gh_token', ghInput.value.trim()));
+function pubStatus(msg, ok){ const el=$('#pubStatus'); el.textContent=msg; el.style.color = ok===false ? '#e9a3ab' : (ok===true ? 'var(--gold-bright)' : 'var(--muted)'); }
+// JSON -> base64 (soporta tildes, ñ y emojis)
+function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
+
+$('#publishBtn').onclick = async ()=>{
+  const token = ghInput.value.trim();
+  localStorage.setItem('reroll_gh_token', token);
+  if(!token){ pubStatus('Pegá tu token de GitHub arriba.', false); return; }
+  if(!items.length){ pubStatus('No hay productos para publicar.', false); return; }
+  const btn=$('#publishBtn'); btn.disabled=true;
+  const H = { Authorization:'Bearer '+token, Accept:'application/vnd.github+json' };
+  const base = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+  try{
+    pubStatus('Conectando con GitHub…');
+    let sha;
+    const g = await fetch(`${base}?ref=${GH_BRANCH}&t=${Date.now()}`, { headers:H });
+    if(g.ok){ sha = (await g.json()).sha; }
+    else if(g.status!==404){ throw new Error(g.status===401?'Token inválido o sin permiso.':'GitHub respondió '+g.status); }
+    pubStatus('Subiendo tu inventario…');
+    const body = { message:'Actualizar inventario desde el panel', content: toB64(JSON.stringify(items,null,2)), branch: GH_BRANCH };
+    if(sha) body.sha = sha;
+    const p = await fetch(base, { method:'PUT', headers:{...H,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    if(!p.ok){
+      const e = await p.json().catch(()=>({}));
+      throw new Error(p.status===403||p.status===401 ? 'El token no tiene permiso de escritura (Contents: Read and write).' : ('GitHub: '+(e.message||p.status)));
+    }
+    pubStatus('✅ ¡Publicado! Tu tienda se actualiza sola en ~1 minuto.', true);
+    toast('¡Publicado! 🎉');
+  }catch(err){ pubStatus('Error: '+err.message, false); }
+  finally{ btn.disabled=false; }
+};
 
 /* ====== Render inventario ====== */
 function render(){
