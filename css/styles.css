@@ -169,23 +169,28 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 /* ---------- Hero: abanico de cartas destacadas ---------- */
 .hero__art{display:flex;justify-content:center;align-items:center}
 .herofan{
-  position:relative;width:min(340px,80vw);height:340px;
+  position:relative;width:min(400px,86vw);height:360px;
   animation:float 5.5s ease-in-out infinite;
 }
 .herofan__card{
-  position:absolute;left:50%;top:50%;width:180px;
+  position:absolute;left:50%;top:50%;width:158px;
   transform-origin:bottom center;
   background:linear-gradient(180deg,var(--ink-2),#1a1311);
   border:1px solid var(--gold);border-radius:16px;overflow:hidden;
   box-shadow:var(--shadow);
   transition:transform .5s var(--ease), box-shadow .4s var(--ease);
 }
-.herofan__card--0{transform:translate(-50%,-50%) rotate(-15deg) translateX(-58px) scale(.92);z-index:1;opacity:.96}
-.herofan__card--1{transform:translate(-50%,-50%) rotate(0deg);z-index:3}
-.herofan__card--2{transform:translate(-50%,-50%) rotate(15deg) translateX(58px) scale(.92);z-index:2;opacity:.96}
-.herofan:hover .herofan__card--0{transform:translate(-50%,-50%) rotate(-20deg) translateX(-96px) scale(.95)}
-.herofan:hover .herofan__card--2{transform:translate(-50%,-50%) rotate(20deg) translateX(96px) scale(.95)}
-.herofan:hover .herofan__card--1{transform:translate(-50%,-52%) scale(1.04)}
+/* mano de 5 cartas en abanico (la central arriba) */
+.herofan__card--0{transform:translate(-50%,-50%) rotate(-26deg) translateX(-104px) scale(.84);z-index:1;opacity:.95}
+.herofan__card--1{transform:translate(-50%,-50%) rotate(-13deg) translateX(-54px) scale(.92);z-index:2;opacity:.98}
+.herofan__card--2{transform:translate(-50%,-50%) rotate(0deg);z-index:3}
+.herofan__card--3{transform:translate(-50%,-50%) rotate(13deg) translateX(54px) scale(.92);z-index:2;opacity:.98}
+.herofan__card--4{transform:translate(-50%,-50%) rotate(26deg) translateX(104px) scale(.84);z-index:1;opacity:.95}
+.herofan:hover .herofan__card--0{transform:translate(-50%,-50%) rotate(-30deg) translateX(-138px) scale(.86)}
+.herofan:hover .herofan__card--1{transform:translate(-50%,-50%) rotate(-15deg) translateX(-74px) scale(.94)}
+.herofan:hover .herofan__card--2{transform:translate(-50%,-52%) scale(1.05)}
+.herofan:hover .herofan__card--3{transform:translate(-50%,-50%) rotate(15deg) translateX(74px) scale(.94)}
+.herofan:hover .herofan__card--4{transform:translate(-50%,-50%) rotate(30deg) translateX(138px) scale(.86)}
 .herofan__media{
   position:relative;aspect-ratio:3/4;display:grid;place-items:center;overflow:hidden;
   background:linear-gradient(150deg,var(--wine),var(--wine-deep));
@@ -203,10 +208,13 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .herofan__price{font-family:var(--font-serif);font-size:1.15rem;color:var(--gold-bright)}
 @media(max-width:900px){.herofan{margin:0 auto 20px}}
 @media(max-width:520px){
-  .herofan{height:300px}
-  .herofan__card{width:150px}
-  .herofan__card--0{transform:translate(-50%,-50%) rotate(-14deg) translateX(-44px) scale(.9)}
-  .herofan__card--2{transform:translate(-50%,-50%) rotate(14deg) translateX(44px) scale(.9)}
+  .herofan{height:300px;width:min(360px,92vw)}
+  .herofan__card{width:120px}
+  .herofan__card--0{transform:translate(-50%,-50%) rotate(-24deg) translateX(-74px) scale(.82)}
+  .herofan__card--1{transform:translate(-50%,-50%) rotate(-12deg) translateX(-38px) scale(.9)}
+  .herofan__card--2{transform:translate(-50%,-50%) rotate(0deg)}
+  .herofan__card--3{transform:translate(-50%,-50%) rotate(12deg) translateX(38px) scale(.9)}
+  .herofan__card--4{transform:translate(-50%,-50%) rotate(24deg) translateX(74px) scale(.82)}
 }
 
 /* ---------- Logo grande del hero (legacy, ya no se usa en el hero) ---------- */

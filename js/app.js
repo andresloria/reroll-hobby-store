@@ -335,8 +335,15 @@ document.addEventListener("change", e=>{
    ============================================================ */
 function renderHeroFan(){
   const el = $("#herofan"); if(!el) return;
-  const feat = PRODUCTS.filter(p=>p.badge && p.badge!=="Sellado");
-  const pick = (feat.length>=3 ? feat : PRODUCTS).slice(0,3);
+  const N = 5;
+  // prioridad: cartas con etiqueta (no sellado), luego el resto del inventario
+  const badged = PRODUCTS.filter(p=>p.badge && p.badge!=="Sellado");
+  const rest   = PRODUCTS.filter(p=>!(p.badge && p.badge!=="Sellado"));
+  const pool   = [...badged, ...rest];
+  if(!pool.length){ el.innerHTML=""; return; }
+  // siempre 5 cartas: si hay menos, se repiten ciclando
+  const pick = [];
+  for(let i=0;i<N;i++) pick.push(pool[i % pool.length]);
   el.innerHTML = pick.map((p,i)=>`
     <div class="herofan__card herofan__card--${i}">
       ${p.badge?`<span class="herofan__badge">${p.badge}</span>`:""}
