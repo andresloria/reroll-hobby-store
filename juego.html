@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo por juego · Reroll Hobby Store</title>
+  <meta name="description" content="Catálogo de cartas por juego en Reroll Hobby Store — Cartago, CR." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236E1423'/%3E%3Cg fill='%23E8C77A'%3E%3Ccircle cx='30' cy='30' r='9'/%3E%3Ccircle cx='70' cy='30' r='9'/%3E%3Ccircle cx='50' cy='50' r='9'/%3E%3Ccircle cx='30' cy='70' r='9'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3C/g%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="brand" href="index.html" aria-label="Inicio">
+        <img class="brand__logo" src="assets/logo.png" alt="Reroll Hobby Store" />
+        <span class="brand__name">Re<span class="brand__accent">roll</span></span>
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="index.html#juegos">Juegos</a>
+        <a href="index.html#productos">Singles &amp; Sellado</a>
+        <a href="index.html#como">Cómo comprar</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="btn btn--ghost" id="cartBtn" aria-label="Carrito">
+          🛒 <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <a href="index.html" class="btn btn--gold">Inicio</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== BANNER DEL JUEGO ===== -->
+  <section class="gbanner" id="gameBanner"></section>
+
+  <!-- ===== FILTROS ===== -->
+  <section class="cats" id="catalogo">
+    <form class="search search--page" id="searchForm" role="search">
+      <span class="search__icon">🔎</span>
+      <input id="searchInput" type="search" placeholder="Busca dentro de este juego…" aria-label="Buscar" />
+      <button class="btn btn--gold" type="submit">Buscar</button>
+    </form>
+    <div class="filters reveal">
+      <div class="filters__group" id="typeFilter" aria-label="Tipo"></div>
+      <label class="filters__field"><span>Expansión</span>
+        <select id="setFilter" class="filters__select"></select>
+      </label>
+      <label class="filters__field"><span>Color</span>
+        <select id="colorFilter" class="filters__select"></select>
+      </label>
+      <label class="filters__field"><span>Ordenar</span>
+        <select id="sortFilter" class="filters__select">
+          <option value="rel">Relevancia</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="name">Nombre A-Z</option>
+        </select>
+      </label>
+      <span class="filters__count" id="resultCount"></span>
+    </div>
+  </section>
+
+  <!-- ===== GRID ===== -->
+  <section class="catalog">
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <p class="empty" id="empty" hidden>Todavía no hay productos de este juego. ¡Pronto!</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="contacto">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="brand__name">Re<span class="brand__accent">roll</span> Hobby Store</span>
+        <p>Tu tienda TCG en Cartago, CR. Singles, sellado y criterio para ganar.</p>
+      </div>
+      <div class="footer__social">
+        <a href="https://instagram.com/rerollhobbystore" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/share/17bhpdoc7Z/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://wa.me/50687807813" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <p class="footer__legal">© <span id="year"></span> Reroll Hobby Store · Cartago, Costa Rica.</p>
+  </footer>
+
+  <!-- ===== DRAWER CARRITO ===== -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__backdrop" data-close></div>
+    <aside class="drawer__panel" role="dialog" aria-label="Carrito">
+      <header class="drawer__head">
+        <h3>Tu carrito</h3>
+        <button class="drawer__x" data-close aria-label="Cerrar">✕</button>
+      </header>
+      <div class="drawer__items" id="drawerItems"></div>
+      <footer class="drawer__foot">
+        <div class="drawer__total"><span>Total</span><strong id="drawerTotal">₡0</strong></div>
+        <a class="btn btn--gold btn--lg" id="checkoutOpen" href="#">Finalizar compra</a>
+      </footer>
+    </aside>
+  </div>
+
+  <!-- ===== MODAL CHECKOUT ===== -->
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="co" role="dialog" aria-label="Finalizar compra">
+      <button class="modal__x" data-close aria-label="Cerrar">✕</button>
+      <h3 class="co__title">Finalizar compra</h3>
+      <div class="co__summary">
+        <div class="co__items" id="coItems"></div>
+        <div class="co__line co__line--total"><span>Total</span><b id="coTotal">₡0</b></div>
+      </div>
+      <form id="checkoutForm" class="co__form">
+        <label>Tu nombre
+          <input name="nombre" required placeholder="Nombre y apellido" />
+        </label>
+        <label>Entrega
+          <select name="entrega" id="coEntrega">
+            <option value="retiro">Retiro en Cartago</option>
+            <option value="envio">Envío por Correos de Costa Rica</option>
+          </select>
+        </label>
+        <div id="coEnvioFields" style="display:none">
+          <div class="co__row">
+            <label>Provincia
+              <select name="provincia">
+                <option>San José</option><option>Alajuela</option><option>Cartago</option>
+                <option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option>
+              </select>
+            </label>
+          </div>
+          <label>Dirección de entrega
+            <input name="direccion" placeholder="Señas exactas para Correos de Costa Rica" />
+          </label>
+          <p class="co__note">📦 El costo de envío de Correos de Costa Rica se calcula según el destino y se confirma por WhatsApp.</p>
+        </div>
+        <label>Método de pago
+          <select name="pago" id="coPago">
+            <option>SINPE Móvil</option><option>Tarjeta</option><option>Efectivo</option>
+          </select>
+        </label>
+        <div id="sinpeBox" class="co__sinpe">
+          <strong>SINPE Móvil</strong>
+          <span id="sinpeData">—</span>
+          <small>Hacé el SINPE y enviá el comprobante por WhatsApp al confirmar.</small>
+        </div>
+        <button type="submit" class="btn btn--gold btn--lg btn--block">Enviar pedido por WhatsApp</button>
+        <p class="co__note co__note--center">Coordinamos el pago y la entrega por WhatsApp. Sin cargos automáticos.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

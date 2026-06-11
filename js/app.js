@@ -48,15 +48,17 @@ let PRODUCTS = [
   { id:23, name:"Omnimon Alt Art",       cat:"Digimon", type:"single", set:"BT-12", price:30000, cond:"Near Mint", badge:"", emoji:"⬡" },
 ];
 
-// Juegos que vendemos (orden de la barra). Logo opcional en assets/logos/.
+// Juegos que vendemos (orden de la barra).
+//  logo: imagen del logo (assets/logos/...). art: imagen de personaje/arte de fondo
+//  (assets/games/...). Si el archivo de art no existe, se muestra el degradado de color.
 const BRANDS = [
-  { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png" },
-  { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png" },
-  { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#E0903C", logo:"assets/logos/yugioh.png" },
-  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#F0E6D2", logo:"assets/logos/magic.png" },
-  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png" },
-  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png" },
-  { cat:"Digimon",       name:"Digimon",              glyph:"⬡", color:"#2BA8E0" },
+  { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png",   art:"assets/games/pokemon.jpg" },
+  { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", art:"assets/games/riftbound.jpg" },
+  { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#E0903C", logo:"assets/logos/yugioh.png",    art:"assets/games/yugioh.jpg" },
+  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#F0E6D2", logo:"assets/logos/magic.png",     art:"assets/games/magic.jpg" },
+  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", art:"assets/games/one-piece.jpg" },
+  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png",     art:"assets/games/weiss.jpg" },
+  { cat:"Digimon",       name:"Digimon",              glyph:"⬡", color:"#2BA8E0",                                    art:"assets/games/digimon.jpg" },
 ];
 
 const fmt = n => "₡" + Number(n||0).toLocaleString("es-CR");
@@ -68,7 +70,15 @@ let activeSet   = "all";
 let activeColor = "all";
 let sortMode    = "rel";
 let query       = "";
-const cart = [];
+
+// Carrito persistente (sobrevive al navegar entre páginas)
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem("reroll_cart")||"[]"); }catch(e){ cart = []; }
+function saveCart(){ try{ localStorage.setItem("reroll_cart", JSON.stringify(cart)); }catch(e){} }
+
+// ¿Estamos en la página de un juego? (juego.html tiene #gameBanner)
+const GAME_PAGE = typeof document!=="undefined" && !!document.getElementById("gameBanner");
+function gameParam(){ return new URLSearchParams(location.search).get("g"); }
 
 // ---------- Helpers DOM ----------
 const $  = s => document.querySelector(s);
@@ -129,8 +139,9 @@ function renderGameTiles(){
   BRANDS.forEach(b=>{
     const count = PRODUCTS.filter(p=>p.cat===b.cat).length;
     const tile = document.createElement("button");
-    tile.className = "gametile";
+    tile.className = "gametile" + (b.art?" gametile--art":"");
     tile.style.setProperty("--g", b.color);
+    if(b.art) tile.style.setProperty("--art", `url('${b.art}')`);
     tile.title = `Ver ${b.cat}`;
     const logo = b.logo
       ? `<span class="gametile__plaque"><img src="${b.logo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
@@ -140,9 +151,36 @@ function renderGameTiles(){
       ${logo}
       <span class="gametile__name">${b.cat}</span>
       <span class="gametile__count">${count} ${count===1?"carta":"cartas"}</span>`;
-    tile.onclick = ()=> selectGame(b.cat);
+    tile.onclick = ()=> { location.href = "juego.html?g=" + encodeURIComponent(b.cat); };
     wrap.appendChild(tile);
   });
+}
+
+/* ============================================================
+   BANNER DE PÁGINA DE JUEGO (juego.html)
+   ============================================================ */
+function renderGameBanner(){
+  const el = $("#gameBanner"); if(!el) return;
+  const b = BRANDS.find(x=>x.cat===activeCat);
+  const count = PRODUCTS.filter(p=>p.cat===activeCat).length;
+  const color = b ? b.color : "#C9A24B";
+  el.style.setProperty("--g", color);
+  el.classList.toggle("has-art", !!(b && b.art));
+  if(b && b.art) el.style.setProperty("--art", `url('${b.art}')`);
+  const logo = b && b.logo
+    ? `<span class="gbanner__plaque"><img src="${b.logo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
+    : "";
+  document.title = (b? b.cat : "Catálogo") + " · Reroll Hobby Store";
+  el.innerHTML = `
+    <a class="gbanner__back" href="index.html#juegos">← Todos los juegos</a>
+    <div class="gbanner__inner">
+      ${logo}
+      <div class="gbanner__txt">
+        <span class="gbanner__glyph" aria-hidden="true">${b?b.glyph:"🎴"}</span>
+        <h1>${b? b.cat : "Catálogo"}</h1>
+        <p>${count} ${count===1?"producto disponible":"productos disponibles"}</p>
+      </div>
+    </div>`;
 }
 
 /* ============================================================
@@ -252,19 +290,21 @@ function renderGrid(){
    ============================================================ */
 function addToCart(id){
   const p = PRODUCTS.find(x=>x.id===id);
-  cart.push(p);
-  $("#cartCount").textContent = cart.length;
+  if(!p) return;
+  cart.push({ id:p.id, name:p.name, cat:p.cat, price:p.price, emoji:p.emoji, img:p.img });
+  saveCart();
   toast(`Añadido: ${p.name}`);
   renderCart();
 }
 function removeFromCart(idx){
   cart.splice(idx,1);
-  $("#cartCount").textContent = cart.length;
+  saveCart();
   renderCart();
 }
 function cartTotal(){ return cart.reduce((s,p)=>s+Number(p.price||0),0); }
 function renderCart(){
-  const wrap = $("#drawerItems");
+  const cc = $("#cartCount"); if(cc) cc.textContent = cart.length;
+  const wrap = $("#drawerItems"); if(!wrap) return;
   if(!cart.length){
     wrap.innerHTML = `<p class="drawer__empty">Tu carrito está vacío.<br>Añade algunas cartas ✨</p>`;
   } else {
@@ -488,14 +528,20 @@ async function loadCatalog(){
       }
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
-  renderGameBar(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles();
+  renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles();
   countUp($("#statCount"), PRODUCTS.length);
 }
 
 /* ============================================================
    INIT
    ============================================================ */
+// Si estamos en la página de un juego, fijamos ese juego como filtro activo
+if(GAME_PAGE){
+  const g = gameParam();
+  if(g && BRANDS.some(b=>b.cat===g)) activeCat = g;
+}
 renderGameBar();
+renderGameBanner();
 renderFilters();
 renderGrid();
 renderCart();

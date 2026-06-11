@@ -321,6 +321,44 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   transition:opacity .3s var(--ease), transform .3s var(--ease);
 }
 .gametile:hover::after{opacity:1;transform:translateX(0)}
+/* mosaico con arte de fondo (si existe assets/games/<juego>.jpg) */
+.gametile--art{
+  background:
+    linear-gradient(180deg, rgba(14,10,10,.2) 0%, rgba(14,10,10,.55) 55%, rgba(10,7,7,.95) 100%),
+    var(--art) center/cover no-repeat,
+    linear-gradient(160deg, color-mix(in srgb,var(--g) 28%, #140c0c), #0e0a0a);
+}
+.gametile--art .gametile__art{display:none}
+
+/* ============================================================
+   BANNER DE PÁGINA DE JUEGO (juego.html)
+   ============================================================ */
+.gbanner{
+  position:relative;overflow:hidden;min-height:250px;
+  padding:clamp(46px,7vw,72px) clamp(20px,5vw,80px) 34px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  border-bottom:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(14,10,10,.5), rgba(14,10,10,.92)),
+    radial-gradient(100% 120% at 80% 0%, color-mix(in srgb,var(--g,#C9A24B) 40%, transparent), transparent 60%),
+    linear-gradient(160deg, #1a0c10, var(--wine-deep) 70%, #0e0a0a);
+}
+.gbanner.has-art{
+  background:
+    linear-gradient(180deg, rgba(14,10,10,.42) 0%, rgba(14,10,10,.72) 60%, rgba(10,7,7,.96) 100%),
+    var(--art) center 28%/cover no-repeat,
+    linear-gradient(160deg, color-mix(in srgb,var(--g) 30%, #140c0c), #0e0a0a);
+}
+.gbanner__back{position:absolute;top:18px;left:clamp(20px,5vw,80px);font-size:.86rem;color:var(--gold-bright);opacity:.9}
+.gbanner__back:hover{opacity:1;text-decoration:underline}
+.gbanner__inner{max-width:1180px;margin:0 auto;width:100%;display:flex;align-items:center;gap:22px}
+.gbanner__plaque{background:#fbfbfb;border-radius:12px;padding:10px 16px;display:inline-flex;align-items:center;flex-shrink:0;box-shadow:0 12px 28px -12px rgba(0,0,0,.7)}
+.gbanner__plaque img{height:42px;width:auto;max-width:190px;object-fit:contain;display:block}
+.gbanner__txt{position:relative}
+.gbanner__glyph{position:absolute;right:-38px;top:-26px;font-size:3.6rem;opacity:.16;pointer-events:none}
+.gbanner__txt h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;color:var(--cream)}
+.gbanner__txt p{color:var(--gold-bright);font-size:.95rem;margin-top:4px}
+.search--page{margin:26px auto 16px}
 
 /* ============================================================
    CATÁLOGO: cabecera (dado + nube) · barra de juegos · filtros
