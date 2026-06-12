@@ -56,7 +56,7 @@ const BRANDS = [
   { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", art:"assets/games/riftbound.jpg" },
   { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#E0903C", logo:"assets/logos/yugioh.png",    art:"assets/games/yugioh.jpg" },
   { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#F0E6D2", logo:"assets/logos/magic.png",     art:"assets/games/magic.jpg" },
-  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", art:"assets/games/one-piece.jpg" },
+  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", art:"assets/games/one-piece.jpg?v=2" },
   { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png",     art:"assets/games/weiss.jpg" },
   { cat:"Digimon",       name:"Digimon",              glyph:"⬡", color:"#2BA8E0",                                    art:"assets/games/digimon.jpg" },
 ];
