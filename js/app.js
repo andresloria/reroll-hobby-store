@@ -422,13 +422,43 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAll(); });
 /* ============================================================
    BUSCADOR
    ============================================================ */
+// desplegable de resultados en vivo
+function renderSearchResults(){
+  const box = $("#searchResults"); if(!box) return;
+  const q = query.trim().toLowerCase();
+  if(!q){ box.hidden = true; box.innerHTML = ""; return; }
+  const matches = PRODUCTS.filter(p=> (p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q)).slice(0,6);
+  box.hidden = false;
+  if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
+  box.innerHTML = matches.map(p=>`
+    <button type="button" class="sr" data-id="${p.id}">
+      <span class="sr__media">${p.img?`<img src="${p.img}" alt="">`:`<span class="sr__emoji">${p.emoji||"🎴"}</span>`}</span>
+      <span class="sr__info">
+        <span class="sr__name">${p.name}</span>
+        <span class="sr__meta">${p.cat}${p.set?" · "+p.set:""} · ${p.type==="sealed"?"Sellado":p.cond}</span>
+      </span>
+      <span class="sr__price">${fmt(p.price)}</span>
+    </button>`).join("");
+  box.querySelectorAll(".sr").forEach(el=>{
+    el.onclick = ()=>{
+      box.hidden = true;
+      activeCat = "Todas"; activeType="all"; activeSet="all"; activeColor="all";
+      renderGameBar(); renderFilters(); renderGrid();
+      document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+    };
+  });
+}
 $("#searchForm").addEventListener("submit", e=>{
   e.preventDefault();
   query = $("#searchInput").value.trim();
+  $("#searchResults") && ($("#searchResults").hidden = true);
   renderGrid();
   document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
 });
-$("#searchInput").addEventListener("input", e=>{ query = e.target.value.trim(); renderGrid(); });
+$("#searchInput").addEventListener("input", e=>{ query = e.target.value.trim(); renderGrid(); renderSearchResults(); });
+// cerrar el desplegable al hacer clic fuera o con Escape
+document.addEventListener("click", e=>{ const box=$("#searchResults"); if(box && !e.target.closest(".search")) box.hidden = true; });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ const box=$("#searchResults"); if(box) box.hidden = true; } });
 
 // selects de filtro
 document.addEventListener("change", e=>{
