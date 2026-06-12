@@ -324,11 +324,13 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 /* mosaico con arte de fondo (si existe assets/games/<juego>.jpg) */
 .gametile--art{
   background:
-    linear-gradient(180deg, rgba(14,10,10,.02) 0%, rgba(14,10,10,.35) 58%, rgba(10,7,7,.92) 100%),
-    var(--art) center 18%/cover no-repeat,
-    linear-gradient(160deg, color-mix(in srgb,var(--g) 28%, #140c0c), #0e0a0a);
+    linear-gradient(180deg, rgba(20,12,12,0) 26%, rgba(12,8,9,.45) 64%, rgba(10,7,7,.94) 100%),
+    var(--art) center top/cover no-repeat,
+    #15100f;
 }
 .gametile--art .gametile__art{display:none}
+.gametile--art .gametile__name{text-shadow:0 2px 8px rgba(0,0,0,.92)}
+.gametile--art .gametile__count{text-shadow:0 1px 5px rgba(0,0,0,.92)}
 
 /* ============================================================
    BANNER DE PÁGINA DE JUEGO (juego.html)
