@@ -434,6 +434,8 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
 }
 .filters__select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.15)}
+/* opciones legibles (evita texto blanco sobre fondo blanco al desplegar) */
+select option, select optgroup{background:#211816;color:#FAF6EF}
 .filters__count{font-size:.82rem;color:var(--muted);align-self:center;margin-left:auto}
 @media(max-width:560px){
   .cathead{flex-direction:column;text-align:center}
