@@ -8,7 +8,7 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=11" />
+  <link rel="stylesheet" href="css/styles.css?v=12" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236E1423'/%3E%3Cg fill='%23E8C77A'%3E%3Ccircle cx='30' cy='30' r='9'/%3E%3Ccircle cx='70' cy='30' r='9'/%3E%3Ccircle cx='50' cy='50' r='9'/%3E%3Ccircle cx='30' cy='70' r='9'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3C/g%3E%3C/svg%3E" />
 </head>
 <body>
@@ -33,7 +33,8 @@
 
       <div class="nav__actions">
         <button class="btn btn--ghost" id="cartBtn" aria-label="Carrito">
-          🛒 <span class="cart-count" id="cartCount">0</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l1.9 11a1.3 1.3 0 0 0 1.3 1.1h8.3a1.3 1.3 0 0 0 1.3-1l1.5-7.4H6.2"/><circle cx="9.2" cy="20" r="1.3"/><circle cx="17.6" cy="20" r="1.3"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
         </button>
         <a href="#catalogo" class="btn btn--gold">Ver catálogo</a>
       </div>
@@ -50,7 +51,7 @@
         <p class="lead">Singles y sellado de Pokémon, Magic, Yu-Gi-Oh, One Piece y Riftbound — elegidos por alguien con 20 años de juego y tops de torneo. No vendemos cartas: vendemos criterio para ganar.</p>
 
         <form class="search" id="searchForm" role="search" autocomplete="off">
-          <span class="search__icon">🔎</span>
+          <span class="search__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
           <input id="searchInput" type="search" placeholder="Busca una carta, set o artículo…" aria-label="Buscar" />
           <button class="btn btn--gold" type="submit">Buscar</button>
           <div class="search__results" id="searchResults" hidden></div>
@@ -140,13 +141,17 @@
     </div>
     <div class="offer__grid">
       <article class="offer__card reveal">
-        <div class="offer__icon">🃏</div>
+        <div class="offer__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="6" width="10" height="14" rx="1.6" transform="rotate(-9 8.5 13)"/><rect x="10" y="4" width="10" height="14" rx="1.6"/><circle cx="15" cy="11" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </div>
         <h3>Singles</h3>
         <p>Cartas sueltas para armar o mejorar tu mazo: staples de torneo, alt-arts y piezas de colección. Cada una con su estado claro (Mint, Near Mint…).</p>
         <a href="#catalogo" class="btn btn--ghost">Ver singles</a>
       </article>
       <article class="offer__card reveal">
-        <div class="offer__icon">📦</div>
+        <div class="offer__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.6l8.5 4.2v10.4L12 21.4 3.5 17.2V6.8z"/><path d="M3.6 7l8.4 4.2L20.4 7"/><path d="M12 11.2V21"/></svg>
+        </div>
         <h3>Producto sellado</h3>
         <p>Booster boxes, Elite Trainer Boxes, sobres y bundles sin abrir — ideal para abrir, regalar o invertir. Stock real y precios de la zona.</p>
         <a href="#catalogo" class="btn btn--ghost">Ver sellado</a>
@@ -154,21 +159,36 @@
     </div>
   </section>
 
-  <!-- ===== JUEGOS DE MESA · PRÓXIMAMENTE ===== -->
-  <section class="soon" id="mesa">
-    <div class="section-head reveal">
-      <span class="eyebrow eyebrow--gold">Nuevo</span>
-      <h2>Juegos de mesa <span class="soon__tag">Próximamente</span></h2>
-      <p>Estamos preparando una selección de juegos de mesa para la tienda. ¿Querés que te avisemos cuando lleguen?</p>
+  <!-- ===== QUIÉN ESTÁ DETRÁS (el diferenciador) ===== -->
+  <section class="about" id="quien">
+    <div class="about__inner reveal">
+      <div class="about__photo">
+        <!-- FOTO REAL: guardá assets/about.jpg (vertical, ~800×1000px). Si no existe, se ve este placeholder. -->
+        <img class="about__img" src="assets/about.jpg" alt="Foto de la persona detrás de Reroll Hobby Store"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" />
+        <span class="about__ph" style="display:none">Tu foto acá<br><small>assets/about.jpg · ~800×1000</small></span>
+      </div>
+      <div class="about__copy">
+        <span class="eyebrow">Quién soy</span>
+        <h2>No es una tienda más:<br>soy yo eligiendo cada carta</h2>
+        <p>Pura vida 👋 Soy <strong>[tu nombre]</strong>. Llevo <strong>20 años</strong> jugando TCG y metido en el scene competitivo de Cartago. No vendo cartas que no compraría yo: cada single y cada sellado que ves acá pasó por mi criterio.</p>
+        <p>Jugué <strong>[formatos/juegos que jugás]</strong> y llegué a <strong>[tops/logros — ej. "top 8 en (nombre del torneo)"]</strong>, así que sé lo que pide el meta. Si estás armando mazo o buscás una pieza puntual, te digo si te sirve o si hay algo mejor.</p>
+        <p>Reroll nació para eso: una tienda de Cartago, hecha por alguien que juega, para gente que juega. Escribime y hablamos de cartas. 🎴</p>
+        <ul class="about__badges">
+          <li>20 años jugando</li>
+          <li>Tops de torneo</li>
+          <li>Cartago · CR</li>
+        </ul>
+      </div>
     </div>
-    <div class="soon__grid">
-      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">🏰</div><h3>Estrategia</h3><p>Para los que piensan tres turnos adelante.</p></article>
-      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">👨‍👩‍👧‍👦</div><h3>Familiar</h3><p>Diversión para toda la mesa, de 8 a 80.</p></article>
-      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">🎉</div><h3>Party</h3><p>Risas garantizadas en grupo.</p></article>
-      <article class="soon__card reveal"><span class="soon__ribbon">Próximamente</span><div class="soon__emoji">🎲</div><h3>Cartas &amp; dados</h3><p>Rápidos, portátiles y adictivos.</p></article>
-    </div>
-    <div class="soon__cta reveal">
-      <a class="btn btn--gold btn--lg" id="notifyBtn" href="#">Avisame cuando lleguen</a>
+  </section>
+
+  <!-- ===== JUEGOS DE MESA · PRÓXIMAMENTE (franja compacta) ===== -->
+  <section class="soonbar" id="mesa">
+    <div class="soonbar__inner reveal">
+      <span class="soonbar__tag">Próximamente</span>
+      <p class="soonbar__txt"><strong>Juegos de mesa</strong> — estamos armando la selección. Te avisamos cuando lleguen.</p>
+      <a class="btn btn--gold" id="notifyBtn" href="#">Avisame</a>
     </div>
   </section>
 
@@ -330,6 +350,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=11"></script>
+  <script src="js/app.js?v=12"></script>
 </body>
 </html>

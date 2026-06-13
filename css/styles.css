@@ -190,7 +190,10 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
 }
 .search:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,162,75,.15)}
-.search__icon{opacity:.7}
+.search__icon{display:inline-flex;align-items:center;color:var(--muted)}
+.search__icon svg{width:20px;height:20px}
+/* ícono SVG inline genérico del kit (Fase 6) */
+.ic{width:1.15em;height:1.15em;display:inline-block;vertical-align:middle;flex-shrink:0}
 .search input{
   flex:1;background:none;border:none;color:var(--cream);font-size:1rem;padding:8px 4px;outline:none;
 }
@@ -571,7 +574,11 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   transition:all .22s var(--ease);
 }
 .card__add:hover{background:var(--gold);color:#2a1a08}
-.empty{text-align:center;color:var(--muted);padding:50px 0}
+.empty{text-align:center;color:var(--muted);padding:50px 18px;font-family:var(--font-body);font-size:1.05rem;line-height:1.7}
+.empty__cta{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-weight:700;font-size:.86rem;
+  color:var(--negro);background:var(--amarillo);padding:9px 16px;border-radius:999px;text-decoration:none;
+  transition:transform .2s var(--ease)}
+.empty__cta:hover{transform:translateY(-2px)}
 
 /* ============================================================
    SECCIÓN SINGLES & SELLADO (fondo vino)
@@ -593,53 +600,48 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   transition:transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
 }
 .offer__card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:var(--shadow)}
-.offer__icon{font-size:2.6rem;margin-bottom:10px}
+.offer__icon{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;margin-bottom:14px;
+  color:var(--amarillo);background:rgba(242,194,48,.08);border:2px solid rgba(242,194,48,.35);border-radius:14px}
+.offer__icon svg{width:30px;height:30px}
 .offer__card h3{font-size:1.8rem;margin-bottom:10px;color:var(--gold-bright)}
 .offer__card p{color:#e7dcd4;margin-bottom:22px}
 .offer .section-head p{color:#e9ddd4}
 .offer .offer__card .btn--ghost{border-color:rgba(232,199,122,.5)}
 
 /* ============================================================
-   JUEGOS DE MESA · PRÓXIMAMENTE
+   FASE 5 · QUIÉN ESTÁ DETRÁS (el diferenciador)
    ============================================================ */
-.soon{
-  position:relative;
-  background:
-    radial-gradient(700px 360px at 50% 0%, rgba(201,162,75,.06), transparent 60%),
-    linear-gradient(160deg, #1c0d12 0%, var(--wine-deep) 60%, #2a0a11 100%);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+.about{background:var(--negro);border-top:1px solid var(--line)}
+.about__inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,.85fr) 1.15fr;gap:clamp(28px,5vw,60px);align-items:center}
+.about__photo{position:relative;aspect-ratio:4/5;border:3px solid var(--crema);border-radius:var(--radius);overflow:hidden;
+  background:repeating-linear-gradient(135deg,#1d1d1d 0 14px,#191919 14px 28px)}
+.about__img{width:100%;height:100%;object-fit:cover;display:block}
+.about__ph{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:6px;
+  font-family:var(--font-mono);font-size:1rem;color:var(--muted);letter-spacing:.04em}
+.about__ph small{font-size:.72rem;opacity:.8}
+.about__copy .eyebrow{color:var(--terracota)}
+.about__copy h2{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.04;color:var(--crema);margin:6px 0 18px}
+.about__copy p{font-family:var(--font-body);color:#cfc7bd;line-height:1.7;margin-bottom:14px;max-width:54ch}
+.about__copy p strong{color:var(--amarillo);font-weight:700}
+.about__badges{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;padding:0}
+.about__badges li{font-family:var(--font-mono);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--crema);background:var(--vino);border:2px solid var(--terracota);padding:9px 14px;border-radius:4px}
+@media(max-width:780px){
+  .about__inner{grid-template-columns:1fr}
+  .about__photo{max-width:340px;margin:0 auto}
 }
-.soon__tag{
-  display:inline-block;vertical-align:middle;font-family:var(--font-sans);
-  font-size:.6em;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:#2a1a08;background:linear-gradient(135deg,var(--gold-bright),var(--gold));
-  padding:5px 12px;border-radius:999px;margin-left:10px;
-  box-shadow:var(--shadow-gold);animation:pulseTag 2.6s ease-in-out infinite;
-}
-@keyframes pulseTag{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-2px);opacity:.85}}
-.soon__grid{
-  max-width:1080px;margin:6px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
-}
-@media(max-width:860px){.soon__grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:460px){.soon__grid{grid-template-columns:1fr}}
-.soon__card{
-  position:relative;overflow:hidden;text-align:center;
-  background:linear-gradient(180deg, rgba(20,12,12,.7), rgba(20,12,12,.5));
-  border:1px solid rgba(232,199,122,.28);border-radius:var(--radius);
-  padding:34px 22px 26px;backdrop-filter:blur(4px);
-  transition:transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
-}
-.soon__card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:var(--shadow)}
-.soon__emoji{font-size:3rem;margin-bottom:12px;filter:grayscale(.25) drop-shadow(0 6px 12px rgba(0,0,0,.5))}
-.soon__card h3{font-size:1.5rem;color:var(--gold-bright);margin-bottom:6px}
-.soon__card p{color:#d8cdc5;font-size:.9rem}
-.soon__ribbon{
-  position:absolute;top:20px;right:-46px;width:160px;text-align:center;transform:rotate(45deg);
-  background:linear-gradient(135deg,var(--wine-light),var(--wine));color:#fff;
-  font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  padding:5px 0;border-top:1px solid rgba(232,199,122,.5);border-bottom:1px solid rgba(232,199,122,.5);
-}
-.soon__cta{text-align:center;margin-top:34px}
+
+/* ============================================================
+   FASE 7 · JUEGOS DE MESA — franja compacta (banner)
+   ============================================================ */
+.soonbar{padding:22px clamp(16px,5vw,80px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:linear-gradient(160deg, #1c0d12, var(--negro))}
+.soonbar__inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.soonbar__tag{font-family:var(--font-mono);font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--negro);background:var(--amarillo);padding:5px 12px;border-radius:999px;flex-shrink:0}
+.soonbar__txt{font-family:var(--font-body);color:#d8cdc5;font-size:.98rem;margin:0}
+.soonbar__txt strong{font-family:var(--font-display);color:var(--crema);font-weight:400;margin-right:2px}
+@media(max-width:600px){ .soonbar__inner{flex-direction:column;text-align:center;gap:12px} }
 
 /* ============================================================
    CÓMO FUNCIONA

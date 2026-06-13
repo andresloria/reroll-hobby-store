@@ -7,6 +7,12 @@ const WHATSAPP     = "50687807813";   // WhatsApp con código país, sin + ni es
 const SINPE_NUMERO = "8780-7813";     // número SINPE Móvil
 const SINPE_NOMBRE = "Reroll Hobby Store";
 
+// === FASE 4: umbrales de credibilidad en pre-apertura ===
+// Mientras el inventario sea chico, el stat "cartas listadas" se OCULTA y el catálogo
+// muestra "en preparación". Apenas haya >= estos números, todo vuelve a aparecer solo.
+const STAT_MIN    = 8;   // mínimo de productos para mostrar el stat del hero
+const CATALOG_MIN = 6;   // por debajo de esto, el catálogo se considera "en preparación"
+
 /* ------------------------------------------------------------
    INVENTARIO
    El sitio intenta cargar "productos.json" (lo genera tu panel).
@@ -270,8 +276,18 @@ function getFiltered(){
 function renderGrid(){
   const grid = $("#grid");
   const items = getFiltered();
-  const cnt = $("#resultCount"); if(cnt) cnt.textContent = `${items.length} resultado${items.length!==1?"s":""}`;
-  $("#empty").hidden = items.length>0;
+  // Fase 4: nada de "0 resultados" pelado
+  const cnt = $("#resultCount"); if(cnt) cnt.textContent = items.length ? `${items.length} resultado${items.length!==1?"s":""}` : "";
+  const empty = $("#empty");
+  if(empty){
+    empty.hidden = items.length>0;
+    if(!items.length){
+      // catálogo global casi vacío (pre-apertura) vs. filtro sin coincidencias
+      empty.innerHTML = (PRODUCTS.length < CATALOG_MIN)
+        ? `Catálogo en preparación 🛠️<br><a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20%C2%BFTen%C3%A9s%20esto%3A%20" target="_blank" rel="noopener" class="empty__cta">Escribinos por WhatsApp y te conseguimos lo que buscás →</a>`
+        : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
+    }
+  }
   grid.innerHTML = "";
   items.forEach((p,i)=>{
     const el = document.createElement("article");
@@ -622,7 +638,14 @@ async function loadCatalog(){
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
   renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles();
-  countUp($("#statCount"), PRODUCTS.length);
+  updateHeroStat();
+}
+// Fase 4: muestra el conteo real solo si hay inventario suficiente; si no, oculta el stat
+function updateHeroStat(){
+  const el = $("#statCount"); if(!el) return;
+  const box = el.closest("div");
+  if(PRODUCTS.length >= STAT_MIN){ if(box) box.style.display=""; countUp(el, PRODUCTS.length); }
+  else if(box){ box.style.display = "none"; }
 }
 
 /* ============================================================
