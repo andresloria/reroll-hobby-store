@@ -1,8 +1,17 @@
 /* ============================================================
-   DADO DE ORO — sistema de diseño
-   Paleta: vino · negro · blanco · dorado
+   REROLL HOBBY STORE — sistema de diseño
+   Tipografía auto-hospedada (sin CDN) · kit brutalist cálido
    ============================================================ */
+
+/* ---- FASE 1: fuentes auto-hospedadas (assets/fonts/, sin Google Fonts) ---- */
+@font-face{font-family:"Archivo Black";src:url("../assets/fonts/archivo-black-v23-latin-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("../assets/fonts/space-grotesk-v22-latin-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("../assets/fonts/space-grotesk-v22-latin-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Space Mono";src:url("../assets/fonts/space-mono-v17-latin-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Space Mono";src:url("../assets/fonts/space-mono-v17-latin-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+
 :root{
+  /* Paleta actual (vino/dorado) — se irá migrando al kit brutalist por sección */
   --wine:        #6E1423;
   --wine-deep:   #4A0D18;
   --wine-light:  #8B1E3F;
@@ -16,13 +25,26 @@
   --muted:       #8c7f78;
   --line:        rgba(201,162,75,.22);
 
+  /* Paleta brutalist (kit nuevo) */
+  --negro:       #161616;
+  --crema:       #F4F1EA;
+  --terracota:   #C13B26;   /* rojo ancla del D20 */
+  --vino:        #6B1F2A;
+  --amarillo:    #F2C230;
+
   --radius:      18px;
   --radius-sm:   12px;
   --shadow:      0 18px 50px -20px rgba(0,0,0,.55);
   --shadow-gold: 0 14px 40px -16px rgba(201,162,75,.45);
   --ease:        cubic-bezier(.16,1,.3,1);
-  --font-serif:  "Cormorant Garamond", Georgia, serif;
-  --font-sans:   "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Sistema tipográfico de 3 niveles */
+  --font-display:"Archivo Black", system-ui, sans-serif;        /* titulares, hero, marca */
+  --font-body:   "Space Grotesk", system-ui, -apple-system, sans-serif; /* cuerpo, UI, botones */
+  --font-mono:   "Space Mono", ui-monospace, "Courier New", monospace;  /* precios, tags, eyebrows */
+  /* alias legacy → migrados al sistema de 3 niveles */
+  --font-serif:  var(--font-display);
+  --font-sans:   var(--font-body);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -811,4 +833,23 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important}
   .reveal{opacity:1;transform:none}
+}
+
+/* ============================================================
+   FASE 1 · Asignación del sistema tipográfico de 3 niveles
+   (sobre-escribe los font-family legacy por especificidad/orden)
+   --font-display ya aplica a h1/h2/h3, marca y hero por alias.
+   ============================================================ */
+/* MONO → precios, números, contadores, etiquetas, tags, eyebrows, detalles técnicos */
+.card__price,.herofan__price,.sr__price,.di__sub,.drawer__total strong,
+.co__line--total,.co__line--total b,.co__sinpe span,.hero__stats strong,.step__num,
+.preview-card .pc__price,.eyebrow,.card__badge,.card__cat,.card__meta,.card__stock,
+.filters__count,.gametile__count,.cart-count,.count,.soon__tag,.mascot__label,
+.sr__meta,.di__price,.brandbadge__txt{
+  font-family:var(--font-mono);
+}
+.hero__stats span{font-family:var(--font-mono);letter-spacing:.04em}
+/* BODY (Space Grotesk) → nombres de carta/juego y textos de UI largos */
+.card__name,.herofan__name,.gametile__name,.faq__item summary,.gamebtn--all{
+  font-family:var(--font-body);font-weight:700;
 }

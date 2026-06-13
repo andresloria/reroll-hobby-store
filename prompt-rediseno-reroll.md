@@ -1,0 +1,221 @@
+# Prompt maestro — Rediseño completo de rerollhobbystore.com
+
+> Pegá todo el bloque de abajo (desde `===` hasta `===`) en Claude Code / Cowork
+> con la carpeta del proyecto abierta. Está escrito para que el agente lea el
+> estado real del repo antes de tocar nada y trabaje por fases verificables.
+
+---
+
+```
+=== PROMPT: REDISEÑO INTEGRAL REROLL HOBBY STORE ===
+
+CONTEXTO DEL PROYECTO
+Sos un diseñador/desarrollador senior trabajando en el sitio de Reroll Hobby Store,
+una tienda TCG (juegos de cartas coleccionables) en Cartago, Costa Rica, en
+pre-apertura. El sitio NO es un marketplace corporativo: el activo diferenciador es
+una persona real con 20 años de juego, tops de torneo y conexión con el scene
+competitivo de Cartago. Todo el rediseño debe REFORZAR ese ángulo local y humano,
+nunca diluirlo en algo genérico.
+
+Voz de marca: experto accesible, competitivo pero comunitario, tono tico cálido con
+usteo ("elegí", "buscás", "te avisamos"). Se permite jerga del hobby.
+
+ANTES DE TOCAR NADA — leé el estado real del repo:
+  1. Listá y leé: index.html, css/styles.css, js/app.js, productos.json.
+  2. Listá el contenido de assets/fonts/, assets/games/ y assets/logos/.
+  3. NO asumas nombres de archivo ni rutas: usá los reales que encuentres.
+  4. Hacé un commit o copia de seguridad mental del estado actual para poder
+     mostrarme un antes/después al final.
+
+REALIDAD ACTUAL QUE DEBÉS CORREGIR (no es como dice la doc vieja):
+  - El sitio HOY carga Google Fonts por CDN (Cormorant Garamond + Inter). Eso se
+    elimina: hay que pasar a fuentes auto-hospedadas (ver Fase 1).
+  - El CSS está en css/styles.css y el JS en js/app.js (NO es un único archivo
+    self-contained). MANTENÉ esa separación. No reescribas todo a un solo archivo.
+  - Las fuentes nuevas están en assets/fonts/ todavía como .zip sin extraer:
+    archivo-black-v23-latin.zip, space-grotesk-v22-latin.zip, space-mono-v17-latin.zip.
+    Hay que extraer los .woff2 de adentro.
+  - Los game tiles (#gameTiles), la barra de juegos (#gameBar) y el marquee
+    "Trabajamos con" se generan por JavaScript en app.js, NO son HTML estático.
+    Cualquier cambio de estructura va en app.js + estilos en styles.css.
+  - Hay DOS carpetas de logos: assets/games/ (mezcla inconsistente de jpg/svg/webp/png)
+    y assets/logos/ (set limpio de PNG: magic, one-piece, pokemon, riftbound, weiss,
+    yugioh). Usá el set limpio de assets/logos/ como base y verificá que cada logo se
+    lea sobre fondo oscuro; si alguno es oscuro/transparente y desaparece, aplicá el
+    Plan B (chip de color o glow detrás).
+
+PALETTE (usar variables CSS, no hex sueltos):
+  --negro:    #161616
+  --crema:    #F4F1EA
+  --terracota:#C13B26   (rojo ancla del logo D20)
+  --vino:     #6B1F2A
+  --amarillo: #F2C230
+
+ESTILO GENERAL: kit brutalist, bordes definidos, look premium pero cálido.
+Consistente en todo el sitio. Cada cambio respeta la palette de arriba.
+
+────────────────────────────────────────────────────────
+FASE 1 — SISTEMA TIPOGRÁFICO DE 3 NIVELES (base de todo)
+────────────────────────────────────────────────────────
+Objetivo: reemplazar Cormorant Garamond + Inter (CDN) por un sistema de 3 niveles
+con fuentes auto-hospedadas. SIN ninguna dependencia de CDN externo para fuentes.
+
+  1. Extraé los .woff2 de los tres .zip en assets/fonts/ y dejalos sueltos en
+     assets/fonts/ (borrá o ignorá los .zip después). Leé los nombres REALES de los
+     archivos resultantes y usá esos nombres exactos en los @font-face.
+  2. Eliminá del <head> de index.html los <link> de preconnect y de
+     fonts.googleapis.com. Que no quede ninguna referencia a Google Fonts.
+  3. Definí los @font-face en styles.css con font-display: swap.
+  4. Definí variables CSS y aplicalas de forma consistente en TODO el sitio:
+       --font-display: Archivo Black    → titulares, h1/h2/h3, lockup de marca, hero.
+       --font-body:    Space Grotesk     → cuerpo, párrafos, botones, nav, UI, inputs.
+                                           Pesos 400 y 700. Reemplaza a Inter.
+       --font-mono:    Space Mono        → etiquetas, precios, tags/badges, contadores,
+                                           eyebrows, detalles técnicos. Pesos 400 y 700.
+  5. Barré el CSS y reemplazá cualquier font-family viejo (Cormorant, Inter,
+     monospace suelto) por las variables. Que no quede texto largo en monoespaciada.
+
+────────────────────────────────────────────────────────
+FASE 2 — NOMBRE DE MARCA EN EL HEADER (lockup)
+────────────────────────────────────────────────────────
+Hoy el nav muestra solo "Re<span>roll</span>". Cambialo a un lockup de dos líneas
+junto al logo D20 (assets/logo.png) existente:
+  - "REROLL" grande en Archivo Black (--font-display).
+  - "HOBBY STORE" debajo, más chico, en Space Mono (--font-mono) con letter-spacing
+    amplio (tracking generoso).
+  - Mantené el <a href="#top"> y el aria-label.
+  - En móvil que no se rompa ni tape el carrito: ajustá tamaños responsivos.
+  - Verificá que el footer y los meta-tags ya digan "Reroll Hobby Store" (sí lo
+    hacen hoy; confirmalo y corregí si algo quedó como solo "Reroll").
+
+────────────────────────────────────────────────────────
+FASE 3 — SECCIÓN "ELEGÍ TU JUEGO" (rediseño estrella)
+────────────────────────────────────────────────────────
+Hoy #gameTiles se renderiza por JS y se ve pobre. Reconstruí la grilla de juegos
+(en app.js para el markup + styles.css para el estilo), inspirada en el selector de
+cardnexus.com PERO con la marca de Reroll.
+
+Grilla responsive de 5 tiles, en este orden de prioridad (el primero es el foco de
+lanzamiento y va más destacado):
+  1. One Piece TCG   2. Riftbound   3. Pokémon   4. Magic: The Gathering   5. Yu-Gi-Oh!
+
+Cada tile:
+  - Logo del juego GRANDE y centrado (desde assets/logos/), nunca en una cajita
+    blanca chiquita. Si un archivo falta, dejá placeholder con el nombre del juego en
+    Archivo Black para reemplazar luego.
+  - Fondo oscuro temático sobre --negro, con un color de acento por juego (gradiente
+    sutil para que el logo "encienda"). Nada de fondos blancos.
+  - Nombre del juego debajo del logo (Space Grotesk).
+  - Tile entero clickeable → lleva al catálogo (#catalogo) filtrado por ese juego.
+    IMPORTANTE: conectalo al MISMO mecanismo de filtro que ya usa app.js para
+    #gameBar / el catálogo (mismo parámetro o data-attribute). No inventes uno nuevo.
+  - Hover: translateY hacia arriba + glow/sombra en el color de acento del juego,
+    transición ~200ms. Que se sienta premium.
+  - Accesibilidad: alt en imágenes, focus visible por teclado, role/semántica de link.
+
+Layout:
+  - Desktop: fila de 5 (o 3 arriba + 2 abajo centrados). Tiles grandes.
+  - Tablet: 2–3 columnas. Móvil: 2 columnas. Padding y gaps cómodos.
+
+Limpieza: quitá cualquier recuadro blanco placeholder y el logo.png repetido que
+hubiera en esta sección.
+
+────────────────────────────────────────────────────────
+FASE 4 — ARREGLAR EL "0 CARTAS LISTADAS" (credibilidad)
+────────────────────────────────────────────────────────
+El hero y el catálogo muestran un contador en 0 (#statCount, #resultCount) que mata
+la credibilidad en pre-apertura. Resolvelo así:
+  - Leé productos.json y contá cuántos productos hay realmente.
+  - Si hay productos: que el contador muestre el número real (no 0).
+  - Si está en 0 o casi vacío: OCULTÁ el stat "cartas listadas" del hero (mejor no
+    mostrar nada que mostrar un 0), y en el catálogo mostrá un estado vacío con
+    criterio ("Catálogo en preparación — escribinos por WhatsApp para lo que buscás")
+    en vez de "0 resultados" pelado.
+  - Dejá el comportamiento listo para que, cuando se pueble productos.json con sellado
+    real, el contador vuelva a aparecer solo. Comentá en el código cómo se reactiva.
+
+────────────────────────────────────────────────────────
+FASE 5 — NUEVA SECCIÓN "QUIÉN ESTÁ DETRÁS" (el diferenciador)
+────────────────────────────────────────────────────────
+Hoy NO existe y es el mayor diferenciador de la marca. Creá una sección nueva
+(ubicala después de "Singles & Sellado" o antes de "Cómo comprar", lo que fluya mejor):
+  - Título en Archivo Black, eyebrow en Space Mono ("La persona detrás" / "Quién soy").
+  - Espacio para una FOTO real (dejá un placeholder con dimensiones marcadas y un
+    comentario claro de dónde va el archivo, ej. assets/about.jpg).
+  - Copy en primera persona, voz tica cálida, que comunique: 20 años jugando, tops de
+    torneo, conoce el scene competitivo de Cartago, eligió cada carta/sellado con
+    criterio. (Escribí 2–3 párrafos como borrador; marcá entre [corchetes] los datos
+    concretos que el dueño debe confirmar/rellenar, ej. nombres de torneos o logros.)
+  - Algún detalle visual de credibilidad: una fila de "badges" en Space Mono
+    (ej. "20 años", "Tops de torneo", "Cartago, CR") con estilo brutalist.
+  - Consistente con la palette y el kit del resto del sitio.
+
+────────────────────────────────────────────────────────
+FASE 6 — REEMPLAZAR EMOJIS-ÍCONO POR ICONOGRAFÍA DEL KIT
+────────────────────────────────────────────────────────
+Hay emojis usados como íconos que rompen el look brutalist premium:
+  - Singles & Sellado: 🃏 📦
+  - Juegos de mesa: 🏰 👨‍👩‍👧‍👦 🎉 🎲
+  - Otros sueltos en hero/cómo comprar/checkout (🔎 🛒 📦, etc.)
+Reemplazalos por íconos SVG inline coherentes con el kit (línea definida, colores de
+la palette), o por pequeñas ilustraciones del estilo del logo D20. Los SVG van inline
+en el HTML/JS (sin librerías de íconos por CDN). Mantené accesibilidad (aria-hidden en
+los decorativos). Si algún emoji funcional conviene conservar (ej. WhatsApp), está bien,
+pero los íconos de sección deben ser SVG del kit.
+
+────────────────────────────────────────────────────────
+FASE 7 — RECORTAR "JUEGOS DE MESA · PRÓXIMAMENTE"
+────────────────────────────────────────────────────────
+Esa sección ocupa mucho espacio para algo que aún no se vende y compite con el foco
+TCG. Reducila drásticamente:
+  - Convertila en UNA sola franja compacta tipo banner: "Juegos de mesa — próximamente"
+    + el botón "Avisame cuando lleguen", sin las 4 cards grandes.
+  - O dejala como un bloque pequeño al pie, antes del footer.
+  - Conservá el botón de aviso/notificación funcional (#notifyBtn) tal como conecta hoy.
+
+────────────────────────────────────────────────────────
+REGLAS TRANSVERSALES (aplican a todas las fases)
+────────────────────────────────────────────────────────
+  - Fuentes 100% auto-hospedadas. CERO CDN para fuentes. (Otras libs ya existentes en
+    el proyecto podés mantenerlas, pero no agregues nuevas dependencias externas.)
+  - Respetá la palette con variables CSS. Nada de blancos donde deba ir --negro.
+  - Look brutalist consistente: bordes definidos, contrastes fuertes, nada lavado.
+  - Responsive de verdad en cada cambio: probá mentalmente desktop / tablet / móvil.
+  - Accesibilidad: alt, focus visible, roles, aria correctos.
+  - No rompas el carrito, el checkout, el filtrado del catálogo ni los enlaces de
+    WhatsApp/redes que ya funcionan. Si tocás app.js, verificá que esas funciones sigan.
+  - Versioná los assets cacheados: subí el ?v= de styles.css y app.js cuando los edites.
+
+ENTREGA Y VERIFICACIÓN (hacelo al final, no lo saltes):
+  1. Mostrame un resumen ANTES/DESPUÉS de cada fase: qué archivo tocaste y qué cambió.
+  2. Confirmá que no quedó ninguna referencia a Google Fonts / Cormorant / Inter.
+  3. Confirmá que los @font-face usan los nombres reales de archivo de assets/fonts/.
+  4. Listá cualquier asset que el dueño todavía debe entregar (foto "quién está
+     detrás", logos faltantes, sellado real para el catálogo) en una sección
+     "PENDIENTE DE TU LADO".
+  5. Abrí/serví el index.html y revisá que cargue sin errores de consola; reportá
+     cualquier ruta rota.
+
+ORDEN SUGERIDO DE TRABAJO: Fase 1 → 2 → 3 → 4 → 5 → 6 → 7 → verificación.
+Trabajá fase por fase, no todo de un golpe, para que pueda revisar en el camino.
+
+=== FIN DEL PROMPT ===
+```
+
+---
+
+## Notas para vos (no van dentro del prompt)
+
+- **Por qué mantuve css/js separados:** tu sitio real ya está así. Forzar un único
+  `index.html` self-contained sería una reescritura grande y arriesgada sin beneficio
+  real. El prompt corrige lo importante (fuentes self-hosted, sin CDN) sin romper la
+  arquitectura que ya funciona.
+- **Las fuentes están en `.zip`:** el prompt incluye el paso de extraer los `.woff2`.
+  Si preferís, las extraigo yo ahora mismo y te dejo `assets/fonts/` listo antes de
+  correr el prompt.
+- **Logos:** usé `assets/logos/` (el set limpio) como fuente, no `assets/games/`.
+  Hay un logo `weiss.png` ahí que no está en los 5 de lanzamiento — quedó fuera a
+  propósito; decime si querés incluir Weiss Schwarz como sexto juego.
+- **Foto "Quién está detrás":** ese es el cambio de mayor impacto para tu marca y hoy
+  no existe. Vas a necesitar una foto tuya y confirmar los datos concretos (torneos,
+  logros) que dejé entre corchetes.
