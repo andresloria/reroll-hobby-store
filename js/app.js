@@ -62,6 +62,14 @@ const BRANDS = [
 ];
 
 const fmt = n => "₡" + Number(n||0).toLocaleString("es-CR");
+// tamaño del nombre de la carta según su largo (ni diminuto ni gigante)
+function cardNameSize(name){
+  const n = (name||"").length;
+  if(n <= 14) return "1.35rem";
+  if(n <= 22) return "1.18rem";
+  if(n <= 30) return "1.04rem";
+  return ".92rem";
+}
 
 // ---------- Estado de filtros ----------
 let activeCat   = "Todas";
@@ -133,25 +141,36 @@ function selectGame(cat){
 /* ============================================================
    MOSAICOS "EXPLORÁ POR JUEGO"
    ============================================================ */
+// Orden de la grilla "Elegí tu juego" (el 1º es el foco de lanzamiento, va destacado)
+const TILE_GAMES = ["One Piece","Riftbound","Pokémon","Magic","Yu-Gi-Oh"];
 function renderGameTiles(){
   const wrap = $("#gameTiles"); if(!wrap) return;
   wrap.innerHTML = "";
-  BRANDS.forEach(b=>{
-    const count = PRODUCTS.filter(p=>p.cat===b.cat).length;
+  TILE_GAMES.forEach((cat,i)=>{
+    const b = BRANDS.find(x=>x.cat===cat) || { cat, color:"#C13B26", name:cat };
+    const count = PRODUCTS.filter(p=>p.cat===cat).length;
     const tile = document.createElement("button");
-    tile.className = "gametile" + (b.art?" gametile--art":"");
-    tile.style.setProperty("--g", b.color);
-    if(b.art) tile.style.setProperty("--art", `url('${b.art}')`);
-    tile.title = `Ver ${b.cat}`;
-    const logo = b.logo
-      ? `<span class="gametile__plaque"><img src="${b.logo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
-      : `<span class="gametile__plaque gametile__plaque--text" style="color:${b.color}">${b.cat}</span>`;
-    tile.innerHTML = `
-      <span class="gametile__art" aria-hidden="true">${b.glyph}</span>
-      ${logo}
-      <span class="gametile__name">${b.cat}</span>
-      <span class="gametile__count">${count} ${count===1?"carta":"cartas"}</span>`;
-    tile.onclick = ()=> { location.href = "juego.html?g=" + encodeURIComponent(b.cat); };
+    tile.type = "button";
+    tile.className = "gtile" + (i===0 ? " gtile--featured" : "");
+    tile.style.setProperty("--accent", b.color);
+    tile.setAttribute("aria-label", `Ver catálogo de ${cat} (${count} producto${count===1?"":"s"})`);
+
+    const glow = document.createElement("span"); glow.className = "gtile__glow"; glow.setAttribute("aria-hidden","true");
+    const plate = document.createElement("span"); plate.className = "gtile__plate";
+    if(b.logo){
+      const img = document.createElement("img");
+      img.className = "gtile__logo"; img.alt = b.name || cat;
+      img.onerror = ()=>{ const ph=document.createElement("span"); ph.className="gtile__ph"; ph.textContent=cat; plate.replaceChildren(ph); };
+      plate.appendChild(img); img.src = b.logo;
+    } else {
+      const ph=document.createElement("span"); ph.className="gtile__ph"; ph.textContent=cat; plate.appendChild(ph);
+    }
+    const name = document.createElement("span"); name.className="gtile__name"; name.textContent = cat;
+    const cnt  = document.createElement("span"); cnt.className="gtile__count";
+    cnt.textContent = count ? `${count} producto${count===1?"":"s"}` : "Catálogo en preparación";
+    tile.append(glow, plate, name, cnt);
+    if(i===0){ const flag=document.createElement("span"); flag.className="gtile__flag"; flag.textContent="Foco de lanzamiento"; tile.append(flag); }
+    tile.onclick = ()=> selectGame(cat);   // mismo mecanismo de filtro que #gameBar
     wrap.appendChild(tile);
   });
 }
@@ -278,7 +297,7 @@ function renderGrid(){
       </div>
       <div class="card__body">
         <span class="card__cat">${p.cat}${p.color?" · "+p.color:""}</span>
-        <h3 class="card__name">${p.name}</h3>
+        <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${p.name}</h3>
         <span class="card__meta">${metaLine}</span>
         ${stockHtml}
         <div class="card__foot">
