@@ -50,21 +50,21 @@ let PRODUCTS = [
   { id:21, name:"Booster Box Origins",   cat:"Riftbound", type:"sealed", set:"Origins", price:78000, cond:"Sellado", badge:"Sellado", emoji:"📦" },
   // Weiss Schwarz
   { id:22, name:"Hololive Trial Deck",   cat:"Weiss Schwarz", type:"sealed", set:"Hololive", price:15000, cond:"Sellado", badge:"Sellado", emoji:"📦" },
-  // Digimon
-  { id:23, name:"Omnimon Alt Art",       cat:"Digimon", type:"single", set:"BT-12", price:30000, cond:"Near Mint", badge:"", emoji:"⬡" },
 ];
 
 // Juegos que vendemos (orden de la barra).
 //  logo: imagen del logo (assets/logos/...). art: imagen de personaje/arte de fondo
 //  (assets/games/...). Si el archivo de art no existe, se muestra el degradado de color.
+//  logo: versión para fondo CLARO (marquee/gamebar con pastilla blanca).
+//  logoLight: versión clara/transparente para los tiles sobre fondo oscuro.
+//  mono:true  → se pinta en blanco con filtro (logos monocromos opacos).
 const BRANDS = [
-  { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png",   art:"assets/games/pokemon.jpg" },
-  { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", art:"assets/games/riftbound.jpg" },
-  { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#E0903C", logo:"assets/logos/yugioh.png",    art:"assets/games/yugioh.jpg" },
-  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#F0E6D2", logo:"assets/logos/magic.png",     art:"assets/games/magic.jpg" },
-  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", art:"assets/games/one-piece.jpg?v=2" },
-  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png",     art:"assets/games/weiss.jpg" },
-  { cat:"Digimon",       name:"Digimon",              glyph:"⬡", color:"#2BA8E0",                                    art:"assets/games/digimon.jpg" },
+  { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png",   logoLight:"assets/logos/pokemon-tile.png" },
+  { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", logoLight:"assets/logos/riftbound-tile.png" },
+  { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#C13B26", logo:"assets/logos/yugioh.png",    logoLight:"assets/logos/yugioh-tile.webp" },
+  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#C77B3A", logo:"assets/logos/magic.png",     logoLight:"assets/logos/magic-tile.svg", mono:true },
+  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", logoLight:"assets/logos/one-piece-tile.png" },
+  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png" },
 ];
 
 const fmt = n => "₡" + Number(n||0).toLocaleString("es-CR");
@@ -163,11 +163,13 @@ function renderGameTiles(){
 
     const glow = document.createElement("span"); glow.className = "gtile__glow"; glow.setAttribute("aria-hidden","true");
     const plate = document.createElement("span"); plate.className = "gtile__plate";
-    if(b.logo){
+    const src = b.logoLight || b.logo;   // versión clara para fondo oscuro
+    if(src){
       const img = document.createElement("img");
-      img.className = "gtile__logo"; img.alt = b.name || cat;
+      img.className = "gtile__logo" + (b.mono ? " gtile__logo--mono" : "");
+      img.alt = b.name || cat; img.loading = "lazy";
       img.onerror = ()=>{ const ph=document.createElement("span"); ph.className="gtile__ph"; ph.textContent=cat; plate.replaceChildren(ph); };
-      plate.appendChild(img); img.src = b.logo;
+      plate.appendChild(img); img.src = src;
     } else {
       const ph=document.createElement("span"); ph.className="gtile__ph"; ph.textContent=cat; plate.appendChild(ph);
     }
@@ -176,7 +178,8 @@ function renderGameTiles(){
     cnt.textContent = count ? `${count} producto${count===1?"":"s"}` : "Catálogo en preparación";
     tile.append(glow, plate, name, cnt);
     if(i===0){ const flag=document.createElement("span"); flag.className="gtile__flag"; flag.textContent="Foco de lanzamiento"; tile.append(flag); }
-    tile.onclick = ()=> selectGame(cat);   // mismo mecanismo de filtro que #gameBar
+    // abre la página dedicada del juego en una PESTAÑA NUEVA (no ensucia la home)
+    tile.onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(cat)}`, "_blank", "noopener");
     wrap.appendChild(tile);
   });
 }
@@ -544,7 +547,7 @@ function renderBrands(){
     const d = document.createElement("div");
     d.className = "brandbadge";
     d.title = `Ver ${b.cat}`;
-    d.onclick = ()=> selectGame(b.cat);
+    d.onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(b.cat)}`, "_blank", "noopener");
     if(b.logo){
       const img = document.createElement("img");
       img.className = "brandbadge__logo"; img.alt = b.name;

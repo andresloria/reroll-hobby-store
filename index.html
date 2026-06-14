@@ -8,7 +8,7 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=12" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236E1423'/%3E%3Cg fill='%23E8C77A'%3E%3Ccircle cx='30' cy='30' r='9'/%3E%3Ccircle cx='70' cy='30' r='9'/%3E%3Ccircle cx='50' cy='50' r='9'/%3E%3Ccircle cx='30' cy='70' r='9'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3C/g%3E%3C/svg%3E" />
 </head>
 <body>
@@ -159,29 +159,8 @@
     </div>
   </section>
 
-  <!-- ===== QUIÉN ESTÁ DETRÁS (el diferenciador) ===== -->
-  <section class="about" id="quien">
-    <div class="about__inner reveal">
-      <div class="about__photo">
-        <!-- FOTO REAL: guardá assets/about.jpg (vertical, ~800×1000px). Si no existe, se ve este placeholder. -->
-        <img class="about__img" src="assets/about.jpg" alt="Foto de la persona detrás de Reroll Hobby Store"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" />
-        <span class="about__ph" style="display:none">Tu foto acá<br><small>assets/about.jpg · ~800×1000</small></span>
-      </div>
-      <div class="about__copy">
-        <span class="eyebrow">Quién soy</span>
-        <h2>No es una tienda más:<br>soy yo eligiendo cada carta</h2>
-        <p>Pura vida 👋 Soy <strong>[tu nombre]</strong>. Llevo <strong>20 años</strong> jugando TCG y metido en el scene competitivo de Cartago. No vendo cartas que no compraría yo: cada single y cada sellado que ves acá pasó por mi criterio.</p>
-        <p>Jugué <strong>[formatos/juegos que jugás]</strong> y llegué a <strong>[tops/logros — ej. "top 8 en (nombre del torneo)"]</strong>, así que sé lo que pide el meta. Si estás armando mazo o buscás una pieza puntual, te digo si te sirve o si hay algo mejor.</p>
-        <p>Reroll nació para eso: una tienda de Cartago, hecha por alguien que juega, para gente que juega. Escribime y hablamos de cartas. 🎴</p>
-        <ul class="about__badges">
-          <li>20 años jugando</li>
-          <li>Tops de torneo</li>
-          <li>Cartago · CR</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <!-- ===== QUIÉN ESTÁ DETRÁS — quitada por ahora. Reconstruir acá más adelante
+       con foto real (assets/about.jpg) y datos confirmados (nombre, torneos, logros). ===== -->
 
   <!-- ===== JUEGOS DE MESA · PRÓXIMAMENTE (franja compacta) ===== -->
   <section class="soonbar" id="mesa">
@@ -350,6 +329,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=12"></script>
+  <script src="js/app.js?v=13"></script>
 </body>
 </html>

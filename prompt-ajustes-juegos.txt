@@ -1,0 +1,115 @@
+AJUSTES A LA SECCIÓN "ELEGÍ TU JUEGO" Y RETOQUES — REROLL HOBBY STORE
+
+Antes de tocar nada, leé el estado real de: index.html, juego.html, css/styles.css y
+js/app.js. Usá los nombres/ids reales. Trabajá punto por punto y al final mostrame un
+antes/después y subí el ?v= de styles.css y app.js.
+
+────────────────────────────────────────────────────────
+0) URGENTE — RESTAURAR EL ARRANQUE DE app.js
+────────────────────────────────────────────────────────
+El final de js/app.js perdió su bloque de arranque (el archivo quedó cortado en la
+sección "BOTÓN AVISAME"). Faltan, al final del archivo:
+  - el fetch de productos.json (carga el inventario real del panel), y
+  - las llamadas iniciales de render: renderGameBar(); renderGameBanner();
+    renderFilters(); renderGrid(); renderCart(); renderBrands(); renderHeroFan();
+    renderGameTiles();
+Restaurá ese bloque de arranque. Si está en una versión anterior (git/commit v12),
+recuperalo de ahí. Sin esto, la página no pinta los juegos ni el catálogo.
+Asegurate además de que, en la página de juego (juego.html, donde existe #gameBanner),
+el arranque lea el parámetro ?g= con gameParam() y haga: activeCat = gameParam() ANTES
+de renderGameBanner()/renderGrid(), para que muestre el catálogo de ESE juego.
+
+────────────────────────────────────────────────────────
+1) CLICK EN UN JUEGO → ABRIR SU CATÁLOGO EN PESTAÑA NUEVA  (lo más importante)
+────────────────────────────────────────────────────────
+Hoy, al hacer clic en un tile de "Elegí tu juego", la función renderGameTiles() llama
+a selectGame(cat), que solo filtra y hace scroll en la misma página. Quiero lo contrario:
+que abra la página dedicada del juego en una PESTAÑA NUEVA, sin recargar ni ensuciar la
+página principal. Ya existe juego.html y soporta ?g=<juego>.
+
+  - En renderGameTiles(): en vez de tile.onclick = ()=> selectGame(cat), que cada tile
+    sea un enlace real que abre juego.html?g=<cat> en pestaña nueva. Opción A: hacer el
+    tile un <a href="juego.html?g=ENCODE(cat)" target="_blank" rel="noopener"> en lugar
+    de <button>. Opción B: mantener el botón pero con
+    onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(cat)}`, "_blank", "noopener").
+    Usá encodeURIComponent para nombres con caracteres especiales (ej. "Yu-Gi-Oh").
+  - Verificá que juego.html?g=<juego> efectivamente cargue el banner y el grid de ese
+    juego (depende del punto 0: que el arranque setee activeCat = gameParam()).
+  - Mantené accesibilidad: si es <a>, ya es enlace; si es <button>, conservá aria-label.
+  - El mismo comportamiento de "abrir página del juego en pestaña nueva" aplicalo también
+    a la barra de juegos (#gameBar) y a la franja "Trabajamos con" si querés consistencia
+    (opcional, pero deseable). Lo esencial es la grilla "Elegí tu juego".
+
+────────────────────────────────────────────────────────
+2) LOGOS — QUITAR LA "NUBE BLANCA", MISMO TAMAÑO, ARREGLAR POKÉMON
+────────────────────────────────────────────────────────
+Quejas: los logos se ven mal, no están del mismo tamaño, el de Pokémon se ve feo y más
+chico, y no quiero la placa/recuadro blanco (la "nube") detrás de cada logo. Quiero los
+logos limpios sobre el fondo oscuro, conservando el movimiento (hover) actual.
+
+OJO — el porqué de la placa: en css/styles.css, .gtile__plate tiene fondo crema a
+propósito, porque los logos de assets/logos/ son oscuros/opacos y SIN fondo claro
+desaparecen sobre el negro #161616. Si solo borrás la placa, varios logos se vuelven
+invisibles. Entonces hay que resolver las dos cosas:
+
+  a) Conseguir/usar versiones CLARAS o BLANCAS de cada logo para que se lean sobre fondo
+     oscuro. Ya existe una blanca de One Piece en assets/games/logo_op_white.png; usala.
+     Para los demás (Pokémon, Riftbound, Magic, Yu-Gi-Oh), conseguí PNG transparente en
+     versión blanca/clara y alta resolución, y guardalos en assets/logos/ (sobrescribí
+     los actuales o usá sufijo _white y apuntá el campo logo de BRANDS a esos archivos).
+     Para Pokémon en particular: el archivo actual assets/logos/pokemon.png es chico y se
+     ve feo; reemplazalo por uno nítido (el wordmark clásico azul/amarillo se lee bien
+     sobre negro, o una versión blanca). Hay una versión grande en assets/games/pokemon.png
+     que podés usar/optimizar.
+     Plan B solo si no conseguís versión clara de alguno: aplicá un glow/halo MUY sutil
+     detrás del logo (no una caja blanca sólida), o un filtro CSS para monocromos
+     (filter: brightness(0) invert(1)) — pero ese filtro NO sirve para logos multicolor
+     como Pokémon, así que ahí sí usá la versión a color/clara.
+
+  b) Quitar la placa blanca: en .gtile__plate eliminá background:var(--crema), el
+     box-shadow y el border-radius/relleno de caja. Que el logo quede directo sobre el
+     tile (podés conservar .gtile__plate solo como contenedor de centrado, sin fondo).
+
+  c) Mismo tamaño para todos: hoy .gtile__logo usa max-height:50px, así que logos de
+     distinta proporción se ven de tamaños distintos. Cambialo a una ALTURA FIJA pareja
+     (ej. height:64px en grilla normal, ~96px en el tile destacado --featured),
+     width:auto, object-fit:contain, centrado. Así todos los logos ocupan la misma altura
+     visual sin importar el tamaño del archivo (los chicos escalan hacia arriba, los
+     grandes hacia abajo). Probá que ninguno se vea pixelado; si alguno se pixela al
+     agrandar, conseguí un archivo de mayor resolución.
+
+  d) Conservá el hover actual (translateY + glow en el color de acento). No lo quites.
+
+────────────────────────────────────────────────────────
+3) QUITAR DIGIMON
+────────────────────────────────────────────────────────
+Sacá Digimon del sitio:
+  - En js/app.js, borrá del array BRANDS la entrada { cat:"Digimon", ... }.
+  - Borrá del array PRODUCTS el/los producto(s) con cat:"Digimon" (hoy el id:23
+    "Omnimon Alt Art"). Revisá que no quede ninguno.
+  - Verificá que Digimon ya no aparezca en la barra de juegos (#gameBar), en la franja
+    "Trabajamos con", ni en ningún filtro.
+
+────────────────────────────────────────────────────────
+4) QUITAR LA SECCIÓN "QUIÉN ESTÁ DETRÁS / QUIÉN SOY"
+────────────────────────────────────────────────────────
+No me gustó cómo quedó. Quitala por ahora:
+  - Eliminá del index.html la sección "Quién está detrás" (la que se agregó con foto
+    placeholder y badges).
+  - Eliminá del css/styles.css los estilos que quedaron huérfanos de esa sección.
+  - Si había un enlace a esa sección en el menú/nav, quitalo también.
+  - Dejá un comentario corto en el HTML marcando dónde iba, para poder reconstruirla más
+    adelante con una foto real y datos confirmados.
+
+────────────────────────────────────────────────────────
+VERIFICACIÓN (no la saltes)
+────────────────────────────────────────────────────────
+  1. Abrí index.html y confirmá que la grilla "Elegí tu juego" pinta los 5 logos, todos
+     del mismo tamaño, limpios sobre el fondo oscuro (sin caja blanca), con hover.
+  2. Hacé clic en cada juego y confirmá que abre juego.html?g=<juego> en pestaña NUEVA y
+     que esa página muestra el banner y el catálogo de ESE juego.
+  3. Confirmá que Digimon no aparece en ningún lado y que la sección "Quién soy" ya no está.
+  4. Confirmá que el catálogo de la home y el carrito siguen funcionando (el arranque del
+     punto 0 quedó restaurado, productos.json carga, sin errores en la consola).
+  5. Listame qué logos tuviste que reemplazar y cuáles te faltan en buena calidad, por si
+     debo conseguirlos yo.
