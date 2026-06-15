@@ -189,6 +189,9 @@
           <b>Elegí o arrastrá</b> la foto de la carta<br><span style="font-size:.8rem">JPG/PNG · se achica a 600px automáticamente</span>
           <input type="file" id="photo" accept="image/*" hidden />
         </div>
+        <label style="margin-top:10px">…o pegá el <b style="color:var(--gold-bright)">link de una imagen</b> <span style="text-transform:none;letter-spacing:0">(opcional — la tienda la carga directo del link, sin subir nada)</span>
+          <input name="imgUrl" id="imgUrl" type="url" placeholder="https://…/carta.jpg" autocomplete="off" />
+        </label>
         <div class="thumbprev" id="prev" style="display:none">
           <img id="prevImg" alt="" />
           <button type="button" class="btn btn--ghost" id="clearPhoto">Quitar foto</button>
@@ -206,7 +209,7 @@
       <h2>Importar desde Excel / CSV</h2>
       <p class="sub">¿Tenés muchas? Exportá tu Excel como CSV y subilo aquí.</p>
       <div class="filebox" id="csvDrop">
-        <b>Elegí tu archivo CSV</b><br><span style="font-size:.8rem">Columnas: nombre, categoria, precio, estado, etiqueta</span>
+        <b>Elegí tu archivo CSV</b><br><span style="font-size:.8rem">Columnas: nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</span>
         <input type="file" id="csvFile" accept=".csv,text/csv" hidden />
       </div>
       <p class="hint" id="csvHint"></p>
@@ -215,7 +218,7 @@
       </div>
       <details>
         <summary>¿Cómo preparo el Excel?</summary>
-        <p class="hint">Poné estas columnas en la primera fila: <code>nombre, categoria, precio, estado, etiqueta</code>. Llená una fila por carta. En Excel/Google Sheets: <b>Archivo → Descargar → CSV</b>. Las fotos las agregás luego una por una desde el panel de la izquierda (o las dejás con emoji por defecto).</p>
+        <p class="hint">Poné estas columnas en la primera fila: <code>nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</code>. Llená una fila por carta. En Excel/Google Sheets: <b>Archivo → Descargar → CSV</b>. La columna <b>imagen</b> es un <b>link directo a la foto</b> (que termine en .jpg/.png/.webp) — la tienda la carga sola, no hace falta subir nada. Si la dejás vacía, la carta sale con emoji y le podés agregar la foto después desde la izquierda. <i>Ojo:</i> el link tiene que ser público y de un sitio que permita mostrar la imagen en otra página.</p>
       </details>
     </div>
   </div>
@@ -313,12 +316,27 @@ drop.ondragleave = ()=> drop.style.borderColor='';
 drop.ondrop = e=>{e.preventDefault();drop.style.borderColor='';if(e.dataTransfer.files[0])handlePhoto(e.dataTransfer.files[0]);};
 photo.onchange = ()=>{ if(photo.files[0]) handlePhoto(photo.files[0]); };
 async function handlePhoto(file){
+  $('#imgUrl').value='';                 // un archivo subido reemplaza al link
   $('#addHint').textContent='Optimizando foto…';
   pendingImg = await optimize(file);
   $('#prevImg').src = pendingImg; $('#prev').style.display='flex';
   $('#addHint').textContent='';
 }
-$('#clearPhoto').onclick = ()=>{ pendingImg=null; $('#prev').style.display='none'; photo.value=''; };
+/* link de imagen: la tienda la carga directo del URL (no se sube ni se optimiza) */
+const imgUrlInput = $('#imgUrl');
+imgUrlInput.addEventListener('input', ()=>{
+  const u = imgUrlInput.value.trim();
+  if(u){
+    pendingImg = u; photo.value='';        // el link tiene prioridad sobre el archivo
+    const pv=$('#prevImg');
+    pv.onerror = ()=>{ $('#addHint').textContent='⚠ No se pudo cargar la imagen de ese link.'; };
+    pv.onload  = ()=>{ $('#addHint').textContent=''; };
+    pv.src = u; $('#prev').style.display='flex';
+  } else if(!photo.files[0]){
+    pendingImg = null; $('#prev').style.display='none'; $('#addHint').textContent='';
+  }
+});
+$('#clearPhoto').onclick = ()=>{ pendingImg=null; $('#prev').style.display='none'; photo.value=''; imgUrlInput.value=''; $('#addHint').textContent=''; };
 
 /* ====== Agregar / Editar ====== */
 let editingId = null;
@@ -343,18 +361,20 @@ $('#addForm').addEventListener('submit', e=>{
     badge: (f.get('badge')||'').trim(),
     stock: Math.max(0, Number(f.get('stock')||1))
   };
+  // imagen: foto subida (base64) o link pegado (URL). El link gana si está presente.
+  const img = pendingImg || (f.get('imgUrl')||'').trim();
   if(editingId !== null){
     const it = items.find(p=>p.id===editingId);
     if(it){
       Object.assign(it, data);
-      if(pendingImg){ it.img = pendingImg; delete it.emoji; }
+      if(img){ it.img = img; delete it.emoji; }
       else if(!it.img){ it.emoji = emojiByCat[it.cat]||"🎴"; }
       toast('Actualizado: '+it.name);
     }
     exitEdit(); save();
   } else {
     const it = { id: nextId++, ...data };
-    if(pendingImg) it.img = pendingImg; else it.emoji = emojiByCat[it.cat]||"🎴";
+    if(img) it.img = img; else it.emoji = emojiByCat[it.cat]||"🎴";
     items.push(it);
     pendingImg=null; $('#prev').style.display='none'; e.target.reset(); photo.value='';
     save(); toast('Agregado: '+it.name);
@@ -372,8 +392,10 @@ function editItem(id){
   fm.cond.value = p.cond||'Near Mint';
   fm.badge.value = p.badge||'';
   fm.stock.value = (p.stock===undefined||p.stock===null) ? 1 : p.stock;
-  if(p.img){ pendingImg = p.img; $('#prevImg').src = p.img; $('#prev').style.display='flex'; }
-  else { pendingImg = null; $('#prev').style.display='none'; }
+  if(p.img){
+    pendingImg = p.img; $('#prevImg').src = p.img; $('#prev').style.display='flex';
+    $('#imgUrl').value = /^https?:/i.test(p.img) ? p.img : '';   // muestra el link si lo es
+  } else { pendingImg = null; $('#prev').style.display='none'; $('#imgUrl').value=''; }
   $('#submitBtn').textContent = '💾 Guardar cambios';
   $('#cancelEdit').style.display = '';
   render();
@@ -408,27 +430,30 @@ function readCSV(file){
     const head=rows[0].map(h=>h.trim().toLowerCase());
     const idx=n=>head.findIndex(h=>h.includes(n));
     const iN=idx('nombre'), iC=idx('categ'), iP=idx('precio'), iE=idx('estado'), iB=idx('etiq'), iS=idx('cantidad'), iT=idx('tipo'), iX=idx('expans');
-    let added=0;
+    // columna de imagen por link (acepta: imagen, foto, img, url, link)
+    const iIMG = head.findIndex(h=> ['imagen','foto','img','url','link'].some(k=>h.includes(k)) );
+    let added=0, withImg=0;
     rows.slice(1).forEach(r=>{
       const name=(iN>=0?r[iN]:'').trim(); if(!name) return;
       const cat=(iC>=0?r[iC]:'Otro').trim()||'Otro';
       const tipoRaw=(iT>=0?r[iT]:'').trim().toLowerCase();
+      const imgUrl=(iIMG>=0?r[iIMG]:'').trim();
       const it={ id:nextId++, name, cat,
         type: (tipoRaw.includes('sell')||tipoRaw.includes('seal')) ? 'sealed' : 'single',
         set: (iX>=0?r[iX]:'').trim(),
         price:Number((iP>=0?r[iP]:'0').replace(/[^\d.]/g,''))||0,
         cond:(iE>=0?r[iE]:'Near Mint').trim()||'Near Mint', badge:(iB>=0?r[iB]:'').trim(),
-        stock: iS>=0 ? Math.max(0,Number((r[iS]||'').replace(/[^\d]/g,''))||0) : 1,
-        emoji: emojiByCat[cat]||"🎴" };
+        stock: iS>=0 ? Math.max(0,Number((r[iS]||'').replace(/[^\d]/g,''))||0) : 1 };
+      if(imgUrl){ it.img = imgUrl; withImg++; } else { it.emoji = emojiByCat[cat]||"🎴"; }
       items.push(it); added++;
     });
-    save(); $('#csvHint').innerHTML='<span class="ok">Importadas '+added+' filas.</span> Agregales fotos desde la izquierda si querés.';
+    save(); $('#csvHint').innerHTML='<span class="ok">Importadas '+added+' filas'+(withImg?(' ('+withImg+' con imagen por link)'):'')+'.</span> A las que no tengan link, agregales foto desde la izquierda si querés.';
     toast('Importadas '+added);
   };
   r.readAsText(file,'UTF-8');
 }
 $('#tplBtn').onclick=()=>{
-  const csv='nombre,categoria,tipo,expansion,precio,estado,etiqueta,cantidad\nCharizard Holo,Pokémon,single,Base Set,85000,Near Mint,Destacada,3\nBooster Box 151,Pokémon,sellado,151,110000,Sellado,Sellado,5\n';
+  const csv='nombre,categoria,tipo,expansion,precio,estado,etiqueta,cantidad,imagen\nCharizard Holo,Pokémon,single,Base Set,85000,Near Mint,Destacada,3,https://images.pokemontcg.io/base1/4_hires.png\nBooster Box 151,Pokémon,sellado,151,110000,Sellado,Sellado,5,\n';
   download('plantilla-reroll.csv', csv, 'text/csv');
 };
 
