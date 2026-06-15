@@ -181,6 +181,29 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .hero__stats strong{font-family:var(--font-serif);font-size:1.9rem;color:var(--gold-bright);display:block}
 .hero__stats span{font-size:.82rem;color:var(--muted)}
 
+/* ===== HERO singles: una sola columna centrada, buscador protagonista ===== */
+.hero--singles{padding-bottom:clamp(20px,4vw,44px)}
+.hero__inner--single{grid-template-columns:1fr;max-width:860px;text-align:center}
+.hero--singles .lead{margin-left:auto;margin-right:auto;max-width:680px}
+.hero--singles .hero__stats{justify-content:center}
+.search--hero{max-width:600px;margin-left:auto;margin-right:auto;padding:9px 9px 9px 22px}
+.search--hero input{font-size:1.06rem}
+/* chips de acceso rápido por juego (Space Mono, color por juego, vivos) */
+.herochips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px auto 0;max-width:660px}
+.herochip{
+  font-family:var(--font-mono);font-weight:700;font-size:.8rem;letter-spacing:.03em;
+  color:var(--crema);cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:999px;
+  background:color-mix(in srgb, var(--c,#C13B26) 16%, transparent);
+  border:1.5px solid color-mix(in srgb, var(--c,#C13B26) 55%, transparent);
+  transition:transform .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease);
+}
+.herochip:hover{transform:translateY(-2px);
+  background:color-mix(in srgb, var(--c,#C13B26) 30%, transparent);
+  border-color:var(--c,#C13B26);box-shadow:0 8px 22px -12px var(--c,#C13B26)}
+.herochip__dot{width:9px;height:9px;border-radius:50%;background:var(--c,#C13B26);box-shadow:0 0 8px var(--c,#C13B26)}
+@media(max-width:520px){ .herochip{font-size:.74rem;padding:8px 13px} }
+
 /* search */
 .search{
   position:relative;
@@ -449,9 +472,11 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 }
 .gamebtn:hover{transform:translateY(-3px);border-color:var(--gold)}
 .gamebtn.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,75,.3), var(--shadow-gold)}
-.gamebtn--logo{background:#fbfbfb}
-.gamebtn--logo.active{background:#fff}
-.gamebtn__logo{height:30px;width:auto;max-width:130px;object-fit:contain;display:block}
+/* logos directos sobre el fondo oscuro: SIN pastilla/nube blanca */
+.gamebtn--logo{background:rgba(255,255,255,.03)}
+.gamebtn--logo.active{background:rgba(201,162,75,.08)}
+.gamebtn__logo{height:32px;width:auto;max-width:130px;object-fit:contain;display:block;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
 .gamebtn__txt{font-weight:700;font-size:.95rem}
 .gamebtn--all{font-family:var(--font-serif);font-size:1.05rem;color:var(--cream);padding:8px 22px}
 .gamebtn--all.active{background:linear-gradient(135deg,var(--wine-light),var(--wine));color:#fff}
@@ -650,6 +675,16 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .footer__social{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
 .footer__social a{color:#d3c8c0;font-size:.92rem;position:relative}
 .footer__social a:hover{color:var(--gold-bright)}
+/* redes como íconos (logos) */
+.footer__social--icons{gap:14px}
+a.fsoc{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:12px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);color:#d3c8c0;
+  transition:transform .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease)}
+a.fsoc svg{width:20px;height:20px;display:block}
+a.fsoc:hover{transform:translateY(-3px);color:#fff}
+a.fsoc--ig:hover{border-color:#E1306C;background:rgba(225,48,108,.16)}
+a.fsoc--fb:hover{border-color:#1877F2;background:rgba(24,119,242,.16)}
+a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .footer__legal{text-align:center;color:var(--muted);font-size:.82rem;margin-top:36px;border-top:1px solid var(--line);padding-top:20px}
 
 /* ============================================================

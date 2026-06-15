@@ -120,14 +120,14 @@ function renderGameBar(){
     const btn = document.createElement("button");
     btn.className = "gamebtn" + (activeCat===b.cat?" active":"");
     btn.title = b.name;
-    if(b.logo){
+    const src = b.logoLight || b.logo;   // versión clara/transparente: sin pastilla blanca
+    if(src){
       const img = document.createElement("img");
       img.className = "gamebtn__logo"; img.alt = b.name;
       img.onerror = ()=>{ btn.classList.remove("gamebtn--logo"); btn.innerHTML = `<span class="gamebtn__txt" style="color:${b.color}">${b.cat}</span>`; };
       btn.classList.add("gamebtn--logo");
-      if(b.bg) btn.style.background = b.bg;
       btn.appendChild(img);
-      img.src = b.logo;
+      img.src = src;
     } else {
       btn.innerHTML = `<span class="gamebtn__txt" style="color:${b.color}">${b.cat}</span>`;
     }
@@ -181,6 +181,26 @@ function renderGameTiles(){
     // abre la página dedicada del juego en una PESTAÑA NUEVA (no ensucia la home)
     tile.onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(cat)}`, "_blank", "noopener");
     wrap.appendChild(tile);
+  });
+}
+
+/* ============================================================
+   HERO · chips de acceso rápido por juego
+   NO tocan la grilla "Elegí tu juego" ni su clic (abre pestaña nueva).
+   Reusan el MISMO filtro in-page que el #gameBar → selectGame().
+   ============================================================ */
+function renderHeroChips(){
+  const wrap = $("#heroChips"); if(!wrap) return;
+  wrap.innerHTML = "";
+  TILE_GAMES.forEach(cat=>{
+    const b = BRANDS.find(x=>x.cat===cat) || { cat, color:"#C13B26" };
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "herochip";
+    chip.style.setProperty("--c", b.color);
+    chip.innerHTML = `<span class="herochip__dot" aria-hidden="true"></span>${cat}`;
+    chip.onclick = ()=> selectGame(cat);   // mismo mecanismo de filtro que el gameBar
+    wrap.appendChild(chip);
   });
 }
 
@@ -641,7 +661,7 @@ async function loadCatalog(){
       }
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
-  renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles();
+  renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles(); renderHeroChips();
   updateHeroStat();
 }
 // Fase 4: muestra el conteo real solo si hay inventario suficiente; si no, oculta el stat
@@ -668,6 +688,7 @@ renderCart();
 renderBrands();
 renderHeroFan();
 renderGameTiles();
+renderHeroChips();
 loadCatalog();
 $("#year").textContent = new Date().getFullYear();
 $("#catDice")?.addEventListener("click", ()=> document.getElementById("gameBar").scrollIntoView({behavior:"smooth",block:"center"}));
