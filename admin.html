@@ -315,6 +315,16 @@
       <div class="stat stat--sold"><span>Total vendido</span><b id="sSold">₡0</b></div>
       <div class="stat"><span>N° de ventas</span><b id="sCount">0</b></div>
     </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
+      <span class="hint" style="margin:0">📅 Período:</span>
+      <input id="sFrom" type="date" title="Desde" style="width:auto" />
+      <span class="hint" style="margin:0">→</span>
+      <input id="sTo" type="date" title="Hasta" style="width:auto" />
+      <button class="btn btn--ghost" id="sToday" type="button">Hoy</button>
+      <button class="btn btn--ghost" id="sMonth" type="button">Este mes</button>
+      <button class="btn btn--ghost" id="sAll" type="button">Todo</button>
+    </div>
+    <p class="hint" id="salesRangeInfo" style="margin:-2px 0 14px"></p>
     <form id="saleForm">
       <div class="row">
         <label>Producto
@@ -406,6 +416,7 @@ let pendingImg = null;
 let sales = []; try{ sales = JSON.parse(localStorage.getItem('reroll_sales')||'[]'); }catch(e){ sales=[]; }
 let nextSaleId = sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1;
 let saleEditId = null, salesQuery = '';
+let salesFrom = '', salesTo = '';   // rango de fechas para el tablero/historial
 // filtros + paginación del inventario
 let page = 1, pageSize = 50;
 let fCat='all', fSet='all', fType='all', fSort='recent', fMin='', fMax='';
@@ -719,7 +730,19 @@ function updateStickyBar(){ const el=$('#stickyVal'); if(!el) return; el.innerHT
 
 /* ====== VENTAS / CAJA ====== */
 function salesTotal(){ return sales.reduce((s,v)=> s + Number(v.price||0)*Number(v.qty||1), 0); }
-function updateSalesStats(){ const a=$('#sVal'); if(a)a.textContent=fmt(invTotalValue()); const b=$('#sSold'); if(b)b.textContent=fmt(salesTotal()); const c=$('#sCount'); if(c)c.textContent=sales.length; }
+function inSalesRange(d){ d=d||''; if(salesFrom && d<salesFrom) return false; if(salesTo && d>salesTo) return false; return true; }
+function rangeSales(){ return (salesFrom||salesTo) ? sales.filter(s=>inSalesRange(s.date)) : sales; }
+function updateSalesStats(){
+  const rs=rangeSales();
+  const sold=rs.reduce((s,v)=> s + Number(v.price||0)*Number(v.qty||1), 0);
+  const a=$('#sVal'); if(a)a.textContent=fmt(invTotalValue());
+  const b=$('#sSold'); if(b)b.textContent=fmt(sold);
+  const c=$('#sCount'); if(c)c.textContent=rs.length;
+  const info=$('#salesRangeInfo');
+  if(info) info.textContent = (salesFrom||salesTo)
+    ? `Mostrando ${rs.length} venta(s) del período ${salesFrom||'inicio'} → ${salesTo||'hoy'} · ${fmt(sold)}.`
+    : 'Mostrando todas las ventas (todo el historial).';
+}
 function refreshInvNames(){ const dl=$('#invNames'); if(!dl) return; const names=[...new Set(items.map(p=>p.name).filter(Boolean))]; dl.innerHTML=names.map(n=>`<option value="${String(n).replace(/"/g,'&quot;')}"></option>`).join(''); }
 function recalcSaleTotal(){ const q=Number($('#sqty').value||0), pr=Number($('#sprice').value||0); $('#stotal').value=fmt(q*pr); }
 function saveSales(){ localStorage.setItem('reroll_sales', JSON.stringify(sales)); renderSales(); }
@@ -727,7 +750,8 @@ function renderSales(){
   const wrap=$('#salesList'); if(!wrap) return;
   updateSalesStats(); updateStickyBar();
   if(!sales.length){ wrap.innerHTML='<p class="empty">Sin ventas registradas todavía. Registrá la primera arriba 🧾</p>'; return; }
-  let list = salesQuery ? sales.filter(s=>((s.name||'')+' '+(s.channel||'')+' '+(s.date||'')).toLowerCase().includes(salesQuery)) : sales.slice();
+  let list = rangeSales().slice();
+  if(salesQuery) list = list.filter(s=>((s.name||'')+' '+(s.channel||'')+' '+(s.date||'')).toLowerCase().includes(salesQuery));
   list.sort((a,b)=> String(b.date||'').localeCompare(String(a.date||'')) || ((b.id||0)-(a.id||0)));
   if(!list.length){ wrap.innerHTML='<p class="empty">Sin resultados.</p>'; return; }
   wrap.innerHTML='';
@@ -795,6 +819,12 @@ $('#saleForm').addEventListener('submit', e=>{
 });
 $('#saleCancel').onclick=cancelSale;
 $('#salesSearch').addEventListener('input', e=>{ salesQuery=e.target.value.trim().toLowerCase(); renderSales(); });
+/* rango de fechas del tablero/historial */
+$('#sFrom').onchange=e=>{ salesFrom=e.target.value; renderSales(); };
+$('#sTo').onchange=e=>{ salesTo=e.target.value; renderSales(); };
+$('#sToday').onclick=()=>{ const t=new Date().toISOString().slice(0,10); salesFrom=salesTo=t; $('#sFrom').value=t; $('#sTo').value=t; renderSales(); };
+$('#sMonth').onclick=()=>{ const n=new Date(); const f=new Date(n.getFullYear(),n.getMonth(),1).toISOString().slice(0,10); const t=n.toISOString().slice(0,10); salesFrom=f; salesTo=t; $('#sFrom').value=f; $('#sTo').value=t; renderSales(); };
+$('#sAll').onclick=()=>{ salesFrom=''; salesTo=''; $('#sFrom').value=''; $('#sTo').value=''; renderSales(); };
 $('#salesExport').onclick=()=>{ if(!sales.length){ toast('No hay ventas'); return; } download('reroll-ventas.json', JSON.stringify(sales,null,2), 'application/json'); toast('Backup de ventas descargado'); };
 $('#salesImportBtn').onclick=()=>$('#salesFile').click();
 $('#salesFile').onchange=()=>{ const file=$('#salesFile').files[0]; if(!file)return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(Array.isArray(d)){ sales=d.map((s,i)=>({id:s.id??i+1,...s})); nextSaleId=sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1; saveSales(); toast('Ventas importadas ('+sales.length+')'); } else toast('Formato inesperado'); }catch(err){ toast('JSON inválido'); } }; r.readAsText(file); };

@@ -99,7 +99,8 @@ const $  = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
 function media(p, cls){
-  if(p.img) return `<img class="${cls}" src="${p.img}" alt="${p.name}" loading="lazy" />`;
+  // si la imagen es horizontal (battlefields/locations), se rota para llenar el marco vertical
+  if(p.img) return `<img class="${cls}" src="${p.img}" alt="${p.name}" loading="lazy" onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('card__photo--wide')" />`;
   return `<span class="card__emoji">${p.emoji||"🎴"}</span>`;
 }
 
