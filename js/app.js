@@ -62,9 +62,9 @@ const BRANDS = [
   { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png",   logoLight:"assets/logos/pokemon-tile.png" },
   { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", logoLight:"assets/logos/riftbound-tile.png" },
   { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#C13B26", logo:"assets/logos/yugioh.png",    logoLight:"assets/logos/yugioh-tile.webp" },
-  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#C77B3A", logo:"assets/logos/magic.png",     logoLight:"assets/logos/magic-tile.svg", mono:true },
+  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#C77B3A", logo:"assets/logos/magic.png",     logoLight:"assets/logos/magic-tile.png" },
   { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", logoLight:"assets/logos/one-piece-tile.png" },
-  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png" },
+  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png",     logoLight:"assets/logos/weiss-tile.png" },
 ];
 
 const fmt = n => "₡" + Number(n||0).toLocaleString("es-CR");
@@ -195,8 +195,9 @@ function renderGameBanner(){
   el.style.setProperty("--g", color);
   el.classList.toggle("has-art", !!(b && b.art));
   if(b && b.art) el.style.setProperty("--art", `url('${b.art}')`);
-  const logo = b && b.logo
-    ? `<span class="gbanner__plaque"><img src="${b.logo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
+  const bannerLogo = b ? (b.logoLight || b.logo) : null;   // transparente: sin placa blanca
+  const logo = bannerLogo
+    ? `<span class="gbanner__plaque"><img src="${bannerLogo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
     : "";
   document.title = (b? b.cat : "Catálogo") + " · Reroll Hobby Store";
   el.innerHTML = `
@@ -548,14 +549,14 @@ function renderBrands(){
     d.className = "brandbadge";
     d.title = `Ver ${b.cat}`;
     d.onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(b.cat)}`, "_blank", "noopener");
-    if(b.logo){
+    const src = b.logoLight || b.logo;   // versión clara/transparente: sin pastilla blanca
+    if(src){
       const img = document.createElement("img");
       img.className = "brandbadge__logo"; img.alt = b.name;
       img.onerror = ()=>{ d.classList.remove("brandbadge--logo"); d.style.background=""; d.style.borderColor=""; d.innerHTML = textBadge(b); };
       d.classList.add("brandbadge--logo");
-      if(b.bg){ d.style.background = b.bg; d.style.borderColor = "rgba(232,199,122,.4)"; }
       d.appendChild(img);
-      img.src = b.logo;
+      img.src = src;
     } else {
       d.innerHTML = textBadge(b);
     }

@@ -332,9 +332,11 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .brandbadge:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:var(--shadow)}
 .brandbadge__glyph{font-size:1.2rem;line-height:1}
 .brandbadge__txt{font-weight:700;font-size:1.02rem;letter-spacing:.01em}
-.brandbadge--logo{background:#fbfbfb;padding:9px 20px;border-color:rgba(255,255,255,.25)}
-.brandbadge--logo:hover{border-color:var(--gold)}
-.brandbadge__logo{height:32px;width:auto;max-width:160px;object-fit:contain;display:block}
+/* logos directos sobre el fondo oscuro: SIN pastilla/nube blanca */
+.brandbadge--logo{background:transparent;border-color:transparent;padding:6px 14px;backdrop-filter:none}
+.brandbadge--logo:hover{border-color:transparent;box-shadow:none;transform:translateY(-3px)}
+.brandbadge__logo{height:38px;width:auto;max-width:170px;object-fit:contain;display:block;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
 
 /* ============================================================
    EXPLORÁ POR JUEGO (mosaicos)
@@ -409,8 +411,10 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .gbanner__back{position:absolute;top:18px;left:clamp(20px,5vw,80px);font-size:.86rem;color:var(--gold-bright);opacity:.9}
 .gbanner__back:hover{opacity:1;text-decoration:underline}
 .gbanner__inner{max-width:1180px;margin:0 auto;width:100%;display:flex;align-items:center;gap:22px}
-.gbanner__plaque{background:#fbfbfb;border-radius:12px;padding:10px 16px;display:inline-flex;align-items:center;flex-shrink:0;box-shadow:0 12px 28px -12px rgba(0,0,0,.7)}
-.gbanner__plaque img{height:42px;width:auto;max-width:190px;object-fit:contain;display:block}
+/* logo del juego directo sobre el banner: SIN placa/nube blanca */
+.gbanner__plaque{background:transparent;padding:0;display:inline-flex;align-items:center;flex-shrink:0}
+.gbanner__plaque img{height:58px;width:auto;max-width:280px;object-fit:contain;display:block;
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.6))}
 .gbanner__txt{position:relative}
 .gbanner__glyph{position:absolute;right:-38px;top:-26px;font-size:3.6rem;opacity:.16;pointer-events:none}
 .gbanner__txt h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;color:var(--cream)}
