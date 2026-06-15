@@ -112,6 +112,43 @@
   .gate img{width:64px;margin-bottom:14px}
   .gate h2{color:var(--gold-bright);margin-bottom:6px}
   .gate p{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+  /* filtros de inventario */
+  .invfilters{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px}
+  .invfilters label{margin:0;font-size:.76rem}
+  .pricerange{display:flex;gap:8px}
+  .pricerange input{width:100%}
+  /* paginación */
+  .pager{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .pager .btn{padding:8px 16px}
+  .pager__info{color:var(--muted);font-size:.86rem;font-family:var(--font-mono)}
+  .pager select{width:auto;margin:0;padding:7px 10px}
+  /* barra fija de acciones */
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:10px;
+    padding:10px clamp(12px,4vw,28px);border-top:1px solid var(--line);
+    background:linear-gradient(0deg,rgba(22,16,15,.98),rgba(22,16,15,.93));backdrop-filter:blur(10px)}
+  .stickybar__val{font-family:var(--font-mono);font-size:.9rem;color:var(--gold-bright);margin-right:auto;line-height:1.25}
+  .stickybar__val small{display:block;color:var(--muted);font-size:.72rem}
+  body{padding-bottom:86px}
+  @media(max-width:560px){ .stickybar__val small{display:none} .stickybar .btn{padding:10px 14px} }
+  /* ventas / caja */
+  .stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+  @media(max-width:560px){.stats3{grid-template-columns:1fr}}
+  .stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .stat span{display:block;font-size:.72rem;color:var(--muted);font-family:var(--font-mono);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+  .stat b{font-size:1.5rem;color:var(--gold-bright);font-family:var(--font-serif,serif)}
+  .stat--sold b{color:#a9d3a0}
+  .chkline{display:flex;align-items:center;gap:8px;margin:8px 0 2px;font-size:.85rem;color:#d8cdc5}
+  .chkline input{width:auto;margin:0}
+  .sale{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(255,255,255,.02)}
+  .sale .meta{flex:1;min-width:0}
+  .sale .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sale .sm{font-size:.8rem;color:var(--muted)}
+  .sale .pr{color:#a9d3a0;font-weight:700;font-size:.95rem;white-space:nowrap}
+  .sale .acts{display:flex;gap:4px}
+  .sale .e,.sale .x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.05rem;padding:4px 6px;border-radius:7px}
+  .sale .e:hover{color:var(--gold-bright);background:rgba(201,162,75,.12)}
+  .sale .x:hover{color:#e9a3ab;background:rgba(180,60,70,.12)}
+  .sale.editing{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,75,.25)}
 </style>
 </head>
 <body>
@@ -224,7 +261,7 @@
   </div>
 
   <!-- INVENTARIO -->
-  <div class="panel">
+  <div class="panel" id="invPanel">
     <div class="invhead">
       <h2>Inventario <span class="count" id="count">0</span></h2>
       <span class="invval" id="invValue"></span>
@@ -234,13 +271,86 @@
       <button class="btn btn--danger" id="clearAll">Vaciar todo</button>
     </div>
     <p class="hint" id="syncHint" style="margin:-4px 0 10px">Al abrir, el panel carga tu inventario publicado para que no se pierda nada.</p>
-    <input id="invSearch" type="search" placeholder="🔎 Buscar en tu inventario (nombre, juego, expansión)…" style="margin-bottom:12px" />
+    <input id="invSearch" type="search" placeholder="🔎 Buscar (nombre, juego, expansión)…" style="margin-bottom:12px" />
+    <div class="invfilters">
+      <label>Juego<select id="fCat"></select></label>
+      <label>Expansión<select id="fSet"></select></label>
+      <label>Tipo<select id="fType">
+        <option value="all">Todos</option><option value="single">Single</option><option value="sealed">Sellado</option>
+      </select></label>
+      <label>Ordenar<select id="fSort">
+        <option value="recent">Más recientes</option>
+        <option value="name">Nombre A-Z</option>
+        <option value="price-desc">Precio: mayor</option>
+        <option value="price-asc">Precio: menor</option>
+        <option value="stock">Menos stock</option>
+      </select></label>
+      <label>Precio (₡)<div class="pricerange"><input id="fMin" type="number" min="0" placeholder="min" /><input id="fMax" type="number" min="0" placeholder="max" /></div></label>
+    </div>
+    <div class="actions" style="margin:0 0 12px">
+      <button class="btn btn--ghost" id="fClear">Limpiar filtros</button>
+      <span class="hint" id="filterInfo" style="align-self:center"></span>
+    </div>
     <div class="items" id="items"></div>
+    <div class="pager">
+      <button class="btn btn--ghost" id="pgPrev">← Anterior</button>
+      <span class="pager__info" id="pgInfo"></span>
+      <button class="btn btn--ghost" id="pgNext">Siguiente →</button>
+      <select id="pgSize"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select>
+    </div>
 
     <div class="divider"></div>
     <div class="actions">
       <button class="btn btn--gold" id="exportBtn">⬇ Descargar productos.json</button>
-      <span class="hint" style="align-self:center">Luego subí ese archivo a la tienda (o pasámelo) para publicar.</span>
+      <span class="hint" style="align-self:center">Backup, o para publicar directo con la barra de abajo 👇</span>
+    </div>
+  </div>
+
+  <!-- VENTAS / CAJA -->
+  <div class="panel" id="salesPanel">
+    <h2>Ventas / Caja</h2>
+    <p class="sub">Registrá ventas (también las de fuera de la tienda). Se guardan solo en este navegador — descargá el backup cada tanto.</p>
+    <div class="stats3">
+      <div class="stat"><span>Valor en inventario</span><b id="sVal">₡0</b></div>
+      <div class="stat stat--sold"><span>Total vendido</span><b id="sSold">₡0</b></div>
+      <div class="stat"><span>N° de ventas</span><b id="sCount">0</b></div>
+    </div>
+    <form id="saleForm">
+      <div class="row">
+        <label>Producto
+          <input name="sname" id="sname" list="invNames" required placeholder="Nombre de la carta / producto" autocomplete="off" />
+        </label>
+        <label>Canal / nota
+          <select name="schannel" id="schannel">
+            <option>Venta directa</option><option>WhatsApp</option><option>Instagram</option>
+            <option>Facebook</option><option>Presencial</option><option>Tienda web</option><option>Otro</option>
+          </select>
+        </label>
+      </div>
+      <datalist id="invNames"></datalist>
+      <div class="row">
+        <label>Cantidad<input name="sqty" id="sqty" type="number" min="1" value="1" required /></label>
+        <label>Precio unitario (₡)<input name="sprice" id="sprice" type="number" min="0" required placeholder="0" /></label>
+      </div>
+      <div class="row">
+        <label>Fecha<input name="sdate" id="sdate" type="date" /></label>
+        <label>Total<input id="stotal" type="text" readonly placeholder="₡0" /></label>
+      </div>
+      <label class="chkline"><input type="checkbox" id="sdeduct" checked /> Descontar del stock del inventario (si existe esa carta)</label>
+      <div style="margin-top:12px;display:flex;gap:10px">
+        <button class="btn btn--gold btn--block" type="submit" id="saleSubmit">+ Registrar venta</button>
+        <button class="btn btn--ghost" type="button" id="saleCancel" style="display:none">Cancelar</button>
+      </div>
+    </form>
+    <div class="divider"></div>
+    <input id="salesSearch" type="search" placeholder="🔎 Buscar venta (producto, canal, fecha)…" style="margin-bottom:12px" />
+    <div class="items" id="salesList"></div>
+    <div class="divider"></div>
+    <div class="actions">
+      <button class="btn btn--ghost" id="salesExport">⬇ Descargar ventas (backup)</button>
+      <button class="btn btn--ghost" id="salesImportBtn">Importar ventas</button>
+      <input type="file" id="salesFile" accept="application/json,.json" hidden />
+      <button class="btn btn--danger" id="salesClear">Vaciar ventas</button>
     </div>
   </div>
 
@@ -265,6 +375,13 @@
 
 </div>
 
+<!-- barra fija: acciones siempre visibles (no hay que bajar hasta el final) -->
+<div class="stickybar">
+  <span class="stickybar__val" id="stickyVal">—</span>
+  <button class="btn btn--ghost" id="stickyDownload">⬇ Descargar</button>
+  <button class="btn btn--gold" id="stickyPublish">🚀 Publicar</button>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -285,6 +402,13 @@ const $ = s=>document.querySelector(s);
 let items = JSON.parse(localStorage.getItem('reroll_inv')||'[]');
 let nextId = items.reduce((m,p)=>Math.max(m,p.id||0),0)+1;
 let pendingImg = null;
+// ventas (historial local de este navegador)
+let sales = []; try{ sales = JSON.parse(localStorage.getItem('reroll_sales')||'[]'); }catch(e){ sales=[]; }
+let nextSaleId = sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1;
+let saleEditId = null, salesQuery = '';
+// filtros + paginación del inventario
+let page = 1, pageSize = 50;
+let fCat='all', fSet='all', fType='all', fSort='recent', fMin='', fMax='';
 
 const fmt = n => "₡"+Number(n||0).toLocaleString("es-CR");
 const emojiByCat = {"Pokémon":"⚡","Magic":"🌸","Yu-Gi-Oh":"🐉","One Piece":"🏴‍☠️","Riftbound":"💥","Weiss Schwarz":"◆","Digimon":"⬡","Otro":"🎴"};
@@ -402,7 +526,7 @@ function editItem(id){
   fm.scrollIntoView({behavior:'smooth', block:'center'});
 }
 $('#cancelEdit').onclick = exitEdit;
-$('#invSearch').addEventListener('input', e=>{ invQuery = e.target.value.trim().toLowerCase(); render(); });
+$('#invSearch').addEventListener('input', e=>{ invQuery = e.target.value.trim().toLowerCase(); page=1; render(); });
 
 /* ====== Importar CSV ====== */
 const csvDrop=$('#csvDrop'), csvFile=$('#csvFile');
@@ -489,16 +613,16 @@ function pubStatus(msg, ok){ const el=$('#pubStatus'); el.textContent=msg; el.st
 // JSON -> base64 (soporta tildes, ñ y emojis)
 function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
 
-$('#publishBtn').onclick = async ()=>{
+async function publishToStore(){
   const token = ghInput.value.trim();
   localStorage.setItem('reroll_gh_token', token);
-  if(!token){ pubStatus('Pegá tu token de GitHub arriba.', false); return; }
-  if(!items.length){ pubStatus('No hay productos para publicar.', false); return; }
-  const btn=$('#publishBtn'); btn.disabled=true;
+  if(!token){ pubStatus('Pegá tu token de GitHub en la sección "Publicar".', false); toast('Falta el token de GitHub'); $('#ghToken').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  if(!items.length){ pubStatus('No hay productos para publicar.', false); toast('Inventario vacío'); return; }
+  const btns=[$('#publishBtn'),$('#stickyPublish')].filter(Boolean); btns.forEach(b=>b.disabled=true);
   const H = { Authorization:'Bearer '+token, Accept:'application/vnd.github+json' };
   const base = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
   try{
-    pubStatus('Conectando con GitHub…');
+    pubStatus('Conectando con GitHub…'); toast('Publicando…');
     let sha;
     const g = await fetch(`${base}?ref=${GH_BRANCH}&t=${Date.now()}`, { headers:H });
     if(g.ok){ sha = (await g.json()).sha; }
@@ -513,25 +637,65 @@ $('#publishBtn').onclick = async ()=>{
     }
     pubStatus('✅ ¡Publicado! Tu tienda se actualiza sola en ~1 minuto.', true);
     toast('¡Publicado! 🎉');
-  }catch(err){ pubStatus('Error: '+err.message, false); }
-  finally{ btn.disabled=false; }
-};
+  }catch(err){ pubStatus('Error: '+err.message, false); toast('Error al publicar'); }
+  finally{ btns.forEach(b=>b.disabled=false); }
+}
+$('#publishBtn').onclick = publishToStore;
 
-/* ====== Render inventario ====== */
+/* ====== Helpers de stock / valor ====== */
+function stockNum(p){ const s=p.stock; return (s===undefined||s===null||s==='')?1:Number(s||0); }
+function invTotalValue(){ return items.reduce((s,p)=> s + Number(p.price||0)*stockNum(p), 0); }
+function stkSort(p){ const s=p.stock; return (s===undefined||s===null||s==='')?Infinity:Number(s||0); }
+
+/* ====== Filtros + orden del inventario ====== */
+function getFilteredInv(){
+  let list = items.slice();
+  if(fCat!=='all') list=list.filter(p=>(p.cat||'')===fCat);
+  if(fSet!=='all') list=list.filter(p=>(p.set||'')===fSet);
+  if(fType!=='all') list=list.filter(p=>((p.type||'single'))===fType);
+  const mn = fMin!==''?Number(fMin):null, mx = fMax!==''?Number(fMax):null;
+  if(mn!=null) list=list.filter(p=>Number(p.price||0)>=mn);
+  if(mx!=null) list=list.filter(p=>Number(p.price||0)<=mx);
+  if(invQuery) list=list.filter(p=>(p.name+' '+p.cat+' '+(p.set||'')).toLowerCase().includes(invQuery));
+  if(fSort==='name') list.sort((a,b)=>(a.name||'').localeCompare(b.name||'','es'));
+  else if(fSort==='price-desc') list.sort((a,b)=>Number(b.price||0)-Number(a.price||0));
+  else if(fSort==='price-asc') list.sort((a,b)=>Number(a.price||0)-Number(b.price||0));
+  else if(fSort==='stock') list.sort((a,b)=>stkSort(a)-stkSort(b));
+  else list.sort((a,b)=>(b.id||0)-(a.id||0)); // más recientes
+  return list;
+}
+function populateInvFilters(){
+  const cats=[...new Set(items.map(p=>p.cat).filter(Boolean))].sort();
+  const catSel=$('#fCat');
+  if(catSel){ catSel.innerHTML='<option value="all">Todos los juegos</option>'+cats.map(c=>`<option value="${c}">${c}</option>`).join(''); if(!cats.includes(fCat)) fCat='all'; catSel.value=fCat; }
+  const base = fCat==='all'?items:items.filter(p=>p.cat===fCat);
+  const sets=[...new Set(base.map(p=>p.set).filter(Boolean))].sort();
+  const setSel=$('#fSet');
+  if(setSel){ setSel.innerHTML='<option value="all">Todas las expansiones</option>'+sets.map(s=>`<option value="${s}">${s}</option>`).join(''); if(!sets.includes(fSet)) fSet='all'; setSel.value=fSet; }
+}
+
+/* ====== Render inventario (filtros + paginación) ====== */
 function render(){
   const wrap=$('#items');
   $('#count').textContent = items.length;
-  const totalVal = items.reduce((s,p)=> s + Number(p.price||0)*((p.stock===undefined||p.stock===null||p.stock==='')?1:Number(p.stock||0)), 0);
-  const vEl=$('#invValue'); if(vEl) vEl.textContent = items.length ? ('· '+fmt(totalVal)+' en stock') : '';
-  if(!items.length){ wrap.innerHTML='<p class="empty">Todavía no hay productos. Agregá el primero arriba 🎴</p>'; return; }
-  const list = invQuery ? items.filter(p=> (p.name+' '+p.cat+' '+(p.set||'')).toLowerCase().includes(invQuery)) : items;
-  if(!list.length){ wrap.innerHTML='<p class="empty">Sin resultados para “'+invQuery+'”.</p>'; return; }
+  const vEl=$('#invValue'); if(vEl) vEl.textContent = items.length ? ('· '+fmt(invTotalValue())+' en stock') : '';
+  populateInvFilters(); updateStickyBar(); updateSalesStats(); refreshInvNames();
+  if(!items.length){ wrap.innerHTML='<p class="empty">Todavía no hay productos. Agregá el primero arriba 🎴</p>'; $('#pgInfo').textContent=''; $('#filterInfo').textContent=''; return; }
+  const list=getFilteredInv();
+  $('#filterInfo').textContent = list.length!==items.length ? (list.length+' coinciden') : '';
+  const pages=Math.max(1,Math.ceil(list.length/pageSize));
+  if(page>pages) page=pages; if(page<1) page=1;
+  const start=(page-1)*pageSize;
+  const pageItems=list.slice(start,start+pageSize);
+  $('#pgInfo').textContent = list.length ? (`${start+1}–${Math.min(start+pageSize,list.length)} de ${list.length}`) : '0 resultados';
+  $('#pgPrev').disabled = page<=1; $('#pgNext').disabled = page>=pages;
+  if(!list.length){ wrap.innerHTML='<p class="empty">Sin resultados para esos filtros.</p>'; return; }
   wrap.innerHTML='';
-  list.forEach(p=>{
+  pageItems.forEach(p=>{
     const el=document.createElement('div'); el.className='item'+(p.id===editingId?' editing':'');
-    const media = p.img ? `<img src="${p.img}" alt="">` : `<div class="emoji">${p.emoji||'🎴'}</div>`;
-    const stk = (p.stock===undefined||p.stock===null||p.stock==='') ? null : Number(p.stock);
-    const stkTxt = stk===null ? '' : ` · <b style="color:${stk<=0?'#d98a92':(stk<=3?'var(--gold-bright)':'#a9d3a0')}">${stk<=0?'Agotado':stk+' disp.'}</b>`;
+    const media = p.img ? `<img src="${p.img}" alt="" loading="lazy">` : `<div class="emoji">${p.emoji||'🎴'}</div>`;
+    const s = (p.stock===undefined||p.stock===null||p.stock==='') ? null : Number(p.stock);
+    const stkTxt = s===null ? '' : ` · <b style="color:${s<=0?'#d98a92':(s<=3?'var(--gold-bright)':'#a9d3a0')}">${s<=0?'Agotado':s+' disp.'}</b>`;
     const setTxt = p.set ? p.set+' · ' : '';
     const condTxt = p.type==='sealed' ? 'Sellado' : (p.cond||'');
     el.innerHTML = `${media}
@@ -549,7 +713,100 @@ function render(){
     wrap.appendChild(el);
   });
 }
+
+/* ====== Barra fija ====== */
+function updateStickyBar(){ const el=$('#stickyVal'); if(!el) return; el.innerHTML = items.length ? (fmt(invTotalValue())+' <small>'+items.length+' cartas · '+fmt(salesTotal())+' vendido</small>') : 'Inventario vacío'; }
+
+/* ====== VENTAS / CAJA ====== */
+function salesTotal(){ return sales.reduce((s,v)=> s + Number(v.price||0)*Number(v.qty||1), 0); }
+function updateSalesStats(){ const a=$('#sVal'); if(a)a.textContent=fmt(invTotalValue()); const b=$('#sSold'); if(b)b.textContent=fmt(salesTotal()); const c=$('#sCount'); if(c)c.textContent=sales.length; }
+function refreshInvNames(){ const dl=$('#invNames'); if(!dl) return; const names=[...new Set(items.map(p=>p.name).filter(Boolean))]; dl.innerHTML=names.map(n=>`<option value="${String(n).replace(/"/g,'&quot;')}"></option>`).join(''); }
+function recalcSaleTotal(){ const q=Number($('#sqty').value||0), pr=Number($('#sprice').value||0); $('#stotal').value=fmt(q*pr); }
+function saveSales(){ localStorage.setItem('reroll_sales', JSON.stringify(sales)); renderSales(); }
+function renderSales(){
+  const wrap=$('#salesList'); if(!wrap) return;
+  updateSalesStats(); updateStickyBar();
+  if(!sales.length){ wrap.innerHTML='<p class="empty">Sin ventas registradas todavía. Registrá la primera arriba 🧾</p>'; return; }
+  let list = salesQuery ? sales.filter(s=>((s.name||'')+' '+(s.channel||'')+' '+(s.date||'')).toLowerCase().includes(salesQuery)) : sales.slice();
+  list.sort((a,b)=> String(b.date||'').localeCompare(String(a.date||'')) || ((b.id||0)-(a.id||0)));
+  if(!list.length){ wrap.innerHTML='<p class="empty">Sin resultados.</p>'; return; }
+  wrap.innerHTML='';
+  list.forEach(s=>{
+    const el=document.createElement('div'); el.className='sale'+(s.id===saleEditId?' editing':'');
+    el.innerHTML=`<div class="meta"><div class="nm">${s.name} ×${s.qty}</div><div class="sm">${s.date||'—'} · ${s.channel||''}</div></div>
+      <div class="pr">${fmt(Number(s.price||0)*Number(s.qty||1))}</div>
+      <div class="acts"><button class="e" title="Editar">✎</button><button class="x" title="Borrar">✕</button></div>`;
+    el.querySelector('.e').onclick=()=>editSale(s.id);
+    el.querySelector('.x').onclick=()=>{ if(confirm('¿Borrar esta venta?')){ sales=sales.filter(x=>x.id!==s.id); if(s.id===saleEditId) cancelSale(); saveSales(); } };
+    wrap.appendChild(el);
+  });
+}
+function editSale(id){
+  const s=sales.find(x=>x.id===id); if(!s) return;
+  saleEditId=id; const fm=$('#saleForm');
+  fm.sname.value=s.name||''; fm.sqty.value=s.qty||1; fm.sprice.value=s.price||0; fm.sdate.value=s.date||''; fm.schannel.value=s.channel||'Venta directa';
+  recalcSaleTotal();
+  $('#saleSubmit').textContent='💾 Guardar venta'; $('#saleCancel').style.display='';
+  const chk=$('#sdeduct'); chk.checked=false; chk.closest('.chkline').style.opacity=.45;  // al editar no se vuelve a descontar stock
+  renderSales(); fm.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function cancelSale(){
+  saleEditId=null; $('#saleSubmit').textContent='+ Registrar venta'; $('#saleCancel').style.display='none';
+  $('#saleForm').reset(); $('#sdate').value=new Date().toISOString().slice(0,10); $('#stotal').value='';
+  const chk=$('#sdeduct'); chk.checked=true; chk.closest('.chkline').style.opacity=1;
+  renderSales();
+}
+
+/* ====== Bindings: filtros, paginación, ventas, barra fija ====== */
+$('#fCat').onchange=e=>{ fCat=e.target.value; fSet='all'; page=1; render(); };
+$('#fSet').onchange=e=>{ fSet=e.target.value; page=1; render(); };
+$('#fType').onchange=e=>{ fType=e.target.value; page=1; render(); };
+$('#fSort').onchange=e=>{ fSort=e.target.value; page=1; render(); };
+$('#fMin').oninput=e=>{ fMin=e.target.value; page=1; render(); };
+$('#fMax').oninput=e=>{ fMax=e.target.value; page=1; render(); };
+$('#fClear').onclick=()=>{ fCat='all';fSet='all';fType='all';fSort='recent';fMin='';fMax='';invQuery=''; $('#invSearch').value=''; $('#fType').value='all'; $('#fSort').value='recent'; $('#fMin').value=''; $('#fMax').value=''; page=1; render(); };
+$('#pgPrev').onclick=()=>{ if(page>1){ page--; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); } };
+$('#pgNext').onclick=()=>{ page++; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); };
+$('#pgSize').onchange=e=>{ pageSize=Number(e.target.value)||50; page=1; render(); };
+
+$('#sname').addEventListener('input', ()=>{ const it=items.find(p=>(p.name||'').toLowerCase()===$('#sname').value.trim().toLowerCase()); if(it){ $('#sprice').value=it.price||''; recalcSaleTotal(); } });
+$('#sqty').addEventListener('input', recalcSaleTotal);
+$('#sprice').addEventListener('input', recalcSaleTotal);
+$('#saleForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const name=(f.get('sname')||'').trim(); if(!name) return;
+  const qty=Math.max(1,Number(f.get('sqty')||1));
+  const price=Math.max(0,Number(f.get('sprice')||0));
+  const date=f.get('sdate')||new Date().toISOString().slice(0,10);
+  const channel=f.get('schannel')||'Venta directa';
+  if(saleEditId!==null){
+    const s=sales.find(x=>x.id===saleEditId); if(s) Object.assign(s,{name,qty,price,date,channel});
+    toast('Venta actualizada'); cancelSale(); saveSales();
+  } else {
+    sales.push({ id:nextSaleId++, name, qty, price, date, channel });
+    if($('#sdeduct').checked){
+      const it=items.find(p=>(p.name||'').toLowerCase()===name.toLowerCase());
+      if(it){ const cur=(it.stock===undefined||it.stock===null||it.stock==='')?null:Number(it.stock); if(cur!==null){ it.stock=Math.max(0,cur-qty); save(); } }
+    }
+    e.target.reset(); $('#sdate').value=new Date().toISOString().slice(0,10); $('#stotal').value='';
+    saveSales(); toast('Venta registrada 🧾');
+  }
+});
+$('#saleCancel').onclick=cancelSale;
+$('#salesSearch').addEventListener('input', e=>{ salesQuery=e.target.value.trim().toLowerCase(); renderSales(); });
+$('#salesExport').onclick=()=>{ if(!sales.length){ toast('No hay ventas'); return; } download('reroll-ventas.json', JSON.stringify(sales,null,2), 'application/json'); toast('Backup de ventas descargado'); };
+$('#salesImportBtn').onclick=()=>$('#salesFile').click();
+$('#salesFile').onchange=()=>{ const file=$('#salesFile').files[0]; if(!file)return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(Array.isArray(d)){ sales=d.map((s,i)=>({id:s.id??i+1,...s})); nextSaleId=sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1; saveSales(); toast('Ventas importadas ('+sales.length+')'); } else toast('Formato inesperado'); }catch(err){ toast('JSON inválido'); } }; r.readAsText(file); };
+$('#salesClear').onclick=()=>{ if(confirm('¿Borrar TODO el historial de ventas? (descargá un backup primero)')){ sales=[]; nextSaleId=1; saveSales(); } };
+
+$('#stickyDownload').onclick=()=>$('#exportBtn').click();
+$('#stickyPublish').onclick=()=>publishToStore();
+
+/* init */
+$('#sdate').value=new Date().toISOString().slice(0,10);
 render();
+renderSales();
 
 /* ====== Cargar / fusionar el inventario publicado en la tienda ====== */
 function reindex(){ items.forEach((p,i)=> p.id = i+1); nextId = items.length+1; }
