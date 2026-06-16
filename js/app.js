@@ -68,6 +68,9 @@ const BRANDS = [
 ];
 
 const fmt = n => "₡" + Number(n||0).toLocaleString("es-CR");
+// estado abreviado para la pill móvil (NM / Mint / EX …)
+function condShort(c){ c=(c||"").toLowerCase(); if(c.includes("near")) return "NM"; if(c.includes("mint")||c.includes("gem")) return "Mint"; if(c.includes("excel")) return "EX"; if(c.includes("jug")) return "Jugado"; if(c.includes("sell")) return "Sellado"; return c?c[0].toUpperCase()+c.slice(1):""; }
+function condClass(c){ c=(c||"").toLowerCase(); if(c.includes("near")) return "card__cond--nm"; if(c.includes("mint")||c.includes("gem")) return "card__cond--mt"; if(c.includes("excel")) return "card__cond--ex"; return ""; }
 // tamaño del nombre de la carta según su largo (ni diminuto ni gigante)
 function cardNameSize(name){
   const n = (name||"").length;
@@ -82,6 +85,8 @@ let activeCat   = "Todas";
 let activeType  = "all";   // all | single | sealed
 let activeSet   = "all";
 let activeColor = "all";
+let activeCond  = "all";   // filtro de estado (móvil): "all" | "mint" | "near mint" | "excel"
+let priceMax    = null;    // tope de precio (móvil): null = sin límite
 let sortMode    = "rel";
 let query       = "";
 
@@ -287,6 +292,8 @@ function getFiltered(){
     if(activeType!=="all" && (p.type||"single")!==activeType) return false;
     if(activeSet!=="all" && p.set!==activeSet) return false;
     if(activeColor!=="all" && p.color!==activeColor) return false;
+    if(activeCond!=="all" && !((p.cond||"").toLowerCase().includes(activeCond))) return false;
+    if(priceMax!=null && Number(p.price||0) > priceMax) return false;
     if(query){
       const q = query.toLowerCase();
       if(!((p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q))) return false;
@@ -343,6 +350,7 @@ function renderGrid(){
         ${stockHtml}
         <div class="card__foot">
           <span class="card__price">${fmt(p.price)}</span>
+          ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
           <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
         </div>
       </div>`;
@@ -663,6 +671,7 @@ async function loadCatalog(){
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
   renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles(); renderHeroChips();
+  renderMobileFilters(); renderSortSheet(); buildPriceRange();
   updateHeroStat();
 }
 // Fase 4: muestra el conteo real solo si hay inventario suficiente; si no, oculta el stat
@@ -672,6 +681,61 @@ function updateHeroStat(){
   if(PRODUCTS.length >= STAT_MIN){ if(box) box.style.display=""; countUp(el, PRODUCTS.length); }
   else if(box){ box.style.display = "none"; }
 }
+
+/* ============================================================
+   MÓVIL · panel deslizable (bottom sheet) de Filtros y Orden
+   Reusa el MISMO estado/filtrado del catálogo (getFiltered/renderGrid);
+   no duplica lógica, solo cambia la presentación en celular.
+   ============================================================ */
+const MOBILE_GAMES = TILE_GAMES; // One Piece, Riftbound, Pokémon, Magic, Yu-Gi-Oh
+function openSheet(sel){ const s=$(sel); if(!s) return; s.classList.add('open'); s.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeSheet(sel){ const s=$(sel); if(!s) return; s.classList.remove('open'); s.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+function priceCeiling(){
+  const base = PRODUCTS.filter(p=> activeCat==="Todas" || p.cat===activeCat);
+  const m = base.reduce((mx,p)=>Math.max(mx, Number(p.price||0)), 0);
+  return Math.max(1000, Math.ceil(m/1000)*1000);
+}
+function buildPriceRange(){
+  const r=$("#mfPrice"); if(!r) return;
+  const ceil=priceCeiling();
+  r.min=0; r.max=ceil; r.step=100;
+  r.value = (priceMax==null) ? ceil : Math.min(priceMax, ceil);
+  const maxEl=$("#mfPriceMax"); if(maxEl) maxEl.textContent=fmt(ceil);
+  const valEl=$("#mfPriceVal"); if(valEl) valEl.textContent = (priceMax==null) ? ("Hasta "+fmt(ceil)) : ("Hasta "+fmt(Number(r.value)));
+}
+function renderMobileFilters(){
+  const gWrap=$("#mfGames"); if(!gWrap) return;
+  gWrap.innerHTML="";
+  MOBILE_GAMES.forEach(cat=>{
+    const chip=document.createElement("button");
+    chip.type="button"; chip.className="mchip"+(activeCat===cat?" on":"");
+    chip.textContent = cat==="Yu-Gi-Oh" ? "Yu-Gi-Oh!" : cat;
+    chip.onclick=()=>{ activeCat = (activeCat===cat) ? "Todas" : cat; activeSet="all"; activeColor="all"; priceMax=null;
+      renderGameBar(); renderFilters(); renderMobileFilters(); buildPriceRange(); renderGrid(); };
+    gWrap.appendChild(chip);
+  });
+  const cWrap=$("#mfConds"); if(cWrap){ cWrap.innerHTML="";
+    [["mint","Mint"],["near mint","Near Mint"],["excel","Excelente"]].forEach(([v,l])=>{
+      const chip=document.createElement("button");
+      chip.type="button"; chip.className="mchip"+(activeCond===v?" on":"");
+      chip.textContent=l;
+      chip.onclick=()=>{ activeCond=(activeCond===v)?"all":v; renderMobileFilters(); renderGrid(); };
+      cWrap.appendChild(chip);
+    });
+  }
+}
+const SORT_OPTS=[["rel","Relevancia"],["price-asc","Precio: menor a mayor"],["price-desc","Precio: mayor a menor"],["name","Nombre A-Z"]];
+function renderSortSheet(){ const w=$("#sortOpts"); if(!w) return; w.innerHTML="";
+  SORT_OPTS.forEach(([v,l])=>{ const b=document.createElement("button"); b.type="button"; b.className="msortopt"+(sortMode===v?" on":""); b.textContent=l;
+    b.onclick=()=>{ sortMode=v; renderSortSheet(); renderGrid(); closeSheet('#sortSheet'); }; w.appendChild(b); });
+}
+$("#mfFiltersBtn")?.addEventListener("click", ()=>{ renderMobileFilters(); buildPriceRange(); openSheet('#filterSheet'); });
+$("#mfSortBtn")?.addEventListener("click", ()=>{ renderSortSheet(); openSheet('#sortSheet'); });
+$("#mfPrice")?.addEventListener("input", e=>{ const v=Number(e.target.value), ceil=Number(e.target.max);
+  priceMax = (v>=ceil) ? null : v; const valEl=$("#mfPriceVal"); if(valEl) valEl.textContent = (priceMax==null)?("Hasta "+fmt(ceil)):("Hasta "+fmt(v)); renderGrid(); });
+$("#filterApply")?.addEventListener("click", ()=>{ renderGrid(); closeSheet('#filterSheet'); document.getElementById('catalogo')?.scrollIntoView({behavior:'smooth',block:'start'}); });
+document.querySelectorAll('[data-msheet-close]').forEach(el=> el.addEventListener('click', ()=>{ const s=el.closest('.msheet'); if(s) closeSheet('#'+s.id); }));
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeSheet('#filterSheet'); closeSheet('#sortSheet'); } });
 
 /* ============================================================
    INIT
@@ -690,6 +754,8 @@ renderBrands();
 renderHeroFan();
 renderGameTiles();
 renderHeroChips();
+renderMobileFilters();
+renderSortSheet();
 loadCatalog();
 $("#year").textContent = new Date().getFullYear();
 $("#catDice")?.addEventListener("click", ()=> document.getElementById("gameBar").scrollIntoView({behavior:"smooth",block:"center"}));
