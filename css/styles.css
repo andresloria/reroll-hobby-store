@@ -911,6 +911,12 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .offer__card h3{font-size:clamp(1.4rem,6vw,1.9rem)}
   h1,h2,h3{overflow-wrap:break-word}
   .hero .lead{font-size:1rem}
+  /* hero: en móvil el grid hacía "blowout" por el buscador y descentraba todo.
+     Lo pasamos a bloque y limitamos el buscador para que quede bien centrado. */
+  .hero__inner, .hero__inner--single{display:block;max-width:100%}
+  .hero__copy{min-width:0}
+  .hero--singles .search--hero{max-width:100%;margin-left:auto;margin-right:auto}
+  .search input{min-width:0}
   /* header delgado */
   .nav__inner{padding-top:10px;padding-bottom:10px}
   /* carrito y checkout a pantalla completa */
