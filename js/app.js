@@ -286,9 +286,9 @@ function renderFilters(){
 /* ============================================================
    GRID
    ============================================================ */
-const GRID_PAGE_SIZE = 25;   // cartas por página en la tienda
-let gridPage = 1;
-let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la página 1
+const GRID_PAGE_SIZE = 25;   // cartas que se muestran de entrada / por cada "Cargar más"
+let gridLimit = GRID_PAGE_SIZE;
+let _lastFilterSig = "";     // para detectar cambios de filtro y reiniciar a 25
 function getFiltered(){
   let items = PRODUCTS.filter(p=>{
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
@@ -308,105 +308,89 @@ function getFiltered(){
   else if(sortMode==="name")  items.sort((a,b)=>a.name.localeCompare(b.name,"es"));
   return items;
 }
+// crea el <article> de una carta (factorizado para poder APPEND-ear en "Cargar más")
+function makeCard(p, i){
+  const el = document.createElement("article");
+  el.className = "card";
+  el.style.animationDelay = (Math.min(i,16)*40)+"ms";   // tope para que no se acumulen delays gigantes
+  const metaLine = p.type==="sealed"
+    ? `${p.set?p.set+" · ":""}Producto sellado`
+    : `${p.set?p.set+" · ":""}${p.cond}`;
+  const stock = (p.stock===undefined || p.stock===null || p.stock==="") ? null : Number(p.stock);
+  const soldOut = stock!==null && stock<=0;
+  let stockHtml = "";
+  if(stock!==null){
+    if(soldOut) stockHtml = `<span class="card__stock card__stock--out">Agotado</span>`;
+    else if(stock<=3) stockHtml = `<span class="card__stock card__stock--low">¡Solo ${stock} disponible${stock>1?"s":""}!</span>`;
+    else stockHtml = `<span class="card__stock">${stock} disponibles</span>`;
+  }
+  el.innerHTML = `
+    <div class="card__img${p.img?" card__img--photo":""}${soldOut?" card__img--out":""}">
+      ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
+      <button class="card__fav" aria-label="Favorito" title="Guardar">♡</button>
+      ${media(p,"card__photo")}
+    </div>
+    <div class="card__body">
+      <span class="card__cat">${p.cat}${p.color?" · "+p.color:""}</span>
+      <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${p.name}</h3>
+      <span class="card__meta">${metaLine}</span>
+      ${stockHtml}
+      <div class="card__foot">
+        <span class="card__price">${fmt(p.price)}</span>
+        ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
+        <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
+      </div>
+    </div>`;
+  if(!soldOut) el.querySelector(".card__add").onclick = ()=> addToCart(p.id);
+  el.querySelector(".card__fav").onclick = (e)=>{
+    e.currentTarget.textContent = e.currentTarget.textContent==="♡" ? "♥" : "♡";
+    e.currentTarget.style.color = e.currentTarget.textContent==="♥" ? "var(--gold-bright)" : "";
+  };
+  return el;
+}
 function renderGrid(){
   const grid = $("#grid");
   const items = getFiltered();
-  // Fase 4: nada de "0 resultados" pelado
   const cnt = $("#resultCount"); if(cnt) cnt.textContent = items.length ? `${items.length} resultado${items.length!==1?"s":""}` : "";
   const empty = $("#empty");
   if(empty){
     empty.hidden = items.length>0;
     if(!items.length){
-      // catálogo global casi vacío (pre-apertura) vs. filtro sin coincidencias
       empty.innerHTML = (PRODUCTS.length < CATALOG_MIN)
         ? `Catálogo en preparación 🛠️<br><a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20%C2%BFTen%C3%A9s%20esto%3A%20" target="_blank" rel="noopener" class="empty__cta">Escribinos por WhatsApp y te conseguimos lo que buscás →</a>`
         : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
     }
   }
-  // paginación: 25 por página; vuelve a la pág. 1 si cambió algún filtro/orden/búsqueda
+  // "Cargar más": muestra 25 y suma de a 25. Vuelve a 25 si cambió filtro/orden/búsqueda.
   const sig = [activeCat,activeType,activeSet,activeColor,activeCond,priceMax,sortMode,query].join("|");
-  if(sig !== _lastFilterSig){ gridPage = 1; _lastFilterSig = sig; }
-  const totalPages = Math.max(1, Math.ceil(items.length / GRID_PAGE_SIZE));
-  if(gridPage > totalPages) gridPage = totalPages;
-  const startIdx = (gridPage - 1) * GRID_PAGE_SIZE;
-  const pageItems = items.slice(startIdx, startIdx + GRID_PAGE_SIZE);
-  renderPager(items.length, totalPages);
+  if(sig !== _lastFilterSig){ gridLimit = GRID_PAGE_SIZE; _lastFilterSig = sig; }
+  gridLimit = Math.min(gridLimit, Math.max(GRID_PAGE_SIZE, items.length));
   grid.innerHTML = "";
-  pageItems.forEach((p,i)=>{
-    const el = document.createElement("article");
-    el.className = "card";
-    el.style.animationDelay = (i*45)+"ms";
-    const metaLine = p.type==="sealed"
-      ? `${p.set?p.set+" · ":""}Producto sellado`
-      : `${p.set?p.set+" · ":""}${p.cond}`;
-    // cantidad disponible (stock)
-    const stock = (p.stock===undefined || p.stock===null || p.stock==="") ? null : Number(p.stock);
-    const soldOut = stock!==null && stock<=0;
-    let stockHtml = "";
-    if(stock!==null){
-      if(soldOut) stockHtml = `<span class="card__stock card__stock--out">Agotado</span>`;
-      else if(stock<=3) stockHtml = `<span class="card__stock card__stock--low">¡Solo ${stock} disponible${stock>1?"s":""}!</span>`;
-      else stockHtml = `<span class="card__stock">${stock} disponibles</span>`;
-    }
-    el.innerHTML = `
-      <div class="card__img${p.img?" card__img--photo":""}${soldOut?" card__img--out":""}">
-        ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
-        <button class="card__fav" aria-label="Favorito" title="Guardar">♡</button>
-        ${media(p,"card__photo")}
-      </div>
-      <div class="card__body">
-        <span class="card__cat">${p.cat}${p.color?" · "+p.color:""}</span>
-        <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${p.name}</h3>
-        <span class="card__meta">${metaLine}</span>
-        ${stockHtml}
-        <div class="card__foot">
-          <span class="card__price">${fmt(p.price)}</span>
-          ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
-          <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
-        </div>
-      </div>`;
-    if(!soldOut) el.querySelector(".card__add").onclick = ()=> addToCart(p.id);
-    el.querySelector(".card__fav").onclick = (e)=>{
-      e.currentTarget.textContent = e.currentTarget.textContent==="♡" ? "♥" : "♡";
-      e.currentTarget.style.color = e.currentTarget.textContent==="♥" ? "var(--gold-bright)" : "";
-    };
-    grid.appendChild(el);
-  });
+  items.slice(0, gridLimit).forEach((p,i)=> grid.appendChild(makeCard(p,i)));
+  renderLoadMore(items.length);
 }
-
-/* ---------- Paginador del catálogo (25 por página) ---------- */
-function pageWindow(cur, total){
-  const set = new Set([1, total, cur, cur-1, cur+1]);
-  const sorted = [...set].filter(p=>p>=1 && p<=total).sort((a,b)=>a-b);
-  const out = []; let prev = 0;
-  sorted.forEach(p=>{ if(p-prev>1) out.push("…"); out.push(p); prev=p; });
-  return out;
+// agrega las siguientes 25 sin recargar lo ya visto ni mover el scroll
+function loadMore(){
+  const items = getFiltered();
+  const grid = $("#grid");
+  const start = gridLimit;
+  gridLimit = Math.min(gridLimit + GRID_PAGE_SIZE, items.length);
+  items.slice(start, gridLimit).forEach((p,i)=> grid.appendChild(makeCard(p, start+i)));
+  renderLoadMore(items.length);
 }
-function renderPager(total, totalPages){
+function renderLoadMore(total){
   const wrap = $("#gridPager"); if(!wrap) return;
-  if(totalPages <= 1){ wrap.innerHTML = ""; wrap.hidden = true; return; }
+  const shown = Math.min(gridLimit, total);
+  if(shown >= total){   // ya está todo cargado
+    if(total > GRID_PAGE_SIZE){ wrap.hidden=false; wrap.innerHTML = `<span class="gridpager__info">Mostrando las ${total} cartas</span>`; }
+    else { wrap.hidden=true; wrap.innerHTML=""; }
+    return;
+  }
   wrap.hidden = false;
-  const from = (gridPage-1)*GRID_PAGE_SIZE + 1;
-  const to   = Math.min(gridPage*GRID_PAGE_SIZE, total);
-  let html = `<button class="gridpager__btn" data-pg="prev"${gridPage<=1?" disabled":""} aria-label="Anterior">‹</button>`;
-  pageWindow(gridPage, totalPages).forEach(p=>{
-    html += (p==="…")
-      ? `<span class="gridpager__dots">…</span>`
-      : `<button class="gridpager__btn${p===gridPage?" is-active":""}" data-pg="${p}">${p}</button>`;
-  });
-  html += `<button class="gridpager__btn" data-pg="next"${gridPage>=totalPages?" disabled":""} aria-label="Siguiente">›</button>`;
-  html += `<span class="gridpager__info">${from}–${to} de ${total}</span>`;
-  wrap.innerHTML = html;
-  wrap.querySelectorAll("[data-pg]").forEach(b=>{
-    b.onclick = ()=>{
-      const v = b.dataset.pg;
-      if(v==="prev") gridPage = Math.max(1, gridPage-1);
-      else if(v==="next") gridPage = Math.min(totalPages, gridPage+1);
-      else gridPage = Number(v);
-      renderGrid();
-      (document.getElementById("catalogo") || document.getElementById("grid"))?.scrollIntoView({behavior:"smooth", block:"start"});
-    };
-  });
+  const remaining = total - shown;
+  wrap.innerHTML = `<button class="btn btn--gold gridmore" id="loadMoreBtn">Cargar más (${remaining} restante${remaining!==1?"s":""})</button>`+
+                   `<span class="gridpager__info">Mostrando ${shown} de ${total}</span>`;
+  $("#loadMoreBtn").onclick = loadMore;
 }
 
 /* ============================================================
