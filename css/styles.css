@@ -608,6 +608,16 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   transition:all .22s var(--ease);
 }
 .card__add:hover{background:var(--gold);color:#2a1a08}
+/* paginador del catálogo (25 por página) */
+.gridpager{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;max-width:680px;margin:34px auto 0}
+.gridpager__btn{min-width:42px;height:42px;padding:0 11px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--cream);font-family:var(--font-mono);font-size:.9rem;font-weight:700;border-radius:10px;cursor:pointer;
+  transition:border-color .2s var(--ease),background .2s var(--ease),color .2s var(--ease)}
+.gridpager__btn:hover:not([disabled]){border-color:var(--gold);color:var(--gold-bright)}
+.gridpager__btn.is-active{background:var(--amarillo);color:var(--negro);border-color:var(--amarillo)}
+.gridpager__btn[disabled]{opacity:.4;cursor:not-allowed}
+.gridpager__dots{color:var(--muted);padding:0 2px}
+.gridpager__info{flex-basis:100%;text-align:center;margin-top:8px;font-family:var(--font-mono);font-size:.78rem;color:var(--muted)}
 .empty{text-align:center;color:var(--muted);padding:50px 18px;font-family:var(--font-body);font-size:1.05rem;line-height:1.7}
 .empty__cta{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-weight:700;font-size:.86rem;
   color:var(--negro);background:var(--amarillo);padding:9px 16px;border-radius:999px;text-decoration:none;

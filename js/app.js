@@ -286,6 +286,9 @@ function renderFilters(){
 /* ============================================================
    GRID
    ============================================================ */
+const GRID_PAGE_SIZE = 25;   // cartas por página en la tienda
+let gridPage = 1;
+let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la página 1
 function getFiltered(){
   let items = PRODUCTS.filter(p=>{
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
@@ -320,8 +323,16 @@ function renderGrid(){
         : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
     }
   }
+  // paginación: 25 por página; vuelve a la pág. 1 si cambió algún filtro/orden/búsqueda
+  const sig = [activeCat,activeType,activeSet,activeColor,activeCond,priceMax,sortMode,query].join("|");
+  if(sig !== _lastFilterSig){ gridPage = 1; _lastFilterSig = sig; }
+  const totalPages = Math.max(1, Math.ceil(items.length / GRID_PAGE_SIZE));
+  if(gridPage > totalPages) gridPage = totalPages;
+  const startIdx = (gridPage - 1) * GRID_PAGE_SIZE;
+  const pageItems = items.slice(startIdx, startIdx + GRID_PAGE_SIZE);
+  renderPager(items.length, totalPages);
   grid.innerHTML = "";
-  items.forEach((p,i)=>{
+  pageItems.forEach((p,i)=>{
     const el = document.createElement("article");
     el.className = "card";
     el.style.animationDelay = (i*45)+"ms";
@@ -360,6 +371,41 @@ function renderGrid(){
       e.currentTarget.style.color = e.currentTarget.textContent==="♥" ? "var(--gold-bright)" : "";
     };
     grid.appendChild(el);
+  });
+}
+
+/* ---------- Paginador del catálogo (25 por página) ---------- */
+function pageWindow(cur, total){
+  const set = new Set([1, total, cur, cur-1, cur+1]);
+  const sorted = [...set].filter(p=>p>=1 && p<=total).sort((a,b)=>a-b);
+  const out = []; let prev = 0;
+  sorted.forEach(p=>{ if(p-prev>1) out.push("…"); out.push(p); prev=p; });
+  return out;
+}
+function renderPager(total, totalPages){
+  const wrap = $("#gridPager"); if(!wrap) return;
+  if(totalPages <= 1){ wrap.innerHTML = ""; wrap.hidden = true; return; }
+  wrap.hidden = false;
+  const from = (gridPage-1)*GRID_PAGE_SIZE + 1;
+  const to   = Math.min(gridPage*GRID_PAGE_SIZE, total);
+  let html = `<button class="gridpager__btn" data-pg="prev"${gridPage<=1?" disabled":""} aria-label="Anterior">‹</button>`;
+  pageWindow(gridPage, totalPages).forEach(p=>{
+    html += (p==="…")
+      ? `<span class="gridpager__dots">…</span>`
+      : `<button class="gridpager__btn${p===gridPage?" is-active":""}" data-pg="${p}">${p}</button>`;
+  });
+  html += `<button class="gridpager__btn" data-pg="next"${gridPage>=totalPages?" disabled":""} aria-label="Siguiente">›</button>`;
+  html += `<span class="gridpager__info">${from}–${to} de ${total}</span>`;
+  wrap.innerHTML = html;
+  wrap.querySelectorAll("[data-pg]").forEach(b=>{
+    b.onclick = ()=>{
+      const v = b.dataset.pg;
+      if(v==="prev") gridPage = Math.max(1, gridPage-1);
+      else if(v==="next") gridPage = Math.min(totalPages, gridPage+1);
+      else gridPage = Number(v);
+      renderGrid();
+      (document.getElementById("catalogo") || document.getElementById("grid"))?.scrollIntoView({behavior:"smooth", block:"start"});
+    };
   });
 }
 
