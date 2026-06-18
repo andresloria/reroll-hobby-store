@@ -286,9 +286,9 @@ function renderFilters(){
 /* ============================================================
    GRID
    ============================================================ */
-const GRID_PAGE_SIZE = 25;   // cartas que se muestran de entrada / por cada "Cargar más"
-let gridLimit = GRID_PAGE_SIZE;
-let _lastFilterSig = "";     // para detectar cambios de filtro y reiniciar a 25
+const GRID_PAGE_SIZE = 25;   // cartas por página en la tienda
+let gridPage = 1;
+let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la página 1
 function getFiltered(){
   let items = PRODUCTS.filter(p=>{
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
@@ -361,36 +361,49 @@ function renderGrid(){
         : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
     }
   }
-  // "Cargar más": muestra 25 y suma de a 25. Vuelve a 25 si cambió filtro/orden/búsqueda.
+  // paginación: 25 por página; vuelve a la pág. 1 si cambió algún filtro/orden/búsqueda
   const sig = [activeCat,activeType,activeSet,activeColor,activeCond,priceMax,sortMode,query].join("|");
-  if(sig !== _lastFilterSig){ gridLimit = GRID_PAGE_SIZE; _lastFilterSig = sig; }
-  gridLimit = Math.min(gridLimit, Math.max(GRID_PAGE_SIZE, items.length));
+  if(sig !== _lastFilterSig){ gridPage = 1; _lastFilterSig = sig; }
+  const totalPages = Math.max(1, Math.ceil(items.length / GRID_PAGE_SIZE));
+  if(gridPage > totalPages) gridPage = totalPages;
+  const startIdx = (gridPage - 1) * GRID_PAGE_SIZE;
   grid.innerHTML = "";
-  items.slice(0, gridLimit).forEach((p,i)=> grid.appendChild(makeCard(p,i)));
-  renderLoadMore(items.length);
+  items.slice(startIdx, startIdx + GRID_PAGE_SIZE).forEach((p,i)=> grid.appendChild(makeCard(p,i)));
+  renderPager(items.length, totalPages);
 }
-// agrega las siguientes 25 sin recargar lo ya visto ni mover el scroll
-function loadMore(){
-  const items = getFiltered();
-  const grid = $("#grid");
-  const start = gridLimit;
-  gridLimit = Math.min(gridLimit + GRID_PAGE_SIZE, items.length);
-  items.slice(start, gridLimit).forEach((p,i)=> grid.appendChild(makeCard(p, start+i)));
-  renderLoadMore(items.length);
+/* ---------- Paginador del catálogo (25 por página) ---------- */
+function pageWindow(cur, total){
+  const set = new Set([1, total, cur, cur-1, cur+1]);
+  const sorted = [...set].filter(p=>p>=1 && p<=total).sort((a,b)=>a-b);
+  const out = []; let prev = 0;
+  sorted.forEach(p=>{ if(p-prev>1) out.push("…"); out.push(p); prev=p; });
+  return out;
 }
-function renderLoadMore(total){
+function renderPager(total, totalPages){
   const wrap = $("#gridPager"); if(!wrap) return;
-  const shown = Math.min(gridLimit, total);
-  if(shown >= total){   // ya está todo cargado
-    if(total > GRID_PAGE_SIZE){ wrap.hidden=false; wrap.innerHTML = `<span class="gridpager__info">Mostrando las ${total} cartas</span>`; }
-    else { wrap.hidden=true; wrap.innerHTML=""; }
-    return;
-  }
+  if(totalPages <= 1){ wrap.innerHTML = ""; wrap.hidden = true; return; }
   wrap.hidden = false;
-  const remaining = total - shown;
-  wrap.innerHTML = `<button class="btn btn--gold gridmore" id="loadMoreBtn">Cargar más (${remaining} restante${remaining!==1?"s":""})</button>`+
-                   `<span class="gridpager__info">Mostrando ${shown} de ${total}</span>`;
-  $("#loadMoreBtn").onclick = loadMore;
+  const from = (gridPage-1)*GRID_PAGE_SIZE + 1;
+  const to   = Math.min(gridPage*GRID_PAGE_SIZE, total);
+  let html = `<button class="gridpager__btn" data-pg="prev"${gridPage<=1?" disabled":""} aria-label="Anterior">‹</button>`;
+  pageWindow(gridPage, totalPages).forEach(p=>{
+    html += (p==="…")
+      ? `<span class="gridpager__dots">…</span>`
+      : `<button class="gridpager__btn${p===gridPage?" is-active":""}" data-pg="${p}">${p}</button>`;
+  });
+  html += `<button class="gridpager__btn" data-pg="next"${gridPage>=totalPages?" disabled":""} aria-label="Siguiente">›</button>`;
+  html += `<span class="gridpager__info">${from}–${to} de ${total}</span>`;
+  wrap.innerHTML = html;
+  wrap.querySelectorAll("[data-pg]").forEach(b=>{
+    b.onclick = ()=>{
+      const v = b.dataset.pg;
+      if(v==="prev") gridPage = Math.max(1, gridPage-1);
+      else if(v==="next") gridPage = Math.min(totalPages, gridPage+1);
+      else gridPage = Number(v);
+      renderGrid();
+      (document.getElementById("catalogo") || document.getElementById("grid"))?.scrollIntoView({behavior:"smooth", block:"start"});
+    };
+  });
 }
 
 /* ============================================================

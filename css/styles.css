@@ -22,15 +22,15 @@
   --ink-2:       #211816;
   --cream:       #FAF6EF;
   --paper:       #F3ECE2;
-  --muted:       #8c7f78;
+  --muted:       #b3a79e;
   --line:        rgba(201,162,75,.22);
 
   /* Paleta brutalist (kit nuevo) */
-  --negro:       #161616;
-  --crema:       #F4F1EA;
+  --negro:       var(--ink);
+  --crema:       var(--cream);
   --terracota:   #C13B26;   /* rojo ancla del D20 */
   --vino:        #6B1F2A;
-  --amarillo:    #F2C230;
+  --amarillo:    var(--gold-bright);
 
   --radius:      18px;
   --radius-sm:   12px;
@@ -61,6 +61,7 @@ body{
   overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
 img{max-width:100%;display:block}
 section{padding:clamp(56px,8vw,110px) clamp(20px,5vw,80px)}
 
@@ -70,9 +71,9 @@ h1{font-size:clamp(2.6rem,6vw,4.6rem)}
 h2{font-size:clamp(2rem,4vw,3.1rem)}
 .text-gold{
   background:linear-gradient(100deg,var(--gold) 10%,var(--gold-bright) 45%,#fff7e0 60%,var(--gold) 90%);
-  background-size:200% auto;
+  background-size:100% auto;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:shine 6s linear infinite;
+  background-position:center;
 }
 @keyframes shine{to{background-position:200% center}}
 .eyebrow{
@@ -145,7 +146,6 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .brand__logo{
   width:42px;height:42px;object-fit:contain;
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.5));
-  animation:logoWobble 4.5s ease-in-out infinite;
   transform-origin:center 60%;
 }
 @keyframes logoWobble{
@@ -454,7 +454,7 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 /* cabecera con dadito + nubecita */
 .cathead{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 26px;max-width:640px}
 .cathead__dice{flex-shrink:0;width:58px;height:58px;border:none;background:none;cursor:pointer;padding:0;
-  filter:drop-shadow(0 6px 12px rgba(0,0,0,.5));animation:mascotBob 3.5s ease-in-out infinite}
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,.5))}
 .cathead__dice img{width:100%;height:100%;object-fit:contain;pointer-events:none}
 .cathead__dice:hover{transform:scale(1.07)}
 .cathead__bubble{position:relative;background:var(--cream);color:#2a1a12;border-radius:16px;
