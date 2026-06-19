@@ -498,6 +498,10 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 /* opciones legibles (evita texto blanco sobre fondo blanco al desplegar) */
 select option, select optgroup{background:#211816;color:#FAF6EF}
 .filters__count{font-size:.82rem;color:var(--muted);align-self:center;margin-left:auto}
+.filters__toggle{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;color:#d4c9c1;cursor:pointer;user-select:none;white-space:nowrap;align-self:center}
+.filters__toggle input{width:16px;height:16px;accent-color:var(--terracota);cursor:pointer}
+.msheet__check{display:flex;align-items:center;gap:9px;margin-top:16px;font-size:.92rem;color:var(--crema);cursor:pointer}
+.msheet__check input{width:18px;height:18px;accent-color:var(--terracota);cursor:pointer}
 @media(max-width:560px){
   .cathead{flex-direction:column;text-align:center}
   .cathead__bubble::after{left:50%;top:-8px;margin:0 0 0 -8px;border-left:1px solid var(--gold);border-top:1px solid var(--gold);border-bottom:none}

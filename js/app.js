@@ -89,6 +89,12 @@ let activeCond  = "all";   // filtro de estado (móvil): "all" | "mint" | "near 
 let priceMax    = null;    // tope de precio (móvil): null = sin límite
 let sortMode    = "rel";
 let query       = "";
+let showSoldOut = false;   // por defecto NO se muestran las cartas agotadas (stock 0)
+
+// stock de un producto: null = ilimitado (sin campo), número = unidades
+function stockVal(p){ const s=p.stock; return (s===undefined||s===null||s==="")?null:Number(s); }
+// disponible = sin campo de stock (ilimitado) o con stock > 0
+function isAvailable(p){ const s=stockVal(p); return s===null || s>0; }
 
 // Carrito persistente (sobrevive al navegar entre páginas)
 let cart = [];
@@ -160,7 +166,7 @@ function renderGameTiles(){
   wrap.innerHTML = "";
   TILE_GAMES.forEach((cat,i)=>{
     const b = BRANDS.find(x=>x.cat===cat) || { cat, color:"#C13B26", name:cat };
-    const count = PRODUCTS.filter(p=>p.cat===cat).length;
+    const count = PRODUCTS.filter(p=>p.cat===cat && isAvailable(p)).length;   // solo disponibles
     const tile = document.createElement("button");
     tile.type = "button";
     tile.className = "gtile" + (i===0 ? " gtile--featured" : "");
@@ -291,6 +297,7 @@ let gridPage = 1;
 let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la página 1
 function getFiltered(){
   let items = PRODUCTS.filter(p=>{
+    if(!showSoldOut && !isAvailable(p)) return false;   // por defecto, solo disponibles
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
     if(activeType!=="all" && (p.type||"single")!==activeType) return false;
     if(activeSet!=="all" && p.set!==activeSet) return false;
@@ -538,7 +545,7 @@ function renderSearchResults(){
   const box = $("#searchResults"); if(!box) return;
   const q = query.trim().toLowerCase();
   if(!q){ box.hidden = true; box.innerHTML = ""; return; }
-  const matches = PRODUCTS.filter(p=> (p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q)).slice(0,6);
+  const matches = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && (p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q)).slice(0,6);
   box.hidden = false;
   if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
   box.innerHTML = matches.map(p=>`
@@ -572,10 +579,19 @@ document.addEventListener("click", e=>{ const box=$("#searchResults"); if(box &&
 document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ const box=$("#searchResults"); if(box) box.hidden = true; } });
 
 // selects de filtro
+// sincroniza el toggle "Mostrar agotadas" (checkbox de escritorio + el del panel móvil)
+function setShowSoldOut(val){
+  showSoldOut = !!val;
+  const a=$("#showSoldOut"), b=$("#mfSoldOut");
+  if(a) a.checked = showSoldOut;
+  if(b) b.checked = showSoldOut;
+  renderGrid();
+}
 document.addEventListener("change", e=>{
   if(e.target.id==="setFilter"){ activeSet = e.target.value; renderGrid(); }
   if(e.target.id==="colorFilter"){ activeColor = e.target.value; renderGrid(); }
   if(e.target.id==="sortFilter"){ sortMode = e.target.value; renderGrid(); }
+  if(e.target.id==="showSoldOut" || e.target.id==="mfSoldOut"){ setShowSoldOut(e.target.checked); }
   if(e.target.id==="coEntrega"){ toggleEnvio(); }
   if(e.target.id==="coPago"){ togglePago(); }
 });
@@ -721,7 +737,8 @@ async function loadCatalog(){
 function updateHeroStat(){
   const el = $("#statCount"); if(!el) return;
   const box = el.closest("div");
-  if(PRODUCTS.length >= STAT_MIN){ if(box) box.style.display=""; countUp(el, PRODUCTS.length); }
+  const avail = PRODUCTS.filter(isAvailable).length;   // solo cartas con stock > 0
+  if(avail >= STAT_MIN){ if(box) box.style.display=""; countUp(el, avail); }
   else if(box){ box.style.display = "none"; }
 }
 

@@ -92,6 +92,22 @@
   .item .e:hover{color:var(--gold-bright);background:rgba(201,162,75,.12)}
   .item .x:hover{color:#e9a3ab;background:rgba(180,60,70,.12)}
   .item.editing{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,75,.25)}
+  /* stepper de stock por carta */
+  .stk{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex-shrink:0;background:rgba(255,255,255,.03)}
+  .stk__b{width:30px;height:32px;border:none;background:rgba(255,255,255,.04);color:var(--cream);font-size:1.1rem;line-height:1;cursor:pointer}
+  .stk__b:hover{background:var(--wine-light)}
+  .stk__i{width:46px;height:32px;margin:0;border:none;border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:0;background:transparent;color:var(--cream);text-align:center;font-size:.9rem;padding:0}
+  .stk__i:focus{box-shadow:none}
+  .stk--out{border-color:rgba(180,60,70,.6)}
+  .stk--out .stk__i{color:#e9a3ab}
+  /* barra de acciones masivas + resumen */
+  .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+  .bulksum{font-size:.86rem;color:var(--muted)}
+  .bulksum b{color:var(--gold-bright)}
+  .bulkact{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .bulkstock{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;color:#d8cdc5}
+  .bulkstock b{color:var(--gold-bright)}
+  .bulkstock input{width:78px;margin:0}
   .invval{color:var(--gold-bright);font-family:var(--font-serif,serif);font-size:1.05rem;margin-right:auto}
   .empty{color:var(--muted);text-align:center;padding:30px 0}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
@@ -290,6 +306,16 @@
     <div class="actions" style="margin:0 0 12px">
       <button class="btn btn--ghost" id="fClear">Limpiar filtros</button>
       <span class="hint" id="filterInfo" style="align-self:center"></span>
+    </div>
+    <div class="bulkbar">
+      <span class="bulksum" id="bulkSummary"></span>
+      <div class="bulkact">
+        <span class="bulkstock">Stock a los <b id="bulkCount">0</b> filtrados:
+          <input type="number" id="bulkStockVal" min="0" value="0" />
+          <button class="btn btn--ghost" id="bulkApply">Aplicar</button>
+        </span>
+        <button class="btn btn--danger" id="bulkZeroAll">Todo el inventario a 0</button>
+      </div>
     </div>
     <div class="items" id="items"></div>
     <div class="pager">
@@ -686,14 +712,20 @@ function populateInvFilters(){
 }
 
 /* ====== Render inventario (filtros + paginación) ====== */
+function admStock(p){ const s=p.stock; return (s===undefined||s===null||s==='')?null:Number(s); }
 function render(){
   const wrap=$('#items');
   $('#count').textContent = items.length;
   const vEl=$('#invValue'); if(vEl) vEl.textContent = items.length ? ('· '+fmt(invTotalValue())+' en stock') : '';
   populateInvFilters(); updateStickyBar(); updateSalesStats(); refreshInvNames();
-  if(!items.length){ wrap.innerHTML='<p class="empty">Todavía no hay productos. Agregá el primero arriba 🎴</p>'; $('#pgInfo').textContent=''; $('#filterInfo').textContent=''; return; }
+  // resumen de stock: registradas / con stock>0 / unidades totales
+  const inStock = items.filter(p=>{ const s=admStock(p); return s===null||s>0; }).length;
+  const units = items.reduce((a,p)=>{ const s=admStock(p); return a + (s===null?0:s); }, 0);
+  const bs=$('#bulkSummary'); if(bs) bs.innerHTML = `<b>${items.length}</b> registradas · <b style="color:#a9d3a0">${inStock}</b> con stock · <b>${units}</b> unidades`;
+  if(!items.length){ wrap.innerHTML='<p class="empty">Todavía no hay productos. Agregá el primero arriba 🎴</p>'; $('#pgInfo').textContent=''; $('#filterInfo').textContent=''; $('#bulkCount').textContent='0'; return; }
   const list=getFilteredInv();
   $('#filterInfo').textContent = list.length!==items.length ? (list.length+' coinciden') : '';
+  $('#bulkCount').textContent = list.length;
   const pages=Math.max(1,Math.ceil(list.length/pageSize));
   if(page>pages) page=pages; if(page<1) page=1;
   const start=(page-1)*pageSize;
@@ -705,20 +737,27 @@ function render(){
   pageItems.forEach(p=>{
     const el=document.createElement('div'); el.className='item'+(p.id===editingId?' editing':'');
     const media = p.img ? `<img src="${p.img}" alt="" loading="lazy">` : `<div class="emoji">${p.emoji||'🎴'}</div>`;
-    const s = (p.stock===undefined||p.stock===null||p.stock==='') ? null : Number(p.stock);
-    const stkTxt = s===null ? '' : ` · <b style="color:${s<=0?'#d98a92':(s<=3?'var(--gold-bright)':'#a9d3a0')}">${s<=0?'Agotado':s+' disp.'}</b>`;
+    const s = admStock(p);
     const setTxt = p.set ? p.set+' · ' : '';
     const condTxt = p.type==='sealed' ? 'Sellado' : (p.cond||'');
     el.innerHTML = `${media}
       <div class="meta">
         <div class="nm">${p.name}</div>
-        <div class="sm">${p.cat} · ${setTxt}${condTxt}${p.badge?' · '+p.badge:''}${stkTxt}</div>
+        <div class="sm">${p.cat} · ${setTxt}${condTxt}${p.badge?' · '+p.badge:''}</div>
+      </div>
+      <div class="stk${s!==null&&s<=0?' stk--out':''}" title="Stock disponible">
+        <button class="stk__b" data-d="-1" aria-label="Menos">−</button>
+        <input class="stk__i" type="number" min="0" value="${s===null?'':s}" placeholder="∞" />
+        <button class="stk__b" data-d="1" aria-label="Más">+</button>
       </div>
       <div class="pr">${fmt(p.price)}</div>
       <div class="acts">
         <button class="e" title="Editar">✎</button>
         <button class="x" title="Quitar">✕</button>
       </div>`;
+    const setStockTo=(v)=>{ const it=items.find(x=>x.id===p.id); if(!it) return; if(v===null) delete it.stock; else it.stock=Math.max(0,Math.floor(Number(v)||0)); save(); };
+    el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); setStockTo(Math.max(0,cur+Number(b.dataset.d))); });
+    el.querySelector('.stk__i').onchange=(ev)=> setStockTo(ev.target.value===''?null:ev.target.value);
     el.querySelector('.e').onclick=()=> editItem(p.id);
     el.querySelector('.x').onclick=()=>{ if(p.id===editingId) exitEdit(); items = items.filter(x=>x.id!==p.id); save(); };
     wrap.appendChild(el);
@@ -792,6 +831,22 @@ $('#fClear').onclick=()=>{ fCat='all';fSet='all';fType='all';fSort='recent';fMin
 $('#pgPrev').onclick=()=>{ if(page>1){ page--; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); } };
 $('#pgNext').onclick=()=>{ page++; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); };
 $('#pgSize').onchange=e=>{ pageSize=Number(e.target.value)||50; page=1; render(); };
+/* ====== Acciones masivas de stock ====== */
+$('#bulkApply').onclick=()=>{
+  const list=getFilteredInv();
+  if(!list.length){ toast('No hay cartas en el filtro'); return; }
+  const v=Math.max(0,Math.floor(Number($('#bulkStockVal').value)||0));
+  if(!confirm('¿Poner stock '+v+' a las '+list.length+' cartas filtradas?')) return;
+  const ids=new Set(list.map(p=>p.id));
+  items.forEach(p=>{ if(ids.has(p.id)) p.stock=v; });
+  save(); toast('Stock '+v+' aplicado a '+list.length);
+};
+$('#bulkZeroAll').onclick=()=>{
+  if(!items.length) return;
+  if(!confirm('¿Poner en 0 el stock de TODAS las '+items.length+' cartas? (después subís solo lo que tenés)')) return;
+  items.forEach(p=> p.stock=0);
+  save(); toast('Todo el inventario en 0');
+};
 
 $('#sname').addEventListener('input', ()=>{ const it=items.find(p=>(p.name||'').toLowerCase()===$('#sname').value.trim().toLowerCase()); if(it){ $('#sprice').value=it.price||''; recalcSaleTotal(); } });
 $('#sqty').addEventListener('input', recalcSaleTotal);
