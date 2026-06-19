@@ -1,6 +1,9 @@
 # Artefactos de build / deploy
 reroll-netlify.zip
 
+# Fuente para regenerar el banner OG (descargable, ver cabecera de make_og.py)
+archivoblack.ttf
+
 # Config local del editor / herramientas
 .claude/
 
