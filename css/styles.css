@@ -444,6 +444,16 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .gbanner__txt p{color:var(--gold-bright);font-size:.95rem;margin-top:4px}
 .search--page{margin:26px auto 16px}
 
+/* gamebar slim de la página de juego — saltar de TCG sin volver atrás */
+.gpbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;
+  max-width:1100px;margin:0 auto;padding:14px clamp(20px,5vw,80px);border-bottom:1px solid var(--line)}
+.gpbar__label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.gpbar__btn{display:inline-flex;align-items:center;min-height:44px;padding:9px 16px;border-radius:999px;
+  font-size:.9rem;font-weight:600;color:#cfc4bc;background:rgba(255,255,255,.04);border:1px solid var(--line);
+  transition:transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), color .2s}
+.gpbar__btn:hover{transform:translateY(-2px);border-color:var(--gold);color:#fff}
+.gpbar__btn.is-active{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#2a1a08;border-color:transparent}
+
 /* ============================================================
    CATÁLOGO: cabecera (dado + nube) · barra de juegos · filtros
    ============================================================ */
@@ -543,6 +553,40 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .co__sinpe strong{color:var(--gold-bright)}
 .co__sinpe span{font-family:var(--font-serif);font-size:1.25rem;color:var(--cream)}
 .co__sinpe small{color:var(--muted);font-size:.78rem}
+
+/* validación inline de campos */
+.co__form input.is-error,.co__form select.is-error{border-color:var(--terracota);box-shadow:0 0 0 3px rgba(193,59,38,.16)}
+.co__err{display:flex;align-items:center;gap:5px;color:#e69aa0;font-size:.78rem;margin-top:6px}
+.co__err svg{flex-shrink:0}
+
+/* botón WhatsApp (respaldo de confirmación) */
+.btn--wa{background:#25D366;color:#06311b}
+.btn--wa:hover{background:#1ebe5b;transform:translateY(-2px)}
+
+/* confirmación de pedido enviado */
+.co__success{text-align:center;padding:8px 4px 4px}
+.co__check{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;
+  background:rgba(111,191,115,.14);border:1px solid #6fbf73;color:#6fbf73}
+.co__check svg{width:30px;height:30px}
+.co__success h3{font-family:var(--font-serif);font-size:1.4rem;color:var(--cream);margin-bottom:6px}
+.co__success p{color:var(--muted);font-size:.9rem;line-height:1.5;margin-bottom:14px}
+.co__success .btn--wa{margin-bottom:10px}
+
+/* nota con ícono (envío) — reemplaza el emoji 📦 */
+.co__note--icon{display:flex;align-items:flex-start;gap:7px}
+.co__note--icon svg{width:18px;height:18px;flex-shrink:0;margin-top:1px;color:var(--gold-bright)}
+
+/* ícono placeholder de carta (reemplaza 🎴 en productos sin imagen) */
+.ph-card{width:46px;height:auto;color:var(--gold-bright);opacity:.5}
+.di__emoji .ph-card,.sr__emoji .ph-card{width:30px}
+
+/* skeleton de carga del catálogo (evita el parpadeo ejemplos→reales) */
+.card--skel{
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;aspect-ratio:3/4.4;
+  background:linear-gradient(100deg, rgba(255,255,255,.03) 30%, rgba(255,255,255,.09) 50%, rgba(255,255,255,.03) 70%);
+  background-size:200% 100%;animation:skelshimmer 1.3s ease-in-out infinite;
+}
+@keyframes skelshimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 
 /* ============================================================
    GRID DE CARTAS
@@ -839,10 +883,19 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 @keyframes mascotRoll{0%{transform:rotate(0) scale(1)}40%{transform:rotate(220deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)}}
 .mascot__close{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;
   background:var(--wine);color:#fff;border:1px solid var(--gold);cursor:pointer;font-size:.7rem;line-height:1;display:grid;place-items:center}
-@media(max-width:560px){
-  .mascot{left:12px;bottom:12px;max-width:74vw}
+@media(max-width:600px){
+  /* móvil: solo el dado. La nube se oculta y aparece SOBRE el dado al tocarlo (no tapa el catálogo) */
+  .mascot{left:12px;bottom:12px;max-width:none}
   .mascot__dice{width:50px;height:50px}
-  .mascot__bubble{font-size:.8rem;max-width:200px}
+  .mascot__bubble{
+    position:absolute;left:0;bottom:58px;width:min(74vw,260px);max-width:none;font-size:.82rem;
+    opacity:0;visibility:hidden;transform:translateY(8px);pointer-events:none;
+    transition:opacity .3s var(--ease), transform .3s var(--ease), visibility .3s var(--ease);
+  }
+  .mascot.tip-open .mascot__bubble{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+  /* la colita apunta hacia ABAJO (al dado), no a la izquierda */
+  .mascot__bubble::after{left:18px;bottom:-8px;top:auto;
+    border-left:none;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold);border-top:none}
 }
 
 /* ============================================================
@@ -897,11 +950,13 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   /* catálogo: ocultar controles de escritorio, mostrar barra móvil */
   #catalogo .cathead, #catalogo .gamebar, #catalogo .filters{display:none}
   .cats{padding-top:18px;padding-bottom:0}
-  .catalog{padding-top:8px}
+  .catalog{padding-top:8px;padding-bottom:84px}   /* deja respirar la paginación sobre los flotantes (dado + WhatsApp) */
   .mfilterbar{display:flex;gap:10px;margin:0 auto 4px}
   .mfbtn{flex:1;min-height:46px;border-radius:11px;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
     font-family:var(--font-display);font-size:.92rem;letter-spacing:.01em;
     background:var(--terracota);color:#fff;border:1.5px solid var(--terracota)}
+  .mfbtn__ic{width:17px;height:17px}
   .mfbtn--ghost{background:transparent;color:var(--crema);border:1.5px solid var(--line)}
   /* grilla 2 columnas, cartas estilo mockup */
   .grid{grid-template-columns:1fr 1fr;gap:12px}

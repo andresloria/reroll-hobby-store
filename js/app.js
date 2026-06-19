@@ -109,10 +109,28 @@ function gameParam(){ return new URLSearchParams(location.search).get("g"); }
 const $  = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
+// Optimiza imágenes del CDN de Riot (Sanity): pide webp/avif y el ancho justo.
+// 744x1039 PNG (~780KB) → ~30KB webp. Solo toca URLs de cmsassets.rgpub.io; el resto se deja igual.
+function imgURL(url, w){
+  if(!url || !/cmsassets\.rgpub\.io/.test(url)) return url;
+  if(/[?&](w|auto)=/.test(url)) return url;            // ya optimizada
+  const sep = url.includes("?") ? "&" : "?";
+  return `${url}${sep}w=${w}&auto=format&q=78`;
+}
+
+// Ícono SVG de carta (reemplaza el emoji 🎴 como placeholder cuando un producto no tiene imagen)
+const SVG_CARD = `<svg class="ph-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.2"/><path d="M9 7.5h6M9 11h6M9 14.5h3.5"/></svg>`;
+
 function media(p, cls){
   // si la imagen es horizontal (battlefields/locations), se rota para llenar el marco vertical
-  if(p.img) return `<img class="${cls}" src="${p.img}" alt="${p.name}" loading="lazy" onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('card__photo--wide')" />`;
-  return `<span class="card__emoji">${p.emoji||"🎴"}</span>`;
+  if(p.img) return `<img class="${cls}" src="${imgURL(p.img,500)}" alt="${p.name}" loading="lazy" onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('card__photo--wide')" />`;
+  return `<span class="card__emoji">${p.emoji||SVG_CARD}</span>`;
+}
+
+// Skeleton: placeholder con shimmer mientras carga el inventario (evita el parpadeo "ejemplo → real")
+function renderSkeleton(){
+  const grid = $("#grid"); if(!grid) return;
+  grid.innerHTML = Array.from({length:10}, ()=>'<div class="card card--skel" aria-hidden="true"></div>').join("");
 }
 
 /* ============================================================
@@ -167,8 +185,8 @@ function renderGameTiles(){
   TILE_GAMES.forEach((cat,i)=>{
     const b = BRANDS.find(x=>x.cat===cat) || { cat, color:"#C13B26", name:cat };
     const count = PRODUCTS.filter(p=>p.cat===cat && isAvailable(p)).length;   // solo disponibles
-    const tile = document.createElement("button");
-    tile.type = "button";
+    const tile = document.createElement("a");
+    tile.href = `juego.html?g=${encodeURIComponent(cat)}`;
     tile.className = "gtile" + (i===0 ? " gtile--featured" : "");
     tile.style.setProperty("--accent", b.color);
     tile.setAttribute("aria-label", `Ver catálogo de ${cat} (${count} producto${count===1?"":"s"})`);
@@ -190,8 +208,7 @@ function renderGameTiles(){
     cnt.textContent = count ? `${count} producto${count===1?"":"s"}` : "Catálogo en preparación";
     tile.append(glow, plate, name, cnt);
     if(i===0){ const flag=document.createElement("span"); flag.className="gtile__flag"; flag.textContent="Foco de lanzamiento"; tile.append(flag); }
-    // abre la página dedicada del juego en una PESTAÑA NUEVA (no ensucia la home)
-    tile.onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(cat)}`, "_blank", "noopener");
+    // enlace real (crawleable por buscadores) → misma pestaña, back funciona
     wrap.appendChild(tile);
   });
 }
@@ -237,11 +254,34 @@ function renderGameBanner(){
     <div class="gbanner__inner">
       ${logo}
       <div class="gbanner__txt">
-        <span class="gbanner__glyph" aria-hidden="true">${b?b.glyph:"🎴"}</span>
         <h1>${b? b.cat : "Catálogo"}</h1>
         <p>${count} ${count===1?"producto disponible":"productos disponibles"}</p>
       </div>
     </div>`;
+}
+
+/* ============================================================
+   GAMEBAR SLIM (juego.html) · saltar de juego sin volver atrás
+   Enlaces reales a juego.html?g=<cat>; el activo va resaltado.
+   ============================================================ */
+function renderGamePageBar(){
+  const bar = $("#gamePageBar"); if(!bar) return;   // solo existe en juego.html
+  bar.innerHTML = "";
+  const label = document.createElement("span");
+  label.className = "gpbar__label"; label.textContent = "Cambiar:";
+  bar.appendChild(label);
+  const all = document.createElement("a");
+  all.className = "gpbar__btn"; all.href = "index.html#juegos"; all.textContent = "Todos";
+  bar.appendChild(all);
+  TILE_GAMES.forEach(cat=>{
+    const a = document.createElement("a");
+    const on = cat===activeCat;
+    a.className = "gpbar__btn" + (on ? " is-active" : "");
+    a.href = `juego.html?g=${encodeURIComponent(cat)}`;
+    a.textContent = cat;
+    if(on) a.setAttribute("aria-current","page");
+    bar.appendChild(a);
+  });
 }
 
 /* ============================================================
@@ -364,7 +404,7 @@ function renderGrid(){
     empty.hidden = items.length>0;
     if(!items.length){
       empty.innerHTML = (PRODUCTS.length < CATALOG_MIN)
-        ? `Catálogo en preparación 🛠️<br><a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20%C2%BFTen%C3%A9s%20esto%3A%20" target="_blank" rel="noopener" class="empty__cta">Escribinos por WhatsApp y te conseguimos lo que buscás →</a>`
+        ? `Catálogo en preparación<br><a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20%C2%BFTen%C3%A9s%20esto%3A%20" target="_blank" rel="noopener" class="empty__cta">Escribinos por WhatsApp y te conseguimos lo que buscás →</a>`
         : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
     }
   }
@@ -458,13 +498,13 @@ function renderCart(){
   const cc = $("#cartCount"); if(cc) cc.textContent = cartCount();
   const wrap = $("#drawerItems"); if(!wrap) return;
   if(!cart.length){
-    wrap.innerHTML = `<p class="drawer__empty">Tu carrito está vacío.<br>Añade algunas cartas ✨</p>`;
+    wrap.innerHTML = `<p class="drawer__empty">Tu carrito está vacío.<br>Añade algunas cartas para empezar.</p>`;
   } else {
     wrap.innerHTML = "";
     cart.forEach(c=>{
       const row = document.createElement("div");
       row.className = "di";
-      const thumb = c.img ? `<img class="di__photo" src="${c.img}" alt="">` : `<div class="di__emoji">${c.emoji||"🎴"}</div>`;
+      const thumb = c.img ? `<img class="di__photo" src="${imgURL(c.img,160)}" alt="" loading="lazy">` : `<div class="di__emoji">${c.emoji||SVG_CARD}</div>`;
       row.innerHTML = `
         ${thumb}
         <div class="di__info">
@@ -492,13 +532,22 @@ function renderCart(){
 /* ============================================================
    CHECKOUT (pago + envío)
    ============================================================ */
+function resetCheckoutView(){
+  // vuelve el modal al estado "formulario" (oculta la confirmación)
+  const s=$("#coSuccess"); if(s) s.hidden = true;
+  const summ=$(".co__summary"); if(summ) summ.style.display="";
+  const form=$("#checkoutForm"); if(form) form.style.display="";
+  const t=$(".co__title"); if(t) t.style.display="";
+}
 function openCheckout(){
   if(!cart.length){ toast("Tu carrito está vacío"); return; }
+  resetCheckoutView();
   $("#coItems").innerHTML = cart.map(c=>`<div class="co__line"><span>${c.name} ×${c.qty}</span><b>${fmt(c.price*c.qty)}</b></div>`).join("");
   $("#coTotal").textContent = fmt(cartTotal());
   $("#sinpeData").textContent = `${SINPE_NOMBRE} · ${SINPE_NUMERO}`;
-  $("#checkoutModal").classList.add("open");
-  $("#drawer").classList.remove("open");
+  const m=$("#checkoutModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false");
+  $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden","true");
+  $("#checkoutForm")?.querySelector('[name="nombre"]')?.focus();
 }
 function toggleEnvio(){
   const envio = $("#coEntrega").value === "envio";
@@ -507,12 +556,32 @@ function toggleEnvio(){
 function togglePago(){
   $("#sinpeBox").style.display = $("#coPago").value === "SINPE Móvil" ? "" : "none";
 }
+function showFieldError(el, msg){
+  if(!el) return;
+  el.classList.add("is-error"); el.setAttribute("aria-invalid","true");
+  let m = el.parentNode.querySelector(".co__err");
+  if(!m){ m=document.createElement("span"); m.className="co__err"; el.parentNode.appendChild(m); }
+  m.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16h.01"/></svg> ${msg}`;
+  el.oninput = ()=>{ el.classList.remove("is-error"); el.removeAttribute("aria-invalid"); m.remove(); el.oninput=null; };
+}
+function showCheckoutSuccess(url){
+  $("#coWaLink").href = url;
+  const summ=$(".co__summary"); if(summ) summ.style.display="none";
+  $("#checkoutForm").style.display="none";
+  const t=$(".co__title"); if(t) t.style.display="none";
+  const s=$("#coSuccess"); if(s){ s.hidden=false; s.querySelector("#coWaLink")?.focus(); }
+}
 function submitCheckout(e){
   e.preventDefault();
   const f = new FormData(e.target);
   const entrega = f.get("entrega");
   const pago = f.get("pago");
   const nombre = (f.get("nombre")||"").trim();
+  // Validación: si es envío, la dirección es obligatoria
+  if(entrega==="envio"){
+    const dir = (f.get("direccion")||"").trim();
+    if(!dir){ showFieldError(e.target.querySelector('[name="direccion"]'), "Necesitamos la dirección para el envío."); return; }
+  }
   const items = cart.map(c=>`• ${c.name} ×${c.qty} (${c.cat}) — ${fmt(c.price*c.qty)}`).join("%0A");
   let msg = `¡Hola Reroll! Quiero hacer un pedido:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`;
   msg += `%0A%0ANombre: ${nombre}`;
@@ -525,14 +594,24 @@ function submitCheckout(e){
   }
   msg += `%0APago: ${pago}`;
   if(pago==="SINPE Móvil") msg += `%0A(SINPE a ${SINPE_NOMBRE} ${SINPE_NUMERO})`;
-  window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank", "noopener");
+  const url = `https://wa.me/${WHATSAPP}?text=${msg}`;
+  window.open(url, "_blank", "noopener");
+  showCheckoutSuccess(url);   // confirmación + enlace de respaldo si el pop-up se bloquea
 }
 
 /* ============================================================
    DRAWER / MODALES
    ============================================================ */
-function openDrawer(){ $("#drawer").classList.add("open"); $("#drawer").setAttribute("aria-hidden","false"); }
-function closeAll(){ $("#drawer").classList.remove("open"); $("#checkoutModal").classList.remove("open"); }
+let lastFocused = null;
+function openDrawer(){
+  lastFocused = document.activeElement;
+  const d=$("#drawer"); d.classList.add("open"); d.setAttribute("aria-hidden","false");
+  d.querySelector(".drawer__x")?.focus();   // mueve el foco dentro del panel
+}
+function closeAll(){
+  ["#drawer","#checkoutModal"].forEach(s=>{ const el=$(s); if(el){ el.classList.remove("open"); el.setAttribute("aria-hidden","true"); } });
+  if(lastFocused && lastFocused.focus){ lastFocused.focus(); lastFocused=null; }   // devuelve el foco al disparador
+}
 $("#cartBtn").onclick = openDrawer;
 $$("[data-close]").forEach(el=> el.onclick = closeAll);
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAll(); });
@@ -550,7 +629,7 @@ function renderSearchResults(){
   if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
   box.innerHTML = matches.map(p=>`
     <button type="button" class="sr" data-id="${p.id}">
-      <span class="sr__media">${p.img?`<img src="${p.img}" alt="">`:`<span class="sr__emoji">${p.emoji||"🎴"}</span>`}</span>
+      <span class="sr__media">${p.img?`<img src="${imgURL(p.img,120)}" alt="" loading="lazy">`:`<span class="sr__emoji">${p.emoji||SVG_CARD}</span>`}</span>
       <span class="sr__info">
         <span class="sr__name">${p.name}</span>
         <span class="sr__meta">${p.cat}${p.set?" · "+p.set:""} · ${p.type==="sealed"?"Sellado":p.cond}</span>
@@ -613,7 +692,7 @@ function renderHeroFan(){
   el.innerHTML = pick.map((p,i)=>`
     <div class="herofan__card herofan__card--${i}">
       ${p.badge?`<span class="herofan__badge">${p.badge}</span>`:""}
-      <div class="herofan__media">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<span class="herofan__emoji">${p.emoji||'🎴'}</span>`}</div>
+      <div class="herofan__media">${p.img?`<img src="${imgURL(p.img,500)}" alt="${p.name}">`:`<span class="herofan__emoji">${p.emoji||SVG_CARD}</span>`}</div>
       <div class="herofan__info">
         <span class="herofan__name">${p.name}</span>
         <span class="herofan__price">${fmt(p.price)}</span>
@@ -625,8 +704,8 @@ function renderHeroFan(){
    FRANJA "TRABAJAMOS CON" (logos clicables → filtran)
    ============================================================ */
 function textBadge(b){
-  return `<span class="brandbadge__glyph" style="color:${b.color}">${b.glyph}</span>`+
-         `<span class="brandbadge__txt" style="color:${b.color}">${b.name}</span>`;
+  // fallback de texto (si el logo no carga): solo el nombre en color de marca, sin glyph emoji
+  return `<span class="brandbadge__txt" style="color:${b.color}">${b.name}</span>`;
 }
 function renderBrands(){
   const track = $("#marqueeTrack");
@@ -672,11 +751,17 @@ const TIPS = [
 (function(){
   const wrap = $("#mascot"); if(!wrap) return;
   const bubble = $("#mascotBubble"), textEl = $("#mascotText"), dice = $("#mascotDice");
-  let last=-1, timer;
+  let last=-1, timer, hideTimer;
+  const isMobile = ()=> window.matchMedia("(max-width:600px)").matches;
   function pick(){ let i; do{ i=Math.floor(Math.random()*TIPS.length); }while(i===last && TIPS.length>1); last=i; return TIPS[i]; }
   function show(){ bubble.classList.add("swap"); setTimeout(()=>{ textEl.textContent=pick(); bubble.classList.remove("swap"); },320); }
-  function reroll(){ dice.classList.remove("roll"); void dice.offsetWidth; dice.classList.add("roll"); show(); restart(); }
-  function restart(){ clearInterval(timer); timer=setInterval(show, 9000); }
+  function reroll(){
+    dice.classList.remove("roll"); void dice.offsetWidth; dice.classList.add("roll"); show();
+    // En móvil la nube está oculta por defecto: el toque la muestra y se esconde sola (no tapa el catálogo)
+    if(isMobile()){ wrap.classList.add("tip-open"); clearTimeout(hideTimer); hideTimer=setTimeout(()=>wrap.classList.remove("tip-open"), 5000); }
+    restart();
+  }
+  function restart(){ clearInterval(timer); if(!isMobile()) timer=setInterval(show, 9000); }   // en móvil no cicla solo
   textEl.textContent = pick();
   dice.addEventListener("click", reroll);
   restart();
@@ -721,7 +806,9 @@ function toast(msg){
    ============================================================ */
 async function loadCatalog(){
   try{
-    const res = await fetch("productos.json?v="+Date.now());
+    // 'no-cache': revalida con el servidor (ETag) → 304 diminuto si no cambió el inventario,
+    // 324KB solo cuando de verdad cambió. Stock siempre fresco, sin re-bajar todo en cada visita.
+    const res = await fetch("productos.json", { cache: "no-cache" });
     if(res.ok){
       const data = await res.json();
       if(Array.isArray(data) && data.length){
@@ -807,8 +894,9 @@ if(GAME_PAGE){
 }
 renderGameBar();
 renderGameBanner();
+renderGamePageBar();
 renderFilters();
-renderGrid();
+renderSkeleton();      // grilla: placeholder mientras carga; loadCatalog() pinta la real (evita parpadeo ejemplos→reales)
 renderCart();
 renderBrands();
 renderHeroFan();
