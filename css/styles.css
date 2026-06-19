@@ -63,6 +63,15 @@ body{
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:3px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
 img{max-width:100%;display:block}
+
+/* skip link: invisible hasta recibir foco con teclado (Tab) */
+.skip-link{position:fixed;top:-100px;left:12px;z-index:2000;
+  background:var(--gold-bright);color:#2a1a08;font-family:var(--font-body);font-weight:700;font-size:.92rem;
+  padding:11px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4);
+  transition:top .2s var(--ease)}
+.skip-link:focus{top:12px;outline:3px solid var(--cream);outline-offset:2px}
+/* el destino del skip link no debe mostrar caja de foco al recibirlo programáticamente */
+.cats[tabindex="-1"]:focus{outline:none}
 section{padding:clamp(56px,8vw,110px) clamp(20px,5vw,80px)}
 
 /* ---------- Tipografía base ---------- */
@@ -235,6 +244,8 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 }
 .sr:last-child{border-bottom:none}
 .sr:hover{background:rgba(201,162,75,.1)}
+/* resultado resaltado por teclado (flechas ↑/↓): barra dorada lateral */
+.sr[aria-selected="true"]{background:rgba(201,162,75,.16);box-shadow:inset 3px 0 0 var(--gold-bright)}
 .sr__media{width:38px;height:50px;border-radius:7px;overflow:hidden;flex-shrink:0;background:linear-gradient(150deg,var(--wine),var(--wine-deep));display:grid;place-items:center}
 .sr__media img{width:100%;height:100%;object-fit:cover}
 .sr__emoji{font-size:1.4rem}

@@ -619,16 +619,35 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAll(); });
 /* ============================================================
    BUSCADOR
    ============================================================ */
+// debounce genérico (evita re-renderizar la grilla en cada tecla)
+const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
+
+// índice del resultado resaltado por teclado (-1 = ninguno)
+let srActive = -1;
+
+// ARIA de combobox: se cablea una vez si existe el desplegable (solo en el hero)
+(function initComboAria(){
+  const inp = $("#searchInput"), box = $("#searchResults");
+  if(!inp || !box) return;
+  inp.setAttribute("role", "combobox");
+  inp.setAttribute("aria-autocomplete", "list");
+  inp.setAttribute("aria-controls", "searchResults");
+  inp.setAttribute("aria-expanded", "false");
+  box.setAttribute("role", "listbox");
+  box.setAttribute("aria-label", "Resultados de búsqueda");
+})();
+
 // desplegable de resultados en vivo
 function renderSearchResults(){
-  const box = $("#searchResults"); if(!box) return;
+  const box = $("#searchResults"), inp = $("#searchInput"); if(!box) return;
+  srActive = -1; if(inp) inp.removeAttribute("aria-activedescendant");
   const q = query.trim().toLowerCase();
-  if(!q){ box.hidden = true; box.innerHTML = ""; return; }
+  if(!q){ box.hidden = true; box.innerHTML = ""; inp && inp.setAttribute("aria-expanded","false"); return; }
   const matches = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && (p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q)).slice(0,6);
-  box.hidden = false;
+  box.hidden = false; inp && inp.setAttribute("aria-expanded","true");
   if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
-  box.innerHTML = matches.map(p=>`
-    <button type="button" class="sr" data-id="${p.id}">
+  box.innerHTML = matches.map((p,i)=>`
+    <button type="button" class="sr" id="sr-opt-${i}" role="option" aria-selected="false" data-id="${p.id}">
       <span class="sr__media">${p.img?`<img src="${imgURL(p.img,120)}" alt="" loading="lazy">`:`<span class="sr__emoji">${p.emoji||SVG_CARD}</span>`}</span>
       <span class="sr__info">
         <span class="sr__name">${p.name}</span>
@@ -636,15 +655,28 @@ function renderSearchResults(){
       </span>
       <span class="sr__price">${fmt(p.price)}</span>
     </button>`).join("");
-  box.querySelectorAll(".sr").forEach(el=>{
-    el.onclick = ()=>{
-      box.hidden = true;
-      activeCat = "Todas"; activeType="all"; activeSet="all"; activeColor="all";
-      renderGameBar(); renderFilters(); renderGrid();
-      document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
-    };
-  });
+  box.querySelectorAll(".sr").forEach(el=> el.onclick = ()=> chooseResult());
 }
+// confirma la búsqueda y lleva al catálogo (clic o Enter sobre un resultado)
+function chooseResult(){
+  const box = $("#searchResults"); if(box) box.hidden = true;
+  const inp = $("#searchInput"); if(inp) inp.setAttribute("aria-expanded","false");
+  activeCat = "Todas"; activeType="all"; activeSet="all"; activeColor="all";
+  renderGameBar(); renderFilters(); renderGrid();
+  document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+}
+// resalta el resultado i (navegación con flechas)
+function setSrActive(i){
+  const box = $("#searchResults"), inp = $("#searchInput"); if(!box) return;
+  const opts = [...box.querySelectorAll(".sr")]; if(!opts.length) return;
+  srActive = (i + opts.length) % opts.length;
+  opts.forEach((o,idx)=> o.setAttribute("aria-selected", idx===srActive ? "true" : "false"));
+  const cur = opts[srActive];
+  if(inp) inp.setAttribute("aria-activedescendant", cur.id);
+  cur.scrollIntoView({block:"nearest"});
+}
+
+const debouncedGrid = debounce(renderGrid, 150);   // suaviza el tipeo sobre 900+ cartas
 $("#searchForm").addEventListener("submit", e=>{
   e.preventDefault();
   query = $("#searchInput").value.trim();
@@ -652,10 +684,18 @@ $("#searchForm").addEventListener("submit", e=>{
   renderGrid();
   document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
 });
-$("#searchInput").addEventListener("input", e=>{ query = e.target.value.trim(); renderGrid(); renderSearchResults(); });
-// cerrar el desplegable al hacer clic fuera o con Escape
-document.addEventListener("click", e=>{ const box=$("#searchResults"); if(box && !e.target.closest(".search")) box.hidden = true; });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ const box=$("#searchResults"); if(box) box.hidden = true; } });
+$("#searchInput").addEventListener("input", e=>{ query = e.target.value.trim(); renderSearchResults(); debouncedGrid(); });
+// navegación con teclado dentro del desplegable
+$("#searchInput").addEventListener("keydown", e=>{
+  const box = $("#searchResults"); if(!box || box.hidden) return;
+  const has = box.querySelectorAll(".sr").length;
+  if(e.key==="ArrowDown"){ e.preventDefault(); if(has) setSrActive(srActive+1); }
+  else if(e.key==="ArrowUp"){ e.preventDefault(); if(has) setSrActive(srActive-1); }
+  else if(e.key==="Enter"){ if(srActive>=0 && has){ e.preventDefault(); chooseResult(); } }
+  else if(e.key==="Escape"){ box.hidden = true; $("#searchInput").setAttribute("aria-expanded","false"); }
+});
+// cerrar el desplegable al hacer clic fuera
+document.addEventListener("click", e=>{ const box=$("#searchResults"); if(box && !e.target.closest(".search")){ box.hidden = true; $("#searchInput")?.setAttribute("aria-expanded","false"); } });
 
 // selects de filtro
 // sincroniza el toggle "Mostrar agotadas" (checkbox de escritorio + el del panel móvil)

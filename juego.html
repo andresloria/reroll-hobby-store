@@ -23,10 +23,12 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=26" />
+  <link rel="stylesheet" href="css/styles.css?v=28" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236E1423'/%3E%3Cg fill='%23E8C77A'%3E%3Ccircle cx='30' cy='30' r='9'/%3E%3Ccircle cx='70' cy='30' r='9'/%3E%3Ccircle cx='50' cy='50' r='9'/%3E%3Ccircle cx='30' cy='70' r='9'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3C/g%3E%3C/svg%3E" />
 </head>
 <body>
+
+  <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
 
   <!-- ===== NAVBAR ===== -->
   <header class="nav" id="nav">
@@ -61,7 +63,7 @@
   <nav class="gpbar" id="gamePageBar" aria-label="Cambiar de juego"></nav>
 
   <!-- ===== FILTROS ===== -->
-  <section class="cats" id="catalogo">
+  <section class="cats" id="catalogo" tabindex="-1">
     <form class="search search--page" id="searchForm" role="search">
       <span class="search__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
       <input id="searchInput" type="search" placeholder="Busca dentro de este juego…" aria-label="Buscar" />
@@ -197,6 +199,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=26"></script>
+  <script src="js/app.js?v=28"></script>
 </body>
 </html>
