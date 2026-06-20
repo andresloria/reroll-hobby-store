@@ -122,6 +122,9 @@
     border-radius:999px;font-weight:600;font-size:.9rem;opacity:0;pointer-events:none;
     transition:opacity .3s var(--ease),transform .3s var(--ease);z-index:50}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast__undo{margin-left:10px;background:#2a1a08;color:var(--gold-bright);border:none;border-radius:999px;
+    padding:5px 13px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit}
+  .toast__undo:hover{background:#3a2510}
   /* gate */
   .gate{position:fixed;inset:0;background:var(--ink);display:grid;place-items:center;z-index:100}
   .gate .box{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:32px;width:min(360px,90vw);text-align:center}
@@ -448,10 +451,20 @@ let page = 1, pageSize = 50;
 let fCat='all', fSet='all', fType='all', fSort='recent', fMin='', fMax='';
 
 const fmt = n => "₡"+Number(n||0).toLocaleString("es-CR");
+// escapa datos antes de inyectarlos en innerHTML (evita que nombres con & < > " rompan la fila)
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const emojiByCat = {"Pokémon":"⚡","Magic":"🌸","Yu-Gi-Oh":"🐉","One Piece":"🏴‍☠️","Riftbound":"💥","Weiss Schwarz":"◆","Digimon":"⬡","Otro":"🎴"};
 
 function save(){ localStorage.setItem('reroll_inv', JSON.stringify(items)); render(); }
-function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1900); }
+function toast(m){ const t=$('#toast'); t.innerHTML=esc(m); t.style.pointerEvents='none'; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1900); }
+// toast con acción "Deshacer" (5s) — para borrados recuperables
+function toastUndo(m, onUndo){
+  const t=$('#toast');
+  t.innerHTML = `${esc(m)} <button type="button" class="toast__undo">Deshacer</button>`;
+  t.style.pointerEvents='auto'; t.classList.add('show'); clearTimeout(t._t);
+  t.querySelector('.toast__undo').onclick = ()=>{ clearTimeout(t._t); t.classList.remove('show'); onUndo(); };
+  t._t=setTimeout(()=>{ t.classList.remove('show'); t.style.pointerEvents='none'; }, 5000);
+}
 
 /* ====== Optimizar imagen (achicar a 600px y comprimir) ====== */
 function optimize(file, maxW=600){
@@ -655,6 +668,8 @@ async function publishToStore(){
   localStorage.setItem('reroll_gh_token', token);
   if(!token){ pubStatus('Pegá tu token de GitHub en la sección "Publicar".', false); toast('Falta el token de GitHub'); $('#ghToken').scrollIntoView({behavior:'smooth',block:'center'}); return; }
   if(!items.length){ pubStatus('No hay productos para publicar.', false); toast('Inventario vacío'); return; }
+  // confirmación: esto actualiza la tienda EN VIVO
+  if(!confirm(`¿Publicar ${items.length} cartas a la tienda en vivo?\nLa tienda se actualiza sola en ~1 minuto.`)) return;
   const btns=[$('#publishBtn'),$('#stickyPublish')].filter(Boolean); btns.forEach(b=>b.disabled=true);
   const H = { Authorization:'Bearer '+token, Accept:'application/vnd.github+json' };
   const base = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
@@ -736,14 +751,14 @@ function render(){
   wrap.innerHTML='';
   pageItems.forEach(p=>{
     const el=document.createElement('div'); el.className='item'+(p.id===editingId?' editing':'');
-    const media = p.img ? `<img src="${p.img}" alt="" loading="lazy">` : `<div class="emoji">${p.emoji||'🎴'}</div>`;
+    const media = p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : `<div class="emoji">${esc(p.emoji)||'🎴'}</div>`;
     const s = admStock(p);
-    const setTxt = p.set ? p.set+' · ' : '';
-    const condTxt = p.type==='sealed' ? 'Sellado' : (p.cond||'');
+    const setTxt = p.set ? esc(p.set)+' · ' : '';
+    const condTxt = p.type==='sealed' ? 'Sellado' : esc(p.cond||'');
     el.innerHTML = `${media}
       <div class="meta">
-        <div class="nm">${p.name}</div>
-        <div class="sm">${p.cat} · ${setTxt}${condTxt}${p.badge?' · '+p.badge:''}</div>
+        <div class="nm">${esc(p.name)}</div>
+        <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}</div>
       </div>
       <div class="stk${s!==null&&s<=0?' stk--out':''}" title="Stock disponible">
         <button class="stk__b" data-d="-1" aria-label="Menos">−</button>
@@ -759,7 +774,13 @@ function render(){
     el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); setStockTo(Math.max(0,cur+Number(b.dataset.d))); });
     el.querySelector('.stk__i').onchange=(ev)=> setStockTo(ev.target.value===''?null:ev.target.value);
     el.querySelector('.e').onclick=()=> editItem(p.id);
-    el.querySelector('.x').onclick=()=>{ if(p.id===editingId) exitEdit(); items = items.filter(x=>x.id!==p.id); save(); };
+    el.querySelector('.x').onclick=()=>{
+      if(p.id===editingId) exitEdit();
+      const idx = items.findIndex(x=>x.id===p.id);
+      const removed = items[idx];
+      items = items.filter(x=>x.id!==p.id); save();
+      toastUndo(`Quité “${p.name}”`, ()=>{ items.splice(idx,0,removed); save(); toast('Restaurado'); });
+    };
     wrap.appendChild(el);
   });
 }
@@ -796,7 +817,7 @@ function renderSales(){
   wrap.innerHTML='';
   list.forEach(s=>{
     const el=document.createElement('div'); el.className='sale'+(s.id===saleEditId?' editing':'');
-    el.innerHTML=`<div class="meta"><div class="nm">${s.name} ×${s.qty}</div><div class="sm">${s.date||'—'} · ${s.channel||''}</div></div>
+    el.innerHTML=`<div class="meta"><div class="nm">${esc(s.name)} ×${esc(s.qty)}</div><div class="sm">${esc(s.date||'—')} · ${esc(s.channel||'')}</div></div>
       <div class="pr">${fmt(Number(s.price||0)*Number(s.qty||1))}</div>
       <div class="acts"><button class="e" title="Editar">✎</button><button class="x" title="Borrar">✕</button></div>`;
     el.querySelector('.e').onclick=()=>editSale(s.id);
