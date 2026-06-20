@@ -4,6 +4,11 @@ reroll-netlify.zip
 # Fuente para regenerar el banner OG (descargable, ver cabecera de make_og.py)
 archivoblack.ttf
 
+# Artes fuente sin optimizar (el sitio usa los *.webp ya optimizados; ver make_art.py)
+assets/arts/OnePiece.png
+assets/arts/Pokemon.jpeg
+assets/arts/Riftbound.jpg
+
 # Config local del editor / herramientas
 .claude/
 

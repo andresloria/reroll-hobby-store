@@ -242,8 +242,10 @@ function renderGameBanner(){
   const count = PRODUCTS.filter(p=>p.cat===activeCat).length;
   const color = b ? b.color : "#C9A24B";
   el.style.setProperty("--g", color);
-  el.classList.toggle("has-art", !!(b && b.art));
-  if(b && b.art) el.style.setProperty("--art", `url('${b.art}')`);
+  const art = (PANEL_ART && PANEL_ART[activeCat]) || (b && b.art) || null;   // arte por juego (mismo de los paneles)
+  el.classList.toggle("has-art", !!art);
+  // URL absoluta: en CSS, url() dentro de var() se resuelve relativo al .css (daría css/assets/…). Lo evitamos.
+  if(art) el.style.setProperty("--art", `url('${new URL(art, location.href).href}')`);
   const bannerLogo = b ? (b.logoLight || b.logo) : null;   // transparente: sin placa blanca
   const logo = bannerLogo
     ? `<span class="gbanner__plaque"><img src="${bannerLogo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
@@ -741,35 +743,44 @@ function renderHeroFan(){
 }
 
 /* ============================================================
-   FRANJA "TRABAJAMOS CON" (logos clicables → filtran)
+   "TRABAJAMOS CON" · paneles altos por juego (arte + logo)
+   Estilo cardnexus en vino/dorado: cada panel abre juego.html.
    ============================================================ */
-function textBadge(b){
-  // fallback de texto (si el logo no carga): solo el nombre en color de marca, sin glyph emoji
-  return `<span class="brandbadge__txt" style="color:${b.color}">${b.name}</span>`;
-}
-function renderBrands(){
-  const track = $("#marqueeTrack");
-  if(!track) return;
-  track.innerHTML = "";
-  const build = ()=> BRANDS.forEach(b=>{
-    const d = document.createElement("div");
-    d.className = "brandbadge";
-    d.title = `Ver ${b.cat}`;
-    d.onclick = ()=> window.open(`juego.html?g=${encodeURIComponent(b.cat)}`, "_blank", "noopener");
-    const src = b.logoLight || b.logo;   // versión clara/transparente: sin pastilla blanca
-    if(src){
-      const img = document.createElement("img");
-      img.className = "brandbadge__logo"; img.alt = b.name;
-      img.onerror = ()=>{ d.classList.remove("brandbadge--logo"); d.style.background=""; d.style.borderColor=""; d.innerHTML = textBadge(b); };
-      d.classList.add("brandbadge--logo");
-      d.appendChild(img);
-      img.src = src;
-    } else {
-      d.innerHTML = textBadge(b);
-    }
-    track.appendChild(d);
+const TRADE_GAMES = ["One Piece","Riftbound","Pokémon","Magic","Yu-Gi-Oh"];
+const PANEL_ART = {
+  "One Piece":"assets/arts/one-piece.webp",
+  "Riftbound":"assets/arts/riftbound.webp",
+  "Pokémon":  "assets/arts/pokemon.webp",
+  "Magic":    "assets/arts/magic.webp",
+  "Yu-Gi-Oh": "assets/arts/yugioh.webp",
+};
+const PANEL_FOCUS = { "Yu-Gi-Oh":"center 22%" };   // recorte fino donde haga falta
+const PANEL_RY = ["13deg","7deg","0deg","-7deg","-13deg"];   // inclinación tipo abanico
+function renderTradePanels(){
+  const wrap = $("#tradePanels"); if(!wrap) return;
+  wrap.innerHTML = "";
+  TRADE_GAMES.forEach((cat,i)=>{
+    const b = BRANDS.find(x=>x.cat===cat) || { cat, color:"#C13B26", name:cat };
+    const a = document.createElement("a");
+    a.className = "tpanel";
+    a.href = `juego.html?g=${encodeURIComponent(cat)}`;
+    a.setAttribute("aria-label", `Ver catálogo de ${cat}`);
+    a.style.setProperty("--c", b.color);
+    a.style.setProperty("--ry", PANEL_RY[i] || "0deg");
+    a.style.setProperty("--d", (i*0.3)+"s");
+    const art = document.createElement("img");
+    art.className = "tpanel__art"; art.alt = "";   // eager: pocos webps y van alto en la página
+    art.style.objectPosition = PANEL_FOCUS[cat] || "center";
+    art.src = PANEL_ART[cat];
+    const shade = document.createElement("span"); shade.className = "tpanel__shade"; shade.setAttribute("aria-hidden","true");
+    const sheen = document.createElement("span"); sheen.className = "tpanel__sheen"; sheen.setAttribute("aria-hidden","true");
+    const logo = document.createElement("img");
+    logo.className = "tpanel__logo"; logo.alt = b.name; logo.loading = "lazy";
+    logo.onerror = ()=>{ logo.remove(); const s=document.createElement("span"); s.className="tpanel__txt"; s.textContent=cat; a.appendChild(s); };
+    logo.src = b.logoLight || b.logo;
+    a.append(art, shade, sheen, logo);
+    wrap.appendChild(a);
   });
-  build(); build();
 }
 
 /* ============================================================
@@ -938,7 +949,7 @@ renderGamePageBar();
 renderFilters();
 renderSkeleton();      // grilla: placeholder mientras carga; loadCatalog() pinta la real (evita parpadeo ejemplos→reales)
 renderCart();
-renderBrands();
+renderTradePanels();
 renderHeroFan();
 renderGameTiles();
 renderHeroChips();
