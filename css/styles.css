@@ -32,6 +32,13 @@
   --vino:        #6B1F2A;
   --amarillo:    var(--gold-bright);
 
+  /* Tokens brutalist — SOLO zonas de marca (hero, eyebrows, chips, buscador hero).
+     El catálogo se mantiene "premium cálido" (legible para comprar). */
+  --brut-edge:      2px;                         /* esquinas casi rectas */
+  --brut-bd:        3px;                          /* grosor de borde duro */
+  --shadow-hard:    6px 6px 0 var(--terracota);   /* sombra plana con offset (impacto) */
+  --shadow-hard-sm: 4px 4px 0 var(--ink);         /* sombra plana chica (botones/inputs) */
+
   --radius:      18px;
   --radius-sm:   12px;
   --shadow:      0 18px 50px -20px rgba(0,0,0,.55);
@@ -78,18 +85,22 @@ section{padding:clamp(56px,8vw,110px) clamp(20px,5vw,80px)}
 h1,h2,h3{font-family:var(--font-serif);font-weight:600;line-height:1.05;letter-spacing:-.01em}
 h1{font-size:clamp(2.6rem,6vw,4.6rem)}
 h2{font-size:clamp(2rem,4vw,3.1rem)}
+/* resaltado del título (hero): bloque amarillo sólido con sombra dura terracota */
 .text-gold{
-  background:linear-gradient(100deg,var(--gold) 10%,var(--gold-bright) 45%,#fff7e0 60%,var(--gold) 90%);
-  background-size:100% auto;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  background-position:center;
+  color:var(--ink);background:var(--amarillo);
+  padding:0 .12em;border-radius:var(--brut-edge);
+  box-shadow:var(--shadow-hard);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
 }
 @keyframes shine{to{background-position:200% center}}
 .eyebrow{
-  display:inline-block;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--gold-bright);margin-bottom:18px;font-weight:600;
+  display:inline-block;font-family:var(--font-mono);font-weight:700;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);background:var(--amarillo);padding:4px 11px;
+  border-radius:var(--brut-edge);margin-bottom:18px;
 }
-.eyebrow--gold{color:var(--gold)}
+/* secciones internas: misma forma, en contorno (jerarquía: hero relleno > sección contorno) */
+.eyebrow--gold{color:var(--amarillo);background:transparent;border:2px solid var(--amarillo);padding:3px 11px}
 .lead{font-size:1.12rem;color:#d9cfc6;max-width:48ch;margin-top:8px}
 
 /* ---------- Botones ---------- */
@@ -174,6 +185,9 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
    HERO
    ============================================================ */
 .hero{position:relative;overflow:hidden;padding-top:clamp(40px,6vw,80px)}
+/* grano de textura sutil sobre el fondo del hero (mata el look "plano digital") */
+.hero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .hero__glow{
   position:absolute;top:-30%;right:-10%;width:65vw;height:65vw;
   background:
@@ -182,6 +196,7 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   filter:blur(30px);pointer-events:none;
 }
 .hero__inner{
+  position:relative;z-index:1;
   max-width:1240px;margin:0 auto;
   display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
 }
@@ -195,22 +210,27 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .hero__inner--single{grid-template-columns:1fr;max-width:860px;text-align:center}
 .hero--singles .lead{margin-left:auto;margin-right:auto;max-width:680px}
 .hero--singles .hero__stats{justify-content:center}
-.search--hero{max-width:600px;margin-left:auto;margin-right:auto;padding:9px 9px 9px 22px}
+.search--hero{max-width:600px;margin-left:auto;margin-right:auto;padding:7px 7px 7px 20px}
 .search--hero input{font-size:1.06rem}
+/* buscador del hero en clave brutalist (zona de marca). .hero sube especificidad sobre .search base */
+.hero .search--hero{border-radius:var(--brut-edge);border:var(--brut-bd) solid var(--cream);background:#160f0e}
+.hero .search--hero:focus-within{border-color:var(--amarillo);box-shadow:var(--shadow-hard-sm)}
+.hero .search--hero .btn--gold{border-radius:var(--brut-edge);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.hero .search--hero .btn--gold:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 /* chips de acceso rápido por juego (Space Mono, color por juego, vivos) */
 .herochips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px auto 0;max-width:660px}
 .herochip{
-  font-family:var(--font-mono);font-weight:700;font-size:.8rem;letter-spacing:.03em;
+  font-family:var(--font-mono);font-weight:700;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;
   color:var(--crema);cursor:pointer;display:inline-flex;align-items:center;gap:8px;
-  padding:9px 16px;border-radius:999px;
+  padding:8px 15px;border-radius:var(--brut-edge);
   background:color-mix(in srgb, var(--c,#C13B26) 16%, transparent);
-  border:1.5px solid color-mix(in srgb, var(--c,#C13B26) 55%, transparent);
-  transition:transform .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease);
+  border:2px solid color-mix(in srgb, var(--c,#C13B26) 70%, transparent);
+  transition:transform .15s var(--ease),background .15s var(--ease),border-color .15s var(--ease),box-shadow .15s var(--ease);
 }
 .herochip:hover{transform:translateY(-2px);
   background:color-mix(in srgb, var(--c,#C13B26) 30%, transparent);
-  border-color:var(--c,#C13B26);box-shadow:0 8px 22px -12px var(--c,#C13B26)}
-.herochip__dot{width:9px;height:9px;border-radius:50%;background:var(--c,#C13B26);box-shadow:0 0 8px var(--c,#C13B26)}
+  border-color:var(--c,#C13B26);box-shadow:4px 4px 0 color-mix(in srgb, var(--c,#C13B26) 55%, transparent)}
+.herochip__dot{width:9px;height:9px;border-radius:1px;background:var(--c,#C13B26);box-shadow:0 0 8px var(--c,#C13B26)}
 @media(max-width:520px){ .herochip{font-size:.74rem;padding:8px 13px} }
 
 /* search */
@@ -669,7 +689,8 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   animation:cardIn .5s var(--ease) both;
 }
 @keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--gold)}
+.card:hover{transform:translateY(-8px);border-color:var(--gold-bright);
+  box-shadow:0 22px 50px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(232,199,122,.5), 0 0 34px -6px rgba(201,162,75,.35)}
 .card__img{
   position:relative;aspect-ratio:3/4;display:grid;place-items:center;overflow:hidden;
   background:linear-gradient(150deg,var(--wine),var(--wine-deep));
@@ -680,18 +701,23 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   transform:translateX(-120%);transition:transform .7s var(--ease);
 }
 .card:hover .card__img::after{transform:translateX(120%)}
-.card__emoji{font-size:4rem;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))}
+.card__emoji{font-size:4rem;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));transition:transform .5s var(--ease)}
+.card:hover .card__emoji{transform:scale(1.1)}
 .card__img--photo{background:#0d0a0a}
-.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+/* zoom sutil al hover; las cartas horizontales (--wide) ya vienen rotadas 90°, no se tocan */
+.card:hover .card__photo:not(.card__photo--wide){transform:scale(1.07)}
 /* cartas horizontales (battlefields/locations de Riftbound): se rotan 90° para
    llenar el marco vertical igual que las demás y verse completas (sin recorte) */
 .card__photo--wide{inset:auto;top:50%;left:50%;width:133.34%;height:75%;max-width:none;
   transform:translate(-50%,-50%) rotate(90deg);object-fit:contain}
 .di__photo{width:48px;height:48px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--line)}
+/* tag de estado PLANO (único guiño brutalist en la zona de catálogo) */
 .card__badge{
-  position:absolute;top:10px;left:10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;padding:4px 10px;border-radius:999px;
-  background:rgba(0,0,0,.4);border:1px solid var(--line);color:var(--gold-bright);
+  position:absolute;top:10px;left:10px;z-index:3;
+  font-family:var(--font-mono);font-size:.62rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;padding:3px 8px;border-radius:var(--brut-edge);
+  background:var(--amarillo);color:var(--ink);
 }
 .card__fav{
   position:absolute;top:8px;right:8px;background:rgba(0,0,0,.4);border:1px solid var(--line);
@@ -714,13 +740,17 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .card__add[disabled]{opacity:.5;cursor:not-allowed;border-color:var(--line);color:var(--muted)}
 .card__add[disabled]:hover{background:transparent;color:var(--muted)}
 .card__foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px}
-.card__price{font-family:var(--font-serif);font-size:1.4rem;color:var(--gold-bright)}
+.card__price{font-family:var(--font-mono);font-weight:700;font-size:1.25rem;color:var(--gold-bright);letter-spacing:-.01em}
 .card__add{
   border:1px solid var(--gold);background:transparent;color:var(--gold-bright);
   border-radius:999px;padding:8px 14px;font-size:.84rem;font-weight:600;cursor:pointer;
-  transition:all .22s var(--ease);
+  transition:background .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease),transform .12s var(--ease);
+  white-space:nowrap;
 }
 .card__add:hover{background:var(--gold);color:#2a1a08}
+.card__add:active{transform:scale(.95)}
+/* feedback de éxito al agregar al carrito (vuelve a "Añadir" solo) */
+.card__add--done,.card__add--done:hover{background:#2f855a;border-color:#2f855a;color:#fff}
 /* "Cargar más" del catálogo (25 de entrada, +25 por clic) */
 .gridpager{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;max-width:680px;margin:34px auto 0}
 .gridmore{min-width:260px;justify-content:center;font-size:.95rem}
@@ -923,18 +953,21 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 }
 @keyframes mascotIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .mascot__bubble{
-  position:relative;background:var(--cream);color:#2a1a12;
+  /* desktop: oculta por defecto; aparece SOBRE/junto al dado al pasar el mouse o tocar (no tapa el catálogo) */
+  position:absolute;left:74px;bottom:8px;width:230px;max-width:230px;
+  background:var(--cream);color:#2a1a12;
   border-radius:16px;padding:12px 15px;font-size:.86rem;line-height:1.4;
   box-shadow:0 14px 34px -12px rgba(0,0,0,.6);border:1px solid var(--gold);
-  order:2;max-width:250px;
-  transition:opacity .35s var(--ease), transform .35s var(--ease);
+  opacity:0;visibility:hidden;transform:translateY(8px);pointer-events:none;
+  transition:opacity .35s var(--ease), transform .35s var(--ease), visibility .35s var(--ease);
 }
+.mascot.tip-open .mascot__bubble{opacity:1;visibility:visible;transform:none;pointer-events:auto}
 .mascot__bubble::after{ /* colita de la nube apuntando al dado */
   content:"";position:absolute;left:-9px;bottom:14px;width:16px;height:16px;
   background:var(--cream);border-left:1px solid var(--gold);border-bottom:1px solid var(--gold);
   transform:rotate(45deg);
 }
-.mascot__bubble.swap{opacity:0;transform:translateY(6px)}
+.mascot.tip-open .mascot__bubble.swap{opacity:0;transform:translateY(6px)}
 .mascot__label{display:block;font-family:var(--font-serif);font-size:1rem;font-weight:700;color:var(--wine);margin-bottom:2px}
 .mascot__dice{
   order:1;flex-shrink:0;width:62px;height:62px;border:none;background:none;cursor:pointer;padding:0;
@@ -946,8 +979,6 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .mascot__dice:hover{transform:scale(1.08)}
 .mascot__dice.roll{animation:mascotRoll .7s var(--ease)}
 @keyframes mascotRoll{0%{transform:rotate(0) scale(1)}40%{transform:rotate(220deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)}}
-.mascot__close{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;
-  background:var(--wine);color:#fff;border:1px solid var(--gold);cursor:pointer;font-size:.7rem;line-height:1;display:grid;place-items:center}
 @media(max-width:600px){
   /* móvil: solo el dado. La nube se oculta y aparece SOBRE el dado al tocarlo (no tapa el catálogo) */
   .mascot{left:12px;bottom:12px;max-width:none}

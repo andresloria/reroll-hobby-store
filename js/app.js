@@ -390,7 +390,16 @@ function makeCard(p, i){
         <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
       </div>
     </div>`;
-  if(!soldOut) el.querySelector(".card__add").onclick = ()=> addToCart(p.id);
+  if(!soldOut){
+    const addBtn = el.querySelector(".card__add");
+    addBtn.onclick = ()=>{
+      addToCart(p.id);
+      addBtn.classList.add("card__add--done");
+      addBtn.textContent = "✓ Agregado";
+      clearTimeout(addBtn._doneT);
+      addBtn._doneT = setTimeout(()=>{ addBtn.classList.remove("card__add--done"); addBtn.textContent = "Añadir"; }, 1500);
+    };
+  }
   el.querySelector(".card__fav").onclick = (e)=>{
     e.currentTarget.textContent = e.currentTarget.textContent==="♡" ? "♥" : "♡";
     e.currentTarget.style.color = e.currentTarget.textContent==="♥" ? "var(--gold-bright)" : "";
@@ -802,20 +811,20 @@ const TIPS = [
 (function(){
   const wrap = $("#mascot"); if(!wrap) return;
   const bubble = $("#mascotBubble"), textEl = $("#mascotText"), dice = $("#mascotDice");
-  let last=-1, timer, hideTimer;
-  const isMobile = ()=> window.matchMedia("(max-width:600px)").matches;
+  let last=-1, hideTimer;
   function pick(){ let i; do{ i=Math.floor(Math.random()*TIPS.length); }while(i===last && TIPS.length>1); last=i; return TIPS[i]; }
   function show(){ bubble.classList.add("swap"); setTimeout(()=>{ textEl.textContent=pick(); bubble.classList.remove("swap"); },320); }
+  // La nube está oculta por defecto (desktop y móvil): se abre con hover/toque y se esconde sola (no tapa el catálogo)
+  function openTip(){ wrap.classList.add("tip-open"); clearTimeout(hideTimer); hideTimer=setTimeout(()=>wrap.classList.remove("tip-open"), 6000); }
   function reroll(){
-    dice.classList.remove("roll"); void dice.offsetWidth; dice.classList.add("roll"); show();
-    // En móvil la nube está oculta por defecto: el toque la muestra y se esconde sola (no tapa el catálogo)
-    if(isMobile()){ wrap.classList.add("tip-open"); clearTimeout(hideTimer); hideTimer=setTimeout(()=>wrap.classList.remove("tip-open"), 5000); }
-    restart();
+    dice.classList.remove("roll"); void dice.offsetWidth; dice.classList.add("roll");
+    show(); openTip();
   }
-  function restart(){ clearInterval(timer); if(!isMobile()) timer=setInterval(show, 9000); }   // en móvil no cicla solo
   textEl.textContent = pick();
-  dice.addEventListener("click", reroll);
-  restart();
+  dice.addEventListener("click", reroll);               // toque/click: nuevo dato + abre
+  dice.addEventListener("mouseenter", openTip);         // hover (desktop): solo asoma la nube
+  // se asoma una vez al cargar para que no pase desapercibida, luego se esconde sola
+  setTimeout(openTip, 3500);
 })();
 
 /* ============================================================
@@ -833,7 +842,16 @@ const TIPS = [
    NAVBAR + REVEAL + TOAST
    ============================================================ */
 const nav = $("#nav");
-window.addEventListener("scroll", ()=>{ nav.classList.toggle("scrolled", window.scrollY>10); }, {passive:true});
+const heroGlow = $(".hero__glow");   // solo existe en la home; en juego.html es null
+window.addEventListener("scroll", ()=>{
+  const y = window.scrollY;
+  nav.classList.toggle("scrolled", y>10);
+  // resplandor reactivo al scroll: parallax suave + desvanecido al bajar
+  if(heroGlow){
+    heroGlow.style.transform = `translateY(${y*0.25}px) scale(${1+Math.min(y,600)/3000})`;
+    heroGlow.style.opacity   = Math.max(0, 1 - y/650);
+  }
+}, {passive:true});
 
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
@@ -842,9 +860,21 @@ $$(".reveal").forEach(el=> io.observe(el));
 
 function countUp(el, target){
   if(!el) return;
-  let n=0; const step=Math.max(1,Math.ceil(target/40));
-  const t=setInterval(()=>{ n+=step; if(n>=target){n=target;clearInterval(t);} el.textContent=n; },28);
+  const dur=1100, t0=performance.now(), ease=t=>1-Math.pow(1-t,3);   // easeOutCubic: arranca rápido y desacelera
+  function tick(now){ const p=Math.min(1,(now-t0)/dur); el.textContent=Math.round(ease(p)*target); if(p<1) requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
 }
+/* conteo de los stats estáticos del hero (5 juegos, 20 años) al entrar en viewport */
+(function(){
+  const stats=$(".hero__stats"); if(!stats) return;
+  const nums=stats.querySelectorAll("strong[data-count]");
+  if(!nums.length) return;
+  nums.forEach(el=> el.textContent="0");
+  const obs=new IntersectionObserver((ents)=>{
+    ents.forEach(e=>{ if(e.isIntersecting){ nums.forEach(el=> countUp(el, +el.getAttribute("data-count"))); obs.disconnect(); } });
+  }, {threshold:0.4});
+  obs.observe(stats);
+})();
 
 let toastT;
 function toast(msg){
