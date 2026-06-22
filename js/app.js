@@ -854,9 +854,9 @@ function startFanRotation(){
   if(_fanTimer) return;
   $("#fanPrev")?.addEventListener("click", reDealFan);
   $("#fanNext")?.addEventListener("click", reDealFan);
-  // auto-rotación cada 2 min (respeta reduce-motion: no auto-cambia, pero las flechas siguen)
+  // auto-rotación cada 1 min (respeta reduce-motion: no auto-cambia, pero las flechas siguen)
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    _fanTimer = setInterval(reDealFan, 120000);
+    _fanTimer = setInterval(reDealFan, 60000);
   }
 }
 
