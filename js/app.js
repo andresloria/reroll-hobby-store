@@ -818,46 +818,73 @@ function fanSlotConfig(total, i){
   const center=(total-1)/2; const d = total>1 ? (i-center)/Math.max(1,center) : 0; const ad=Math.abs(d);
   return { xf:d*1.45, yf:ad*ad*0.34, rot:d*21, sc:1-0.224*ad*ad, z:10-Math.round(Math.abs(i-center)) };
 }
-function renderFanCarousel(){
-  const stage=$("#fanStage"), section=$("#featured"); if(!stage||!section) return;
-  const pool = featuredPool();
-  if(pool.length < 3){ section.hidden = true; return; }   // sin suficientes joyas → no mostrar la sección
-  section.hidden = false;
-  const n = Math.min(7, pool.length);
-  const pick = shuffleArr(pool).slice(0, n);
-  stage.innerHTML = "";
-  pick.forEach((p,i)=>{
-    const cfg = fanSlotConfig(n, i);
-    const slot = document.createElement("a");
-    slot.className = "fan-slot";
-    slot.href = `juego.html?g=${encodeURIComponent(p.cat)}`;
-    slot.setAttribute("aria-label", `${p.name} · ${p.cat} · ${fmt(p.price)}`);
+let _fanSlots = [];   // elementos .fan-slot de la mano actual
+let _fanN = 0;
+let _fanRot = 0;      // rotación de la mano: qué carta está al centro
+// posiciona cada carta según la rotación actual (las flechas / el toque animan esto)
+function layoutHand(){
+  if(!_fanN) return;
+  const center = _fanN >> 1;
+  _fanSlots.forEach((slot, k)=>{
+    const disp = (((k + _fanRot) % _fanN) + _fanN) % _fanN;   // posición visible de esta carta
+    const cfg = fanSlotConfig(_fanN, disp);
     slot.style.setProperty("--xf", cfg.xf);
     slot.style.setProperty("--yf", cfg.yf);
     slot.style.setProperty("--rot", cfg.rot+"deg");
     slot.style.setProperty("--scale", cfg.sc);
     slot.style.setProperty("--z", cfg.z);
+    slot.classList.toggle("is-center", disp === center);
+  });
+}
+function renderFanCarousel(){
+  const stage=$("#fanStage"), section=$("#featured"); if(!stage||!section) return;
+  const pool = featuredPool();
+  if(pool.length < 3){ section.hidden = true; return; }   // sin suficientes cartas → no mostrar la sección
+  section.hidden = false;
+  _fanN = Math.min(7, pool.length);
+  _fanRot = 0;
+  const pick = shuffleArr(pool).slice(0, _fanN);
+  stage.innerHTML = "";
+  _fanSlots = pick.map((p,i)=>{
+    const slot = document.createElement("a");
+    slot.className = "fan-slot";
+    slot.href = `juego.html?g=${encodeURIComponent(p.cat)}`;
+    slot.setAttribute("aria-label", `${p.name} · ${p.cat} · ${fmt(p.price)}`);
     const card = document.createElement("span"); card.className = "fan-card";
     const img = document.createElement("img"); img.src = imgURL(p.img,360); img.alt = p.name; img.loading = "lazy";
     const price = document.createElement("span"); price.className = "fan-card__price"; price.textContent = fmt(p.price);
-    card.append(img, price); slot.appendChild(card); stage.appendChild(slot);
+    card.append(img, price); slot.appendChild(card);
+    // toque/clic: si NO es la del centro, la trae al frente; si ya está al centro, abre el link
+    slot.addEventListener("click", (e)=>{
+      const center = _fanN >> 1;
+      const disp = (((i + _fanRot) % _fanN) + _fanN) % _fanN;
+      if(disp !== center){ e.preventDefault(); _fanRot += (center - disp); layoutHand(); resetFanTimer(); }
+    });
+    stage.appendChild(slot);
     requestAnimationFrame(()=> setTimeout(()=> card.classList.add("in"), 80 + i*70));   // reparto escalonado
+    return slot;
   });
+  layoutHand();
 }
 function reDealFan(){
   const stage=$("#fanStage"); if(!stage || $("#featured")?.hidden) return;
   stage.style.opacity = "0";
   setTimeout(()=>{ renderFanCarousel(); stage.style.opacity = "1"; }, 380);
 }
+function fanCycle(dir){ if(!_fanN) return; _fanRot += dir; layoutHand(); resetFanTimer(); }
 let _fanTimer = null;
+// auto-rotación cada 1 min (se reinicia con cada interacción; respeta reduce-motion)
+function resetFanTimer(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(_fanTimer) clearInterval(_fanTimer);
+  _fanTimer = setInterval(reDealFan, 60000);
+}
+let _fanWired = false;
 function startFanRotation(){
-  if(_fanTimer) return;
-  $("#fanPrev")?.addEventListener("click", reDealFan);
-  $("#fanNext")?.addEventListener("click", reDealFan);
-  // auto-rotación cada 1 min (respeta reduce-motion: no auto-cambia, pero las flechas siguen)
-  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    _fanTimer = setInterval(reDealFan, 60000);
-  }
+  if(_fanWired) return; _fanWired = true;
+  $("#fanPrev")?.addEventListener("click", ()=> fanCycle(-1));   // carta anterior al centro
+  $("#fanNext")?.addEventListener("click", ()=> fanCycle(1));    // carta siguiente al centro
+  resetFanTimer();
 }
 
 /* ============================================================
