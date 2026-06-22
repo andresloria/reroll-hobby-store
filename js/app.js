@@ -793,6 +793,74 @@ function renderTradePanels(){
 }
 
 /* ============================================================
+   SINGLES DESTACADOS · abanico de cartas (las más caras, al azar)
+   precio > ₡5000, cualquier juego, en stock, solo verticales.
+   Rota a una mano nueva cada 2 min (o con las flechas).
+   ============================================================ */
+const FEATURED_MIN_PRICE = 5000;
+// fracciones del ancho de carta por slot (7 cartas) → fan responsivo via --cw
+const FAN_FRACT = [
+  {xf:-1.45, yf:0.34, rot:-21, sc:0.776, z:1},
+  {xf:-1.00, yf:0.19, rot:-14, sc:0.85,  z:2},
+  {xf:-0.52, yf:0.06, rot:-7,  sc:0.935, z:3},
+  {xf: 0.00, yf:0.00, rot:0,   sc:1.0,   z:10},
+  {xf: 0.52, yf:0.06, rot:7,   sc:0.935, z:3},
+  {xf: 1.00, yf:0.19, rot:14,  sc:0.85,  z:2},
+  {xf: 1.45, yf:0.34, rot:21,  sc:0.776, z:1},
+];
+function isVerticalCard(p){ return p.img && !/1039x744/.test(p.img); }   // excluye battlefields horizontales
+function featuredPool(){
+  return PRODUCTS.filter(p=> isAvailable(p) && Number(p.price) > FEATURED_MIN_PRICE && isVerticalCard(p));
+}
+function shuffleArr(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function fanSlotConfig(total, i){
+  if(total>=7) return FAN_FRACT[i];
+  const center=(total-1)/2; const d = total>1 ? (i-center)/Math.max(1,center) : 0; const ad=Math.abs(d);
+  return { xf:d*1.45, yf:ad*ad*0.34, rot:d*21, sc:1-0.224*ad*ad, z:10-Math.round(Math.abs(i-center)) };
+}
+function renderFanCarousel(){
+  const stage=$("#fanStage"), section=$("#featured"); if(!stage||!section) return;
+  const pool = featuredPool();
+  if(pool.length < 3){ section.hidden = true; return; }   // sin suficientes joyas → no mostrar la sección
+  section.hidden = false;
+  const n = Math.min(7, pool.length);
+  const pick = shuffleArr(pool).slice(0, n);
+  stage.innerHTML = "";
+  pick.forEach((p,i)=>{
+    const cfg = fanSlotConfig(n, i);
+    const slot = document.createElement("a");
+    slot.className = "fan-slot";
+    slot.href = `juego.html?g=${encodeURIComponent(p.cat)}`;
+    slot.setAttribute("aria-label", `${p.name} · ${p.cat} · ${fmt(p.price)}`);
+    slot.style.setProperty("--xf", cfg.xf);
+    slot.style.setProperty("--yf", cfg.yf);
+    slot.style.setProperty("--rot", cfg.rot+"deg");
+    slot.style.setProperty("--scale", cfg.sc);
+    slot.style.setProperty("--z", cfg.z);
+    const card = document.createElement("span"); card.className = "fan-card";
+    const img = document.createElement("img"); img.src = imgURL(p.img,360); img.alt = p.name; img.loading = "lazy";
+    const price = document.createElement("span"); price.className = "fan-card__price"; price.textContent = fmt(p.price);
+    card.append(img, price); slot.appendChild(card); stage.appendChild(slot);
+    requestAnimationFrame(()=> setTimeout(()=> card.classList.add("in"), 80 + i*70));   // reparto escalonado
+  });
+}
+function reDealFan(){
+  const stage=$("#fanStage"); if(!stage || $("#featured")?.hidden) return;
+  stage.style.opacity = "0";
+  setTimeout(()=>{ renderFanCarousel(); stage.style.opacity = "1"; }, 380);
+}
+let _fanTimer = null;
+function startFanRotation(){
+  if(_fanTimer) return;
+  $("#fanPrev")?.addEventListener("click", reDealFan);
+  $("#fanNext")?.addEventListener("click", reDealFan);
+  // auto-rotación cada 2 min (respeta reduce-motion: no auto-cambia, pero las flechas siguen)
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    _fanTimer = setInterval(reDealFan, 120000);
+  }
+}
+
+/* ============================================================
    DADO MASCOTA: datos curiosos
    ============================================================ */
 const TIPS = [
@@ -899,6 +967,7 @@ async function loadCatalog(){
   }catch(e){ /* usamos la lista de ejemplo */ }
   renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles(); renderHeroChips();
   renderMobileFilters(); renderSortSheet(); buildPriceRange();
+  renderFanCarousel();   // singles destacados (necesita precios reales)
   updateHeroStat();
 }
 // Fase 4: muestra el conteo real solo si hay inventario suficiente; si no, oculta el stat
@@ -986,6 +1055,7 @@ renderHeroChips();
 renderMobileFilters();
 renderSortSheet();
 loadCatalog();
+startFanRotation();   // flechas + auto-rotación del abanico de destacados
 $("#year").textContent = new Date().getFullYear();
 $("#catDice")?.addEventListener("click", ()=> document.getElementById("gameBar").scrollIntoView({behavior:"smooth",block:"center"}));
 $("#checkoutOpen")?.addEventListener("click", e=>{ e.preventDefault(); openCheckout(); });
