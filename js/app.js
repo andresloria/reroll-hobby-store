@@ -127,6 +127,15 @@ function media(p, cls){
   return `<span class="card__emoji">${p.emoji||SVG_CARD}</span>`;
 }
 
+// Índice id → slug (lo genera make_cartas.py). Permite enlazar cada carta del
+// grid a su página de detalle /carta/<slug>.html. Si una carta no tiene slug
+// (ej. productos de ejemplo sin match), no se enlaza y se comporta como antes.
+let SLUGS = {};
+function cartaHref(p){
+  const e = SLUGS[p.id];
+  return e && e.slug ? `carta/${e.slug}.html` : null;
+}
+
 // Skeleton: placeholder con shimmer mientras carga el inventario (evita el parpadeo "ejemplo → real")
 function renderSkeleton(){
   const grid = $("#grid"); if(!grid) return;
@@ -373,15 +382,22 @@ function makeCard(p, i){
     else if(stock<=3) stockHtml = `<span class="card__stock card__stock--low">¡Solo ${stock} disponible${stock>1?"s":""}!</span>`;
     else stockHtml = `<span class="card__stock">${stock} disponibles</span>`;
   }
+  const href = cartaHref(p);
+  const mediaHtml = href
+    ? `<a class="card__link" href="${href}" aria-label="Ver detalle de ${p.name}">${media(p,"card__photo")}</a>`
+    : media(p,"card__photo");
+  const nameHtml = href
+    ? `<a class="card__link" href="${href}">${p.name}</a>`
+    : p.name;
   el.innerHTML = `
     <div class="card__img${p.img?" card__img--photo":""}${soldOut?" card__img--out":""}">
       ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
       <button class="card__fav" aria-label="Favorito" title="Guardar">♡</button>
-      ${media(p,"card__photo")}
+      ${mediaHtml}
     </div>
     <div class="card__body">
       <span class="card__cat">${p.cat}${p.color?" · "+p.color:""}</span>
-      <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${p.name}</h3>
+      <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${nameHtml}</h3>
       <span class="card__meta">${metaLine}</span>
       ${stockHtml}
       <div class="card__foot">
@@ -981,6 +997,12 @@ function toast(msg){
    CARGA DEL INVENTARIO (productos.json)
    ============================================================ */
 async function loadCatalog(){
+  // Índice de slugs (id → /carta/<slug>.html) para enlazar el grid al detalle.
+  // No bloquea el catálogo: si falla, las cartas simplemente no se enlazan.
+  try{
+    const sres = await fetch("cartas.json", { cache: "no-cache" });
+    if(sres.ok){ const idx = await sres.json(); if(idx && typeof idx==="object") SLUGS = idx; }
+  }catch(e){ /* sin enlaces de detalle */ }
   try{
     // 'no-cache': revalida con el servidor (ETag) → 304 diminuto si no cambió el inventario,
     // 324KB solo cuando de verdad cambió. Stock siempre fresco, sin re-bajar todo en cada visita.
