@@ -633,6 +633,17 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
 }
 .filters__select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.15)}
+/* buscador rápido en la barra de filtros (al lado de Ordenar) */
+.filters__search-wrap{position:relative;display:flex;align-items:center}
+.filters__search-wrap svg{position:absolute;left:11px;width:15px;height:15px;color:var(--muted);pointer-events:none}
+.filters__search input{
+  background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;color:var(--cream);
+  font-family:inherit;font-size:.9rem;padding:9px 12px 9px 32px;outline:none;min-width:190px;
+  transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.filters__search input::placeholder{color:var(--muted);text-transform:none;letter-spacing:normal}
+.filters__search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.15)}
+.filters__search input:focus + .filters__search,.filters__search input:focus ~ svg{color:var(--gold)}
 /* opciones legibles (evita texto blanco sobre fondo blanco al desplegar) */
 select option, select optgroup{background:#211816;color:#FAF6EF}
 .filters__count{font-size:.82rem;color:var(--muted);align-self:center;margin-left:auto}

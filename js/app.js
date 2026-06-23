@@ -148,17 +148,27 @@ function renderSkeleton(){
 function renderGameBar(){
   const bar = $("#gameBar"); if(!bar) return;
   bar.innerHTML = "";
-  // botón "Todas"
-  const all = document.createElement("button");
+  // click normal (sin modificadores) = filtra inline acá; ctrl/⌘/medio/«abrir en pestaña
+  // nueva» usan el href real y abren el catálogo del juego (no la imagen del logo).
+  const onPick = (cat)=> (e)=>{
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button===1) return;
+    e.preventDefault();
+    selectGame(cat);
+  };
+  // "Todos"
+  const all = document.createElement("a");
   all.className = "gamebtn gamebtn--all" + (activeCat==="Todas"?" active":"");
+  all.href = "juego.html";
   all.innerHTML = `<span class="gamebtn__txt">Todos</span>`;
-  all.onclick = ()=> selectGame("Todas");
+  all.addEventListener("click", onPick("Todas"));
   bar.appendChild(all);
 
   BRANDS.forEach(b=>{
-    const btn = document.createElement("button");
+    const btn = document.createElement("a");
     btn.className = "gamebtn" + (activeCat===b.cat?" active":"");
     btn.title = b.name;
+    btn.href = `juego.html?g=${encodeURIComponent(b.cat)}`;
+    btn.setAttribute("aria-label", `Ver ${b.name}`);
     const src = b.logoLight || b.logo;   // versión clara/transparente: sin pastilla blanca
     if(src){
       const img = document.createElement("img");
@@ -170,7 +180,7 @@ function renderGameBar(){
     } else {
       btn.innerHTML = `<span class="gamebtn__txt" style="color:${b.color}">${b.cat}</span>`;
     }
-    btn.onclick = ()=> selectGame(b.cat);
+    btn.addEventListener("click", onPick(b.cat));
     bar.appendChild(btn);
   });
 }
@@ -711,7 +721,9 @@ $("#searchForm").addEventListener("submit", e=>{
   renderGrid();
   document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
 });
-$("#searchInput").addEventListener("input", e=>{ query = e.target.value.trim(); renderSearchResults(); debouncedGrid(); });
+$("#searchInput").addEventListener("input", e=>{ query = e.target.value.trim(); const qs=$("#quickSearch"); if(qs) qs.value=e.target.value; renderSearchResults(); debouncedGrid(); });
+// buscador rápido de la barra de filtros (home): filtra el grid por nombre, sin desplegable
+$("#quickSearch")?.addEventListener("input", e=>{ query = e.target.value.trim(); const hero=$("#searchInput"); if(hero) hero.value=e.target.value; debouncedGrid(); });
 // navegación con teclado dentro del desplegable
 $("#searchInput").addEventListener("keydown", e=>{
   const box = $("#searchResults"); if(!box || box.hidden) return;

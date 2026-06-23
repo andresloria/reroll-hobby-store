@@ -48,9 +48,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=42" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=42" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=42" />
+  <link rel="stylesheet" href="css/styles.css?v=43" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=43" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=43" />
 </head>
 <body>
 
@@ -170,8 +170,8 @@
       <button type="button" class="mfbtn mfbtn--ghost" id="mfSortBtn"><svg class="mfbtn__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/></svg> Ordenar</button>
     </div>
 
-    <!-- barra de juegos (logos clicables) -->
-    <div class="gamebar" id="gameBar" role="tablist" aria-label="Juegos"></div>
+    <!-- barra de juegos (logos = enlaces al catálogo de cada juego) -->
+    <nav class="gamebar" id="gameBar" aria-label="Elegí un juego"></nav>
 
     <!-- filtros -->
     <div class="filters reveal">
@@ -189,6 +189,12 @@
           <option value="price-desc">Precio: mayor a menor</option>
           <option value="name">Nombre A-Z</option>
         </select>
+      </label>
+      <label class="filters__field filters__search"><span>Buscar carta</span>
+        <span class="filters__search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+          <input id="quickSearch" type="search" placeholder="Nombre de la carta…" aria-label="Buscar carta por nombre" autocomplete="off" />
+        </span>
       </label>
       <label class="filters__toggle"><input type="checkbox" id="showSoldOut" /> Mostrar agotadas</label>
       <span class="filters__count" id="resultCount"></span>
@@ -445,6 +451,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=42"></script>
+  <script src="js/app.js?v=43"></script>
 </body>
 </html>
