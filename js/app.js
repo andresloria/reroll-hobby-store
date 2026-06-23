@@ -864,8 +864,9 @@ function renderFanCarousel(){
   _fanSlots = pick.map((p,i)=>{
     const slot = document.createElement("a");
     slot.className = "fan-slot";
-    slot.href = `juego.html?g=${encodeURIComponent(p.cat)}`;
-    slot.setAttribute("aria-label", `${p.name} · ${p.cat} · ${fmt(p.price)}`);
+    // la carta destacada lleva a su detalle; si no tuviera slug, cae al catálogo del juego
+    slot.href = cartaHref(p) || `juego.html?g=${encodeURIComponent(p.cat)}`;
+    slot.setAttribute("aria-label", `Ver ${p.name} · ${p.cat} · ${fmt(p.price)}`);
     const card = document.createElement("span"); card.className = "fan-card";
     const img = document.createElement("img"); img.src = imgURL(p.img,360); img.alt = p.name; img.loading = "lazy";
     const price = document.createElement("span"); price.className = "fan-card__price"; price.textContent = fmt(p.price);

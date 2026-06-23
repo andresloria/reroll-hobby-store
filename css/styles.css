@@ -1292,6 +1292,24 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 /* enlace de carta dentro del grid del catálogo */
 .card__link{display:contents;color:inherit;cursor:pointer}
 
+/* footer de la página de detalle: redes prominentes */
+.cd-foot{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap}
+.cd-foot__brand p{color:var(--muted);margin-top:8px;max-width:30ch}
+.cd-social{display:flex;flex-direction:column;gap:11px}
+.cd-social__label{font-family:var(--font-mono);font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-bright)}
+.cd-social__links{display:flex;gap:12px;flex-wrap:wrap}
+.cd-social__btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-body);font-weight:700;font-size:.92rem;
+  color:var(--cream);background:rgba(255,255,255,.05);border:1.8px solid var(--line);border-radius:999px;padding:10px 17px;
+  transition:transform .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease),background .16s var(--ease)}
+.cd-social__btn svg{width:19px;height:19px;flex-shrink:0}
+.cd-social__btn:hover{transform:translateY(-2px);border-color:var(--gold-bright);color:var(--gold-bright);background:rgba(232,199,122,.1)}
+.cd-social__btn--wa:hover{border-color:#25D366;color:#25D366;background:rgba(37,211,102,.12)}
+@media(max-width:620px){
+  .cd-foot{justify-content:center;text-align:center}
+  .cd-social{align-items:center}
+}
+@media(prefers-reduced-motion:reduce){ .cd-social__btn:hover{transform:none} }
+
 @media(max-width:720px){
   .cd-top{grid-template-columns:1fr;gap:20px}
   .cd-media{max-width:320px;margin:0 auto}
