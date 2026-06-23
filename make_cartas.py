@@ -26,7 +26,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 
 # --- Config espejada de js/app.js (mantener en sync) ---
 WHATSAPP    = "50687807813"
-SITE        = "https://www.rerollhobbystore.com"
+SITE        = "https://rerollhobbystore.com"
 ASSET_V     = 41   # debe coincidir con el ?v= de styles.css en index/juego
 CARTA_JS_V  = 1
 
