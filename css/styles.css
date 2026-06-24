@@ -881,7 +881,7 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 /* ============================================================
    FOOTER
    ============================================================ */
-.footer{background:linear-gradient(180deg,transparent,rgba(74,13,24,.4));border-top:1px solid var(--line);padding-bottom:40px}
+.footer{background:linear-gradient(180deg,transparent,rgba(74,13,24,.4));border-top:1px solid var(--line);padding-top:52px;padding-bottom:40px}
 .footer__inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
 .footer__brand p{color:var(--muted);margin-top:8px;max-width:30ch}
 .footer__social{display:flex;gap:22px;flex-wrap:wrap;align-items:center}

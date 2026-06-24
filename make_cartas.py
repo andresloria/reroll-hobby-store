@@ -27,7 +27,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 # --- Config espejada de js/app.js (mantener en sync) ---
 WHATSAPP    = "50687807813"
 SITE        = "https://rerollhobbystore.com"
-ASSET_V     = 43   # debe coincidir con el ?v= de styles.css en index/juego
+ASSET_V     = 44   # debe coincidir con el ?v= de styles.css en index/juego
 CARTA_JS_V  = 1
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
@@ -372,7 +372,7 @@ TEMPLATE = """<!DOCTYPE html>
 <header class="nav" id="nav">
   <div class="nav__inner">
     <a class="brand" href="../index.html" aria-label="Reroll Hobby Store — inicio">
-      <img class="brand__logo" src="../assets/logo.png" alt="" />
+      <img class="brand__logo" src="../assets/logo.webp" alt="" width="42" height="42" />
       <span class="brand__lockup"><span class="brand__name">REROLL</span><span class="brand__sub">HOBBY STORE</span></span>
     </a>
     <nav class="nav__links" aria-label="Principal">

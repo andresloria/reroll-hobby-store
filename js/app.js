@@ -58,13 +58,15 @@ let PRODUCTS = [
 //  logo: versión para fondo CLARO (marquee/gamebar con pastilla blanca).
 //  logoLight: versión clara/transparente para los tiles sobre fondo oscuro.
 //  mono:true  → se pinta en blanco con filtro (logos monocromos opacos).
+// lw/lh: dimensiones intrínsecas del logoLight (tile) → se setean como width/height
+//        en el <img> para reservar el espacio y evitar layout shift (CLS) + Lighthouse.
 const BRANDS = [
-  { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png",   logoLight:"assets/logos/pokemon-tile.png" },
-  { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", logoLight:"assets/logos/riftbound-tile.png" },
-  { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#C13B26", logo:"assets/logos/yugioh.png",    logoLight:"assets/logos/yugioh-tile.webp" },
-  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#C77B3A", logo:"assets/logos/magic.png",     logoLight:"assets/logos/magic-tile.png" },
-  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", logoLight:"assets/logos/one-piece-tile.png" },
-  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png",     logoLight:"assets/logos/weiss-tile.png" },
+  { cat:"Pokémon",       name:"Pokémon TCG",          glyph:"⚡", color:"#FFCB05", logo:"assets/logos/pokemon.png",   logoLight:"assets/logos/pokemon-tile.png", lw:640, lh:327 },
+  { cat:"Riftbound",     name:"Riftbound",            glyph:"◈", color:"#E87722", logo:"assets/logos/riftbound.png", logoLight:"assets/logos/riftbound-tile.png", lw:640, lh:281 },
+  { cat:"Yu-Gi-Oh",      name:"Yu-Gi-Oh!",            glyph:"🜲", color:"#C13B26", logo:"assets/logos/yugioh.png",    logoLight:"assets/logos/yugioh-tile.webp", lw:1001, lh:369 },
+  { cat:"Magic",         name:"Magic: The Gathering", glyph:"✶", color:"#C77B3A", logo:"assets/logos/magic.png",     logoLight:"assets/logos/magic-tile.png", lw:723, lh:276 },
+  { cat:"One Piece",     name:"One Piece Card Game",  glyph:"🏴‍☠️", color:"#E0182D", logo:"assets/logos/one-piece.png", logoLight:"assets/logos/one-piece-tile.png", lw:561, lh:145 },
+  { cat:"Weiss Schwarz", name:"Weiss Schwarz",        glyph:"◆", color:"#D8D8E0", logo:"assets/logos/weiss.png",     logoLight:"assets/logos/weiss-tile.png", lw:270, lh:148 },
 ];
 
 const fmt = n => "₡" + Number(n||0).toLocaleString("es-CR");
@@ -173,6 +175,7 @@ function renderGameBar(){
     if(src){
       const img = document.createElement("img");
       img.className = "gamebtn__logo"; img.alt = b.name;
+      if(b.lw){ img.width = b.lw; img.height = b.lh; }
       img.onerror = ()=>{ btn.classList.remove("gamebtn--logo"); btn.innerHTML = `<span class="gamebtn__txt" style="color:${b.color}">${b.cat}</span>`; };
       btn.classList.add("gamebtn--logo");
       btn.appendChild(img);
@@ -217,6 +220,7 @@ function renderGameTiles(){
       const img = document.createElement("img");
       img.className = "gtile__logo" + (b.mono ? " gtile__logo--mono" : "");
       img.alt = b.name || cat; img.loading = "lazy";
+      if(b.lw){ img.width = b.lw; img.height = b.lh; }
       img.onerror = ()=>{ const ph=document.createElement("span"); ph.className="gtile__ph"; ph.textContent=cat; plate.replaceChildren(ph); };
       plate.appendChild(img); img.src = src;
     } else {
@@ -266,8 +270,9 @@ function renderGameBanner(){
   // URL absoluta: en CSS, url() dentro de var() se resuelve relativo al .css (daría css/assets/…). Lo evitamos.
   if(art) el.style.setProperty("--art", `url('${new URL(art, location.href).href}')`);
   const bannerLogo = b ? (b.logoLight || b.logo) : null;   // transparente: sin placa blanca
+  const logoDim = (b && b.lw) ? ` width="${b.lw}" height="${b.lh}"` : "";
   const logo = bannerLogo
-    ? `<span class="gbanner__plaque"><img src="${bannerLogo}" alt="${b.name}" onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
+    ? `<span class="gbanner__plaque"><img src="${bannerLogo}" alt="${b.name}"${logoDim} onerror="this.parentNode.innerHTML='${b.cat}'"></span>`
     : "";
   document.title = (b? b.cat : "Catálogo") + " · Reroll Hobby Store";
   el.innerHTML = `
@@ -791,6 +796,11 @@ const PANEL_ART = {
   "Magic":    "assets/arts/magic.webp",
   "Yu-Gi-Oh": "assets/arts/yugioh.webp",
 };
+// dimensiones intrínsecas de cada arte (width/height en el <img> → reserva espacio, evita CLS)
+const PANEL_ART_DIMS = {
+  "One Piece":[425,595], "Riftbound":[600,838], "Pokémon":[469,654],
+  "Magic":[600,840], "Yu-Gi-Oh":[600,600],
+};
 const PANEL_FOCUS = { "Yu-Gi-Oh":"center 22%" };   // recorte fino donde haga falta
 const PANEL_RY = ["13deg","7deg","0deg","-7deg","-13deg"];   // inclinación tipo abanico
 function renderTradePanels(){
@@ -808,11 +818,13 @@ function renderTradePanels(){
     const art = document.createElement("img");
     art.className = "tpanel__art"; art.alt = "";   // eager: pocos webps y van alto en la página
     art.style.objectPosition = PANEL_FOCUS[cat] || "center";
+    const ad = PANEL_ART_DIMS[cat]; if(ad){ art.width = ad[0]; art.height = ad[1]; }
     art.src = PANEL_ART[cat];
     const shade = document.createElement("span"); shade.className = "tpanel__shade"; shade.setAttribute("aria-hidden","true");
     const sheen = document.createElement("span"); sheen.className = "tpanel__sheen"; sheen.setAttribute("aria-hidden","true");
     const logo = document.createElement("img");
     logo.className = "tpanel__logo"; logo.alt = b.name; logo.loading = "lazy";
+    if(b.lw){ logo.width = b.lw; logo.height = b.lh; }
     logo.onerror = ()=>{ logo.remove(); const s=document.createElement("span"); s.className="tpanel__txt"; s.textContent=cat; a.appendChild(s); };
     logo.src = b.logoLight || b.logo;
     a.append(art, shade, sheen, logo);
