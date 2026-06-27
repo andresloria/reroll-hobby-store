@@ -27,7 +27,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 # --- Config espejada de js/app.js (mantener en sync) ---
 WHATSAPP    = "50687807813"
 SITE        = "https://rerollhobbystore.com"
-ASSET_V     = 44   # debe coincidir con el ?v= de styles.css en index/juego
+ASSET_V     = 45   # debe coincidir con el ?v= de styles.css en index/juego
 CARTA_JS_V  = 1
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
@@ -449,6 +449,7 @@ TEMPLATE = """<!DOCTYPE html>
     </div>
   </div>
   <p class="footer__legal">© <span id="year"></span> Reroll Hobby Store · Cartago, Costa Rica.</p>
+  <p class="footer__credit">Diseñado por <span class="rd-mark"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><rect x="8" y="8" width="84" height="84" rx="22" fill="none" stroke="currentColor" stroke-width="7"/><circle cx="32" cy="27" r="6.5"/><circle cx="68" cy="27" r="6.5"/><circle cx="32" cy="50" r="6.5"/><circle cx="68" cy="50" r="6.5"/><circle cx="32" cy="73" r="6.5"/><circle cx="68" cy="73" r="6.5"/></svg><b>Reroll Design</b></span></p>
 </footer>
 
 <div class="cd-light" id="cdLight" aria-hidden="true">
