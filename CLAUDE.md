@@ -14,7 +14,9 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 - `assets/` — `logo.png` (dado mascota d20), `favicon.png`, `og-image.jpg`, `arts/` (arte por juego, webp optimizados), `logos/`, `fonts/` (woff2 auto-hospedadas).
 - `make_art.py` / `make_og.py` / `make_favicon.py` — generadores de assets con Pillow. Fuentes sin optimizar van al `.gitignore`.
 - `carta/<slug>.html` — **detalle por carta (estático, pre-generado)**. `cartas.json` — índice `id → {slug,…}` que usa `js/app.js` para enlazar el grid al detalle. `js/carta.js` — lightbox + re-hidrata precio/stock. `404.html` — not-found branded (Vercel lo sirve solo).
-- `make_cartas.py` — **build de las páginas de detalle.** Cruza `productos.json` + los CSV ricos de `Riftbound_Cards/<Set>/*_cards.csv` por `image_url` (efecto, rareza, dominio, energía, might, nº de coleccionista, ilustrador). **Re-correr `python make_cartas.py` cada vez que cambia el inventario** (regenera `carta/` y `cartas.json`; los HTML son DERIVADOS, nunca editar a mano). No toca `productos.json`.
+- `make_cartas.py` — **build de las páginas de detalle.** Cruza `productos.json` + los CSV ricos de `Riftbound_Cards/<Set>/*_cards.csv` por `image_url` (efecto, rareza, dominio, energía, might, nº de coleccionista, ilustrador). **Re-correr `python make_cartas.py` cada vez que cambia el inventario** (regenera `carta/`, `cartas.json` y `sitemap.xml`; los HTML son DERIVADOS, nunca editar a mano). No toca `productos.json`.
+- `sitemap.xml` — DERIVADO por `make_cartas.py` (`write_sitemap`): home + `juego.html?g=<juego con inventario>` + cada carta. No editar a mano. `robots.txt` (estático) lo referencia y bloquea `/admin.html`.
+- **Analytics:** Google Analytics 4 (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas; `admin.html` excluido. En `make_cartas.py` las llaves del snippet van escapadas `{{ }}` (la plantilla usa `.format()`).
 
 ## Build / deploy
 - **Local:** `python -m http.server 5500` (o las herramientas de preview).

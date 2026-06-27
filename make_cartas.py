@@ -183,7 +183,31 @@ def build():
     for p in products:
         write_page(p, by_set)
         n += 1
-    print(f"OK · {n} páginas en carta/ · cartas.json con {len(index)} entradas")
+    write_sitemap(products)
+    print(f"OK · {n} páginas en carta/ · cartas.json con {len(index)} entradas · sitemap.xml")
+
+def write_sitemap(products):
+    """Genera sitemap.xml: home + juegos con inventario + cada carta. SEO-friendly:
+       NO incluye páginas de juego vacías (thin content)."""
+    from urllib.parse import quote
+    from datetime import date
+    today = date.today().isoformat()
+    games = sorted({p.get("cat", "").strip() for p in products if p.get("cat", "").strip()})
+
+    rows = [(f"{SITE}/", "1.0")]
+    rows += [(f"{SITE}/juego.html?g={quote(g)}", "0.8") for g in games]
+    rows += [(f"{SITE}/carta/{p['_slug']}.html", "0.6") for p in products]
+
+    body = "\n".join(
+        f"  <url><loc>{esc(loc)}</loc><lastmod>{today}</lastmod>"
+        f"<priority>{pri}</priority></url>"
+        for loc, pri in rows
+    )
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           f"{body}\n</urlset>\n")
+    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(xml)
 
 def stock_val(p):
     s = p.get("stock")

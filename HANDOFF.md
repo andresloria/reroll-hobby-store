@@ -21,7 +21,8 @@ Cerrando la sección **"Cartas destacadas"** (abanico de cartas tipo cardnexus) 
 
 ## Pendiente / próximos pasos concretos
 - **Poblar inventario de otros juegos** (One Piece foco, Pokémon, Magic, Yu-Gi-Oh) + sellado. Hoy solo Riftbound (943 cartas) está en vivo → el abanico y los contadores hoy son todo Riftbound.
-- **Contador de visitas:** pendiente de decidir. Recomendado **Vercel Analytics** (privado) sobre un contador público (números bajos pre-apertura restan). NO se implementó.
+- **Contador de visitas / analytics:** RESUELTO con **Google Analytics 4** (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas. admin.html excluido a propósito. Datos en GA → propiedad "Reroll Hobby Store" → Reports/Realtime. (Translíos usa `G-CVMH80KDPJ`.) Pendiente opcional: banner de consentimiento de cookies (no obligatorio en CR; sí si hay tráfico UE).
+- **SEO de indexación:** `robots.txt` + `sitemap.xml` (945 URLs: home + juego.html?g=Riftbound + 943 cartas) generados por `make_cartas.py` (`write_sitemap`). Solo juegos CON inventario (no páginas vacías). Pendiente: dar de alta el sitemap en Google Search Console.
 - **"Cartas más agregadas al carrito" (real):** requiere backend para agregar eventos de todos los usuarios (el carrito es localStorage por navegador). Opción futura: Vercel KV + función serverless. Por ahora el abanico usa el **proxy de precio >₡5000** (ver decisión abajo).
 - **Limpieza:** CSS muerto del marquee viejo (`.marquee`, `.brandbadge`, `@keyframes marquee`) ya no se usa — se puede borrar.
 - **Más arte por juego:** al sumar arte nuevo → optimizar con `make_art.py` + agregar a `PANEL_ART`.
