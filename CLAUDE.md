@@ -17,6 +17,7 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 - `make_cartas.py` — **build de las páginas de detalle.** Cruza `productos.json` + los CSV ricos de `Riftbound_Cards/<Set>/*_cards.csv` por `image_url` (efecto, rareza, dominio, energía, might, nº de coleccionista, ilustrador). **Re-correr `python make_cartas.py` cada vez que cambia el inventario** (regenera `carta/`, `cartas.json` y `sitemap.xml`; los HTML son DERIVADOS, nunca editar a mano). No toca `productos.json`.
 - `sitemap.xml` — DERIVADO por `make_cartas.py` (`write_sitemap`): home + `juego.html?g=<juego con inventario>` + cada carta. No editar a mano. `robots.txt` (estático) lo referencia y bloquea `/admin.html`.
 - **Analytics:** Google Analytics 4 (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas; `admin.html` excluido. En `make_cartas.py` las llaves del snippet van escapadas `{{ }}` (la plantilla usa `.format()`).
+- **Google Search Console:** verificación por meta tag en el `<head>` de **index.html**: `<meta name="google-site-verification" content="_6DX60aqNivRzGGvFqaIqbOsWTtpV53mqTG60wBe4U0" />`.
 
 ## Build / deploy
 - **Local:** `python -m http.server 5500` (o las herramientas de preview).
@@ -30,6 +31,7 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 4. **Push solo con OK explícito del usuario** (dispara deploy a producción).
 5. **No recrear arte/logos con copyright** — el usuario provee los archivos; yo los optimizo/cableo.
 6. Commits terminan con `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
+7. **NUNCA borrar los tags de verificación/medición del `<head>`:** el meta `google-site-verification` de index.html (Google revalida; si se quita, se pierde la verificación de Search Console) ni el snippet `gtag.js` (GA `G-X6LMX9VR0Y`). Si hay que reordenar el `<head>`, conservarlos.
 
 ## Convenciones técnicas
 - **Imágenes externas (rgpub/Sanity CDN):** optimizar con `imgURL(url, w)` → agrega `&w=N&auto=format&q=78` (sirve webp chico). `auto=format` necesita header `Accept` de navegador.

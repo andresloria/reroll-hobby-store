@@ -1,8 +1,17 @@
-# HANDOFF — estado de la sesión (2026-06-20)
+# HANDOFF — estado de la sesión (act. 2026-06-27)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com**. Último commit: **`0715006`**. Cache en **`?v=40`** (index.html y juego.html alineados).
+Todo lo de abajo está **en vivo en rerollhobbystore.com**. Último commit: **`1d6ddb4`**. Cache en **`?v=45`** (index.html y juego.html alineados).
 
-## En qué estábamos
+## En qué estábamos (sesión 2026-06-27)
+Tanda de marca + analítica + SEO, todo pusheado y verificado:
+1. **Footer:** crédito "Diseñado por 🎲 Reroll Design" (dado vectorial del favicon de Reroll Design, `currentColor`; sin imagen nueva) en index/juego/cartas. Clases `.footer__credit` + `.rd-mark`. Opción A (firma sobria) elegida sobre la B (sello con borde). Kit de marca en `C:\Users\Andres\Claude\Projects\Reroll Design logo.zip`. **Pendiente opcional:** enlazar la firma a IG/portafolio de Reroll Design (falta URL).
+2. **Google Analytics 4** (gtag.js, ID `G-X6LMX9VR0Y`) en `<head>` de index/juego/404 + plantilla de cartas; `admin.html` excluido. Translíos usa `G-CVMH80KDPJ`.
+3. **SEO indexación:** `sitemap.xml` (945 URLs) + `robots.txt`, generados por `make_cartas.py` (`write_sitemap`).
+4. **Google Search Console:** meta de verificación en index.html (`_6DX60aqNivRzGGvFqaIqbOsWTtpV53mqTG60wBe4U0`). **REGLA FIJA: nunca borrar ese meta ni el gtag** (ver CLAUDE.md regla 7).
+   - **Pendiente del USUARIO (no lo puedo hacer yo):** en Search Console darle "Verificar", y luego **Sitemaps → enviar `sitemap.xml`**. Verificar dominio puede pedir registro DNS en Netlify.
+5. **Pendiente opcional:** banner de consentimiento de cookies (GA pone cookies; no obligatorio en CR, sí si hay tráfico UE).
+
+## Antes (sesión previa)
 Cerrando la sección **"Cartas destacadas"** (abanico de cartas tipo cardnexus) después de varias rondas de mejoras de UX/performance/SEO/a11y. El usuario confirmó "ya corre bien" en celular.
 
 ## Terminado y verificado (esta sesión, ya pusheado)
