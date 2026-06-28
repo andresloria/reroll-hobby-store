@@ -901,9 +901,12 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 /* crédito de autoría — Reroll Design */
 .footer__credit{text-align:center;color:#8f857d;font-size:.8rem;letter-spacing:.01em;margin-top:12px}
 .footer__credit .rd-mark{display:inline-flex;align-items:center;gap:7px;vertical-align:middle;margin-left:5px;text-decoration:none;transition:color .2s var(--ease)}
-.footer__credit .rd-mark svg{width:15px;height:15px;color:var(--gold-bright)}
+.footer__credit .rd-mark svg{width:15px;height:15px;color:var(--gold-bright);transform-origin:50% 50%}
 .footer__credit .rd-mark b{font-weight:500;color:var(--cream);letter-spacing:.02em;transition:color .2s var(--ease)}
 .footer__credit a.rd-mark:hover b{color:var(--gold-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.footer__credit a.rd-mark:hover svg{animation:rdHop .65s var(--ease)}
+@keyframes rdHop{0%{transform:translateY(0) rotate(0)}40%{transform:translateY(-6px) rotate(200deg)}100%{transform:translateY(0) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.footer__credit a.rd-mark:hover svg{animation:none}}
 
 /* ============================================================
    DRAWER (carrito) + MODAL + TOAST
