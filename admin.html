@@ -79,6 +79,21 @@
   .invhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
   .invhead h2{flex:1}
   .count{background:var(--wine-light);color:#fff;border-radius:999px;font-size:.78rem;padding:2px 11px;font-weight:700}
+  /* base de datos plegable */
+  .db-bar{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;
+    background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+    color:var(--cream);font-family:inherit;transition:background .2s var(--ease),border-color .2s var(--ease)}
+  .db-bar:hover{background:rgba(201,162,75,.1);border-color:var(--gold)}
+  .db-bar__ico{font-size:1.4rem;line-height:1}
+  .db-bar__txt{flex:1;min-width:0}
+  .db-bar__title{font-family:var(--font-display);font-size:1.15rem;color:var(--gold-bright);display:flex;align-items:center;gap:8px}
+  .db-bar__sub{display:block;font-size:.78rem;color:var(--muted);margin-top:3px}
+  .db-bar__sub .invval{font-size:.9rem;margin-right:8px}
+  .db-bar__cta{white-space:nowrap;font-weight:600;font-size:.9rem;color:var(--cream);
+    border:1px solid var(--line);border-radius:999px;padding:8px 15px;background:rgba(255,255,255,.04)}
+  .db-bar[aria-expanded="true"] .db-bar__cta{background:rgba(201,162,75,.15);border-color:var(--gold)}
+  .db-bar__arrow{display:inline-block;margin-left:2px}
+  #dbBody{margin-top:16px}
   .items{display:flex;flex-direction:column;gap:10px}
   .item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:9px 12px;
     background:rgba(255,255,255,.02)}
@@ -290,13 +305,20 @@
 
   <!-- INVENTARIO -->
   <div class="panel" id="invPanel">
-    <div class="invhead">
-      <h2>Inventario <span class="count" id="count">0</span></h2>
-      <span class="invval" id="invValue"></span>
+    <button class="db-bar" id="dbToggle" type="button" aria-expanded="false" aria-controls="dbBody">
+      <span class="db-bar__ico" aria-hidden="true">🗄️</span>
+      <span class="db-bar__txt">
+        <span class="db-bar__title">Base de datos <span class="count" id="count">0</span></span>
+        <span class="db-bar__sub"><span class="invval" id="invValue"></span><span id="dbSyncTag"></span></span>
+      </span>
+      <span class="db-bar__cta">Ver / editar <span class="db-bar__arrow" id="dbArrow">▾</span></span>
+    </button>
+
+    <div id="dbBody" hidden>
+    <div class="actions" style="margin:0 0 10px">
       <button class="btn btn--ghost" id="syncStore">🔄 Cargar de la tienda</button>
       <button class="btn btn--ghost" id="importJsonBtn">Importar archivo</button>
       <input type="file" id="jsonFile" accept="application/json,.json" hidden />
-      <button class="btn btn--danger" id="clearAll">Vaciar todo</button>
     </div>
     <p class="hint" id="syncHint" style="margin:-4px 0 10px">Al abrir, el panel carga tu inventario publicado para que no se pierda nada.</p>
     <input id="invSearch" type="search" placeholder="🔎 Buscar (nombre, juego, expansión)…" style="margin-bottom:12px" />
@@ -340,7 +362,9 @@
     <div class="divider"></div>
     <div class="actions">
       <button class="btn btn--gold" id="exportBtn">⬇ Descargar productos.json</button>
+      <button class="btn btn--danger" id="clearAll">Vaciar toda la base</button>
       <span class="hint" style="align-self:center">Backup, o para publicar directo con la barra de abajo 👇</span>
+    </div>
     </div>
   </div>
 
@@ -799,6 +823,7 @@ function render(){
     el.querySelector('.stk__i').onchange=(ev)=> setStockTo(ev.target.value===''?null:ev.target.value);
     el.querySelector('.e').onclick=()=> editItem(p.id);
     el.querySelector('.x').onclick=()=>{
+      if(!confirm(`⚠️ Cuidado: vas a borrar “${p.name}”.\nEsta carta desaparecerá de la base de datos.\n\n¿Seguro que la querés borrar?`)) return;
       if(p.id===editingId) exitEdit();
       const idx = items.findIndex(x=>x.id===p.id);
       const removed = items[idx];
@@ -953,12 +978,27 @@ async function syncFromStore(announce){
     items.forEach(p=>{ if(!seen.has((p.name||'').toLowerCase())) merged.push(p); });
     items = merged; reindex(); save();
     if(hint) hint.textContent = `Cargado: ${items.length} producto(s) de tu tienda.`;
+    const tag=$('#dbSyncTag'); if(tag){ tag.textContent=' · ✅ cargada de la tienda'; tag.style.color='#9FE1CB'; }
     if(announce) toast('Inventario cargado ('+items.length+')');
   }catch(e){
     if(hint) hint.textContent = 'No se pudo cargar el inventario de la tienda (se usa el local).';
+    const tag=$('#dbSyncTag'); if(tag){ tag.textContent=' · ⚠️ no cargó — no publiqués'; tag.style.color='#F09595'; }
   }
 }
 $('#syncStore').onclick = ()=> syncFromStore(true);
+
+/* ====== Base de datos plegable ====== */
+(function(){
+  const tg=$('#dbToggle'), body=$('#dbBody'), arrow=$('#dbArrow');
+  if(!tg||!body) return;
+  tg.addEventListener('click', ()=>{
+    const opening = body.hasAttribute('hidden');
+    if(opening){ body.removeAttribute('hidden'); } else { body.setAttribute('hidden',''); }
+    tg.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    if(arrow) arrow.textContent = opening ? '▴' : '▾';
+  });
+})();
+
 syncFromStore(false);   // al abrir, cargar lo publicado
 </script>
 </body>

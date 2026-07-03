@@ -8,6 +8,12 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-02 — Panel: base de datos plegable + borrado con aviso
+- **Inventario → "🗄️ Base de datos" plegable** (cerrada por defecto): la zona de agregar queda limpia; las 943 cartas ya no estorban. La barra muestra contador + valor + indicador de carga (✅ cargada / ⚠️ no cargó). Toggle "Ver / editar ▾".
+- Se movieron adentro de la base los botones peligrosos/secundarios: **"Vaciar toda la base"**, "Cargar de la tienda", "Importar archivo" (antes sueltos en el encabezado).
+- **Borrar una carta ahora pide confirmación** ("⚠️ Cuidado: vas a borrar X… desaparecerá de la base de datos") antes de quitarla; se mantiene el "Deshacer".
+- Motivación (Andrés): que lo ya subido viva como base de datos sin riesgo de borrado accidental; agregar solo suma. Cambio aislado a `admin.html` (autónomo, sin styles.css/app.js → sin bump de caché).
+
 ## 2026-07-02 — Foil de Riftbound (commons/uncommons)
 - **Precios foil reales de TCGplayer** para 413 commons/uncommons: extraídos de las 4 Price Guides vía la API interna `mpapi.tcgplayer.com/v2/product/<id>/pricepoints`, convertidos **USD × ₡520** (el mismo tipo de cambio del inventario normal) + el **redondeo escalonado** del proyecto. Escritos como campo `foil` en `productos.json`.
 - **Toggle Normal / Foil** en el catálogo y en la ficha de carta: cambia el precio con brillo tornasol; el carrito guarda normal y foil como **líneas separadas** (clave `id`/`id_f`); en la ficha, el botón de WhatsApp arma el mensaje "en FOIL".
