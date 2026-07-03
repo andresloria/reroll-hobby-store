@@ -93,6 +93,34 @@ def render_ability(text):
             out.append(safe)
     return "".join(out)
 
+def render_op_ability(text):
+    """One Piece: la descripción de TCGplayer trae HTML (<br>, <strong>) y
+    referencias {Tipo}. Conservamos <br>/negritas, escapamos el resto y
+    resaltamos los [keywords] como en Riftbound."""
+    if not text: return ""
+    t = text.replace("\r\n", "\n").replace("\r", "\n")
+    t = re.sub(r"<br\s*/?>", "<br>", t, flags=re.I)
+    t = t.replace("\n", "<br>")
+    parts = re.split(r"(<br>|</?strong>|</?b>|</?em>|</?i>)", t, flags=re.I)
+    out = []
+    for part in parts:
+        low = part.lower()
+        if low == "<br>":
+            out.append("<br>")
+        elif low in ("<strong>", "<b>"):
+            out.append('<b class="fx-kw">')
+        elif low in ("</strong>", "</b>"):
+            out.append("</b>")
+        elif low in ("<em>", "<i>"):
+            out.append("<i>")
+        elif low in ("</em>", "</i>"):
+            out.append("</i>")
+        else:
+            safe = esc(html.unescape(part))
+            safe = re.sub(r"\[([^\]]+)\]", r'<b class="fx-kw">[\1]</b>', safe)
+            out.append(safe)
+    return "".join(out)
+
 # --- Atributos: etiqueta + valor, ocultando vacíos -------------------------
 def attr_rows(rich, prod):
     rows = []
@@ -101,6 +129,12 @@ def attr_rows(rich, prod):
             rows.append((label, html_val if html_val is not None else esc(val)))
     add("Tipo", rich.get("type"))
     add("Rareza", rich.get("rarity"))
+    if prod.get("cat") == "One Piece":
+        add("Color", rich.get("color"))
+        add("Costo", rich.get("cost"))
+        add("Vida", rich.get("life"))
+        add("Counter", rich.get("counter"))
+        add("Atributo", rich.get("attribute"))
     dom = (rich.get("domains") or "").strip()
     if dom:
         chips = []
@@ -113,7 +147,7 @@ def attr_rows(rich, prod):
     add("Might", rich.get("might"))
     tags = (rich.get("tags") or "").strip()
     if tags: add("Subtipos", tags)
-    num = rich.get("collector_number")
+    num = rich.get("collector_number") or rich.get("number")
     if num:
         total = ""
         code = rich.get("code") or ""
@@ -138,6 +172,18 @@ def load_rich():
 def build():
     products = json.load(open(PROD_JSON, encoding="utf-8"))
     rich_by_img = load_rich()
+    # datos ricos de One Piece (derivados de TCGplayer/TCGCSV), keyed por img url
+    op_path = os.path.join(ROOT, "onepiece_rich.json")
+    if os.path.exists(op_path):
+        with open(op_path, encoding="utf-8") as f:
+            rich_by_img.update(json.load(f))
+    # datos ricos del CATÁLOGO MAESTRO (Riftbound + One Piece completos), keyed por img
+    cat_dir = os.path.join(ROOT, "catalogo")
+    if os.path.isdir(cat_dir):
+        for fn in os.listdir(cat_dir):
+            if fn.endswith("_rich.json"):
+                with open(os.path.join(cat_dir, fn), encoding="utf-8") as f:
+                    rich_by_img.update(json.load(f))
 
     # --- 1ra pasada: calcular slug único por producto ---
     used = {}
@@ -158,6 +204,13 @@ def build():
             used[slug] = 1
         p["_slug"] = slug
         p["_rich"] = r
+        # d = efecto renderizado + atributos, para el quick-view (modal) de la tienda
+        ability = (r.get("ability_text") or "").strip()
+        rfx = render_op_ability if (r.get("op") or "<" in ability) else render_ability
+        d = {}
+        if ability: d["fx"] = rfx(ability)
+        at = attr_rows(r, p)
+        if at: d["at"] = [[k, v] for k, v in at]
         index[str(p["id"])] = {
             "slug": slug,
             "number": num,
@@ -165,6 +218,7 @@ def build():
             "type": r.get("type", ""),
             "rarity": r.get("rarity", ""),
             "domains": r.get("domains", ""),
+            "d": d,
         }
 
     json.dump(index, open(INDEX_OUT, "w", encoding="utf-8"),
@@ -262,6 +316,9 @@ def write_page(p, by_set):
 
     # --- efecto ---
     ability = (r.get("ability_text") or "").strip()
+    # descripciones de TCGplayer traen HTML (<em>/<br>/<strong>) -> limpiador;
+    # las de los CSV de Riftbound usan tokens :rb_...: -> render Riftbound.
+    render_fx = render_op_ability if (r.get("op") or "<" in ability) else render_ability
     effect_html = ""
     if ability:
         effect_html = (
@@ -270,7 +327,7 @@ def write_page(p, by_set):
             'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" '
             'aria-hidden="true"><path d="M12 3l1.9 4.6L19 9l-4.6 1.9L12 16l-1.9-5.1L5 9l5.1-1.4z"/></svg>'
             'Efecto</div>'
-            f'<p class="cd-effect__txt">{render_ability(ability)}</p></div>'
+            f'<p class="cd-effect__txt">{render_fx(ability)}</p></div>'
         )
 
     # --- atributos ---

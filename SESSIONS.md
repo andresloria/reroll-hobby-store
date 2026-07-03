@@ -8,6 +8,32 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-03 — Quick-view (modal de detalle) + stress test 10k
+- **Quick-view en la tienda** (`js/app.js` + `css/styles.css`, cache v49): click en cualquier carta → modal con imagen + **descripción** + atributos + precio + "Agregar al carrito" + "Ver ficha completa". La descripción sale de `p.d` (embebida al agregar del catálogo) o de `cartas.json` (`SLUGS[id].d`). Intercepta `a.card__link` (preventDefault); las páginas estáticas siguen para SEO/no-JS.
+- **`make_cartas.py`** ahora escribe `d = {fx: efecto renderizado, at: [[label,val]]}` en cada entrada de `cartas.json` (1075/1105 con efecto). El **panel** produce el mismo `d` al agregar (JS `cleanAbility`+`buildAttrs`) y lo embebe en la carta → funciona sin depender de rebuilds.
+- **Imágenes sin foto:** `make_catalogo.py` usa `imageCount` de TCGCSV; si 0 → sin URL. Riftbound ~14% sin imagen en TCGplayer (promos/org-play/Vendetta nuevos), One Piece ~2.5%.
+- **Placeholder "Imagen no disponible"** (reemplazó el emoji, cache v49→v50): recuadro punteado con icono de imagen tachada en la grilla y el quick-view de la tienda (`.noimg` en `app.js`/`styles.css`), y "Sin imagen" en las filas del catálogo/inventario del panel. En la base de datos, las cartas sin foto muestran badge **"sin imagen"** + botón **"📷 Poner imagen"** que abre el editor con el campo de foto/link enfocado (reusa `editItem`). Verificado en tienda, catálogo e inventario, sin errores.
+- **Bonus:** Love-Love Mellow (tu carta manual) ahora tiene efecto — su rich estaba en el catálogo completo de One Piece.
+- **Stress test (verificado):** 8305 cartas cargadas (fetch+build 248ms). Integridad: 100% con img válida/nombre/precio, 87% con descripción (resto sellado/vanilla). Imágenes: ~95% cargan; los fallos en ráfaga eran throttling del CDN (cargan solas), y las genuinamente sin foto ya usan emoji. Quick-view: 250 fichas abiertas, 0 errores, 0.15ms c/u. Panel: agregar 8305 (total 9410≈10k) en 57ms + save 117ms, localStorage 3.75MB; quitar/restaurar OK; add/remove REAL end-to-end con `d` embebido OK. Cero errores de consola.
+
+## 2026-07-03 — Catálogo maestro + quick-search en el panel (estilo CardNexus)
+- **`make_catalogo.py` (NUEVO):** genera el catálogo maestro desde TCGCSV (Riftbound cat. 89, One Piece cat. 68). Por juego, dos archivos en `catalogo/`: **liviano** (`<juego>.json` — nombre/set/nº/rareza/tipo/img/precio/foil, lo carga el panel) y **rico** (`<juego>_rich.json` — efecto+atributos, solo build local). Precio = market TCGplayer × ₡520 + redondeo escalonado; foil como variante si hay Normal+Foil.
+  - Riftbound: 1249 cartas (9 sets: Origins, Spiritforged, Unleashed, Vendetta, Proving Grounds, promos, org play). One Piece: 7056 cartas (77 sets). Cache crudo de TCGCSV en `catalogo/_cache/` (gitignored).
+- **Panel: "🃏 Agregar desde el catálogo"** (modal quick-search en `admin.html`): elegís juego → busca (tolerante, por palabras) → filtros Tipo/Expansión/Finish → cada carta con imagen+precio y `+`/`−` para poner cuánto tenés. Se agrega/quita de la base (`items`) matcheando por `img`; en 0 se quita. Imagen/precio/descripción salen del catálogo — cero carga manual.
+- **`make_cartas.py`:** ahora también carga `catalogo/*_rich.json` (keyed por img) → toda carta agregada del catálogo tiene ficha con descripción. `render_op_ability` generalizado (limpia HTML de TCGplayer `<em>/<br>/<strong>`); se usa cuando el efecto trae tags `<`.
+- **Verificado:** buscar (ahri 13, luffy), agregar (→ base, stock 1), stepper +/− (quita en 0), cambio de juego (77 sets OP), filtros set/foil, sin errores de consola. Pendiente menor: el filtro "foil" solo cuenta cartas con variante normal+foil (las foil-only Showcase/Epic no matchean).
+- **SIN pushear** (decisión del usuario: subir todo junto cuando el quick-search esté listo). El catálogo liviano (~1.9MB) se sirve al panel; los `_rich` (~3.5MB) son solo build.
+
+## 2026-07-02 — One Piece OP-16 + fichas ricas + buscador tolerante
+- **159 cartas de One Piece OP-16 "The Time of Battle"** agregadas a `productos.json` (ids 947–1105): base + alt-arts/parallels + DON!!/SP/Manga. Juego nuevo "One Piece". Total del catálogo: 1105.
+- **Precios reales de TCGplayer** vía **TCGCSV** (espejo de la API de TCGplayer, categoría 68, grupo 24664): marketPrice por carta (subtipo Normal o Foil) × **₡520** + redondeo escalonado. Rango ₡100–₡630.000 (Manga/SP = valor real de mercado). Imágenes del CDN de TCGplayer (`_400w.jpg`). Stock 1.
+- **Reconciliación git:** el remoto tenía un publish del panel (Love-Love Mellow, id 946) que el local no; se hizo `git pull` ANTES de reponer One Piece para no perderla.
+- **Fichas ricas de One Piece (regla de oro):** `onepiece_rich.json` (NUEVO, derivado de TCGCSV: efecto, color, poder, vida, counter, costo, atributo, subtipos) se cruza en `make_cartas.py`. Nuevo `render_op_ability` limpia el HTML de TCGplayer (`<br>/<strong>`) y resalta los `[keywords]`. `attr_rows` extendido con atributos de One Piece. Ahora cada carta abre su detalle con descripción, como Riftbound.
+- **Love-Love Mellow (subida a mano):** ahora tiene ficha y abre al click (el rebuild la generó); imagen bajada de `_in_1000x1000` a `_400w` (quedaba enorme). Sigue sin descripción (se subió a mano sin efecto; su set no se ubicó en TCGCSV).
+- **Buscador tolerante** (`js/app.js`, `normSearch`/`matchQuery`): sin tildes, sin puntuación, por palabras sueltas — "luffy"/"monkey luffy" encuentran "Monkey.D.Luffy", "pokemon" → "Pokémon". Tope del buscador rápido 6→10. Cache `v47→v48`.
+- **Verificado:** filtro de expansiones ya scopea por juego (no muestra sets de otro juego); Riftbound sin regresión. Sin `foil` en One Piece (cada versión es producto aparte). Sellado NO incluido.
+- **Regla de oro nueva:** toda carta que se suba debe abrir su detalle con descripción. Ojo: las cartas subidas por el panel NO generan ficha hasta correr `make_cartas.py` (el panel no corre Python) — hay que rebuild + push tras publicar a mano.
+
 ## 2026-07-02 — Panel: base de datos plegable + borrado con aviso
 - **Inventario → "🗄️ Base de datos" plegable** (cerrada por defecto): la zona de agregar queda limpia; las 943 cartas ya no estorban. La barra muestra contador + valor + indicador de carga (✅ cargada / ⚠️ no cargó). Toggle "Ver / editar ▾".
 - Se movieron adentro de la base los botones peligrosos/secundarios: **"Vaciar toda la base"**, "Cargar de la tienda", "Importar archivo" (antes sueltos en el encabezado).

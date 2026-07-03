@@ -1,8 +1,20 @@
-# HANDOFF — estado de la sesión (act. 2026-07-02)
+# HANDOFF — estado de la sesión (act. 2026-07-03)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo la sesión foil de hoy, ver abajo). Cache en **`?v=47`** (index.html y juego.html alineados). Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com**. Cache en **`?v=51`** (index.html y juego.html alineados). Historial completo en [SESSIONS.md](SESSIONS.md).
 
-## En qué estábamos (sesión 2026-07-02) — FOIL de Riftbound
+## En qué estábamos (sesión 2026-07-03) — Catálogo maestro + quick-search + quick-view
+Sesión grande, todo verificado en preview y **pusheado**:
+1. **One Piece OP-16 "The Time of Battle"** (159 cartas, ids 947–1105) en `productos.json` con fichas ricas (efecto+atributos). Datos de TCGplayer vía **TCGCSV**.
+2. **Catálogo maestro** (`make_catalogo.py` → `catalogo/<juego>.json` liviano + `_rich` para build): Riftbound completo (1249, 9 sets incl. promos/Vendetta) + One Piece completo (7056, 77 sets). Precio market×₡520+redondeo, foil, imágenes TCGplayer (`imageCount>0`).
+3. **Panel "🃏 Agregar desde el catálogo"** (quick-search estilo CardNexus en `admin.html`): buscar → filtros Tipo/Expansión/Finish → `+`/`−` para poner stock. Embebe la descripción (`d`) en la carta al agregar.
+4. **Quick-view en la tienda** (`js/app.js`, modal `.qv`): click en carta → imagen + descripción + atributos + precio + carrito. Lee `p.d` o `cartas.json` (`d`). Intercepta `a.card__link`.
+5. **Buscador tolerante** (`normSearch`/`matchQuery`): sin tildes/puntuación, por palabras. **Filtro** ya scopea por juego.
+6. **Placeholder "Imagen no disponible"** (`.noimg`) para cartas sin foto; en el panel, badge "sin imagen" + botón "📷 Poner imagen" (abre `editItem`). El `onerror` usa función global (`qvImgFail`/`catImgFail`) — NO HTML embebido (bug corregido: colaba texto).
+7. **Bonus:** Love-Love Mellow (subida a mano) ahora tiene imagen 400w + efecto + click-through.
+- **Stress test OK:** 8305 cartas, 100% img válida/nombre/precio, 87% con descripción; quick-view 250 aperturas 0 errores; panel add/remove 10k fluido.
+- **PENDIENTE futuro:** ~14% de Riftbound sin imagen en TCGplayer (usar imágenes de Riot en otra tanda). Cartas subidas por el panel necesitan rebuild local (`make_cartas.py`) para su ficha estática; el quick-view ya las cubre con `d` embebido.
+
+## Sesión 2026-07-02 — FOIL de Riftbound (en vivo)
 Feature foil para commons/uncommons, **construido y verificado en preview**:
 1. **Precios foil de TCGplayer** (413 cartas) → campo `foil` en `productos.json`. Extraídos de la API `mpapi.tcgplayer.com/v2/product/<id>/pricepoints`, convertidos **USD × ₡520** + redondeo escalonado. Datos crudos por set en el scratchpad (`foil_Origins.txt`, etc.).
 2. **Toggle Normal/Foil** en catálogo (`js/app.js`, clases `.ftoggle`) y ficha de carta (`make_cartas.py` + `js/carta.js`, `.cd-ftoggle`). Carrito con variante por `key` (`id`/`id_f`), pill `.foilpill`. Brillo `.card__price--foil` / `.cd-price--foil` (`@keyframes foilShine`).

@@ -34,6 +34,7 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 5. **No recrear arte/logos con copyright** — el usuario provee los archivos; yo los optimizo/cableo.
 6. Commits terminan con `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
 7. **NUNCA borrar los tags de verificación/medición del `<head>`:** el meta `google-site-verification` de index.html (Google revalida; si se quita, se pierde la verificación de Search Console) ni el snippet `gtag.js` (GA `G-X6LMX9VR0Y`). Si hay que reordenar el `<head>`, conservarlos.
+8. **REGLA DE ORO — toda carta abre su detalle CON descripción:** cualquier carta que se suba debe tener su ficha `/carta/<slug>.html` (click en el grid la abre) y mostrar la descripción/efecto + atributos como Riftbound. Al agregar cartas SIEMPRE correr `python make_cartas.py` y verificar el click-through. Para juegos sin CSV rico (One Piece) la data va en `onepiece_rich.json` (efecto/atributos, keyed por `img` url). ⚠️ Las cartas subidas por el **panel** NO generan ficha solas (el panel no corre Python) → tras un publish manual hay que hacer rebuild + push.
 
 ## Convenciones técnicas
 - **Imágenes externas (rgpub/Sanity CDN):** optimizar con `imgURL(url, w)` → agrega `&w=N&auto=format&q=78` (sirve webp chico). `auto=format` necesita header `Accept` de navegador.

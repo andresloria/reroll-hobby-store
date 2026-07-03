@@ -19,3 +19,10 @@ desktop.ini
 
 # Dependencias (por si en el futuro se usan)
 node_modules/
+
+# cache crudo de TCGCSV (make_catalogo.py) — no versionar
+catalogo/_cache/
+
+# Python bytecode
+__pycache__/
+*.pyc

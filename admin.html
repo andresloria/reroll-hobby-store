@@ -94,11 +94,58 @@
   .db-bar[aria-expanded="true"] .db-bar__cta{background:rgba(201,162,75,.15);border-color:var(--gold)}
   .db-bar__arrow{display:inline-block;margin-left:2px}
   #dbBody{margin-top:16px}
+  /* ===== Modal catálogo (quick-search estilo CardNexus) ===== */
+  .catov{position:fixed;inset:0;z-index:50;background:rgba(10,6,6,.72);backdrop-filter:blur(4px);
+    display:none;align-items:flex-start;justify-content:center;padding:4vh 16px;overflow:auto}
+  .catov.open{display:flex}
+  .catmodal{width:100%;max-width:640px;background:linear-gradient(180deg,var(--ink-2),#1a1311);
+    border:1px solid var(--gold);border-radius:16px;box-shadow:0 30px 80px -20px #000;overflow:hidden}
+  .cathead{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+  .cathead h3{font-family:var(--font-display);font-size:1.15rem;color:var(--gold-bright);flex:1}
+  .catx{background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;line-height:1}
+  .catbody{padding:14px 18px;max-height:78vh;overflow:auto}
+  .catrow1{display:flex;gap:8px;margin-bottom:8px}
+  .catrow1 select,.catrow1 input{margin:0}
+  .catgame{flex:0 0 auto;width:auto;min-width:150px}
+  .catfilters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .catfilters select{margin:0;font-size:.85rem;padding:8px 10px;width:auto;flex:1;min-width:120px}
+  .catloading{color:var(--muted);text-align:center;padding:24px;font-size:.9rem}
+  .catlist{display:flex;flex-direction:column;gap:8px}
+  .catit{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);
+    border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+  .catit.inbase{background:rgba(29,158,117,.1);border-color:rgba(29,158,117,.4)}
+  .catit__img{width:44px;height:61px;border-radius:6px;object-fit:cover;background:#0d0908;flex-shrink:0}
+  .catit__meta{flex:1;min-width:0}
+  .catit__nm{font-size:.9rem;font-weight:700;line-height:1.15}
+  .catit__nm small{color:var(--muted);font-weight:400;margin-left:4px}
+  .catit__sub{font-size:.74rem;color:var(--muted);margin-top:1px}
+  .catit__tags{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap}
+  .catpill{font-size:.66rem;padding:1px 7px;border-radius:999px;background:rgba(201,162,75,.16);color:var(--gold-bright)}
+  .catprice{font-family:var(--font-mono);font-size:.82rem;color:var(--gold-bright)}
+  .catin{font-size:.68rem;color:#9FE1CB}
+  .catadd{width:34px;height:34px;flex-shrink:0;border-radius:9px;border:1px solid rgba(201,162,75,.4);
+    background:rgba(201,162,75,.12);color:var(--gold-bright);font-size:1.25rem;cursor:pointer;line-height:1}
+  .catadd:hover{background:rgba(201,162,75,.25)}
+  .catqty{display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.25);border-radius:9px;padding:4px 6px;flex-shrink:0}
+  .catqty button{width:26px;height:26px;border-radius:6px;border:none;background:rgba(255,255,255,.08);color:var(--cream);cursor:pointer}
+  .catqty button.plus{background:rgba(201,162,75,.25);color:var(--gold-bright)}
+  .catqty b{font-family:var(--font-mono);min-width:16px;text-align:center}
+  .catmore{margin:12px auto 0;display:block}
   .items{display:flex;flex-direction:column;gap:10px}
   .item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:9px 12px;
     background:rgba(255,255,255,.02)}
   .item img,.item .emoji{width:42px;height:56px;border-radius:7px;object-fit:cover;flex-shrink:0;border:1px solid var(--line)}
   .item .emoji{display:grid;place-items:center;font-size:1.6rem;background:linear-gradient(150deg,var(--wine),var(--wine-deep))}
+  /* placeholder "sin imagen" (catálogo + inventario) */
+  .noimgp{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex-shrink:0;
+    background:repeating-linear-gradient(45deg,rgba(255,255,255,.03),rgba(255,255,255,.03) 6px,transparent 6px,transparent 12px);
+    border:1px dashed rgba(201,162,75,.32)!important;color:var(--muted);text-align:center;padding:2px}
+  .noimgp span{font-size:.52rem;line-height:1.1;letter-spacing:.02em}
+  .item .noimgp{width:42px;height:56px;border-radius:7px}
+  .noimg-badge{background:rgba(226,75,74,.15);color:#F09595;font-size:.6rem;padding:1px 7px;border-radius:999px;margin-left:5px}
+  .putimg{margin-top:5px;font-family:inherit;font-weight:600;font-size:.72rem;cursor:pointer;
+    border:1px solid rgba(201,162,75,.4);border-radius:999px;padding:4px 10px;background:rgba(201,162,75,.13);color:var(--gold-bright)}
+  .putimg:hover{background:rgba(201,162,75,.25)}
   .item .meta{flex:1;min-width:0}
   .item .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .item .sm{font-size:.8rem;color:var(--muted)}
@@ -215,6 +262,8 @@
     <div class="panel">
       <h2>Agregar una carta / producto</h2>
       <p class="sub">Cargá una por una con su foto. La imagen se optimiza sola.</p>
+      <button type="button" class="btn btn--gold btn--block" id="openCatalog" style="margin-bottom:8px">🃏 Agregar desde el catálogo</button>
+      <p class="hint" style="margin:-2px 0 14px;text-align:center">Buscá la carta, ponés cuántas tenés y listo — imagen, precio y descripción salen solos. ↓ o cargala a mano abajo.</p>
       <form id="addForm">
         <label>Nombre
           <input name="name" required placeholder="Ej: Charizard Holo 1ª ed." />
@@ -445,6 +494,32 @@
     </details>
   </div>
 
+</div>
+
+<!-- Modal: agregar desde el catálogo maestro (quick-search) -->
+<div class="catov" id="catOverlay" role="dialog" aria-modal="true" aria-label="Agregar desde el catálogo">
+  <div class="catmodal">
+    <div class="cathead">
+      <span style="font-size:1.3rem">🃏</span>
+      <h3>Agregar desde el catálogo</h3>
+      <button class="catx" id="catClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="catbody">
+      <div class="catrow1">
+        <select class="catgame" id="catGame">
+          <option value="riftbound">🎲 Riftbound</option>
+          <option value="one-piece">🏴‍☠️ One Piece</option>
+        </select>
+        <input type="search" id="catSearch" placeholder="🔎 Buscá la carta (ej. Ahri, Luffy)…" autocomplete="off" />
+      </div>
+      <div class="catfilters">
+        <select id="catType"><option value="all">Todo tipo</option><option value="single">Singles</option><option value="sealed">Sellado</option></select>
+        <select id="catSet"><option value="all">Todas las expansiones</option></select>
+        <select id="catFinish"><option value="all">Normal y Foil</option><option value="normal">Solo normal</option><option value="foil">Solo foil</option></select>
+      </div>
+      <div id="catResults"><p class="catloading">Elegí un juego y buscá una carta.</p></div>
+    </div>
+  </div>
 </div>
 
 <!-- barra fija: acciones siempre visibles (no hay que bajar hasta el final) -->
@@ -799,14 +874,16 @@ function render(){
   wrap.innerHTML='';
   pageItems.forEach(p=>{
     const el=document.createElement('div'); el.className='item'+(p.id===editingId?' editing':'');
-    const media = p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : `<div class="emoji">${esc(p.emoji)||'🎴'}</div>`;
+    const noImg = !p.img;
+    const media = p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : `<div class="noimgp"><span>Sin imagen</span></div>`;
     const s = admStock(p);
     const setTxt = p.set ? esc(p.set)+' · ' : '';
     const condTxt = p.type==='sealed' ? 'Sellado' : esc(p.cond||'');
     el.innerHTML = `${media}
       <div class="meta">
-        <div class="nm">${esc(p.name)}</div>
+        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}</div>
         <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}${p.foil!=null?' · <span style="color:var(--gold-bright)">✨ Foil '+fmt(p.foil)+'</span>':''}</div>
+        ${noImg?'<button class="putimg" type="button">📷 Poner imagen</button>':''}
       </div>
       <div class="stk${s!==null&&s<=0?' stk--out':''}" title="Stock disponible">
         <button class="stk__b" data-d="-1" aria-label="Menos">−</button>
@@ -822,6 +899,8 @@ function render(){
     el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); setStockTo(Math.max(0,cur+Number(b.dataset.d))); });
     el.querySelector('.stk__i').onchange=(ev)=> setStockTo(ev.target.value===''?null:ev.target.value);
     el.querySelector('.e').onclick=()=> editItem(p.id);
+    const putimg=el.querySelector('.putimg');
+    if(putimg) putimg.onclick=()=>{ editItem(p.id); const f=$('#imgUrl'); if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{ try{ f.focus(); }catch(e){} },350); } };
     el.querySelector('.x').onclick=()=>{
       if(!confirm(`⚠️ Cuidado: vas a borrar “${p.name}”.\nEsta carta desaparecerá de la base de datos.\n\n¿Seguro que la querés borrar?`)) return;
       if(p.id===editingId) exitEdit();
@@ -1000,6 +1079,145 @@ $('#syncStore').onclick = ()=> syncFromStore(true);
 })();
 
 syncFromStore(false);   // al abrir, cargar lo publicado
+
+/* ====== Agregar desde el catálogo maestro (quick-search) ====== */
+(function(){
+  const ov=$('#catOverlay');
+  if(!ov) return;
+  const gameSel=$('#catGame'), search=$('#catSearch'), typeSel=$('#catType'),
+        setSel=$('#catSet'), finishSel=$('#catFinish'), results=$('#catResults');
+  const cache={};            // juego -> array de entradas (liviano)
+  const richCache={};        // juego -> {img: rich} (efecto/atributos)
+  let cur=[];                // catálogo del juego activo
+  let shown=40;              // paginación
+  const norm=s=>(s||'').toString().toLowerCase().normalize('NFD')
+      .replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+  // renderers para embeber la descripción (mismo formato que make_cartas.py)
+  window.catImgFail = function(el){ try{ el.outerHTML = '<div class="catit__img noimgp"><span>Sin imagen</span></div>'; }catch(e){} };
+  const escH=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const unescH=s=>{ const d=document.createElement('textarea'); d.innerHTML=s; return d.value; };
+  function cleanAbility(text){
+    if(!text) return '';
+    let t=String(text).replace(/\r\n/g,'\n').replace(/\r/g,'\n').replace(/<br\s*\/?>/gi,'<br>').replace(/\n/g,'<br>');
+    const parts=t.split(/(<br>|<\/?strong>|<\/?b>|<\/?em>|<\/?i>)/i); let out='';
+    for(const part of parts){ const lo=part.toLowerCase();
+      if(lo==='<br>') out+='<br>';
+      else if(lo==='<strong>'||lo==='<b>') out+='<b class="fx-kw">';
+      else if(lo==='</strong>'||lo==='</b>') out+='</b>';
+      else if(lo==='<em>'||lo==='<i>') out+='<i>';
+      else if(lo==='</em>'||lo==='</i>') out+='</i>';
+      else { let s=escH(unescH(part)); s=s.replace(/\[([^\]]+)\]/g,'<b class="fx-kw">[$1]</b>'); out+=s; }
+    }
+    return out;
+  }
+  function buildAttrs(r, cat){
+    const rows=[]; const add=(k,v)=>{ if(v!=null&&v!==''&&v!=='—') rows.push([k, escH(String(v))]); };
+    add('Tipo',r.type); add('Rareza',r.rarity);
+    if(cat==='One Piece'){ add('Color',r.color); add('Costo',r.cost); add('Vida',r.life); add('Counter',r.counter); add('Atributo',r.attribute); }
+    if(r.domains) add('Dominio',r.domains);
+    add('Energía',r.energy); add('Power',r.power); add('Might',r.might);
+    if(r.tags) add('Subtipos',r.tags);
+    const num=r.collector_number||r.number; if(num) add('N.º',num);
+    return rows;
+  }
+  function open(){ ov.classList.add('open'); document.body.style.overflow='hidden'; loadGame(); setTimeout(()=>search.focus(),50); }
+  function close(){ ov.classList.remove('open'); document.body.style.overflow=''; }
+  $('#openCatalog').onclick=open; $('#catClose').onclick=close;
+  ov.addEventListener('click',e=>{ if(e.target===ov) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&ov.classList.contains('open')) close(); });
+
+  async function loadGame(){
+    const g=gameSel.value;
+    if(cache[g]){ cur=cache[g]; fillSets(); render(); return; }
+    results.innerHTML='<p class="catloading">Cargando catálogo… (la primera vez tarda unos segundos)</p>';
+    try{
+      const r=await fetch('catalogo/'+g+'.json',{cache:'force-cache'});
+      cur=cache[g]=await r.json();
+      fillSets(); render();
+      // rich (efecto/atributos) en background para embeber la descripción al agregar
+      if(!richCache[g]){
+        fetch('catalogo/'+g+'_rich.json',{cache:'force-cache'})
+          .then(x=>x.json()).then(j=>{ richCache[g]=j; }).catch(()=>{ richCache[g]={}; });
+      }
+    }catch(e){ results.innerHTML='<p class="catloading">No se pudo cargar el catálogo de '+g+'.</p>'; }
+  }
+  function fillSets(){
+    const sets=[...new Set(cur.map(e=>e.set))].sort();
+    setSel.innerHTML='<option value="all">Todas las expansiones</option>'+sets.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
+  }
+  function invByImg(img){ return items.find(p=>p.img===img); }
+  function filtered(){
+    const q=norm(search.value), ty=typeSel.value, st=setSel.value, fi=finishSel.value;
+    const toks=q.split(' ').filter(Boolean);
+    return cur.filter(e=>{
+      if(ty!=='all' && e.type!==ty) return false;
+      if(st!=='all' && e.set!==st) return false;
+      if(fi==='foil' && e.foil==null) return false;
+      if(toks.length){ const hay=norm(e.name+' '+e.set+' '+(e.number||'')); if(!toks.every(t=>hay.includes(t))) return false; }
+      return true;
+    });
+  }
+  function render(){
+    const list=filtered();
+    if(!cur.length){ return; }
+    if(!list.length){ results.innerHTML='<p class="catloading">Sin resultados. Probá otro nombre o quitá filtros.</p>'; return; }
+    const page=list.slice(0,shown);
+    results.innerHTML='<div class="catlist">'+page.map((e,i)=>rowHTML(e,i)).join('')+'</div>'+
+      (list.length>shown?`<button class="btn btn--ghost catmore" id="catMore">Ver más (${list.length-shown})</button>`:'')+
+      `<p class="hint" style="text-align:center;margin-top:10px">${list.length} resultado(s)</p>`;
+    page.forEach((e,i)=>wireRow(e,i));
+    const more=$('#catMore'); if(more) more.onclick=()=>{ shown+=40; render(); };
+  }
+  function rowHTML(e,i){
+    const it=invByImg(e.img); const qty=it?stockNum(it):0;
+    const finish = e.foil!=null ? '<span class="catpill">✨ Foil disp.</span>' : '';
+    const rar = e.rarity ? `<span class="catpill">${esc(e.rarity)}</span>` : '';
+    const num = e.number ? `<small>${esc(e.number)}</small>` : '';
+    const priceTxt = fmt(e.price)+(e.foil!=null?` · foil ${fmt(e.foil)}`:'');
+    const ctrl = qty>0
+      ? `<div class="catqty" data-i="${i}"><button class="minus" data-i="${i}">−</button><b id="catq-${i}">${qty}</b><button class="plus" data-i="${i}">+</button></div>`
+      : `<button class="catadd" data-i="${i}" title="Agregar">+</button>`;
+    const media = e.img
+      ? `<img class="catit__img" src="${esc(e.img)}" alt="" loading="lazy" onerror="catImgFail(this)">`
+      : `<div class="catit__img noimgp"><span>Sin imagen</span></div>`;
+    return `<div class="catit${qty>0?' inbase':''}" id="catit-${i}">
+      ${media}
+      <div class="catit__meta">
+        <div class="catit__nm">${esc(e.name)} ${num}</div>
+        <div class="catit__sub">${esc(e.set)}${e.type==='sealed'?' · Sellado':''}</div>
+        <div class="catit__tags">${rar}${finish}<span class="catprice">${priceTxt}</span>${qty>0?'<span class="catin">✓ en tu base</span>':''}</div>
+      </div>
+      ${ctrl}
+    </div>`;
+  }
+  function wireRow(e,i){
+    const add=results.querySelector(`.catadd[data-i="${i}"]`);
+    if(add) add.onclick=()=>{ setQty(e, 1); };
+    const minus=results.querySelector(`.catqty .minus[data-i="${i}"]`);
+    const plus=results.querySelector(`.catqty .plus[data-i="${i}"]`);
+    if(plus) plus.onclick=()=>{ const it=invByImg(e.img); setQty(e,(it?stockNum(it):0)+1); };
+    if(minus) minus.onclick=()=>{ const it=invByImg(e.img); setQty(e,(it?stockNum(it):0)-1); };
+  }
+  function setQty(e, q){
+    let it=invByImg(e.img);
+    if(q<=0){ if(it){ items=items.filter(x=>x!==it); } }
+    else if(it){ it.stock=q; }
+    else {
+      it={ id:nextId++, name:e.name, cat:e.game, type:e.type||'single', set:e.set,
+           price:e.price, cond:'Near Mint', stock:q, img:e.img };
+      if(e.foil!=null) it.foil=e.foil;
+      const rd = richCache[gameSel.value] && richCache[gameSel.value][e.img];
+      if(rd) it.d = { fx: cleanAbility(rd.ability_text||''), at: buildAttrs(rd, e.game) };  // quick-view
+      if(it.d && !it.d.fx && (!it.d.at || !it.d.at.length)) delete it.d;
+      items.push(it);
+    }
+    save();
+    render();  // refresca contadores/estado
+  }
+  gameSel.onchange=()=>{ shown=40; loadGame(); };
+  [typeSel,setSel,finishSel].forEach(s=> s.onchange=()=>{ shown=40; render(); });
+  let deb; search.oninput=()=>{ clearTimeout(deb); deb=setTimeout(()=>{ shown=40; render(); },160); };
+})();
 </script>
 </body>
 </html>

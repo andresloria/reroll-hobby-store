@@ -122,11 +122,16 @@ function imgURL(url, w){
 
 // Ícono SVG de carta (reemplaza el emoji 🎴 como placeholder cuando un producto no tiene imagen)
 const SVG_CARD = `<svg class="ph-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.2"/><path d="M9 7.5h6M9 11h6M9 14.5h3.5"/></svg>`;
+// Placeholder "Imagen no disponible" (imagen tachada) para cartas sin foto
+const IMG_OFF = `<svg class="noimg__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/><line x1="3" y1="3" x2="21" y2="21"/></svg>`;
+function noImgBox(cls){ return `<div class="${cls||''} noimg" aria-label="Imagen no disponible">${IMG_OFF}<span class="noimg__t">Imagen no disponible</span></div>`; }
+// fallback si una imagen que SÍ tenía URL no carga (404/transitorio): recién ahí mostramos el placeholder
+function qvImgFail(el){ try{ el.outerHTML = noImgBox("qv__noimg"); }catch(e){} }
 
 function media(p, cls){
   // si la imagen es horizontal (battlefields/locations), se rota para llenar el marco vertical
   if(p.img) return `<img class="${cls}" src="${imgURL(p.img,500)}" alt="${p.name}" loading="lazy" onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('card__photo--wide')" />`;
-  return `<span class="card__emoji">${p.emoji||SVG_CARD}</span>`;
+  return noImgBox("card__noimg");
 }
 
 // Índice id → slug (lo genera make_cartas.py). Permite enlazar cada carta del
@@ -137,6 +142,63 @@ function cartaHref(p){
   const e = SLUGS[p.id];
   return e && e.slug ? `carta/${e.slug}.html` : null;
 }
+
+// ---- Quick-view: modal de detalle instantáneo (imagen + descripción + precio) ----
+// La descripción sale de p.d (embebida al agregar del catálogo) o de cartas.json (SLUGS[id].d).
+function cardRich(p){ return (p && p.d) || (SLUGS[p.id] && SLUGS[p.id].d) || null; }
+let _qv = null;
+function qvEl(){
+  if(_qv) return _qv;
+  _qv = document.createElement("div");
+  _qv.className = "qv"; _qv.hidden = true;
+  _qv.innerHTML = `<div class="qv__bg"></div>
+    <div class="qv__card" role="dialog" aria-modal="true" aria-label="Detalle de carta">
+      <button class="qv__x" aria-label="Cerrar">✕</button>
+      <div class="qv__media"><img class="qv__img" alt="" /></div>
+      <div class="qv__info">
+        <span class="qv__cat"></span>
+        <h3 class="qv__name"></h3>
+        <div class="qv__price"></div>
+        <div class="qv__effect"></div>
+        <div class="qv__attrs"></div>
+        <div class="qv__actions">
+          <button class="qv__add btn btn--gold" type="button">Agregar al carrito</button>
+          <a class="qv__full btn btn--ghost">Ver ficha completa ↗</a>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(_qv);
+  _qv.querySelector(".qv__x").onclick = closeQV;
+  _qv.querySelector(".qv__bg").onclick = closeQV;
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !_qv.hidden) closeQV(); });
+  return _qv;
+}
+function closeQV(){ if(_qv){ _qv.hidden = true; document.body.style.overflow = ""; } }
+function openQuickView(p){
+  const m = qvEl();
+  const mediaBox = m.querySelector(".qv__media");
+  mediaBox.innerHTML = p.img
+    ? `<img class="qv__img" src="${imgURL(p.img,600)}" alt="" onerror="qvImgFail(this)" />`
+    : noImgBox("qv__noimg");
+  m.querySelector(".qv__cat").textContent = p.cat + (p.set ? " · "+p.set : "");
+  m.querySelector(".qv__name").textContent = p.name;
+  m.querySelector(".qv__price").textContent = fmt(p.price) + (p.foil!=null ? "  ·  Foil "+fmt(p.foil) : "");
+  const rich = cardRich(p);
+  m.querySelector(".qv__effect").innerHTML = rich && rich.fx ? `<div class="qv__efftitle">✦ Efecto</div>${rich.fx}` : "";
+  m.querySelector(".qv__attrs").innerHTML = (rich && rich.at && rich.at.length)
+    ? rich.at.map(a=>`<div class="qv__attr"><span>${a[0]}</span><b>${a[1]}</b></div>`).join("")
+    : "";
+  const full = m.querySelector(".qv__full"); const href = cartaHref(p);
+  if(href){ full.href = href; full.style.display=""; } else { full.style.display="none"; }
+  m.querySelector(".qv__add").onclick = ()=>{ addToCart(p.id, false); closeQV(); };
+  m.hidden = false; document.body.style.overflow = "hidden";
+}
+document.addEventListener("click", e=>{
+  const a = e.target.closest("a.card__link"); if(!a) return;
+  const pid = a.getAttribute("data-pid"); if(!pid) return;
+  const p = PRODUCTS.find(x=> String(x.id)===String(pid)); if(!p) return;
+  e.preventDefault(); openQuickView(p);
+});
 
 // Skeleton: placeholder con shimmer mientras carga el inventario (evita el parpadeo "ejemplo → real")
 function renderSkeleton(){
@@ -322,6 +384,21 @@ function baseForFilters(){
   // productos del juego activo (sin aplicar set/color/tipo) para poblar dropdowns
   return PRODUCTS.filter(p=> activeCat==="Todas" || p.cat===activeCat);
 }
+
+// --- Búsqueda tolerante: sin tildes, sin puntuación, por palabras sueltas.
+// "luffy" y "monkey luffy" encuentran "Monkey.D.Luffy"; "pokemon" -> "Pokémon".
+function normSearch(s){
+  return (s||"").toString().toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")   // quita tildes/diacríticos
+    .replace(/[^a-z0-9]+/g, " ").trim();                // puntuación -> espacio
+}
+function searchHay(p){ return normSearch(p.name+" "+p.cat+" "+(p.set||"")); }
+function matchQuery(p, q){
+  const toks = normSearch(q).split(" ").filter(Boolean);
+  if(!toks.length) return true;
+  const hay = searchHay(p);
+  return toks.every(t => hay.includes(t));   // todas las palabras deben aparecer
+}
 function renderFilters(){
   // tipo
   const typeWrap = $("#typeFilter");
@@ -370,10 +447,7 @@ function getFiltered(){
     if(activeColor!=="all" && p.color!==activeColor) return false;
     if(activeCond!=="all" && !((p.cond||"").toLowerCase().includes(activeCond))) return false;
     if(priceMax!=null && Number(p.price||0) > priceMax) return false;
-    if(query){
-      const q = query.toLowerCase();
-      if(!((p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q))) return false;
-    }
+    if(query && !matchQuery(p, query)) return false;
     return true;
   });
   if(sortMode==="price-asc")  items.sort((a,b)=>a.price-b.price);
@@ -397,13 +471,9 @@ function makeCard(p, i){
     else if(stock<=3) stockHtml = `<span class="card__stock card__stock--low">¡Solo ${stock} disponible${stock>1?"s":""}!</span>`;
     else stockHtml = `<span class="card__stock">${stock} disponibles</span>`;
   }
-  const href = cartaHref(p);
-  const mediaHtml = href
-    ? `<a class="card__link" href="${href}" aria-label="Ver detalle de ${p.name}">${media(p,"card__photo")}</a>`
-    : media(p,"card__photo");
-  const nameHtml = href
-    ? `<a class="card__link" href="${href}">${p.name}</a>`
-    : p.name;
+  const href = cartaHref(p) || "#";
+  const mediaHtml = `<a class="card__link" href="${href}" data-pid="${p.id}" aria-label="Ver detalle de ${p.name}">${media(p,"card__photo")}</a>`;
+  const nameHtml = `<a class="card__link" href="${href}" data-pid="${p.id}">${p.name}</a>`;
   el.innerHTML = `
     <div class="card__img${p.img?" card__img--photo":""}${soldOut?" card__img--out":""}">
       ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
@@ -709,7 +779,7 @@ function renderSearchResults(){
   srActive = -1; if(inp) inp.removeAttribute("aria-activedescendant");
   const q = query.trim().toLowerCase();
   if(!q){ box.hidden = true; box.innerHTML = ""; inp && inp.setAttribute("aria-expanded","false"); return; }
-  const matches = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && (p.name+" "+p.cat+" "+(p.set||"")).toLowerCase().includes(q)).slice(0,6);
+  const matches = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && matchQuery(p, query)).slice(0,10);
   box.hidden = false; inp && inp.setAttribute("aria-expanded","true");
   if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
   box.innerHTML = matches.map((p,i)=>`
