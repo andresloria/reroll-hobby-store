@@ -238,6 +238,14 @@
             <input name="stock" type="number" min="0" value="1" />
           </label>
         </div>
+        <div class="row" id="foilRow">
+          <label class="chkline" style="align-self:center;margin:0">
+            <input type="checkbox" name="foilOn" id="foilOn" /> ✨ Disponible en foil
+          </label>
+          <label id="foilPriceWrap" style="display:none">Precio foil (₡)
+            <input name="foilPrice" id="foilPrice" type="number" min="0" placeholder="Ej: 600" />
+          </label>
+        </div>
         <label>Etiqueta <span style="text-transform:none;letter-spacing:0">(opcional — sale como insignia, ej. Destacada, Rara)</span>
           <input name="badge" placeholder="Ej: Destacada, Rara…" />
         </label>
@@ -513,6 +521,9 @@ imgUrlInput.addEventListener('input', ()=>{
 });
 $('#clearPhoto').onclick = ()=>{ pendingImg=null; $('#prev').style.display='none'; photo.value=''; imgUrlInput.value=''; $('#addHint').textContent=''; };
 
+/* ====== Foil: mostrar/ocultar el precio según la casilla ====== */
+$('#foilOn').addEventListener('change', e=>{ $('#foilPriceWrap').style.display = e.target.checked ? '' : 'none'; if(e.target.checked) $('#foilPrice').focus(); });
+
 /* ====== Agregar / Editar ====== */
 let editingId = null;
 let invQuery = '';
@@ -521,6 +532,7 @@ function exitEdit(){
   $('#submitBtn').textContent = '+ Agregar al inventario';
   $('#cancelEdit').style.display = 'none';
   pendingImg = null; $('#prev').style.display='none'; $('#addForm').reset(); photo.value='';
+  $('#foilPriceWrap').style.display='none';
   render();
 }
 $('#addForm').addEventListener('submit', e=>{
@@ -536,12 +548,18 @@ $('#addForm').addEventListener('submit', e=>{
     badge: (f.get('badge')||'').trim(),
     stock: Math.max(0, Number(f.get('stock')||1))
   };
+  // foil (opcional): solo si la casilla está tildada y hay precio
+  const foilOn = !!f.get('foilOn');
+  const foilPrice = Math.max(0, Number(f.get('foilPrice')||0));
+  const hasFoil = foilOn && foilPrice>0;
+  if(hasFoil) data.foil = foilPrice;
   // imagen: foto subida (base64) o link pegado (URL). El link gana si está presente.
   const img = pendingImg || (f.get('imgUrl')||'').trim();
   if(editingId !== null){
     const it = items.find(p=>p.id===editingId);
     if(it){
       Object.assign(it, data);
+      if(!hasFoil) delete it.foil;              // destildar quita el foil
       if(img){ it.img = img; delete it.emoji; }
       else if(!it.img){ it.emoji = emojiByCat[it.cat]||"🎴"; }
       toast('Actualizado: '+it.name);
@@ -552,6 +570,7 @@ $('#addForm').addEventListener('submit', e=>{
     if(img) it.img = img; else it.emoji = emojiByCat[it.cat]||"🎴";
     items.push(it);
     pendingImg=null; $('#prev').style.display='none'; e.target.reset(); photo.value='';
+    $('#foilPriceWrap').style.display='none';
     save(); toast('Agregado: '+it.name);
   }
 });
@@ -567,6 +586,10 @@ function editItem(id){
   fm.cond.value = p.cond||'Near Mint';
   fm.badge.value = p.badge||'';
   fm.stock.value = (p.stock===undefined||p.stock===null) ? 1 : p.stock;
+  const hf = p.foil!=null && p.foil!=='';
+  fm.foilOn.checked = hf;
+  fm.foilPrice.value = hf ? p.foil : '';
+  $('#foilPriceWrap').style.display = hf ? '' : 'none';
   if(p.img){
     pendingImg = p.img; $('#prevImg').src = p.img; $('#prev').style.display='flex';
     $('#imgUrl').value = /^https?:/i.test(p.img) ? p.img : '';   // muestra el link si lo es
@@ -759,7 +782,7 @@ function render(){
     el.innerHTML = `${media}
       <div class="meta">
         <div class="nm">${esc(p.name)}</div>
-        <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}</div>
+        <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}${p.foil!=null?' · <span style="color:var(--gold-bright)">✨ Foil '+fmt(p.foil)+'</span>':''}</div>
       </div>
       <div class="stk${s!==null&&s<=0?' stk--out':''}" title="Stock disponible">
         <button class="stk__b" data-d="-1" aria-label="Menos">−</button>

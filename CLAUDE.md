@@ -18,6 +18,8 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 - `sitemap.xml` — DERIVADO por `make_cartas.py` (`write_sitemap`): home + `juego.html?g=<juego con inventario>` + cada carta. No editar a mano. `robots.txt` (estático) lo referencia y bloquea `/admin.html`.
 - **Analytics:** Google Analytics 4 (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas; `admin.html` excluido. En `make_cartas.py` las llaves del snippet van escapadas `{{ }}` (la plantilla usa `.format()`).
 - **Google Search Console:** verificación por meta tag en el `<head>` de **index.html**: `<meta name="google-site-verification" content="_6DX60aqNivRzGGvFqaIqbOsWTtpV53mqTG60wBe4U0" />`.
+- **Foil (Riftbound commons/uncommons):** campo opcional `foil` (₡) en `productos.json` = precio foil; su presencia habilita el toggle Normal/Foil en catálogo/ficha/carrito (variante de carrito por `key` `id`/`id_f`) y se edita en el panel. Precios foil de TCGplayer (API `mpapi.tcgplayer.com/v2/product/<id>/pricepoints`) × ₡520 + el mismo redondeo escalonado. Rare/Epic/Showcase ya son foil-only (no llevan `foil`).
+- **`SESSIONS.md`** — bitácora legible de todas las sesiones (backup histórico). Actualizar al cerrar una tanda de trabajo.
 
 ## Build / deploy
 - **Local:** `python -m http.server 5500` (o las herramientas de preview).

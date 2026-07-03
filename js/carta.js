@@ -43,6 +43,39 @@
   var pid = document.body.getAttribute("data-pid");
   if (!pid) return;
 
+  /* ---------- Toggle Normal / Foil (commons/uncommons con precio foil) ---------- */
+  var priceEl = document.getElementById("cdPrice");
+  var ftoggle = document.getElementById("cdFtoggle");
+  var isFoil = false;
+  function applyVariant() {
+    if (!priceEl) return;
+    var pf = priceEl.getAttribute("data-foil");
+    if (isFoil && pf) {
+      priceEl.textContent = pf;
+      priceEl.classList.add("cd-price--foil");
+    } else {
+      var pn = priceEl.getAttribute("data-normal");
+      if (pn) priceEl.textContent = pn;
+      priceEl.classList.remove("cd-price--foil");
+    }
+    var act = document.getElementById("cdAction");
+    var buy = document.getElementById("cdBuy");
+    if (act && buy) {
+      var bf = act.getAttribute("data-buy-foil");
+      buy.href = (isFoil && bf) ? bf : (act.getAttribute("data-buy") || buy.href);
+    }
+  }
+  if (ftoggle) {
+    var fbtns = ftoggle.querySelectorAll(".cd-ftoggle__btn");
+    fbtns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        isFoil = b.getAttribute("data-v") === "foil";
+        fbtns.forEach(function (x) { x.classList.toggle("is-on", x === b); });
+        applyVariant();
+      });
+    });
+  }
+
   fetch("../productos.json", { cache: "no-cache" })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (data) {
@@ -50,8 +83,11 @@
       var p = data.find(function (x) { return String(x.id) === String(pid); });
       if (!p) return;
 
-      var priceEl = document.getElementById("cdPrice");
-      if (priceEl && p.price != null) priceEl.textContent = fmt(p.price);
+      // refrescar precios normal/foil desde el JSON y respetar el toggle actual
+      if (priceEl) {
+        if (p.price != null) priceEl.setAttribute("data-normal", fmt(p.price));
+        if (p.foil != null) priceEl.setAttribute("data-foil", fmt(p.foil));
+      }
 
       var s = p.stock;
       var st = (s === undefined || s === null || s === "") ? null : Number(s);
@@ -84,6 +120,7 @@
             '6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>Comprar por WhatsApp</a>';
         }
       }
+      applyVariant();  // refleja precios frescos + variante elegida en el botón de compra
     })
     .catch(function () {});
 })();

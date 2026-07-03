@@ -415,16 +415,33 @@ function makeCard(p, i){
       <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${nameHtml}</h3>
       <span class="card__meta">${metaLine}</span>
       ${stockHtml}
+      ${p.foil!=null?`<div class="ftoggle" role="group" aria-label="Acabado de la carta">
+        <button type="button" class="ftoggle__btn is-on" data-v="normal">Normal</button>
+        <button type="button" class="ftoggle__btn" data-v="foil">Foil ✨</button>
+      </div>`:""}
       <div class="card__foot">
         <span class="card__price">${fmt(p.price)}</span>
         ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
         <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
       </div>
     </div>`;
+  let cardFoil = false;
+  if(p.foil!=null){
+    const tgl = el.querySelector(".ftoggle");
+    const priceEl = el.querySelector(".card__price");
+    tgl.querySelectorAll(".ftoggle__btn").forEach(b=>{
+      b.onclick = ()=>{
+        cardFoil = b.dataset.v==="foil";
+        tgl.querySelectorAll(".ftoggle__btn").forEach(x=>x.classList.toggle("is-on", x===b));
+        priceEl.textContent = fmt(cardFoil ? p.foil : p.price);
+        priceEl.classList.toggle("card__price--foil", cardFoil);
+      };
+    });
+  }
   if(!soldOut){
     const addBtn = el.querySelector(".card__add");
     addBtn.onclick = ()=>{
-      addToCart(p.id);
+      addToCart(p.id, cardFoil);
       addBtn.classList.add("card__add--done");
       addBtn.textContent = "✓ Agregado";
       clearTimeout(addBtn._doneT);
@@ -498,13 +515,17 @@ function renderPager(total, totalPages){
 /* ============================================================
    CARRITO
    ============================================================ */
-// consolidar carrito por id y asegurar qty (migración de carritos viejos)
+// clave de línea: distingue variante normal vs foil de una misma carta
+function lineKey(id, foil){ return foil ? id+"_f" : String(id); }
+// consolidar carrito por clave (id+variante) y asegurar qty (migración de carritos viejos)
 (function normalizeCart(){
   const map = new Map();
   cart.forEach(it=>{
     if(!it || it.id===undefined) return;
-    if(map.has(it.id)) map.get(it.id).qty += (it.qty||1);
-    else map.set(it.id, { id:it.id, name:it.name, cat:it.cat, price:it.price, emoji:it.emoji, img:it.img, qty: it.qty||1 });
+    const foil = !!it.foil;
+    const key = it.key || lineKey(it.id, foil);
+    if(map.has(key)) map.get(key).qty += (it.qty||1);
+    else map.set(key, { key, id:it.id, foil, name:it.name, cat:it.cat, price:it.price, emoji:it.emoji, img:it.img, qty: it.qty||1 });
   });
   cart = [...map.values()];
 })();
@@ -513,28 +534,31 @@ function stockOf(id){ const p=PRODUCTS.find(x=>x.id===id); if(!p) return null; c
 function cartCount(){ return cart.reduce((s,c)=>s+(c.qty||1),0); }
 function cartTotal(){ return cart.reduce((s,c)=>s+Number(c.price||0)*(c.qty||1),0); }
 
-function addToCart(id){
+function addToCart(id, foil){
   const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+  foil = !!foil && p.foil!=null;                 // solo foil si la carta lo permite
+  const key = lineKey(id, foil);
+  const price = foil ? p.foil : p.price;
   const st = stockOf(id);
-  const line = cart.find(c=>c.id===id);
+  const line = cart.find(c=>c.key===key);
   if(line){
     if(st!==null && line.qty>=st){ toast(`Solo hay ${st} de ${p.name}`); return; }
     line.qty++;
   } else {
-    cart.push({ id:p.id, name:p.name, cat:p.cat, price:p.price, emoji:p.emoji, img:p.img, qty:1 });
+    cart.push({ key, id:p.id, foil, name:p.name+(foil?" · Foil":""), cat:p.cat, price, emoji:p.emoji, img:p.img, qty:1 });
   }
-  saveCart(); toast(`Añadido: ${p.name}`); renderCart();
+  saveCart(); toast(`Añadido: ${p.name}${foil?" (Foil)":""}`); renderCart();
 }
-function changeQty(id, delta){
-  const line = cart.find(c=>c.id===id); if(!line) return;
-  const st = stockOf(id);
+function changeQty(key, delta){
+  const line = cart.find(c=>c.key===key); if(!line) return;
+  const st = stockOf(line.id);
   let q = line.qty + delta;
   if(st!==null && q>st){ q=st; toast(`Solo hay ${st} disponibles`); }
-  if(q<=0){ cart = cart.filter(c=>c.id!==id); }
+  if(q<=0){ cart = cart.filter(c=>c.key!==key); }
   else line.qty = q;
   saveCart(); renderCart();
 }
-function removeLine(id){ cart = cart.filter(c=>c.id!==id); saveCart(); renderCart(); }
+function removeLine(key){ cart = cart.filter(c=>c.key!==key); saveCart(); renderCart(); }
 
 function renderCart(){
   const cc = $("#cartCount"); if(cc) cc.textContent = cartCount();
@@ -550,7 +574,7 @@ function renderCart(){
       row.innerHTML = `
         ${thumb}
         <div class="di__info">
-          <div class="di__name">${c.name}</div>
+          <div class="di__name">${c.foil ? c.name.replace(/ · Foil$/,'')+' <span class="foilpill">✨ Foil</span>' : c.name}</div>
           <div class="di__price">${fmt(c.price)} c/u · <span style="color:var(--muted)">${c.cat}</span></div>
           <div class="qty">
             <button class="qty__btn" data-act="dec" aria-label="Menos">−</button>
@@ -562,9 +586,9 @@ function renderCart(){
           <div class="di__sub">${fmt(c.price*c.qty)}</div>
           <button class="di__rm" aria-label="Quitar">✕</button>
         </div>`;
-      row.querySelector('[data-act="dec"]').onclick = ()=> changeQty(c.id,-1);
-      row.querySelector('[data-act="inc"]').onclick = ()=> changeQty(c.id,+1);
-      row.querySelector(".di__rm").onclick = ()=> removeLine(c.id);
+      row.querySelector('[data-act="dec"]').onclick = ()=> changeQty(c.key,-1);
+      row.querySelector('[data-act="inc"]').onclick = ()=> changeQty(c.key,+1);
+      row.querySelector(".di__rm").onclick = ()=> removeLine(c.key);
       wrap.appendChild(row);
     });
   }

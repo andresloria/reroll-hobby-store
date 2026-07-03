@@ -28,7 +28,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 WHATSAPP    = "50687807813"
 SITE        = "https://rerollhobbystore.com"
 ASSET_V     = 47   # debe coincidir con el ?v= de styles.css en index/juego
-CARTA_JS_V  = 1
+CARTA_JS_V  = 2
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
 DOMAIN_HEX = {
@@ -234,6 +234,21 @@ def write_page(p, by_set):
     buy_url    = f"https://wa.me/{WHATSAPP}?text={quote(buy_msg)}"
     notify_url = f"https://wa.me/{WHATSAPP}?text={quote(notify_msg)}"
 
+    # --- variante FOIL (solo commons/uncommons con precio foil) ---
+    foil_raw = p.get("foil")
+    try: foil = int(foil_raw) if foil_raw not in (None, "", "null") else None
+    except (TypeError, ValueError): foil = None
+    if foil is not None:
+        buy_msg_foil = (f"¡Hola Reroll! Me interesa esta carta en FOIL: {name} — {setn}{numtxt}, "
+                        f"condición {cond}, precio {fmt_precio(foil)}. ¿Está disponible?")
+        buy_url_foil = f"https://wa.me/{WHATSAPP}?text={quote(buy_msg_foil)}"
+        foil_attr   = f' data-normal="{esc(fmt_precio(price))}" data-foil="{esc(fmt_precio(foil))}"'
+        foil_toggle = ('<div class="cd-ftoggle" id="cdFtoggle" role="group" aria-label="Acabado">'
+                       '<button type="button" class="cd-ftoggle__btn is-on" data-v="normal">Normal</button>'
+                       '<button type="button" class="cd-ftoggle__btn" data-v="foil">Foil ✨</button></div>')
+    else:
+        buy_url_foil = ""; foil_attr = ""; foil_toggle = ""
+
     # --- stock badge ---
     if st is None:
         stock_badge = '<span class="cd-stock cd-stock--ok">Disponible</span>'
@@ -358,6 +373,7 @@ def write_page(p, by_set):
         action_html=action_html, effect_html=effect_html,
         attrs_html=attrs_html, rel_html=rel_html, pid=esc(p.get("id", "")),
         slug=esc(slug), buy_url=esc(buy_url), notify_url=esc(notify_url),
+        buy_url_foil=esc(buy_url_foil), foil_attr=foil_attr, foil_toggle=foil_toggle,
     )
     with open(os.path.join(OUT_DIR, slug + ".html"), "w", encoding="utf-8") as f:
         f.write(page)
@@ -443,11 +459,12 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="cd-sub">{sub}</p>
       {effect_html}
       <div class="cd-pricerow">
-        <span class="cd-price" id="cdPrice">{price}</span>
+        <span class="cd-price" id="cdPrice"{foil_attr}>{price}</span>
         <span id="cdStock">{stock_badge}</span>
         {cond_pill}
       </div>
-      <div id="cdAction" data-buy="{buy_url}" data-notify="{notify_url}">{action_html}</div>
+      {foil_toggle}
+      <div id="cdAction" data-buy="{buy_url}" data-buy-foil="{buy_url_foil}" data-notify="{notify_url}">{action_html}</div>
       <p class="cd-note">Coordinamos pago y entrega por WhatsApp. Sin cargos automáticos.</p>
       <div class="cd-ship">
         <div class="cd-ship__row"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg><span><b>SINPE Móvil</b> — pagás y enviás el comprobante por WhatsApp.</span></div>

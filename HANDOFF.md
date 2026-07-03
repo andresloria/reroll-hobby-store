@@ -1,8 +1,17 @@
-# HANDOFF — estado de la sesión (act. 2026-06-27)
+# HANDOFF — estado de la sesión (act. 2026-07-02)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com**. Último commit: **`f65efe0`**. Cache en **`?v=46`** (index.html y juego.html alineados).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo la sesión foil de hoy, ver abajo). Cache en **`?v=47`** (index.html y juego.html alineados). Historial completo en [SESSIONS.md](SESSIONS.md).
 
-## En qué estábamos (sesión 2026-06-27)
+## En qué estábamos (sesión 2026-07-02) — FOIL de Riftbound
+Feature foil para commons/uncommons, **construido y verificado en preview**:
+1. **Precios foil de TCGplayer** (413 cartas) → campo `foil` en `productos.json`. Extraídos de la API `mpapi.tcgplayer.com/v2/product/<id>/pricepoints`, convertidos **USD × ₡520** + redondeo escalonado. Datos crudos por set en el scratchpad (`foil_Origins.txt`, etc.).
+2. **Toggle Normal/Foil** en catálogo (`js/app.js`, clases `.ftoggle`) y ficha de carta (`make_cartas.py` + `js/carta.js`, `.cd-ftoggle`). Carrito con variante por `key` (`id`/`id_f`), pill `.foilpill`. Brillo `.card__price--foil` / `.cd-price--foil` (`@keyframes foilShine`).
+3. **Panel admin:** casilla `#foilOn` + campo `#foilPrice`; badge foil en el inventario; editItem carga/guarda `foil`.
+4. **Ajuste pedido:** 74 cartas con foil == normal → **+₡200** (foil siempre > normal).
+5. Hallazgo: los foils de common/uncommon de Riftbound NO están en la Price Guide, solo en la página de producto (filtro Printing). Rare/Epic/Showcase ya son foil-only (su precio actual es el foil). Proving Grounds no tiene foils.
+- **PENDIENTE:** hacer `git push` a producción (el usuario pidió backup + push). Cache ya en v47, cartas regeneradas.
+
+## Sesión anterior (2026-06-27) — Marca + Analytics + SEO (en vivo)
 Tanda de marca + analítica + SEO, todo pusheado y verificado:
 1. **Footer:** crédito "Diseñado por 🎲 Reroll Design" (dado vectorial del favicon de Reroll Design, `currentColor`; sin imagen nueva) en index/juego/cartas. Clases `.footer__credit` + `.rd-mark`. Opción A (firma sobria) elegida sobre la B (sello con borde). Kit de marca en `C:\Users\Andres\Claude\Projects\Reroll Design logo.zip`. **Enlaza a `https://rerolldesign.com/`** (target=_blank, rel=noopener; hover dorado + subrayado).
 2. **Google Analytics 4** (gtag.js, ID `G-X6LMX9VR0Y`) en `<head>` de index/juego/404 + plantilla de cartas; `admin.html` excluido. Translíos usa `G-CVMH80KDPJ`.
