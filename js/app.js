@@ -166,6 +166,7 @@ function qvEl(){
         <span class="qv__cat"></span>
         <h3 class="qv__name"></h3>
         <div class="qv__price"></div>
+        <div class="qv__ftog"></div>
         <div class="qv__effect"></div>
         <div class="qv__attrs"></div>
         <div class="qv__actions">
@@ -189,7 +190,21 @@ function openQuickView(p){
     : noImgBox("qv__noimg");
   m.querySelector(".qv__cat").textContent = p.cat + (p.set ? " · "+p.set : "");
   m.querySelector(".qv__name").textContent = p.name;
-  m.querySelector(".qv__price").textContent = fmt(p.price) + (p.foil!=null ? "  ·  Foil "+fmt(p.foil) : "");
+  // precio + selector Normal/Foil (si la carta tiene variante foil)
+  const priceEl = m.querySelector(".qv__price"), ftog = m.querySelector(".qv__ftog");
+  let qvFoil = false;
+  const paintPrice = ()=>{
+    priceEl.textContent = fmt(qvFoil ? p.foil : p.price);
+    priceEl.classList.toggle("card__price--foil", qvFoil);
+    ftog.querySelectorAll(".ftoggle__btn").forEach(b=> b.classList.toggle("is-on", (b.dataset.v==="foil")===qvFoil));
+  };
+  if(p.foil!=null){
+    ftog.innerHTML = `<div class="ftoggle" role="group" aria-label="Acabado de la carta">
+      <button type="button" class="ftoggle__btn is-on" data-v="normal">Normal ${fmt(p.price)}</button>
+      <button type="button" class="ftoggle__btn" data-v="foil">Foil ✨ ${fmt(p.foil)}</button></div>`;
+    ftog.querySelectorAll(".ftoggle__btn").forEach(b=> b.onclick = ()=>{ qvFoil = b.dataset.v==="foil"; paintPrice(); });
+  } else { ftog.innerHTML = ""; }
+  paintPrice();
   const rich = cardRich(p);
   m.querySelector(".qv__effect").innerHTML = rich && rich.fx ? `<div class="qv__efftitle">✦ Efecto</div>${rich.fx}` : "";
   m.querySelector(".qv__attrs").innerHTML = (rich && rich.at && rich.at.length)
@@ -197,7 +212,7 @@ function openQuickView(p){
     : "";
   const full = m.querySelector(".qv__full"); const href = cartaHref(p);
   if(href){ full.href = href; full.style.display=""; } else { full.style.display="none"; }
-  m.querySelector(".qv__add").onclick = ()=>{ addToCart(p.id, false); closeQV(); };
+  m.querySelector(".qv__add").onclick = ()=>{ addToCart(p.id, qvFoil); closeQV(); };
   m.hidden = false; document.body.style.overflow = "hidden";
 }
 document.addEventListener("click", e=>{

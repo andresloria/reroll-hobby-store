@@ -8,6 +8,10 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-04 — Quick-view: selector Normal/Foil (detalle reportado por Andrés)
+- El quick-view mostraba el precio foil pero no dejaba elegirla (siempre agregaba la normal). Ahora, si la carta tiene `foil`, muestra el toggle **"Normal ₡X | Foil ✨ ₡Y"** (reusa `.ftoggle`), el precio cambia con shimmer (`card__price--foil`) y "Agregar al carrito" respeta la variante (`addToCart(p.id, qvFoil)` → línea `id_f`).
+- Verificado: flujo completo con Brazen Buccaneer (carrito con 2 líneas separadas `2_f`/`2`) + mini-loop 10/10 cartas foil (precio y línea correctos) + cartas sin foil no muestran toggle. Cache `v55→v56`. 0 errores.
+
 ## 2026-07-04 — One Piece completo: OP-01 → OP-15 (2.469 cartas)
 - **Los 15 boosters principales que faltaban** (Romance Dawn → Adventure on Kami's Island) agregados a `productos.json` desde el catálogo maestro (TCGCSV): 2.469 singles (incl. DON!!/alt-arts de cada grupo), ids 1106–3574, **stock 1**, precios TCGplayer × ₡520 + redondeo. Tienda total: **3.574 cartas** (945 RB + 2.629 OP). 6 sin imagen (placeholder), 7 con foil.
 - Selección por NOMBRE de set (los 16 grupos principales; OP-16 ya estaba); dedup por img y nombre+set. Starter decks / Extra Boosters / promos NO agregados (quedan en el quick-search del panel para sumar luego).

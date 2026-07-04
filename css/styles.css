@@ -1516,3 +1516,8 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .hmq__card{height:150px}
 }
 @media(prefers-reduced-motion:reduce){.hmq__strip{animation:none}}
+
+/* quick-view: espaciado del selector Normal/Foil */
+.qv__ftog{margin:-4px 0 12px}
+.qv__ftog .ftoggle{font-size:.7rem}
+.qv__ftog .ftoggle__btn{padding:6px 13px}
