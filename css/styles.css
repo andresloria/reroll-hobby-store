@@ -1483,3 +1483,36 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .offer__mini{display:block;font-size:.76rem;color:#cbb9ae;margin:0}
   .offer__arrow{display:block;color:var(--gold-bright);font-size:1.15rem;flex-shrink:0}
 }
+
+/* ===== HERO marquee: título centrado + desfile de cartas reales del inventario ===== */
+.hero--marquee{padding-bottom:0}
+.hmq__content{position:relative;z-index:2;text-align:center;max-width:820px;margin:0 auto;padding:0 20px}
+.hmq__pill{display:inline-block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold-bright);border:1px solid rgba(201,162,75,.45);border-radius:999px;padding:7px 16px;
+  background:rgba(22,16,15,.55);backdrop-filter:blur(3px)}
+.hmq__pill #hmqCount{color:var(--cream)}
+.hmq__title{font-size:clamp(2.3rem,6.5vw,4.2rem);line-height:1.04;margin:18px 0 12px;letter-spacing:-.01em}
+.hmq__lead{color:#c9b8ae;font-size:clamp(.95rem,2.4vw,1.08rem);max-width:56ch;margin:0 auto 24px}
+.hmq__actions{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+.hmq__cta{white-space:nowrap}
+.hmq__search{margin:0;min-width:min(430px,92vw)}
+/* banda del desfile */
+.hmq__band{position:relative;z-index:1;height:250px;margin-top:26px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 20%);mask-image:linear-gradient(to bottom,transparent,#000 20%)}
+.hmq__strip{display:flex;gap:16px;width:max-content;position:absolute;left:0;top:30px;
+  will-change:transform;animation:hmqslide 45s linear infinite}
+.hmq__band:hover .hmq__strip{animation-play-state:paused}   /* pausa para poder tocar una carta */
+@keyframes hmqslide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hmq__card{display:block;flex:0 0 auto;height:196px;aspect-ratio:744/1039;border-radius:12px;overflow:hidden;
+  border:1px solid rgba(201,162,75,.35);box-shadow:0 16px 34px -14px rgba(0,0,0,.85);
+  transition:transform .25s var(--ease),border-color .25s var(--ease)}
+.hmq__card:hover{transform:scale(1.07) rotate(0deg)!important;border-color:var(--gold-bright);z-index:3;position:relative}
+.hmq__card img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:600px){
+  .hmq__title{font-size:clamp(1.9rem,9vw,2.6rem)}
+  .hmq__search{min-width:0;width:100%}
+  .hmq__cta{width:100%;justify-content:center;text-align:center;display:inline-flex}
+  .hmq__band{height:196px;margin-top:20px}
+  .hmq__card{height:150px}
+}
+@media(prefers-reduced-motion:reduce){.hmq__strip{animation:none}}

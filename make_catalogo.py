@@ -26,6 +26,21 @@ GAMES = {
     "one-piece": {"cat": 68, "label": "One Piece"},
 }
 
+# One Piece: prefijo con el código de set (más fácil de buscar/ordenar: "OP01: Romance Dawn")
+OP_SET_CODES = {
+    "Romance Dawn": "OP01", "Paramount War": "OP02", "Pillars of Strength": "OP03",
+    "Kingdoms of Intrigue": "OP04", "Awakening of the New Era": "OP05",
+    "Wings of the Captain": "OP06", "500 Years in the Future": "OP07",
+    "Two Legends": "OP08", "Emperors in the New World": "OP09", "Royal Blood": "OP10",
+    "A Fist of Divine Speed": "OP11", "Legacy of the Master": "OP12",
+    "Carrying On His Will": "OP13", "The Azure Sea's Seven": "OP14",
+    "Adventure on Kami's Island": "OP15", "The Time of Battle": "OP16",
+}
+def set_label(key, name):
+    if key == "one-piece" and name in OP_SET_CODES:
+        return f"{OP_SET_CODES[name]}: {name}"
+    return name
+
 # ---- redondeo escalonado del proyecto (ceil, piso ₡100) --------------------
 def round_crc(usd):
     if not usd or usd <= 0: return 100
@@ -109,7 +124,7 @@ def build_game(key):
     print(f"[{label}] {len(groups)} sets")
     entries = []; rich = {}
     for g in groups:
-        gid = g["groupId"]; setn = g["name"]
+        gid = g["groupId"]; setn = set_label(key, g["name"])
         prods = results(fetch_json(f"https://tcgcsv.com/tcgplayer/{cat}/{gid}/products", f"{key}_{gid}_p"))
         prices = results(fetch_json(f"https://tcgcsv.com/tcgplayer/{cat}/{gid}/prices", f"{key}_{gid}_pr"))
         # precios: productId -> {subtype: marketPrice}

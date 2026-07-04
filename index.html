@@ -61,9 +61,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=54" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=54" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=54" />
+  <link rel="stylesheet" href="css/styles.css?v=55" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=55" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=55" />
 </head>
 <body>
 
@@ -97,38 +97,26 @@
     </div>
   </header>
 
-  <!-- ===== HERO · buscador de singles ===== -->
-  <section class="hero hero--singles" id="top">
+  <!-- ===== HERO · desfile de cartas del inventario (marquee) ===== -->
+  <section class="hero hero--marquee" id="top">
     <div class="hero__glow"></div>
-    <div class="hero__inner hero__inner--single">
-      <div class="hero__copy reveal">
-        <span class="eyebrow">Cartago, CR · Singles &amp; Sellado</span>
-        <h1>Encontrá tu carta.<br>Armá el <span class="text-gold">mazo que gana</span>.</h1>
-        <p class="lead">Singles y sellado de One Piece, Pokémon, Magic, Yu-Gi-Oh y Riftbound — elegidos a mano por alguien con 20 años de juego y tops de torneo.</p>
-
-        <!-- BUSCADOR protagonista — reutiliza el MISMO buscador del catálogo (mismos ids/lógica) -->
-        <form class="search search--hero" id="searchForm" role="search" autocomplete="off">
+    <div class="hmq__content reveal">
+      <span class="hmq__pill">Cartago, CR · <span id="hmqCount">+1000</span> cartas en stock</span>
+      <h1 class="hmq__title">Tu próxima carta<br><span class="text-gold">ya está acá.</span></h1>
+      <p class="hmq__lead">Singles y sellado de One Piece, Riftbound y más — precios de mercado, elegidos con 20 años de juego.</p>
+      <div class="hmq__actions">
+        <a href="#catalogo" class="btn btn--gold hmq__cta">Ver el catálogo →</a>
+        <!-- BUSCADOR — reutiliza el MISMO buscador del catálogo (mismos ids/lógica) -->
+        <form class="search search--hero hmq__search" id="searchForm" role="search" autocomplete="off">
           <span class="search__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
           <input id="searchInput" type="search" placeholder="Buscá tu carta…" aria-label="Buscar carta" />
           <button class="btn btn--gold" type="submit">Buscar</button>
           <div class="search__results" id="searchResults" hidden></div>
         </form>
-
-        <!-- chips de acceso rápido por juego — filtran el catálogo con el MISMO mecanismo (selectGame) -->
-        <div class="herochips" id="heroChips" aria-label="Filtrar el catálogo por juego"></div>
-
-        <!-- ===== ESPACIO RESERVADO: futura fila "Singles destacados" con fotos =====
-             Más adelante poblar acá con tarjetas de singles reales (foto + nombre + precio).
-        <div class="hero__featured" id="heroFeatured" aria-label="Singles destacados"></div>
-        ===== fin espacio reservado ===== -->
-
-        <div class="hero__stats">
-          <div><strong id="statCount">0</strong><span>cartas listadas</span></div>
-          <div><strong data-count="5">5</strong><span>juegos TCG</span></div>
-          <div><strong data-count="20">20</strong><span>años de juego</span></div>
-        </div>
       </div>
     </div>
+    <!-- desfile: se llena con cartas reales del inventario (renderHeroMarquee) -->
+    <div class="hmq__band" id="hmqBand" aria-label="Cartas destacadas del inventario"></div>
   </section>
 
   <!-- ===== TRABAJAMOS CON (paneles altos por juego: arte + logo) ===== -->
@@ -485,6 +473,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=54"></script>
+  <script src="js/app.js?v=55"></script>
 </body>
 </html>

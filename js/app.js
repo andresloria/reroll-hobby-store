@@ -201,11 +201,36 @@ function openQuickView(p){
   m.hidden = false; document.body.style.overflow = "hidden";
 }
 document.addEventListener("click", e=>{
-  const a = e.target.closest("a.card__link"); if(!a) return;
+  const a = e.target.closest("a.card__link, a.hmq__card"); if(!a) return;
   const pid = a.getAttribute("data-pid"); if(!pid) return;
   const p = PRODUCTS.find(x=> String(x.id)===String(pid)); if(!p) return;
   e.preventDefault(); openQuickView(p);
 });
+
+/* ---- HERO marquee: desfile infinito de cartas reales del inventario ---- */
+function renderHeroMarquee(){
+  const band = $("#hmqBand"); if(!band) return;
+  // vitrina: disponibles con foto; primero las llamativas (>₡5000), completa con el resto
+  let pool = PRODUCTS.filter(p=> p.img && isAvailable(p) && (p.type||"single")==="single" && Number(p.price||0)>=5000);
+  if(pool.length < 12) pool = PRODUCTS.filter(p=> p.img && isAvailable(p) && (p.type||"single")==="single");
+  const pick = pool.sort(()=>Math.random()-.5).slice(0,12);
+  if(!pick.length){ band.style.display="none"; return; }
+  const strip = document.createElement("div");
+  strip.className = "hmq__strip";
+  [...pick, ...pick].forEach((p,i)=>{           // duplicado = loop perfecto en -50%
+    const a = document.createElement("a");
+    a.className = "hmq__card";
+    a.href = cartaHref(p) || "#";
+    a.setAttribute("data-pid", p.id);
+    a.setAttribute("aria-label", "Ver "+p.name);
+    a.style.transform = `rotate(${i%2 ? 3 : -2.5}deg) translateY(${i%2 ? 8 : 0}px)`;
+    a.innerHTML = `<img src="${imgURL(p.img,300)}" alt="${p.name}" loading="eager">`;
+    strip.appendChild(a);
+  });
+  band.innerHTML = ""; band.appendChild(strip);
+  const c = $("#hmqCount");
+  if(c) c.textContent = PRODUCTS.filter(isAvailable).length.toLocaleString("es-CR");
+}
 
 // Skeleton: placeholder con shimmer mientras carga el inventario (evita el parpadeo "ejemplo → real")
 function renderSkeleton(){
@@ -1300,6 +1325,7 @@ async function loadCatalog(){
   }catch(e){ /* usamos la lista de ejemplo */ }
   enrichProducts();   // rareza / tipo de carta / dominio-color para los filtros avanzados
   renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles(); renderHeroChips();
+  renderHeroMarquee();   // desfile de cartas reales en el hero
   renderMobileFilters(); renderSortSheet();
   renderFanCarousel();   // singles destacados (necesita precios reales)
   updateHeroStat();

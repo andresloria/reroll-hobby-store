@@ -1131,12 +1131,12 @@ syncFromStore(false);   // al abrir, cargar lo publicado
     if(cache[g]){ cur=cache[g]; fillSets(); render(); return; }
     results.innerHTML='<p class="catloading">Cargando catálogo… (la primera vez tarda unos segundos)</p>';
     try{
-      const r=await fetch('catalogo/'+g+'.json',{cache:'force-cache'});
+      const r=await fetch('catalogo/'+g+'.json',{cache:'no-cache'});   // revalida ETag: catálogo siempre fresco
       cur=cache[g]=await r.json();
       fillSets(); render();
       // rich (efecto/atributos) en background para embeber la descripción al agregar
       if(!richCache[g]){
-        fetch('catalogo/'+g+'_rich.json',{cache:'force-cache'})
+        fetch('catalogo/'+g+'_rich.json',{cache:'no-cache'})
           .then(x=>x.json()).then(j=>{ richCache[g]=j; }).catch(()=>{ richCache[g]={}; });
       }
     }catch(e){ results.innerHTML='<p class="catloading">No se pudo cargar el catálogo de '+g+'.</p>'; }
@@ -1145,7 +1145,12 @@ syncFromStore(false);   // al abrir, cargar lo publicado
     const sets=[...new Set(cur.map(e=>e.set))].sort();
     setSel.innerHTML='<option value="all">Todas las expansiones</option>'+sets.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
   }
-  function invByImg(img){ return items.find(p=>p.img===img); }
+  // match catálogo→base: por imagen; si la entrada NO tiene imagen, por nombre+set
+  // (nunca por img vacía: emparejaría cartas sin foto que no tienen nada que ver)
+  function invMatch(e){
+    if(e.img) return items.find(p=>p.img===e.img);
+    return items.find(p=>!p.img && p.name===e.name && (p.set||'')===(e.set||''));
+  }
   function filtered(){
     const q=norm(search.value), ty=typeSel.value, st=setSel.value, fi=finishSel.value;
     const toks=q.split(' ').filter(Boolean);
@@ -1169,7 +1174,7 @@ syncFromStore(false);   // al abrir, cargar lo publicado
     const more=$('#catMore'); if(more) more.onclick=()=>{ shown+=40; render(); };
   }
   function rowHTML(e,i){
-    const it=invByImg(e.img); const qty=it?stockNum(it):0;
+    const it=invMatch(e); const qty=it?stockNum(it):0;
     const finish = e.foil!=null ? '<span class="catpill">✨ Foil disp.</span>' : '';
     const rar = e.rarity ? `<span class="catpill">${esc(e.rarity)}</span>` : '';
     const num = e.number ? `<small>${esc(e.number)}</small>` : '';
@@ -1195,11 +1200,11 @@ syncFromStore(false);   // al abrir, cargar lo publicado
     if(add) add.onclick=()=>{ setQty(e, 1); };
     const minus=results.querySelector(`.catqty .minus[data-i="${i}"]`);
     const plus=results.querySelector(`.catqty .plus[data-i="${i}"]`);
-    if(plus) plus.onclick=()=>{ const it=invByImg(e.img); setQty(e,(it?stockNum(it):0)+1); };
-    if(minus) minus.onclick=()=>{ const it=invByImg(e.img); setQty(e,(it?stockNum(it):0)-1); };
+    if(plus) plus.onclick=()=>{ const it=invMatch(e); setQty(e,(it?stockNum(it):0)+1); };
+    if(minus) minus.onclick=()=>{ const it=invMatch(e); setQty(e,(it?stockNum(it):0)-1); };
   }
   function setQty(e, q){
-    let it=invByImg(e.img);
+    let it=invMatch(e);
     if(q<=0){ if(it){ items=items.filter(x=>x!==it); } }
     else if(it){ it.stock=q; }
     else {

@@ -8,6 +8,23 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-04 — One Piece completo: OP-01 → OP-15 (2.469 cartas)
+- **Los 15 boosters principales que faltaban** (Romance Dawn → Adventure on Kami's Island) agregados a `productos.json` desde el catálogo maestro (TCGCSV): 2.469 singles (incl. DON!!/alt-arts de cada grupo), ids 1106–3574, **stock 1**, precios TCGplayer × ₡520 + redondeo. Tienda total: **3.574 cartas** (945 RB + 2.629 OP). 6 sin imagen (placeholder), 7 con foil.
+- Selección por NOMBRE de set (los 16 grupos principales; OP-16 ya estaba); dedup por img y nombre+set. Starter decks / Extra Boosters / promos NO agregados (quedan en el quick-search del panel para sumar luego).
+- `make_cartas.py` → 3.574 fichas (3.352 con efecto), cartas.json 2.3MB / productos.json 1.4MB (viajan comprimidos por Vercel).
+- **Loop de verificación:** filtros 120/120 a escala (20× por grupo + combos en OP), 17 expansiones con conteos, quick-view 40/40 en muestra de los 15 sets + 40/40 fichas estáticas (HEAD 200), precios verificados (chase Manga ₡2–3M = mercado real; 1.476 commons ₡100), hero pill auto "3 574", panel: base 3574 ✅ + quick-search marca "en tu base" (Zoro RD 4/4) y deja agregar lo no incluido (starters). Rendimiento: renderGrid 3ms, getFiltered 0.3ms. 0 errores de consola.
+- Backup previo en scratchpad (`productos_backup_pre_op_full.json`).
+- **Sets de One Piece con código (pedido de Andrés):** "OP01: Romance Dawn" … "OP16: The Time of Battle" en TODOS lados — filtro de la tienda (quedan ordenados OP01→OP16 en vez de alfabético), sheet móvil, panel quick-search, fichas y metas. `OP_SET_CODES`/`set_label()` en make_catalogo.py + rename en productos.json (2.628 cartas; el viejo "OP-16 The Time of Battle" unificado a "OP16: …") + rebuild. Bonus: buscar "op01 zoro" funciona en el buscador y en el quick-search.
+- **Fix de caché del catálogo en el panel:** los fetch de `catalogo/*.json` usaban `force-cache` (nunca revalidaba → el panel se quedaba con catálogo viejo tras regenerarlo). Ahora `no-cache` (ETag), igual que productos.json.
+- **Bug encontrado y corregido al revisar el panel:** el quick-search matcheaba catálogo→base por `img` incluso vacía → productos sin foto (ej. "Set Sail Deck Set", sellado NO agregado) salían "✓ en tu base" apuntando a una carta ajena (Arlong Dash Pack); el stepper habría editado/borrado la carta equivocada. Fix: `invMatch(e)` — por imagen, y si la entrada no tiene imagen, por **nombre+set** (nunca por img vacía). Verificado: "set sail" 0 marcadas; "arlong dash" 1/1 correcta.
+
+## 2026-07-04 — Hero nuevo: desfile de cartas del inventario (marquee)
+- **Hero rediseñado** (`hero--marquee` en index.html): pill con el conteo real ("Cartago, CR · 1 105 cartas en stock"), título "Tu próxima carta **ya está acá**.", lead corto, CTA dorado "Ver el catálogo →" + el MISMO buscador (ids intactos). Reemplaza el hero "Encontrá tu carta…" con chips de juego y stats (renderHeroChips/updateHeroStat quedan null-safe, sin uso).
+- **Desfile infinito de cartas REALES** (`renderHeroMarquee` en app.js): 12 cartas al azar del inventario (con foto, disponibles, >₡5000; fallback a cualquiera) duplicadas ×2, inclinadas alternado, animación CSS `hmqslide` (translateX -50%, 45s), desvanecido arriba por mask, **pausa al hover** y cada carta clickeable → quick-view (delegate extendido a `a.hmq__card`). Cambian en cada visita.
+- Basado en un componente React/framer-motion que pasó Andrés — **reescrito en vanilla CSS/JS** (regla del stack).
+- **Loop de clicks pedido:** 24 desfile + 75 grid home (3 págs) + 25 Riftbound + 25 One Piece = **149 clicks, 0 fallos, 0 errores JS**. Móvil OK (24 imgs, sin scroll-H, click abre quick-view). Cache `v54→v55`.
+- Nota: las cartas OP-16 muestran marca "SAMPLE" (imágenes preview de TCGplayer/Bandai; las irán reemplazando).
+
 ## 2026-07-04 — QA de filtros (220 pasadas) + mejoras móviles (vista 2/4 + tiles Singles/Sellado)
 - **QA del filtro avanzado (pedido de Andrés, "20 veces cada cosa"):** 160 pasadas desktop Riftbound (20× por grupo + combos), 20 One Piece, 20 home, 20 sheet móvil — **220/220 OK, 0 errores JS**. Frames verificados (popovers dentro de pantalla, sin scroll-H). Panel: 5 cartas agregadas/quitadas por quick-search real sin errores.
 - **Vista móvil 2 o 4 por fila:** toggle de íconos en la `mfilterbar` (`#gv2`/`#gv4`, clase `grid--4`); modo compacto muestra imagen+nombre+precio. Persistente (`localStorage reroll_gridview`).
