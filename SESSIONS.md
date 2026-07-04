@@ -8,6 +8,19 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-04 — QA de filtros (220 pasadas) + mejoras móviles (vista 2/4 + tiles Singles/Sellado)
+- **QA del filtro avanzado (pedido de Andrés, "20 veces cada cosa"):** 160 pasadas desktop Riftbound (20× por grupo + combos), 20 One Piece, 20 home, 20 sheet móvil — **220/220 OK, 0 errores JS**. Frames verificados (popovers dentro de pantalla, sin scroll-H). Panel: 5 cartas agregadas/quitadas por quick-search real sin errores.
+- **Vista móvil 2 o 4 por fila:** toggle de íconos en la `mfilterbar` (`#gv2`/`#gv4`, clase `grid--4`); modo compacto muestra imagen+nombre+precio. Persistente (`localStorage reroll_gridview`).
+- **"Singles & sellado" móvil:** de 942px de columnas de texto → **340px** con 2 tiles horizontales tocables (icono + título + mini-línea + flecha), como el mockup aprobado. En móvil se oculta el h2/p de la sección (queda el eyebrow). **Desktop igual que antes.** La tile/CTA ahora aplica el filtro Singles/Sellado (`data-offer` → `activeType`) y scrollea al catálogo.
+- Cache `v52→v54`. Todo en la rama `filtros-avanzados` (PR #1); pendiente de merge (= deploy). Próximo: mejorar el hero.
+
+## 2026-07-04 — Filtro avanzado estilo TCGplayer (home + juego.html, desktop + móvil)
+- **Barra de chips-dropdown** (`#fbar` en `.filters`, render `renderFilterBar` en `app.js`): Expansión · Rareza · Tipo de carta · **Dominio/Color** (cambia según juego) · Foil ✨ (toggle, solo si hay foils en contexto) · Condición · Precio (min/max) + "Limpiar todo". Dropdowns **multi-selección con conteos contextuales** (estilo TCGplayer: cada dropdown cuenta sobre el resto de filtros aplicados). Chip activo dorado con ✕ para quitar. En la home, Expansión agrupada por juego.
+- **Datos de filtro** enriquecidos al cargar (`enrichProducts`): rareza/tipo/dominio-color salen de `cartas.json` (`SLUGS`) o de `p.d.at` (cartas del panel). Orden canónico de rarezas por juego (`RAR_ORDER`).
+- **Estado nuevo multi**: `selSets/selRars/selCTs/selDoms/selConds` (Sets), `foilOnly`, `priceMin/priceMax`. Reemplazó `activeSet/activeColor/activeCond`. `getFiltered(except)` para conteos.
+- **REGRESIÓN RESUELTA (reporte de Andrés):** en móvil `#catalogo .filters` se oculta y **juego.html no tenía panel móvil** → las subpáginas quedaban SIN filtros (sin expansiones). Se agregó `mfilterbar` + `filterSheet`/`sortSheet` a juego.html, y el sheet (ambas páginas) ahora es completo: Expansión, Rareza, Tipo, Dominio/Color, Acabado, Condición, Precio min/max, "Limpiar" y botón **"Ver N resultados"** en vivo.
+- Reemplazó los selects viejos `#setFilter`/`#colorFilter` y el slider único `#mfPrice`. Cache `v51→v52`. Verificado desktop+móvil en Riftbound/One Piece/home, popover cierra al click fuera/Esc, quick-view convive, 0 errores de consola.
+
 ## 2026-07-03 — Quick-view (modal de detalle) + stress test 10k
 - **Quick-view en la tienda** (`js/app.js` + `css/styles.css`, cache v49): click en cualquier carta → modal con imagen + **descripción** + atributos + precio + "Agregar al carrito" + "Ver ficha completa". La descripción sale de `p.d` (embebida al agregar del catálogo) o de `cartas.json` (`SLUGS[id].d`). Intercepta `a.card__link` (preventDefault); las páginas estáticas siguen para SEO/no-JS.
 - **`make_cartas.py`** ahora escribe `d = {fx: efecto renderizado, at: [[label,val]]}` en cada entrada de `cartas.json` (1075/1105 con efecto). El **panel** produce el mismo `d` al agregar (JS `cleanAbility`+`buildAttrs`) y lo embebe en la carta → funciona sin depender de rebuilds.

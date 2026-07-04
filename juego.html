@@ -33,9 +33,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=51" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=51" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=51" />
+  <link rel="stylesheet" href="css/styles.css?v=54" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=54" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=54" />
 </head>
 <body>
 
@@ -80,14 +80,17 @@
       <input id="searchInput" type="search" placeholder="Busca dentro de este juego…" aria-label="Buscar" />
       <button class="btn btn--gold" type="submit">Buscar</button>
     </form>
+    <div class="mfilterbar" aria-label="Filtros del catálogo">
+      <button type="button" class="mfbtn" id="mfFiltersBtn"><svg class="mfbtn__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/></svg> Filtros</button>
+      <button type="button" class="mfbtn mfbtn--ghost" id="mfSortBtn"><svg class="mfbtn__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/></svg> Ordenar</button>
+      <div class="gview" role="group" aria-label="Cartas por fila">
+        <button type="button" class="gview__b" id="gv2" aria-label="Ver 2 por fila" title="2 por fila"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></button>
+        <button type="button" class="gview__b" id="gv4" aria-label="Ver 4 por fila" title="4 por fila"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2.5" y="2.5" width="4.2" height="4.2" rx="1"/><rect x="9.9" y="2.5" width="4.2" height="4.2" rx="1"/><rect x="17.3" y="2.5" width="4.2" height="4.2" rx="1"/><rect x="2.5" y="9.9" width="4.2" height="4.2" rx="1"/><rect x="9.9" y="9.9" width="4.2" height="4.2" rx="1"/><rect x="17.3" y="9.9" width="4.2" height="4.2" rx="1"/><rect x="2.5" y="17.3" width="4.2" height="4.2" rx="1"/><rect x="9.9" y="17.3" width="4.2" height="4.2" rx="1"/><rect x="17.3" y="17.3" width="4.2" height="4.2" rx="1"/></svg></button>
+      </div>
+    </div>
     <div class="filters reveal">
       <div class="filters__group" id="typeFilter" aria-label="Tipo"></div>
-      <label class="filters__field"><span>Expansión</span>
-        <select id="setFilter" class="filters__select"></select>
-      </label>
-      <label class="filters__field"><span>Color</span>
-        <select id="colorFilter" class="filters__select"></select>
-      </label>
+      <div class="fbar" id="fbar" aria-label="Filtros avanzados"></div>
       <label class="filters__field"><span>Ordenar</span>
         <select id="sortFilter" class="filters__select">
           <option value="rel">Relevancia</option>
@@ -209,8 +212,47 @@
     <span class="wafloat__tip">Escríbenos</span>
   </a>
 
+  <!-- ===== PANEL DESLIZABLE · Filtros (móvil) ===== -->
+  <div class="msheet" id="filterSheet" aria-hidden="true">
+    <div class="msheet__backdrop" data-msheet-close></div>
+    <div class="msheet__panel" role="dialog" aria-label="Filtros">
+      <span class="msheet__handle" aria-hidden="true"></span>
+      <div class="msheet__head"><span>Filtros</span><button type="button" class="msheet__clear" id="mfClear">Limpiar</button><button class="msheet__x" data-msheet-close aria-label="Cerrar">✕</button></div>
+      <div class="msheet__row"><p class="msheet__label">Expansión</p>
+      <div class="mchips" id="mfSets"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Rareza</p>
+      <div class="mchips" id="mfRars"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Tipo de carta</p>
+      <div class="mchips" id="mfCTs"></div></div>
+      <div class="msheet__row"><p class="msheet__label" id="mfDomLabel">Dominio / Color</p>
+      <div class="mchips" id="mfDoms"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Acabado</p>
+      <div class="mchips" id="mfFoil"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Condición</p>
+      <div class="mchips" id="mfConds"></div></div>
+      <p class="msheet__label">Precio (₡)</p>
+      <div class="mprice">
+        <input type="number" id="mfMin" min="0" step="100" placeholder="mín" aria-label="Precio mínimo" />
+        <span>–</span>
+        <input type="number" id="mfMax" min="0" step="100" placeholder="máx" aria-label="Precio máximo" />
+      </div>
+      <label class="msheet__check"><input type="checkbox" id="mfSoldOut" /> Mostrar agotadas</label>
+      <button class="mfapply" id="filterApply">Aplicar filtros</button>
+    </div>
+  </div>
+
+  <!-- ===== PANEL DESLIZABLE · Ordenar (móvil) ===== -->
+  <div class="msheet" id="sortSheet" aria-hidden="true">
+    <div class="msheet__backdrop" data-msheet-close></div>
+    <div class="msheet__panel" role="dialog" aria-label="Ordenar">
+      <span class="msheet__handle" aria-hidden="true"></span>
+      <div class="msheet__head"><span>Ordenar</span><button class="msheet__x" data-msheet-close aria-label="Cerrar">✕</button></div>
+      <div class="msortopts" id="sortOpts"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=51"></script>
+  <script src="js/app.js?v=54"></script>
 </body>
 </html>

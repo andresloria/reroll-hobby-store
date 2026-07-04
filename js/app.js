@@ -85,10 +85,17 @@ function cardNameSize(name){
 // ---------- Estado de filtros ----------
 let activeCat   = "Todas";
 let activeType  = "all";   // all | single | sealed
-let activeSet   = "all";
-let activeColor = "all";
-let activeCond  = "all";   // filtro de estado (móvil): "all" | "mint" | "near mint" | "excel"
-let priceMax    = null;    // tope de precio (móvil): null = sin límite
+// Filtros avanzados (multi-selección, estilo TCGplayer). Un Set vacío = sin filtro.
+let selSets  = new Set();  // expansiones
+let selRars  = new Set();  // rarezas
+let selCTs   = new Set();  // tipos de carta (Unit, Leader, Character…)
+let selDoms  = new Set();  // dominios (Riftbound) / colores (One Piece)
+let selConds = new Set();  // condición (Near Mint, Mint / Gem…)
+let foilOnly = false;      // solo cartas con variante foil
+let priceMin = null;       // precio mínimo (₡), null = sin límite
+let priceMax = null;       // precio máximo (₡), null = sin límite
+function clearSubFilters(){ selSets.clear(); selRars.clear(); selCTs.clear(); selDoms.clear(); selConds.clear(); foilOnly=false; priceMin=null; priceMax=null; }
+function activeFilterCount(){ return selSets.size+selRars.size+selCTs.size+selDoms.size+selConds.size+(foilOnly?1:0)+((priceMin!=null||priceMax!=null)?1:0); }
 let sortMode    = "rel";
 let query       = "";
 let showSoldOut = false;   // por defecto NO se muestran las cartas agotadas (stock 0)
@@ -251,7 +258,7 @@ function renderGameBar(){
 }
 function selectGame(cat){
   activeCat = cat;
-  activeSet = "all"; activeColor = "all";   // reset sub-filtros al cambiar de juego
+  clearSubFilters(); fpopOpen = null;   // reset sub-filtros al cambiar de juego
   renderGameBar();
   renderFilters();
   renderGrid();
@@ -399,8 +406,35 @@ function matchQuery(p, q){
   const hay = searchHay(p);
   return toks.every(t => hay.includes(t));   // todas las palabras deben aparecer
 }
+
+// ---- Enriquecimiento para filtros: rareza / tipo de carta / dominio-color ----
+// Sale de cartas.json (SLUGS) o, si la carta se agregó por el panel, de p.d.at.
+function atFrom(p, key){
+  const d = p.d || (SLUGS[p.id] && SLUGS[p.id].d) || null;
+  if(!d || !d.at) return "";
+  const row = d.at.find(a=>a[0]===key);
+  return row ? row[1] : "";
+}
+function enrichProducts(){
+  PRODUCTS.forEach(p=>{
+    const e = SLUGS[p.id] || {};
+    p._rar = e.rarity || atFrom(p,"Rareza") || "";
+    p._ct  = e.type   || atFrom(p,"Tipo")   || "";
+    const dm = e.domains || atFrom(p,"Dominio") || atFrom(p,"Color") || "";
+    p._doms = dm ? dm.split(/\s*\|\s*|;/).map(s=>s.trim()).filter(Boolean) : [];
+  });
+}
+// orden canónico de rarezas por juego (lo demás va al final, alfabético)
+const RAR_ORDER = {
+  "Riftbound": ["Common","Uncommon","Rare","Epic","Showcase"],
+  "One Piece": ["C","UC","R","SR","SEC","L","TR","DON!!"]
+};
+function sortByOrder(vals, order){
+  const idx = v => { const i = (order||[]).indexOf(v); return i<0 ? 999 : i; };
+  return vals.sort((a,b)=> idx(a)-idx(b) || a.localeCompare(b,"es"));
+}
 function renderFilters(){
-  // tipo
+  // tipo (pills Todo / Singles / Sellado)
   const typeWrap = $("#typeFilter");
   if(typeWrap){
     const opts = [["all","Todo"],["single","Singles"],["sealed","Sellado"]];
@@ -409,28 +443,151 @@ function renderFilters(){
       const b = document.createElement("button");
       b.className = "pill" + (activeType===v?" active":"");
       b.textContent = l;
-      b.onclick = ()=>{ activeType=v; renderFilters(); renderGrid(); };
+      b.onclick = ()=>{ activeType=v; refreshFilters(); };
       typeWrap.appendChild(b);
     });
   }
-  const base = baseForFilters();
-  // expansión
-  const setSel = $("#setFilter");
-  if(setSel){
-    const sets = uniqueVals("set", base);
-    setSel.innerHTML = `<option value="all">Todas las expansiones</option>` + sets.map(s=>`<option value="${s}">${s}</option>`).join("");
-    setSel.value = activeSet;
-    setSel.parentElement.style.display = sets.length ? "" : "none";
-  }
-  // color (solo si hay productos con color en el juego activo)
-  const colorSel = $("#colorFilter");
-  if(colorSel){
-    const colors = uniqueVals("color", base);
-    colorSel.innerHTML = `<option value="all">Cualquier color</option>` + colors.map(c=>`<option value="${c}">${c}</option>`).join("");
-    colorSel.value = activeColor;
-    colorSel.parentElement.style.display = colors.length ? "" : "none";
-  }
+  renderFilterBar();
 }
+
+/* ---- Barra de filtros avanzados (chips + dropdowns, estilo TCGplayer) ---- */
+const escF = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+let fpopOpen = null;   // grupo con dropdown abierto ("set"|"rar"|…) o null
+function domGroupLabel(){
+  if(activeCat==="One Piece") return "Color";
+  if(activeCat==="Riftbound") return "Dominio";
+  return "Dominio / Color";
+}
+function filterGroups(){
+  return [
+    {id:"set",  label:"Expansión",      sel:selSets,  get:p=>p.set?[p.set]:[]},
+    {id:"rar",  label:"Rareza",         sel:selRars,  get:p=>p._rar?[p._rar]:[], order:RAR_ORDER[activeCat]},
+    {id:"ct",   label:"Tipo de carta",  sel:selCTs,   get:p=>p._ct?[p._ct]:[]},
+    {id:"dom",  label:domGroupLabel(),  sel:selDoms,  get:p=>p._doms||[]},
+    {id:"cond", label:"Condición",      sel:selConds, get:p=>p.cond?[p.cond]:[]}
+  ];
+}
+function groupOptions(g){
+  const counts = new Map();
+  getFiltered(g.id).forEach(p=> g.get(p).forEach(v=> counts.set(v,(counts.get(v)||0)+1)));
+  let vals = [...counts.keys()];
+  vals = g.order ? sortByOrder(vals, g.order) : vals.sort((a,b)=>a.localeCompare(b,"es"));
+  return vals.map(v=>({v, n:counts.get(v)}));
+}
+function chipHTML(g){
+  const isPrice = g.id==="price";
+  const on = isPrice ? (priceMin!=null||priceMax!=null) : g.sel.size>0;
+  let lbl;
+  if(isPrice) lbl = on ? `Precio: ${priceMin!=null?fmt(priceMin):"₡0"} – ${priceMax!=null?fmt(priceMax):"∞"}` : "Precio ▾";
+  else lbl = on ? `${g.label}: ${escF([...g.sel][0])}${g.sel.size>1?` +${g.sel.size-1}`:""}` : `${g.label} ▾`;
+  return `<button type="button" class="fchip${on?" on":""}${fpopOpen===g.id?" open":""}" data-fg="${g.id}" aria-expanded="${fpopOpen===g.id}">${lbl}${on?'<span class="fchip__x" role="button" aria-label="Quitar este filtro">✕</span>':""}</button>`;
+}
+function renderFilterBar(){
+  const bar = $("#fbar"); if(!bar) return;
+  const groups = filterGroups();
+  let html = "";
+  groups.slice(0,4).forEach(g=>{ if(groupOptions(g).length || g.sel.size) html += chipHTML(g); });
+  // Foil: chip-toggle (sin dropdown), solo si el juego activo tiene foils
+  if(getFiltered("foil").some(p=>p.foil!=null) || foilOnly)
+    html += `<button type="button" class="fchip${foilOnly?" on":""}" data-fg="foil">Foil ✨${foilOnly?'<span class="fchip__x" role="button" aria-label="Quitar este filtro">✕</span>':""}</button>`;
+  html += chipHTML(groups[4]);                     // condición
+  html += chipHTML({id:"price", label:"Precio"});  // precio (min/max)
+  if(activeFilterCount()) html += `<button type="button" class="fclear" data-fg="clear">Limpiar todo ✕</button>`;
+  bar.innerHTML = html;
+  if(fpopOpen) mountFpop(bar);
+}
+function fpopBodyHTML(id){
+  if(id==="price"){
+    return `<div class="fpop__t">Precio (₡)</div>
+      <div class="fpop__price">
+        <input type="number" id="fpMin" min="0" step="100" placeholder="mín" value="${priceMin!=null?priceMin:""}" aria-label="Precio mínimo">
+        <span>–</span>
+        <input type="number" id="fpMax" min="0" step="100" placeholder="máx" value="${priceMax!=null?priceMax:""}" aria-label="Precio máximo">
+      </div>
+      <button type="button" class="fpop__apply" id="fpApply">Aplicar</button>`;
+  }
+  const g = filterGroups().find(x=>x.id===id); if(!g) return "";
+  // Expansión en la home: agrupada por juego
+  if(id==="set" && activeCat==="Todas"){
+    const byGame = new Map();
+    getFiltered("set").forEach(p=>{ if(!p.set) return;
+      if(!byGame.has(p.cat)) byGame.set(p.cat,new Map());
+      const m=byGame.get(p.cat); m.set(p.set,(m.get(p.set)||0)+1); });
+    let out = `<div class="fpop__t">${escF(g.label)}</div>`;
+    [...byGame.keys()].sort((a,b)=>a.localeCompare(b,"es")).forEach(game=>{
+      out += `<div class="fpop__gh">${escF(game)}</div>`;
+      [...byGame.get(game).keys()].sort((a,b)=>a.localeCompare(b,"es")).forEach(v=>{
+        out += fpopRow(g, v, byGame.get(game).get(v));
+      });
+    });
+    return out;
+  }
+  const opts = groupOptions(g);
+  if(!opts.length) return `<div class="fpop__t">${escF(g.label)}</div><div class="fpop__empty">Sin opciones con los filtros actuales.</div>`;
+  return `<div class="fpop__t">${escF(g.label)}</div>` + opts.map(o=>fpopRow(g, o.v, o.n)).join("");
+}
+function fpopRow(g, v, n){
+  const on = g.sel.has(v);
+  return `<label class="fopt${on?" on":""}"><input type="checkbox" data-fv="${escF(v)}" ${on?"checked":""}><span class="fopt__box" aria-hidden="true">${on?"✓":""}</span><span class="fopt__l">${escF(v)}</span><span class="fopt__n">${n}</span></label>`;
+}
+function mountFpop(bar){
+  const chip = bar.querySelector(`.fchip[data-fg="${fpopOpen}"]`);
+  if(!chip){ fpopOpen=null; return; }
+  const pop = document.createElement("div");
+  pop.className = "fpop"; pop.id = "fpop";
+  pop.innerHTML = fpopBodyHTML(fpopOpen);
+  bar.appendChild(pop);
+  // posicionar bajo el chip, sin salirse de la barra
+  const left = Math.max(0, Math.min(chip.offsetLeft, bar.clientWidth - Math.min(280, bar.clientWidth)));
+  pop.style.left = left+"px";
+  pop.style.top  = (chip.offsetTop + chip.offsetHeight + 6)+"px";
+  // interacciones del popover
+  if(fpopOpen==="price"){
+    const apply = ()=>{
+      const mn = pop.querySelector("#fpMin").value, mx = pop.querySelector("#fpMax").value;
+      priceMin = mn==="" ? null : Math.max(0, Number(mn));
+      priceMax = mx==="" ? null : Math.max(0, Number(mx));
+      if(priceMin!=null && priceMax!=null && priceMin>priceMax){ const t=priceMin; priceMin=priceMax; priceMax=t; }
+      fpopOpen = null; refreshFilters();
+    };
+    pop.querySelector("#fpApply").onclick = apply;
+    pop.querySelectorAll("input").forEach(i=> i.addEventListener("keydown", e=>{ if(e.key==="Enter") apply(); }));
+    return;
+  }
+  pop.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+    cb.addEventListener("change", ()=>{
+      const g = filterGroups().find(x=>x.id===fpopOpen); if(!g) return;
+      const v = cb.getAttribute("data-fv");
+      if(g.sel.has(v)) g.sel.delete(v); else g.sel.add(v);
+      renderFilterBar(); renderGrid(); syncMobileFilters();
+    });
+  });
+}
+function clearGroup(id){
+  if(id==="foil") foilOnly = false;
+  else if(id==="price"){ priceMin=null; priceMax=null; }
+  else { const g = filterGroups().find(x=>x.id===id); if(g) g.sel.clear(); }
+  if(fpopOpen===id) fpopOpen = null;
+  refreshFilters();
+}
+function refreshFilters(){ renderFilterBar(); renderGrid(); syncMobileFilters(); }
+function syncMobileFilters(){ if(typeof renderMobileFilters==="function") renderMobileFilters(); }
+// eventos de la barra (delegados) + cerrar al hacer clic fuera / Escape
+document.addEventListener("click", e=>{
+  const bar = $("#fbar"); if(!bar) return;
+  if(!bar.contains(e.target)){ if(fpopOpen){ fpopOpen=null; renderFilterBar(); } return; }
+  const x = e.target.closest(".fchip__x");
+  if(x){ e.stopPropagation(); clearGroup(x.closest(".fchip").dataset.fg); return; }
+  if(e.target.closest(".fclear")){ clearSubFilters(); fpopOpen=null; refreshFilters(); return; }
+  const chip = e.target.closest(".fchip");
+  if(chip){
+    const id = chip.dataset.fg;
+    if(id==="foil"){ foilOnly = !foilOnly; refreshFilters(); return; }
+    fpopOpen = (fpopOpen===id) ? null : id;
+    renderFilterBar();
+  }
+});
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && fpopOpen){ fpopOpen=null; renderFilterBar(); } });
 
 /* ============================================================
    GRID
@@ -438,18 +595,28 @@ function renderFilters(){
 const GRID_PAGE_SIZE = 25;   // cartas por página en la tienda
 let gridPage = 1;
 let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la página 1
-function getFiltered(){
+// except: omite UN grupo de filtros ("set"|"rar"|"ct"|"dom"|"foil"|"cond"|"price")
+// para calcular los conteos contextuales de ese dropdown (estilo TCGplayer).
+function getFiltered(except){
   let items = PRODUCTS.filter(p=>{
     if(!showSoldOut && !isAvailable(p)) return false;   // por defecto, solo disponibles
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
     if(activeType!=="all" && (p.type||"single")!==activeType) return false;
-    if(activeSet!=="all" && p.set!==activeSet) return false;
-    if(activeColor!=="all" && p.color!==activeColor) return false;
-    if(activeCond!=="all" && !((p.cond||"").toLowerCase().includes(activeCond))) return false;
-    if(priceMax!=null && Number(p.price||0) > priceMax) return false;
+    if(except!=="set"  && selSets.size  && !selSets.has(p.set)) return false;
+    if(except!=="rar"  && selRars.size  && !selRars.has(p._rar)) return false;
+    if(except!=="ct"   && selCTs.size   && !selCTs.has(p._ct)) return false;
+    if(except!=="dom"  && selDoms.size  && !(p._doms||[]).some(d=>selDoms.has(d))) return false;
+    if(except!=="foil" && foilOnly && p.foil==null) return false;
+    if(except!=="cond" && selConds.size && !selConds.has(p.cond||"")) return false;
+    if(except!=="price"){
+      const pr = Number(p.price||0);
+      if(priceMin!=null && pr < priceMin) return false;
+      if(priceMax!=null && pr > priceMax) return false;
+    }
     if(query && !matchQuery(p, query)) return false;
     return true;
   });
+  if(except) return items;   // para conteos no hace falta ordenar
   if(sortMode==="price-asc")  items.sort((a,b)=>a.price-b.price);
   else if(sortMode==="price-desc") items.sort((a,b)=>b.price-a.price);
   else if(sortMode==="name")  items.sort((a,b)=>a.name.localeCompare(b.name,"es"));
@@ -538,7 +705,7 @@ function renderGrid(){
     }
   }
   // paginación: 25 por página; vuelve a la pág. 1 si cambió algún filtro/orden/búsqueda
-  const sig = [activeCat,activeType,activeSet,activeColor,activeCond,priceMax,sortMode,query].join("|");
+  const sig = [activeCat,activeType,[...selSets],[...selRars],[...selCTs],[...selDoms],[...selConds],foilOnly,priceMin,priceMax,sortMode,query].join("|");
   if(sig !== _lastFilterSig){ gridPage = 1; _lastFilterSig = sig; }
   const totalPages = Math.max(1, Math.ceil(items.length / GRID_PAGE_SIZE));
   if(gridPage > totalPages) gridPage = totalPages;
@@ -797,7 +964,7 @@ function renderSearchResults(){
 function chooseResult(){
   const box = $("#searchResults"); if(box) box.hidden = true;
   const inp = $("#searchInput"); if(inp) inp.setAttribute("aria-expanded","false");
-  activeCat = "Todas"; activeType="all"; activeSet="all"; activeColor="all";
+  activeCat = "Todas"; activeType="all"; clearSubFilters(); fpopOpen=null;
   renderGameBar(); renderFilters(); renderGrid();
   document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
 }
@@ -845,8 +1012,6 @@ function setShowSoldOut(val){
   renderGrid();
 }
 document.addEventListener("change", e=>{
-  if(e.target.id==="setFilter"){ activeSet = e.target.value; renderGrid(); }
-  if(e.target.id==="colorFilter"){ activeColor = e.target.value; renderGrid(); }
   if(e.target.id==="sortFilter"){ sortMode = e.target.value; renderGrid(); }
   if(e.target.id==="showSoldOut" || e.target.id==="mfSoldOut"){ setShowSoldOut(e.target.checked); }
   if(e.target.id==="coEntrega"){ toggleEnvio(); }
@@ -1133,8 +1298,9 @@ async function loadCatalog(){
       }
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
+  enrichProducts();   // rareza / tipo de carta / dominio-color para los filtros avanzados
   renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles(); renderHeroChips();
-  renderMobileFilters(); renderSortSheet(); buildPriceRange();
+  renderMobileFilters(); renderSortSheet();
   renderFanCarousel();   // singles destacados (necesita precios reales)
   updateHeroStat();
 }
@@ -1155,49 +1321,106 @@ function updateHeroStat(){
 const MOBILE_GAMES = TILE_GAMES; // One Piece, Riftbound, Pokémon, Magic, Yu-Gi-Oh
 function openSheet(sel){ const s=$(sel); if(!s) return; s.classList.add('open'); s.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
 function closeSheet(sel){ const s=$(sel); if(!s) return; s.classList.remove('open'); s.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
-function priceCeiling(){
-  const base = PRODUCTS.filter(p=> activeCat==="Todas" || p.cat===activeCat);
-  const m = base.reduce((mx,p)=>Math.max(mx, Number(p.price||0)), 0);
-  return Math.max(1000, Math.ceil(m/1000)*1000);
-}
-function buildPriceRange(){
-  const r=$("#mfPrice"); if(!r) return;
-  const ceil=priceCeiling();
-  r.min=0; r.max=ceil; r.step=100;
-  r.value = (priceMax==null) ? ceil : Math.min(priceMax, ceil);
-  const maxEl=$("#mfPriceMax"); if(maxEl) maxEl.textContent=fmt(ceil);
-  const valEl=$("#mfPriceVal"); if(valEl) valEl.textContent = (priceMax==null) ? ("Hasta "+fmt(ceil)) : ("Hasta "+fmt(Number(r.value)));
+// chips multi-selección de un grupo dentro del sheet móvil
+function mfChips(wrapId, g){
+  const wrap=$(wrapId); if(!wrap) return;
+  const opts = groupOptions(g);
+  const row = wrap.closest(".msheet__row") || wrap;
+  if(!opts.length && !g.sel.size){ row.style.display="none"; wrap.innerHTML=""; return; }
+  row.style.display="";
+  wrap.innerHTML="";
+  opts.forEach(o=>{
+    const chip=document.createElement("button");
+    chip.type="button"; chip.className="mchip"+(g.sel.has(o.v)?" on":"");
+    chip.textContent = `${o.v} (${o.n})`;
+    chip.onclick=()=>{ if(g.sel.has(o.v)) g.sel.delete(o.v); else g.sel.add(o.v);
+      renderFilterBar(); renderMobileFilters(); renderGrid(); };
+    wrap.appendChild(chip);
+  });
 }
 function renderMobileFilters(){
-  const gWrap=$("#mfGames"); if(!gWrap) return;
-  gWrap.innerHTML="";
-  MOBILE_GAMES.forEach(cat=>{
-    const chip=document.createElement("button");
-    chip.type="button"; chip.className="mchip"+(activeCat===cat?" on":"");
-    chip.textContent = cat==="Yu-Gi-Oh" ? "Yu-Gi-Oh!" : cat;
-    chip.onclick=()=>{ activeCat = (activeCat===cat) ? "Todas" : cat; activeSet="all"; activeColor="all"; priceMax=null;
-      renderGameBar(); renderFilters(); renderMobileFilters(); buildPriceRange(); renderGrid(); };
-    gWrap.appendChild(chip);
-  });
-  const cWrap=$("#mfConds"); if(cWrap){ cWrap.innerHTML="";
-    [["mint","Mint"],["near mint","Near Mint"],["excel","Excelente"]].forEach(([v,l])=>{
+  const sheet=$("#filterSheet"); if(!sheet) return;
+  // juego (solo si existe la sección — en la home)
+  const gWrap=$("#mfGames");
+  if(gWrap){
+    gWrap.innerHTML="";
+    MOBILE_GAMES.forEach(cat=>{
       const chip=document.createElement("button");
-      chip.type="button"; chip.className="mchip"+(activeCond===v?" on":"");
-      chip.textContent=l;
-      chip.onclick=()=>{ activeCond=(activeCond===v)?"all":v; renderMobileFilters(); renderGrid(); };
-      cWrap.appendChild(chip);
+      chip.type="button"; chip.className="mchip"+(activeCat===cat?" on":"");
+      chip.textContent = cat==="Yu-Gi-Oh" ? "Yu-Gi-Oh!" : cat;
+      chip.onclick=()=>{ activeCat = (activeCat===cat) ? "Todas" : cat; clearSubFilters(); fpopOpen=null;
+        renderGameBar(); renderFilters(); renderMobileFilters(); renderGrid(); };
+      gWrap.appendChild(chip);
     });
   }
+  const G = filterGroups();
+  mfChips("#mfSets",  G[0]);
+  mfChips("#mfRars",  G[1]);
+  mfChips("#mfCTs",   G[2]);
+  mfChips("#mfDoms",  G[3]);
+  const domLbl=$("#mfDomLabel"); if(domLbl) domLbl.textContent = domGroupLabel();
+  mfChips("#mfConds", G[4]);
+  // acabado (foil)
+  const fWrap=$("#mfFoil");
+  if(fWrap){
+    const row = fWrap.closest(".msheet__row") || fWrap;
+    const hasFoil = getFiltered("foil").some(p=>p.foil!=null);
+    row.style.display = (hasFoil||foilOnly) ? "" : "none";
+    fWrap.innerHTML="";
+    const chip=document.createElement("button");
+    chip.type="button"; chip.className="mchip"+(foilOnly?" on":"");
+    chip.textContent="Foil ✨";
+    chip.onclick=()=>{ foilOnly=!foilOnly; renderFilterBar(); renderMobileFilters(); renderGrid(); };
+    fWrap.appendChild(chip);
+  }
+  // precio min / max
+  const mn=$("#mfMin"), mx=$("#mfMax");
+  if(mn) mn.value = priceMin!=null ? priceMin : "";
+  if(mx) mx.value = priceMax!=null ? priceMax : "";
+  // botón aplicar con conteo en vivo
+  const ap=$("#filterApply");
+  if(ap){ const n=getFiltered().length; ap.textContent = `Ver ${n} resultado${n!==1?"s":""}`; }
 }
+function mfPriceInput(){
+  const mn=$("#mfMin"), mx=$("#mfMax");
+  priceMin = (mn && mn.value!=="") ? Math.max(0, Number(mn.value)) : null;
+  priceMax = (mx && mx.value!=="") ? Math.max(0, Number(mx.value)) : null;
+  renderFilterBar(); renderGrid();
+  const ap=$("#filterApply");
+  if(ap){ const n=getFiltered().length; ap.textContent = `Ver ${n} resultado${n!==1?"s":""}`; }
+}
+$("#mfMin")?.addEventListener("input", debounce(mfPriceInput,250));
+$("#mfMax")?.addEventListener("input", debounce(mfPriceInput,250));
+$("#mfClear")?.addEventListener("click", ()=>{ clearSubFilters(); fpopOpen=null; renderFilters(); renderMobileFilters(); renderGrid(); });
 const SORT_OPTS=[["rel","Relevancia"],["price-asc","Precio: menor a mayor"],["price-desc","Precio: mayor a menor"],["name","Nombre A-Z"]];
 function renderSortSheet(){ const w=$("#sortOpts"); if(!w) return; w.innerHTML="";
   SORT_OPTS.forEach(([v,l])=>{ const b=document.createElement("button"); b.type="button"; b.className="msortopt"+(sortMode===v?" on":""); b.textContent=l;
     b.onclick=()=>{ sortMode=v; renderSortSheet(); renderGrid(); closeSheet('#sortSheet'); }; w.appendChild(b); });
 }
-$("#mfFiltersBtn")?.addEventListener("click", ()=>{ renderMobileFilters(); buildPriceRange(); openSheet('#filterSheet'); });
+$("#mfFiltersBtn")?.addEventListener("click", ()=>{ renderMobileFilters(); openSheet('#filterSheet'); });
 $("#mfSortBtn")?.addEventListener("click", ()=>{ renderSortSheet(); openSheet('#sortSheet'); });
-$("#mfPrice")?.addEventListener("input", e=>{ const v=Number(e.target.value), ceil=Number(e.target.max);
-  priceMax = (v>=ceil) ? null : v; const valEl=$("#mfPriceVal"); if(valEl) valEl.textContent = (priceMax==null)?("Hasta "+fmt(ceil)):("Hasta "+fmt(v)); renderGrid(); });
+
+/* ---- Vista móvil: 2 o 4 cartas por fila (persistente) ---- */
+function applyGridView(v){
+  const grid=$("#grid"); if(!grid) return;
+  grid.classList.toggle("grid--4", v==="4");
+  $("#gv2")?.classList.toggle("on", v!=="4");
+  $("#gv4")?.classList.toggle("on", v==="4");
+  try{ localStorage.setItem("reroll_gridview", v); }catch(e){}
+}
+$("#gv2")?.addEventListener("click", ()=>applyGridView("2"));
+$("#gv4")?.addEventListener("click", ()=>applyGridView("4"));
+applyGridView(localStorage.getItem("reroll_gridview")||"2");
+
+/* ---- "Singles & sellado": la tarjeta/tile filtra el catálogo por tipo ---- */
+document.addEventListener("click", e=>{
+  const card = e.target.closest(".offer__card[data-offer]");
+  if(!card) return;
+  e.preventDefault();
+  activeType = card.dataset.offer;          // "single" | "sealed"
+  renderFilters(); renderGrid();
+  document.getElementById("catalogo")?.scrollIntoView({behavior:"smooth", block:"start"});
+});
 $("#filterApply")?.addEventListener("click", ()=>{ renderGrid(); closeSheet('#filterSheet'); document.getElementById('catalogo')?.scrollIntoView({behavior:'smooth',block:'start'}); });
 document.querySelectorAll('[data-msheet-close]').forEach(el=> el.addEventListener('click', ()=>{ const s=el.closest('.msheet'); if(s) closeSheet('#'+s.id); }));
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeSheet('#filterSheet'); closeSheet('#sortSheet'); } });
