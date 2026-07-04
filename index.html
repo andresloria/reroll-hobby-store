@@ -61,9 +61,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=51" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=51" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=51" />
+  <link rel="stylesheet" href="css/styles.css?v=52" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=52" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=52" />
 </head>
 <body>
 
@@ -189,12 +189,7 @@
     <!-- filtros -->
     <div class="filters reveal">
       <div class="filters__group" id="typeFilter" aria-label="Tipo"></div>
-      <label class="filters__field"><span>Expansión</span>
-        <select id="setFilter" class="filters__select"></select>
-      </label>
-      <label class="filters__field"><span>Color</span>
-        <select id="colorFilter" class="filters__select"></select>
-      </label>
+      <div class="fbar" id="fbar" aria-label="Filtros avanzados"></div>
       <label class="filters__field"><span>Ordenar</span>
         <select id="sortFilter" class="filters__select">
           <option value="rel">Relevancia</option>
@@ -440,14 +435,27 @@
     <div class="msheet__backdrop" data-msheet-close></div>
     <div class="msheet__panel" role="dialog" aria-label="Filtros">
       <span class="msheet__handle" aria-hidden="true"></span>
-      <div class="msheet__head"><span>Filtros</span><button class="msheet__x" data-msheet-close aria-label="Cerrar">✕</button></div>
-      <p class="msheet__label">Juego</p>
-      <div class="mchips" id="mfGames"></div>
-      <p class="msheet__label">Estado</p>
-      <div class="mchips" id="mfConds"></div>
-      <p class="msheet__label">Precio</p>
-      <input type="range" id="mfPrice" class="mrange" min="0" max="25000" value="25000" aria-label="Precio máximo" />
-      <div class="mrange__row"><span>₡0</span><span id="mfPriceVal"></span><span id="mfPriceMax"></span></div>
+      <div class="msheet__head"><span>Filtros</span><button type="button" class="msheet__clear" id="mfClear">Limpiar</button><button class="msheet__x" data-msheet-close aria-label="Cerrar">✕</button></div>
+      <div class="msheet__row"><p class="msheet__label">Juego</p>
+      <div class="mchips" id="mfGames"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Expansión</p>
+      <div class="mchips" id="mfSets"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Rareza</p>
+      <div class="mchips" id="mfRars"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Tipo de carta</p>
+      <div class="mchips" id="mfCTs"></div></div>
+      <div class="msheet__row"><p class="msheet__label" id="mfDomLabel">Dominio / Color</p>
+      <div class="mchips" id="mfDoms"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Acabado</p>
+      <div class="mchips" id="mfFoil"></div></div>
+      <div class="msheet__row"><p class="msheet__label">Condición</p>
+      <div class="mchips" id="mfConds"></div></div>
+      <p class="msheet__label">Precio (₡)</p>
+      <div class="mprice">
+        <input type="number" id="mfMin" min="0" step="100" placeholder="mín" aria-label="Precio mínimo" />
+        <span>–</span>
+        <input type="number" id="mfMax" min="0" step="100" placeholder="máx" aria-label="Precio máximo" />
+      </div>
       <label class="msheet__check"><input type="checkbox" id="mfSoldOut" /> Mostrar agotadas</label>
       <button class="mfapply" id="filterApply">Aplicar filtros</button>
     </div>
@@ -465,6 +473,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=51"></script>
+  <script src="js/app.js?v=52"></script>
 </body>
 </html>

@@ -1396,3 +1396,50 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .cd-img img,.cd-rel__card{transition:none}
   .cd-btn:hover{transform:none}
 }
+
+/* ===== Filtros avanzados: barra de chips + dropdowns (estilo TCGplayer) ===== */
+.fbar{position:relative;display:flex;gap:7px;flex-wrap:wrap;align-items:center;justify-content:center;width:100%}
+.fchip{font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:rgba(255,255,255,.03);color:var(--cream);
+  transition:border-color .18s,background .18s}
+.fchip:hover{border-color:var(--gold)}
+.fchip.on{border-color:var(--gold);background:rgba(201,162,75,.14);color:var(--gold-bright);font-weight:700}
+.fchip.open{border-color:var(--gold-bright);background:rgba(201,162,75,.2)}
+.fchip__x{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;font-size:.62rem;
+  background:rgba(201,162,75,.25);color:var(--gold-bright);line-height:1}
+.fchip__x:hover{background:var(--gold-bright);color:var(--negro)}
+.fclear{font-family:var(--font-body);font-size:.8rem;cursor:pointer;border:none;background:none;color:var(--muted);
+  text-decoration:underline;text-underline-offset:3px;padding:8px 6px}
+.fclear:hover{color:var(--cream)}
+.fpop{position:absolute;z-index:40;width:min(280px,92vw);max-height:320px;overflow:auto;
+  background:linear-gradient(180deg,#241a17,#1a1311);border:1px solid var(--gold);border-radius:12px;
+  padding:12px;box-shadow:0 22px 60px -14px rgba(0,0,0,.85);text-align:left}
+.fpop__t{font-family:var(--font-mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.fpop__gh{font-family:var(--font-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gold-bright);
+  margin:9px 0 3px;padding-top:7px;border-top:1px dashed var(--line)}
+.fpop__gh:first-of-type{margin-top:2px;padding-top:0;border-top:none}
+.fpop__empty{font-size:.82rem;color:var(--muted);padding:4px 2px}
+.fopt{display:flex;align-items:center;gap:9px;padding:6px 4px;border-radius:8px;cursor:pointer;font-size:.86rem;color:var(--cream)}
+.fopt:hover{background:rgba(201,162,75,.09)}
+.fopt input{position:absolute;opacity:0;pointer-events:none}
+.fopt__box{width:15px;height:15px;flex-shrink:0;display:grid;place-items:center;border:1px solid rgba(201,162,75,.45);
+  border-radius:4px;font-size:.6rem;color:var(--negro)}
+.fopt.on{color:var(--gold-bright);font-weight:700}
+.fopt.on .fopt__box{background:var(--gold-bright);border-color:var(--gold-bright)}
+.fopt__l{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fopt__n{font-family:var(--font-mono);font-size:.7rem;color:var(--muted)}
+.fpop__price{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.fpop__price input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:9px;
+  padding:8px 10px;color:var(--cream);font-family:var(--font-mono);font-size:.84rem;outline:none}
+.fpop__price input:focus{border-color:var(--gold)}
+.fpop__price span{color:var(--muted)}
+.fpop__apply{width:100%;font-family:var(--font-body);font-weight:700;font-size:.85rem;cursor:pointer;border:none;
+  border-radius:999px;padding:9px;background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#2a1a08}
+/* sheet móvil: precio min/max + limpiar */
+.mprice{display:flex;align-items:center;gap:10px}
+.mprice input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;
+  padding:10px 12px;color:var(--cream);font-family:var(--font-mono);font-size:.9rem;outline:none;min-width:0}
+.mprice input:focus{border-color:var(--gold)}
+.mprice span{color:var(--muted)}
+.msheet__clear{margin-left:auto;margin-right:10px;font-family:var(--font-body);font-size:.78rem;cursor:pointer;
+  border:none;background:none;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
