@@ -1,8 +1,20 @@
-# HANDOFF — estado de la sesión (act. 2026-07-03)
+# HANDOFF — estado de la sesión (act. 2026-07-04)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com**. Cache en **`?v=51`** (index.html y juego.html alineados). Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=57`** (index.html y juego.html alineados). Historial completo en [SESSIONS.md](SESSIONS.md).
 
-## En qué estábamos (sesión 2026-07-03) — Catálogo maestro + quick-search + quick-view
+## En qué estábamos (sesión 2026-07-04) — La sesión GRANDE
+Todo verificado con loops de QA y pusheado (últimos commits `cb87604..c3075c5` + fix buscador):
+1. **Filtro avanzado estilo TCGplayer** (`#fbar` chips multi-selección con conteos contextuales: Expansión/Rareza/Tipo de carta/Dominio-Color/Foil/Condición/Precio) en home + juego.html, desktop y móvil. `enrichProducts()` saca rareza/tipo/dominio de `cartas.json` o `p.d.at`. Fix regresión: juego.html no tenía panel móvil de filtros.
+2. **Móvil:** toggle vista 2/4 por fila (`#gv2/#gv4`, persistente) + "Singles & sellado" como tiles compactas tocables (filtran por tipo).
+3. **Hero nuevo** (`hero--marquee`): "Tu próxima carta ya está acá" + desfile infinito de 12 cartas reales del inventario (`renderHeroMarquee`, rotan por visita, pausa al hover, click→quick-view, pill con conteo real).
+4. **One Piece COMPLETO:** OP-01→OP-16 (2.629 cartas OP; tienda total **3.574**), stock 1, precios TCGplayer×₡520. Sets renombrados con código **"OP01: Romance Dawn"…** en catálogo maestro + productos.json (ordenados y buscables por código). Starters/EB/promos NO agregados (quedan en el quick-search del panel con `+`).
+5. **Quick-view:** selector **Normal/Foil** (toggle con precios, shimmer, `addToCart(p.id, qvFoil)` → línea `id_f`).
+6. **Buscador:** desplegable máx. 5 resultados + botón "Ver los N resultados ↓" → catálogo filtrado (antes se cortaba contra "Trabajamos con").
+7. **Fixes panel:** `invMatch` (matching catálogo→base por nombre+set cuando no hay imagen; antes img vacía emparejaba cartas ajenas) y catálogo con `no-cache` (antes `force-cache` nunca revalidaba).
+- **QA de la sesión:** 220 pasadas de filtros + 120 a escala OP + 149 clicks quick-view + 40/40 fichas nuevas + panel end-to-end. 0 errores de consola en todo.
+- **PENDIENTE próximo:** imágenes "SAMPLE" de sets OP recientes (TCGplayer las irá reemplazando; se refrescan regenerando `make_catalogo.py` + rebuild). ~14% de Riftbound sin imagen (opción: imágenes de Riot). Starters/EB de One Piece cuando Andrés quiera (por el panel).
+
+## Sesión 2026-07-03 — Catálogo maestro + quick-search + quick-view
 Sesión grande, todo verificado en preview y **pusheado**:
 1. **One Piece OP-16 "The Time of Battle"** (159 cartas, ids 947–1105) en `productos.json` con fichas ricas (efecto+atributos). Datos de TCGplayer vía **TCGCSV**.
 2. **Catálogo maestro** (`make_catalogo.py` → `catalogo/<juego>.json` liviano + `_rich` para build): Riftbound completo (1249, 9 sets incl. promos/Vendetta) + One Piece completo (7056, 77 sets). Precio market×₡520+redondeo, foil, imágenes TCGplayer (`imageCount>0`).

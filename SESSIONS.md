@@ -8,6 +8,9 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-04 — Buscador: "Ver los N resultados" (reporte de Andrés)
+- El desplegable del buscador del hero se cortaba contra "Trabajamos con" y no dejaba ver todas las coincidencias. Ahora muestra **máx. 5 resultados + botón dorado "Ver los N resultados de "query" ↓"** (`.sr__more`) que lleva al catálogo filtrado con TODAS (mismo flujo `chooseResult`). Con ≤5 coincidencias no aparece el botón. Cache `v56→v57`. Verificado: ahri 5+botón→catálogo 6; sin errores.
+
 ## 2026-07-04 — Quick-view: selector Normal/Foil (detalle reportado por Andrés)
 - El quick-view mostraba el precio foil pero no dejaba elegirla (siempre agregaba la normal). Ahora, si la carta tiene `foil`, muestra el toggle **"Normal ₡X | Foil ✨ ₡Y"** (reusa `.ftoggle`), el precio cambia con shimmer (`card__price--foil`) y "Agregar al carrito" respeta la variante (`addToCart(p.id, qvFoil)` → línea `id_f`).
 - Verificado: flujo completo con Brazen Buccaneer (carrito con 2 líneas separadas `2_f`/`2`) + mini-loop 10/10 cartas foil (precio y línea correctos) + cartas sin foil no muestran toggle. Cache `v55→v56`. 0 errores.

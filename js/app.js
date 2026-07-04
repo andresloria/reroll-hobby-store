@@ -986,7 +986,8 @@ function renderSearchResults(){
   srActive = -1; if(inp) inp.removeAttribute("aria-activedescendant");
   const q = query.trim().toLowerCase();
   if(!q){ box.hidden = true; box.innerHTML = ""; inp && inp.setAttribute("aria-expanded","false"); return; }
-  const matches = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && matchQuery(p, query)).slice(0,10);
+  const all = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && matchQuery(p, query));
+  const matches = all.slice(0,5);   // 5 en el desplegable; el resto via "Ver todos" (evita que lo corte la sección de abajo)
   box.hidden = false; inp && inp.setAttribute("aria-expanded","true");
   if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
   box.innerHTML = matches.map((p,i)=>`
@@ -997,8 +998,13 @@ function renderSearchResults(){
         <span class="sr__meta">${p.cat}${p.set?" · "+p.set:""} · ${p.type==="sealed"?"Sellado":p.cond}</span>
       </span>
       <span class="sr__price">${fmt(p.price)}</span>
-    </button>`).join("");
+    </button>`).join("")
+    + (all.length > matches.length
+        ? `<button type="button" class="sr__more" id="srMore">Ver los ${all.length} resultados de “${query}” ↓</button>`
+        : "");
   box.querySelectorAll(".sr").forEach(el=> el.onclick = ()=> chooseResult());
+  const more = box.querySelector("#srMore");
+  if(more) more.onclick = ()=> chooseResult();   // mismo flujo: catálogo filtrado con TODAS las coincidencias
 }
 // confirma la búsqueda y lleva al catálogo (clic o Enter sobre un resultado)
 function chooseResult(){
