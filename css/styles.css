@@ -1443,3 +1443,43 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .mprice span{color:var(--muted)}
 .msheet__clear{margin-left:auto;margin-right:10px;font-family:var(--font-body);font-size:.78rem;cursor:pointer;
   border:none;background:none;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+
+/* ===== Vista móvil: 2 o 4 cartas por fila (toggle en la mfilterbar) ===== */
+.gview{display:none}
+@media(max-width:600px){
+  .gview{display:inline-flex;margin-left:auto;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .gview__b{display:grid;place-items:center;width:40px;height:40px;border:none;cursor:pointer;
+    background:rgba(255,255,255,.03);color:var(--muted)}
+  .gview__b svg{width:17px;height:17px}
+  .gview__b.on{background:rgba(201,162,75,.2);color:var(--gold-bright)}
+  /* modo compacto: 4 por fila — solo imagen, nombre corto y precio */
+  .grid.grid--4{grid-template-columns:repeat(4,1fr);gap:7px}
+  .grid.grid--4 .card__body{padding:6px 7px;gap:2px}
+  .grid.grid--4 .card__cat,.grid.grid--4 .card__meta,.grid.grid--4 .card__stock,
+  .grid.grid--4 .ftoggle,.grid.grid--4 .card__cond,.grid.grid--4 .card__fav,
+  .grid.grid--4 .card__badge{display:none}
+  .grid.grid--4 .card__name{font-size:.58rem!important;line-height:1.15;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.2em}
+  .grid.grid--4 .card__foot{padding-top:2px;gap:4px}
+  .grid.grid--4 .card__price{font-size:.62rem}
+  .grid.grid--4 .card__add{min-height:30px;font-size:.6rem;padding:4px 6px;border-radius:8px}
+}
+
+/* ===== "Singles & sellado": desktop igual; en móvil tiles compactas tocables ===== */
+.offer__mini,.offer__arrow{display:none}
+.offer__card{cursor:pointer}
+@media(max-width:600px){
+  .offer{padding-top:34px;padding-bottom:34px}
+  .offer .section-head h2,.offer .section-head p{display:none}   /* el eyebrow "LO QUE VENDO" basta */
+  .offer .section-head{margin-bottom:14px}
+  .offer__grid{grid-template-columns:1fr;gap:10px;margin-top:0}
+  .offer__card{display:flex;align-items:center;gap:13px;padding:14px 15px}
+  .offer__card:hover{transform:none}
+  .offer__icon{width:40px;height:40px;margin-bottom:0;border-radius:11px;flex-shrink:0}
+  .offer__icon svg{width:22px;height:22px}
+  .offer__body{flex:1;min-width:0}
+  .offer__card h3{font-size:1.05rem;margin-bottom:2px}
+  .offer__desc,.offer__cta{display:none}
+  .offer__mini{display:block;font-size:.76rem;color:#cbb9ae;margin:0}
+  .offer__arrow{display:block;color:var(--gold-bright);font-size:1.15rem;flex-shrink:0}
+}

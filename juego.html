@@ -33,9 +33,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=52" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=52" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=52" />
+  <link rel="stylesheet" href="css/styles.css?v=54" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=54" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=54" />
 </head>
 <body>
 
@@ -83,6 +83,10 @@
     <div class="mfilterbar" aria-label="Filtros del catálogo">
       <button type="button" class="mfbtn" id="mfFiltersBtn"><svg class="mfbtn__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/></svg> Filtros</button>
       <button type="button" class="mfbtn mfbtn--ghost" id="mfSortBtn"><svg class="mfbtn__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/></svg> Ordenar</button>
+      <div class="gview" role="group" aria-label="Cartas por fila">
+        <button type="button" class="gview__b" id="gv2" aria-label="Ver 2 por fila" title="2 por fila"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></button>
+        <button type="button" class="gview__b" id="gv4" aria-label="Ver 4 por fila" title="4 por fila"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2.5" y="2.5" width="4.2" height="4.2" rx="1"/><rect x="9.9" y="2.5" width="4.2" height="4.2" rx="1"/><rect x="17.3" y="2.5" width="4.2" height="4.2" rx="1"/><rect x="2.5" y="9.9" width="4.2" height="4.2" rx="1"/><rect x="9.9" y="9.9" width="4.2" height="4.2" rx="1"/><rect x="17.3" y="9.9" width="4.2" height="4.2" rx="1"/><rect x="2.5" y="17.3" width="4.2" height="4.2" rx="1"/><rect x="9.9" y="17.3" width="4.2" height="4.2" rx="1"/><rect x="17.3" y="17.3" width="4.2" height="4.2" rx="1"/></svg></button>
+      </div>
     </div>
     <div class="filters reveal">
       <div class="filters__group" id="typeFilter" aria-label="Tipo"></div>
@@ -249,6 +253,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=52"></script>
+  <script src="js/app.js?v=54"></script>
 </body>
 </html>

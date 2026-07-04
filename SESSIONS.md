@@ -8,6 +8,12 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-04 — QA de filtros (220 pasadas) + mejoras móviles (vista 2/4 + tiles Singles/Sellado)
+- **QA del filtro avanzado (pedido de Andrés, "20 veces cada cosa"):** 160 pasadas desktop Riftbound (20× por grupo + combos), 20 One Piece, 20 home, 20 sheet móvil — **220/220 OK, 0 errores JS**. Frames verificados (popovers dentro de pantalla, sin scroll-H). Panel: 5 cartas agregadas/quitadas por quick-search real sin errores.
+- **Vista móvil 2 o 4 por fila:** toggle de íconos en la `mfilterbar` (`#gv2`/`#gv4`, clase `grid--4`); modo compacto muestra imagen+nombre+precio. Persistente (`localStorage reroll_gridview`).
+- **"Singles & sellado" móvil:** de 942px de columnas de texto → **340px** con 2 tiles horizontales tocables (icono + título + mini-línea + flecha), como el mockup aprobado. En móvil se oculta el h2/p de la sección (queda el eyebrow). **Desktop igual que antes.** La tile/CTA ahora aplica el filtro Singles/Sellado (`data-offer` → `activeType`) y scrollea al catálogo.
+- Cache `v52→v54`. Todo en la rama `filtros-avanzados` (PR #1); pendiente de merge (= deploy). Próximo: mejorar el hero.
+
 ## 2026-07-04 — Filtro avanzado estilo TCGplayer (home + juego.html, desktop + móvil)
 - **Barra de chips-dropdown** (`#fbar` en `.filters`, render `renderFilterBar` en `app.js`): Expansión · Rareza · Tipo de carta · **Dominio/Color** (cambia según juego) · Foil ✨ (toggle, solo si hay foils en contexto) · Condición · Precio (min/max) + "Limpiar todo". Dropdowns **multi-selección con conteos contextuales** (estilo TCGplayer: cada dropdown cuenta sobre el resto de filtros aplicados). Chip activo dorado con ✕ para quitar. En la home, Expansión agrupada por juego.
 - **Datos de filtro** enriquecidos al cargar (`enrichProducts`): rareza/tipo/dominio-color salen de `cartas.json` (`SLUGS`) o de `p.d.at` (cartas del panel). Orden canónico de rarezas por juego (`RAR_ORDER`).

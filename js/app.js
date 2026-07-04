@@ -1399,6 +1399,28 @@ function renderSortSheet(){ const w=$("#sortOpts"); if(!w) return; w.innerHTML="
 }
 $("#mfFiltersBtn")?.addEventListener("click", ()=>{ renderMobileFilters(); openSheet('#filterSheet'); });
 $("#mfSortBtn")?.addEventListener("click", ()=>{ renderSortSheet(); openSheet('#sortSheet'); });
+
+/* ---- Vista móvil: 2 o 4 cartas por fila (persistente) ---- */
+function applyGridView(v){
+  const grid=$("#grid"); if(!grid) return;
+  grid.classList.toggle("grid--4", v==="4");
+  $("#gv2")?.classList.toggle("on", v!=="4");
+  $("#gv4")?.classList.toggle("on", v==="4");
+  try{ localStorage.setItem("reroll_gridview", v); }catch(e){}
+}
+$("#gv2")?.addEventListener("click", ()=>applyGridView("2"));
+$("#gv4")?.addEventListener("click", ()=>applyGridView("4"));
+applyGridView(localStorage.getItem("reroll_gridview")||"2");
+
+/* ---- "Singles & sellado": la tarjeta/tile filtra el catálogo por tipo ---- */
+document.addEventListener("click", e=>{
+  const card = e.target.closest(".offer__card[data-offer]");
+  if(!card) return;
+  e.preventDefault();
+  activeType = card.dataset.offer;          // "single" | "sealed"
+  renderFilters(); renderGrid();
+  document.getElementById("catalogo")?.scrollIntoView({behavior:"smooth", block:"start"});
+});
 $("#filterApply")?.addEventListener("click", ()=>{ renderGrid(); closeSheet('#filterSheet'); document.getElementById('catalogo')?.scrollIntoView({behavior:'smooth',block:'start'}); });
 document.querySelectorAll('[data-msheet-close]').forEach(el=> el.addEventListener('click', ()=>{ const s=el.closest('.msheet'); if(s) closeSheet('#'+s.id); }));
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeSheet('#filterSheet'); closeSheet('#sortSheet'); } });
