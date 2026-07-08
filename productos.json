@@ -1772,11 +1772,12 @@
     "cat": "Riftbound",
     "type": "single",
     "set": "Origins",
-    "price": 300,
+    "price": 500,
     "foil": 2400,
     "cond": "Near Mint",
-    "stock": 1,
-    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4753707323ab6f9ac572c097f29f2f76ac62f54f-744x1039.png?accountingTag=RB"
+    "stock": 3,
+    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4753707323ab6f9ac572c097f29f2f76ac62f54f-744x1039.png?accountingTag=RB",
+    "badge": ""
   },
   {
     "id": 155,
@@ -1787,7 +1788,7 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 14,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6f0931db65e25e0a8d8351ffb97f8deed5dc0aa9-744x1039.png?accountingTag=RB"
   },
   {
@@ -1799,7 +1800,7 @@
     "price": 200,
     "foil": 500,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 7,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/be49bceea1d328769774fb4daac4732861f6e4fd-744x1039.png?accountingTag=RB"
   },
   {
@@ -1811,7 +1812,7 @@
     "price": 200,
     "foil": 400,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/648b22c6f419ee55723247bbf4c3ac10f0be9ab5-744x1039.png?accountingTag=RB"
   },
   {
@@ -1823,7 +1824,7 @@
     "price": 100,
     "foil": 300,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 7,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a9c1d334b217e9bd0b23dfca2054de4d0b90ff1-744x1039.png?accountingTag=RB"
   },
   {
@@ -1835,7 +1836,7 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 7,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/1991b64d58cbd3698574f44b404f7a88d6403134-744x1039.png?accountingTag=RB"
   },
   {
@@ -1847,7 +1848,7 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 6,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b8d59d015d6b8e15822b360447fcb364e14d550f-744x1039.png?accountingTag=RB"
   },
   {
@@ -1883,7 +1884,7 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 9,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/7abc938fee4ba397f52c8ea60d350857a7517b0c-744x1039.png?accountingTag=RB"
   },
   {
