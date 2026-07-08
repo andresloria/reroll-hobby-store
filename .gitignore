@@ -29,6 +29,7 @@ reporte_precios.csv
 productos_backup_precios.json
 cambios_aplicados_*.md
 cambios_aplicados_*.csv
+revisar_a_mano.csv
 precios_semanal.log
 
 # Python bytecode

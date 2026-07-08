@@ -76,9 +76,8 @@ def build_price_index():
        rb_name[key] = pid   (para cruzar Riftbound por nombre; key = (norm_name, norm_set) o epíteto)
     """
     by_pid = {}
-    rb_name = {}          # (norm_name, norm_set) -> [pids]
-    rb_epi  = {}          # epíteto (parte tras ' - ') -> {(norm_epi,norm_set): [pids]}
-    rb_all  = {}          # norm_name -> [pids]  (fallback global, solo si es único)
+    rb_name = {}          # (norm_name, norm_set) -> [pids]   (solo cartas base)
+    rb_epi  = {}          # (norm_epíteto, norm_set) -> [pids] (campeones base)
     for key, cat in GAMES.items():
         groups = results(fetch_cached(f"https://tcgcsv.com/tcgplayer/{cat}/groups", f"{key}_groups"))
         print(f"[{key}] {len(groups)} sets — bajando precios frescos…")
@@ -97,34 +96,55 @@ def build_price_index():
                 subs = pm.get(pid, {})
                 by_pid[pid] = {"normal": subs.get("Normal"), "foil": subs.get("Foil"),
                                "name": name, "set": setn, "single": is_single}
-                if key == "riftbound" and is_single:
-                    variant = "(" in name  # (Signature)/(Overnumbered)/(Metal)/(Alternate Art)…
+                # solo indexamos cartas BASE (sin sufijo de variante entre paréntesis:
+                # (Signature)/(Overnumbered)/(Metal)/(Alternate Art)… son premium y NO
+                # se pueden desambiguar contra productos.json, que no guarda la variante)
+                if key == "riftbound" and is_single and "(" not in name:
                     rb_name.setdefault((norm(name), norm(setn)), []).append(pid)
-                    if not variant:
-                        rb_all.setdefault(norm(name), []).append(pid)
-                    if " - " in name and not variant:
-                        epi = name.split(" - ", 1)[1]
-                        rb_epi.setdefault((norm(epi), norm(setn)), []).append(pid)
-                        rb_all.setdefault(norm(epi), []).append(pid)
-    return by_pid, rb_name, rb_epi, rb_all
+                    if " - " in name:  # campeón: "Ahri - Nine-Tailed Fox" -> epíteto
+                        rb_epi.setdefault((norm(name.split(" - ", 1)[1]), norm(setn)), []).append(pid)
+    return by_pid, rb_name, rb_epi
+
+# ---- puente al CSV rico de Riftbound (img -> nombre canónico + rareza) -------
+import glob, csv as _csv
+def load_rb_csv():
+    by_img = {}
+    for c in glob.glob(os.path.join(ROOT, "Riftbound_Cards", "**", "*_cards.csv"), recursive=True):
+        with open(c, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                by_img[row["image_url"]] = row
+    return by_img
+
+# el set de productos.json no siempre coincide con el de TCGplayer
+SET_ALIAS = {"proving grounds": "origins proving grounds"}
 
 # ---- resolver el pid de una carta de productos.json -------------------------
-def resolve_pid(item, rb_name, rb_epi, rb_all):
+def resolve_pid(item, rb_name, rb_epi, rb_csv):
     """Devuelve (pid, motivo). pid=None si no se pudo cruzar con confianza."""
     img = item.get("img", "") or ""
     m = re.search(r"/product/(\d+)_", img)
     if m:
         return int(m.group(1)), "id"          # One Piece (y cualquier carta con img de tcgplayer)
-    # Riftbound: cruce por nombre + set
-    nm, st = norm(item.get("name", "")), norm(item.get("set", ""))
-    cands = rb_name.get((nm, st), [])
-    if len(cands) == 1: return cands[0], "nombre+set"
-    if len(cands) > 1:  return None, "ambiguo(nombre+set)"
-    cands = rb_epi.get((nm, st), [])          # campeón por epíteto ("Nine-Tailed Fox")
-    if len(cands) == 1: return cands[0], "epíteto"
-    if len(cands) > 1:  return None, "ambiguo(epíteto)"
-    cands = list(set(rb_all.get(nm, [])))     # fallback: nombre único en todo el juego (set distinto)
-    if len(cands) == 1: return cands[0], "nombre-global"
+    # Riftbound: cruce por nombre + set, usando el CSV para nombre canónico y rareza
+    row = rb_csv.get(img)
+    if row and row.get("rarity") == "Showcase":
+        # Showcase = alt-art premium (Signature/Overnumbered/…): productos.json no guarda
+        # cuál variante es, así que NO se puede cruzar sin arriesgar un precio equivocado.
+        return None, "showcase-premium"
+    names = []
+    if row and row.get("name"): names.append(norm(row["name"]))     # nombre canónico del CSV
+    names.append(norm(item.get("name", "")))                        # nombre de productos
+    st = norm(item.get("set", ""))
+    sets = [s for s in (st, SET_ALIAS.get(st)) if s]
+    for nm in names:
+        for s in sets:
+            c = set(rb_name.get((nm, s), []))
+            if len(c) == 1: return next(iter(c)), "nombre+set"
+            if len(c) > 1:  return None, "ambiguo(nombre+set)"
+        for s in sets:
+            c = set(rb_epi.get((nm, s), []))
+            if len(c) == 1: return next(iter(c)), "epíteto"
+            if len(c) > 1:  return None, "ambiguo(epíteto)"
     return None, "sin-cruce"
 
 def main():
@@ -137,13 +157,14 @@ def main():
         except Exception: pass
 
     prod = json.load(open(os.path.join(ROOT, "productos.json"), encoding="utf-8"))
-    by_pid, rb_name, rb_epi, rb_all = build_price_index()
+    rb_csv = load_rb_csv()
+    by_pid, rb_name, rb_epi = build_price_index()
 
     subidas, bajadas, sincruce, sinprecio = [], [], [], []
     for it in prod:
         if it.get("cat") not in ("One Piece", "Riftbound"): continue
         if it.get("type") and it["type"] != "single": continue
-        pid, motivo = resolve_pid(it, rb_name, rb_epi, rb_all)
+        pid, motivo = resolve_pid(it, rb_name, rb_epi, rb_csv)
         if pid is None:
             sincruce.append((it, motivo)); continue
         px = by_pid.get(pid)
@@ -165,40 +186,61 @@ def main():
                 (subidas if nf > of else bajadas).append(r2)
 
     # filtro de ruido
+    # orden POR JUEGO (One Piece juntas, Riftbound juntas), y dentro por mayor cambio
+    GAME_ORDER = ["One Piece", "Riftbound"]
+    def grank(cat): return GAME_ORDER.index(cat) if cat in GAME_ORDER else len(GAME_ORDER)
     def big(r): return abs(r["new"] - r["old"]) >= mind
-    subidas = sorted([r for r in subidas if big(r)], key=lambda r: r["new"] - r["old"], reverse=True)
-    bajadas = sorted([r for r in bajadas if big(r)], key=lambda r: r["old"] - r["new"], reverse=True)
+    keyfn = lambda r: (grank(r["cat"]), -abs(r["new"] - r["old"]))
+    subidas = sorted([r for r in subidas if big(r)], key=keyfn)
+    bajadas = sorted([r for r in bajadas if big(r)], key=keyfn)
 
-    # ---- reporte legible ----
+    # ---- reporte legible (agrupado por juego) ----
     def pct(r):
         return f"+{round((r['new']-r['old'])/r['old']*100)}%" if r["old"] else "—"
+    def section(title, rows, up):
+        if not rows: return []
+        out = [f"## {title}", ""]
+        for g in GAME_ORDER + [None]:
+            grp = [r for r in rows if (r["cat"] == g if g else r["cat"] not in GAME_ORDER)]
+            if not grp: continue
+            out += [f"### {g or 'Otros'} ({len(grp)})", "",
+                    "| id | carta | set | campo | actual | TCGplayer | dif |",
+                    "|---|---|---|---|--:|--:|--:|"]
+            for r in grp:
+                dif = (f"+₡{r['new']-r['old']:,} ({pct(r)})" if up else f"-₡{r['old']-r['new']:,}")
+                out.append(f"| {r['id']} | {r['name']} | {r['set']} | {r['campo']} | "
+                           f"₡{r['old']:,} | ₡{r['new']:,} | {dif} |")
+            out.append("")
+        return out
+    showcase = [(it, mot) for it, mot in sincruce if mot == "showcase-premium"]
+    otras    = [(it, mot) for it, mot in sincruce if mot != "showcase-premium"]
     lines = ["# Reporte de precios — Reroll vs TCGplayer",
              f"_Generado: {time.strftime('%Y-%m-%d %H:%M')} · tipo de cambio ₡{RATE}/USD_", "",
              f"- **{len(subidas)} subieron** · {len(bajadas)} bajaron · "
-             f"{len(sincruce)} sin cruce automático · {len(sinprecio)} sin precio de referencia", ""]
-    if subidas:
-        lines += ["## ⬆️ Subieron (revisar para actualizar)", "",
-                  "| id | carta | set | campo | actual | TCGplayer | dif |",
-                  "|---|---|---|---|--:|--:|--:|"]
-        for r in subidas:
-            lines.append(f"| {r['id']} | {r['name']} | {r['set']} | {r['campo']} | "
-                         f"₡{r['old']:,} | ₡{r['new']:,} | +₡{r['new']-r['old']:,} ({pct(r)}) |")
-        lines.append("")
-    if bajadas:
-        lines += ["## ⬇️ Bajaron (opcional, para no quedar caro)", "",
-                  "| id | carta | set | campo | actual | TCGplayer | dif |",
-                  "|---|---|---|---|--:|--:|--:|"]
-        for r in bajadas:
-            lines.append(f"| {r['id']} | {r['name']} | {r['set']} | {r['campo']} | "
-                         f"₡{r['old']:,} | ₡{r['new']:,} | -₡{r['old']-r['new']:,} |")
-        lines.append("")
-    if sincruce:
-        lines += [f"## ❓ Sin cruce automático ({len(sincruce)}) — revisar a mano", ""]
-        for it, mot in sincruce[:60]:
+             f"{len(showcase)} Showcase premium (tasar a mano) · {len(otras)} otras sin cruce · "
+             f"{len(sinprecio)} sin precio de referencia", ""]
+    lines += section("⬆️ Subieron (revisar para actualizar)", subidas, True)
+    lines += section("⬇️ Bajaron (opcional, para no quedar caro)", bajadas, False)
+    if showcase:
+        lines += [f"## 💎 Showcase / alt-art premium ({len(showcase)}) — tasar a mano",
+                  "_TCGplayer tiene varias variantes (Signature/Overnumbered/Alt Art) con el mismo",
+                  "nombre; productos.json no guarda cuál es, así que no se cruzan solas. Lista completa",
+                  "en `revisar_a_mano.csv`._", ""]
+    if otras:
+        lines += [f"## ❓ Otras sin cruce ({len(otras)}) — revisar a mano", ""]
+        for it, mot in otras[:80]:
             lines.append(f"- {it['name']} · {it.get('set','')} · ({mot})")
-        if len(sincruce) > 60: lines.append(f"- …y {len(sincruce)-60} más")
+        if len(otras) > 80: lines.append(f"- …y {len(otras)-80} más (ver revisar_a_mano.csv)")
         lines.append("")
     open(os.path.join(ROOT, "reporte_precios.md"), "w", encoding="utf-8").write("\n".join(lines))
+
+    # lista completa de las que hay que revisar a mano (Showcase + otras sin cruce)
+    with open(os.path.join(ROOT, "revisar_a_mano.csv"), "w", newline="", encoding="utf-8-sig") as f:
+        w = _csv.writer(f)
+        w.writerow(["id", "carta", "juego", "set", "precio_actual", "motivo"])
+        for it, mot in sincruce:
+            w.writerow([it["id"], it["name"], it.get("cat", ""), it.get("set", ""),
+                        it.get("price", ""), mot])
 
     # ---- CSV ----
     import csv
