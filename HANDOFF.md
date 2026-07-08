@@ -1,8 +1,18 @@
-# HANDOFF — estado de la sesión (act. 2026-07-04)
+# HANDOFF — estado de la sesión (act. 2026-07-07)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=57`** (index.html y juego.html alineados). Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=60`** (index.html y juego.html alineados; `carta.js` en **v4**). Tienda: **3.574 cartas**. Historial completo en [SESSIONS.md](SESSIONS.md).
 
-## En qué estábamos (sesión 2026-07-04) — La sesión GRANDE
+## En qué estábamos (sesión 2026-07-07) — precios, foil-stock, panel a prueba de fallos, y PEDIDOS
+Todo verificado (navegador + harness) y pusheado (`45e843b`, `a255ddf`, `5cb5e67`, `3204631`, `e6d6bc3e` entre otros):
+1. **Rutina de precios `check_precios.py`:** compara `productos.json` vs TCGplayer fresco (TCGCSV) → `reporte_precios.md/csv` (gitignored) agrupado por juego, marca **✨ Foil** y **🔥 +25%**. OP por ID exacto; RB por nombre+set con **exclusión de Showcase** (rareza vía CSV; no adivina variantes premium → `revisar_a_mano.csv`). `--aplicar-subidas` aplica solo subidas (backup). Hoy: 381 subidas aplicadas. **Tarea semanal de Windows** (lunes 9am, solo reporta).
+2. **Stock foil aparte (`stockf`):** panel tiene "Cantidad foil" + stepper ✨ FOIL en la base; tienda respeta stock por variante (card/quick-view/ficha/carrito); si no está definido, el foil sigue el normal.
+3. **Panel anti-fallo:** los +/− de stock/foil ya **no guardan solos** → quedan "pendientes" (fila marcada + ✓ Aplicar/✕) con barra "N sin aplicar / Aplicar todos". La barra masiva peligrosa (Todo a 0) escondida en "⚙️ Acciones masivas (avanzado)".
+4. **📦 SISTEMA DE PEDIDOS con reserva 48 h** (mini-API serverless `api/` sobre el repo como base de datos): checkout → `POST api/pedido` reserva stock (baja para todos vía `api/reservas`), WhatsApp con #pedido; panel → sección 📦 Pedidos: **quitar línea / rechazar / ✓ confirmar** (descuenta stock real + registra venta). Expira solo a 48 h. **Env vars en Vercel `GITHUB_TOKEN` + `PANEL_KEY` YA configuradas y probadas en producción** (R-0001/R-0002 creados y rechazados OK).
+5. **Checkout con teléfono:** campo Teléfono/WhatsApp obligatorio → queda en el pedido; panel muestra 📱 número + botón 💬 WhatsApp (`wa.me/506…`). Casilla "Recordar mis datos" (localStorage, no cuenta) prellena la próxima compra.
+- **PENDIENTE / OJO:** (a) el token de GitHub se expuso en el chat — conviene que Andrés lo **regenere** y actualice el Value en Vercel cuando pueda; (b) cartas subidas por el panel siguen necesitando `python make_cartas.py` + push para su ficha de detalle; (c) Andrés sigue probando agregar cartas a mano y avisa si ve algo.
+
+---
+## (histórico) sesión 2026-07-04 — La sesión GRANDE
 Todo verificado con loops de QA y pusheado (últimos commits `cb87604..c3075c5` + fix buscador):
 1. **Filtro avanzado estilo TCGplayer** (`#fbar` chips multi-selección con conteos contextuales: Expansión/Rareza/Tipo de carta/Dominio-Color/Foil/Condición/Precio) en home + juego.html, desktop y móvil. `enrichProducts()` saca rareza/tipo/dominio de `cartas.json` o `p.d.at`. Fix regresión: juego.html no tenía panel móvil de filtros.
 2. **Móvil:** toggle vista 2/4 por fila (`#gv2/#gv4`, persistente) + "Singles & sellado" como tiles compactas tocables (filtran por tipo).
