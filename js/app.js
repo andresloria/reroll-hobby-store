@@ -930,15 +930,25 @@ function resetCheckoutView(){
   const form=$("#checkoutForm"); if(form) form.style.display="";
   const t=$(".co__title"); if(t) t.style.display="";
 }
+// datos del cliente recordados en su navegador (nombre/teléfono/entrega) — no es cuenta
+function loadCliente(){ try{ return JSON.parse(localStorage.getItem("reroll_cliente")||"null"); }catch(e){ return null; } }
+function prefillCheckout(){
+  const c = loadCliente(); const form = $("#checkoutForm"); if(!c || !form) return;
+  ["nombre","telefono","direccion"].forEach(k=>{ if(c[k] && form[k]) form[k].value = c[k]; });
+  if(c.entrega && form.entrega){ form.entrega.value = c.entrega; toggleEnvio(); }
+  if(c.provincia && form.provincia){ form.provincia.value = c.provincia; }
+}
 function openCheckout(){
   if(!cart.length){ toast("Tu carrito está vacío"); return; }
   resetCheckoutView();
   $("#coItems").innerHTML = cart.map(c=>`<div class="co__line"><span>${c.name} ×${c.qty}</span><b>${fmt(c.price*c.qty)}</b></div>`).join("");
   $("#coTotal").textContent = fmt(cartTotal());
   $("#sinpeData").textContent = `${SINPE_NOMBRE} · ${SINPE_NUMERO}`;
+  prefillCheckout();   // trae nombre/teléfono/datos si el cliente eligió "recordar"
   const m=$("#checkoutModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false");
   $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden","true");
-  $("#checkoutForm")?.querySelector('[name="nombre"]')?.focus();
+  const nom = $("#checkoutForm")?.querySelector('[name="nombre"]');
+  if(nom){ if(nom.value){ $("#checkoutForm").querySelector('[name="telefono"]')?.focus(); } else nom.focus(); }
 }
 function toggleEnvio(){
   const envio = $("#coEntrega").value === "envio";
@@ -981,6 +991,11 @@ async function submitCheckout(e){
   const entrega = f.get("entrega");
   const pago = f.get("pago");
   const nombre = (f.get("nombre")||"").trim();
+  const telefono = (f.get("telefono")||"").trim();
+  // Validación: teléfono con al menos 8 dígitos (formato CR)
+  if((telefono.match(/\d/g)||[]).length < 8){
+    showFieldError(e.target.querySelector('[name="telefono"]'), "Poné un número de teléfono válido (8 dígitos)."); return;
+  }
   // Validación: si es envío, la dirección es obligatoria
   if(entrega==="envio"){
     const dir = (f.get("direccion")||"").trim();
@@ -988,6 +1003,9 @@ async function submitCheckout(e){
   }
   const prov = (f.get("provincia")||"").trim();
   const dir  = (f.get("direccion")||"").trim();
+  // recordar / olvidar datos del cliente (solo su navegador)
+  if(f.get("recordar")) localStorage.setItem("reroll_cliente", JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir }));
+  else localStorage.removeItem("reroll_cliente");
   // ---- 1) reservar el pedido en la API (si está disponible) ----
   const sbtn = e.target.querySelector('[type="submit"]');
   if(sbtn){ sbtn.disabled = true; }
@@ -995,7 +1013,7 @@ async function submitCheckout(e){
   try{
     const r = await fetch("api/pedido", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, entrega, provincia: prov, direccion: dir, pago,
+      body: JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir, pago,
         items: cart.map(c=>({ id: c.id, foil: !!c.foil, qty: c.qty||1 })) })
     });
     if(r.status===409){
@@ -1012,7 +1030,7 @@ async function submitCheckout(e){
   let msg = pedidoId
     ? `¡Hola Reroll! Pedido *%23${pedidoId}*:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`
     : `¡Hola Reroll! Quiero hacer un pedido:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`;
-  msg += `%0A%0ANombre: ${nombre}`;
+  msg += `%0A%0ANombre: ${nombre}%0ATel: ${telefono}`;
   if(entrega==="envio"){
     msg += `%0AEntrega: Envío por Correos de Costa Rica%0AProvincia: ${prov}%0ADirección: ${dir}%0A(el costo de envío se confirma según destino)`;
   } else {

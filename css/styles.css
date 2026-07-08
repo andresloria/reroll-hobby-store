@@ -687,6 +687,10 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .btn--block{width:100%;justify-content:center}
 .co__note{font-size:.8rem;color:var(--muted);margin-top:8px;line-height:1.4}
 .co__note--center{text-align:center}
+.co__hint{display:block;font-size:.74rem;color:var(--muted);margin-top:4px;font-weight:400}
+.co__remember{display:flex;align-items:flex-start;gap:9px;cursor:pointer;margin:2px 0 4px;font-size:.86rem;line-height:1.35}
+.co__remember input{width:17px;height:17px;margin-top:1px;flex-shrink:0;accent-color:var(--vino)}
+.co__remember small{display:block;font-size:.72rem;color:var(--muted);margin-top:2px}
 .co__sinpe{display:flex;flex-direction:column;gap:2px;border:1px dashed var(--gold);border-radius:var(--radius-sm);
   padding:12px 14px;margin-bottom:14px;background:rgba(201,162,75,.07)}
 .co__sinpe strong{color:var(--gold-bright)}

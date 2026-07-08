@@ -61,9 +61,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=59" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=59" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=59" />
+  <link rel="stylesheet" href="css/styles.css?v=60" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=60" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=60" />
 </head>
 <body>
 
@@ -359,6 +359,11 @@
           <input name="nombre" required placeholder="Nombre y apellido" />
         </label>
 
+        <label>Teléfono / WhatsApp
+          <input name="telefono" type="tel" inputmode="tel" required placeholder="8888 8888" autocomplete="tel" />
+          <small class="co__hint">Para coordinar la entrega y el pago por WhatsApp.</small>
+        </label>
+
         <label>Entrega
           <select name="entrega" id="coEntrega">
             <option value="retiro">Retiro en Cartago</option>
@@ -394,6 +399,11 @@
           <span id="sinpeData">—</span>
           <small>Hacé el SINPE y enviá el comprobante por WhatsApp al confirmar.</small>
         </div>
+
+        <label class="co__remember">
+          <input type="checkbox" name="recordar" id="coRecordar" checked />
+          <span>Recordar mis datos para la próxima compra <small>Se guardan solo en tu navegador — no creás ninguna cuenta.</small></span>
+        </label>
 
         <button type="submit" class="btn btn--gold btn--lg btn--block">Enviar pedido por WhatsApp</button>
         <p class="co__note co__note--center">Coordinamos el pago y la entrega por WhatsApp. Sin cargos automáticos.</p>
@@ -473,6 +483,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=59"></script>
+  <script src="js/app.js?v=60"></script>
 </body>
 </html>

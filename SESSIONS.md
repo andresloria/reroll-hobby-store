@@ -8,6 +8,15 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Checkout: teléfono del cliente + "recordar mis datos" (pedido de Andrés)
+- Andrés no quería buscar en WhatsApp por número. Ahora el checkout pide **Teléfono/WhatsApp** (obligatorio, valida ≥8 dígitos) en index.html y juego.html; el número **viaja en el pedido** y en el mensaje de WhatsApp (`Tel: …`).
+- **Panel 📦 Pedidos:** cada pedido muestra `📱 número` + botón verde **💬 WhatsApp** que abre el chat directo (`pedWaLink`: normaliza a `wa.me/506…`, agrega código país a los 8 dígitos ticos). Pedidos viejos sin teléfono muestran "(sin teléfono)".
+- **"Recordar mis datos" (localStorage, NO cuenta):** casilla marcada por defecto; guarda nombre/teléfono/entrega/provincia/dirección en `reroll_cliente` y **prellena** el checkout la próxima vez (`prefillCheckout`). Si la destildan, se borra. Se explicó a Andrés por qué NO conviene login con Gmail/cuentas hoy (complejo, backend, fricción) — esto da el 95% sin nada de eso.
+- API: `api/pedido.js` valida y guarda `telefono` en el pedido. Harness Node: 12/12 + 2 casos nuevos (sin tel → 400, se guarda solo dígitos).
+- Cache `?v=59→60` (app.js + styles.css). carta.js sin cambios. Probado en navegador: campo + validación + recordar + prefill + panel con número/botón WA (`wa.me/50688888888`). 0 errores de consola.
+
+---
+
 ## 2026-07-07 — 📦 Sistema de pedidos con reserva 48 h (pedido de Andrés: "como las mejores tiendas")
 - **Qué resuelve:** al enviar un pedido por WhatsApp, el stock baja SOLO para todos los visitantes (reserva), a Andrés le llega el pedido al panel, él **confirma la venta** (descuento real + registro en Ventas) o **quita cartas / rechaza** (vuelven al stock al instante). Reservas expiran solas a las **48 h**.
 - **Arquitectura elegida (Andrés):** mini-API serverless en Vercel usando **el repo de GitHub como base de datos** (`data/pedidos.json`), cero dependencias/cuentas nuevas. 4 funciones en `api/`: `pedido` (crear, valida stock−reservas, 409 con faltantes), `reservas` (GET público `{id:n,id_f:n}`), `pedidos` (GET admin), `pedido-accion` (quitar/rechazar/confirmar; confirmar descuenta stock/stockf en `productos.json` del repo → deploy). `_lib.js` compartido: Contents API con sha-por-listado + raw (archivos >1MB), reintentos ante conflicto de sha, prune 30 días/300, `PANEL_KEY` por header. **Testeado con harness Node y GitHub simulado: 12/12 escenarios OK** (reserva, 409, foil por stockf, expiración, doble confirmación bloqueada, confirmar sin stock 409).

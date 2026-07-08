@@ -19,6 +19,8 @@ module.exports = async function handler(req, res) {
   // ---- validación básica (anti-basura) ----
   const nombre = String(b.nombre || "").trim().slice(0, 60);
   if (nombre.length < 2) return L.json(res, 400, { error: "falta el nombre" });
+  const telefono = String(b.telefono || "").replace(/[^\d+ ]/g, "").trim().slice(0, 25);
+  if ((telefono.match(/\d/g) || []).length < 8) return L.json(res, 400, { error: "teléfono inválido" });
   const entrega = b.entrega === "envio" ? "envio" : "retiro";
   const provincia = String(b.provincia || "").trim().slice(0, 40);
   const direccion = String(b.direccion || "").trim().slice(0, 200);
@@ -63,7 +65,7 @@ module.exports = async function handler(req, res) {
     const id = "R-" + String(db.seq).padStart(4, "0");
     db.pedidos.push({
       id, ts: now, estado: "pendiente",
-      nombre, entrega, provincia, direccion, pago,
+      nombre, telefono, entrega, provincia, direccion, pago,
       items,
       total: items.reduce((s, i) => s + Number(i.price || 0) * i.qty, 0),
     });

@@ -196,6 +196,11 @@
   .ped__head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:4px}
   .ped__id{font-weight:700;color:var(--gold-bright)}
   .ped__meta{font-size:.8rem;color:var(--muted)}
+  .ped__cli{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 2px;font-size:.9rem}
+  .ped__cli b{font-size:.95rem}
+  .ped__tel{color:#c9bcb2;font-size:.84rem}
+  .ped__wa{display:inline-flex;align-items:center;gap:5px;background:#25683e;color:#dff5e3;text-decoration:none;font-size:.78rem;padding:4px 11px;border-radius:8px;white-space:nowrap}
+  .ped__wa:hover{background:#2f7d4a}
   .ped__badge{font-size:.62rem;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(201,162,75,.15);color:var(--gold-bright);letter-spacing:.03em}
   .ped__badge--ok{background:rgba(60,140,80,.2);color:#a9d3a0}
   .ped__badge--off{background:rgba(180,60,70,.15);color:#e9a3ab}
@@ -1235,6 +1240,13 @@ function pedExpira(ts){
   const h = 48 - Math.floor((Date.now()-ts)/3600000);
   return h>0 ? ('expira en '+h+' h') : 'expirado';
 }
+function pedWaLink(tel){
+  let d=String(tel||'').replace(/\D/g,'');
+  if(d.length===8) d='506'+d;                 // CR: agrega código de país
+  else if(d.length===11 && d.startsWith('506')) {}
+  else if(d.startsWith('00')) d=d.slice(2);
+  return 'https://wa.me/'+d;
+}
 async function loadPedidos(){
   try{
     const j = await pedApi('pedidos');
@@ -1270,7 +1282,11 @@ function renderPedidos(){
     return `<div class="ped${p.estado==='pendiente'?' ped--pend':''}">
       <div class="ped__head">
         <span><span class="ped__id">Pedido #${esc(p.id)}</span> ${badge}</span>
-        <span class="ped__meta">${pedHace(p.ts)} · ${esc(p.nombre)} · ${entrega} · ${esc(p.pago||'')}${p.estado==='pendiente'?' · '+pedExpira(p.ts):''}</span>
+        <span class="ped__meta">${pedHace(p.ts)} · ${entrega} · ${esc(p.pago||'')}${p.estado==='pendiente'?' · '+pedExpira(p.ts):''}</span>
+      </div>
+      <div class="ped__cli">
+        <b>${esc(p.nombre)}</b>
+        ${p.telefono?`<span class="ped__tel">📱 ${esc(p.telefono)}</span><a class="ped__wa" href="${pedWaLink(p.telefono)}" target="_blank" rel="noopener">💬 WhatsApp</a>`:'<span class="ped__tel" style="color:#8a7d73">(sin teléfono)</span>'}
       </div>
       ${p.items.map(it=>linea(p,it)).join('')}
       <div class="ped__foot">
