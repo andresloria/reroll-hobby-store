@@ -479,10 +479,11 @@
     "cat": "Riftbound",
     "type": "single",
     "set": "Origins",
-    "price": 28000,
+    "price": 40000,
     "cond": "Near Mint",
     "stock": 1,
-    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png?accountingTag=RB"
+    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ad69bde670ce218adee1d2a618a7295d2fb7bd4c-744x1039.png?accountingTag=RB",
+    "badge": ""
   },
   {
     "id": 43,
@@ -492,7 +493,7 @@
     "set": "Origins",
     "price": 40000,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3d942c02ad4e96a36dba14d663c5105bb6614500-744x1039.png?accountingTag=RB"
   },
   {
@@ -39887,7 +39888,7 @@
     "set": "Promos",
     "price": 21000,
     "cond": "Near Mint",
-    "stock": 0,
+    "stock": 2,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a576472c7bb00f475882ac814e1d8f9be233b402-744x1040.png?accountingTag=RB"
   },
   {
