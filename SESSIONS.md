@@ -8,6 +8,14 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Panel: cambios de stock "pendientes" (antipófallo del Aplicar) (pedido de Andrés)
+- Problema: el "Aplicar" de la barra masiva aplicaba el valor de la casilla (por defecto **0**) a TODAS las filtradas → Andrés puso cartas en 0 varias veces sin querer.
+- **Nuevo flujo (solo `admin.html`):** los +/− de stock y foil **ya no guardan solo**. Cada cambio queda **pendiente**: la fila se marca (borde dorado + badge "cambio") y aparece **✓ Aplicar / ✕ Cancelar** en esa fila. Arriba, barra sticky **"N cambio(s) sin aplicar"** con **Aplicar todos / Descartar**. Estado `pending={id:{stock?,stockf?}}`, helpers `applyPendingToItem/commitOne/commitAllPending/discardPending`, `render()` pinta valores pendientes y `updatePendBar()`. `editItem` limpia el pending de esa carta (el form manda).
+- **Barra masiva escondida:** "Stock a los N filtrados / Todo el inventario a 0" ahora dentro de `<details>` **"⚙️ Acciones masivas (avanzado)"** colapsado; la casilla ya no arranca en 0 (placeholder) y el Aplicar bloquea si está vacía. Confirmaciones intactas.
+- Probado en navegador: +/− → pendiente sin guardar; Aplicar por fila guarda; Cancelar revierte; Aplicar todos aplica 2/2; foil igual; avanzado colapsado + guard de vacío. 0 errores. Screenshot del estado pendiente. Sin cambios en la tienda ni cache-bump (panel es standalone).
+
+---
+
 ## 2026-07-07 — Stock foil por separado (pedido de Andrés)
 - Faltaba poder llevar el stock del **foil aparte** del normal. Nuevo campo opcional `stockf` en `productos.json` (solo cartas con `foil`). Si no está definido, el foil sigue el stock normal (compatibilidad: ninguna carta actual cambia hasta ponerle su cantidad foil).
 - **Panel (`admin.html`):** al tildar "✨ Disponible en foil" aparece **"Cantidad foil"** junto al precio foil (`foilFields()` togglea ambos; se guarda/edita/borra con el foil). En la **Base de datos**: la línea muestra "✨ Foil ₡X · N en stock" y hay un **stepper de foil aparte** (`.stkf__b/.stkf__i`, dorado) apilado bajo el normal con etiquetas STOCK / ✨ FOIL (`admStockF`, `setFoilTo`).

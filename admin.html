@@ -173,6 +173,23 @@
   .stkf{border-color:rgba(201,162,75,.45)}
   .stkf__i{width:46px;height:32px;margin:0;border:none;border-left:1px solid rgba(201,162,75,.35);border-right:1px solid rgba(201,162,75,.35);border-radius:0;background:transparent;color:var(--gold-bright);text-align:center;font-size:.9rem;padding:0}
   .stkf__i:focus{box-shadow:none}
+  /* cambios pendientes por fila */
+  .pendbar{position:sticky;top:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#3a2410;border:1px solid var(--gold);border-radius:10px;padding:9px 14px;margin-bottom:12px}
+  .pendbar span b{color:var(--gold-bright)}
+  .pendbar .pendbtns{display:flex;gap:8px}
+  .pendbar .btn{padding:6px 13px;font-size:.82rem}
+  .item--pending{border-color:var(--gold);box-shadow:0 0 0 1.5px rgba(201,162,75,.35)}
+  .pend-badge{background:var(--gold-bright);color:#241318;font-size:.56rem;font-weight:700;padding:1px 7px;border-radius:999px;margin-left:6px;letter-spacing:.03em;vertical-align:middle}
+  .rowpend{display:flex;flex-direction:column;gap:4px;align-items:stretch;flex-shrink:0}
+  .rowpend .ap{background:#2f6b3a;border:none;color:#eafaee;font-weight:600;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
+  .rowpend .ap:hover{background:#3a824a}
+  .rowpend .cx{background:none;border:1px solid var(--line);color:#c9a48d;font-size:.72rem;cursor:pointer;padding:4px;border-radius:7px}
+  .rowpend .cx:hover{color:#e9a3ab;border-color:rgba(180,60,70,.5)}
+  .bulkadv{flex-basis:100%}
+  .bulkadv>summary{cursor:pointer;color:var(--muted);font-size:.84rem;list-style:none}
+  .bulkadv>summary::-webkit-details-marker{display:none}
+  .bulkadv>summary:hover{color:var(--gold-bright)}
+  .bulkadv[open]>summary{margin-bottom:10px;color:var(--gold-bright)}
   /* barra de acciones masivas + resumen */
   .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
   .bulksum{font-size:.86rem;color:var(--muted)}
@@ -405,12 +422,22 @@
     </div>
     <div class="bulkbar">
       <span class="bulksum" id="bulkSummary"></span>
-      <div class="bulkact">
-        <span class="bulkstock">Stock a los <b id="bulkCount">0</b> filtrados:
-          <input type="number" id="bulkStockVal" min="0" value="0" />
-          <button class="btn btn--ghost" id="bulkApply">Aplicar</button>
-        </span>
-        <button class="btn btn--danger" id="bulkZeroAll">Todo el inventario a 0</button>
+      <details class="bulkadv">
+        <summary>⚙️ Acciones masivas (avanzado)</summary>
+        <div class="bulkact">
+          <span class="bulkstock">Stock a los <b id="bulkCount">0</b> filtrados:
+            <input type="number" id="bulkStockVal" min="0" placeholder="0" />
+            <button class="btn btn--ghost" id="bulkApply">Aplicar a filtrados</button>
+          </span>
+          <button class="btn btn--danger" id="bulkZeroAll">Todo el inventario a 0</button>
+        </div>
+      </details>
+    </div>
+    <div class="pendbar" id="pendBar" style="display:none">
+      <span>⚠️ <b id="pendCount">0</b> cambio(s) sin aplicar</span>
+      <div class="pendbtns">
+        <button class="btn btn--gold" id="pendApplyAll">Aplicar todos</button>
+        <button class="btn btn--ghost" id="pendDiscard">Descartar</button>
       </div>
     </div>
     <div class="items" id="items"></div>
@@ -639,6 +666,15 @@ $('#foilOn').addEventListener('change', e=>{ foilFields(e.target.checked); if(e.
 
 /* ====== Agregar / Editar ====== */
 let editingId = null;
+let pending = {};   // cambios de stock/foil sin aplicar, por id: { <id>: {stock?, stockf?} }
+function applyPendingToItem(id){
+  const it=items.find(x=>x.id===id), pc=pending[id]; if(!it||!pc) return;
+  if('stock' in pc){ if(pc.stock===null) delete it.stock; else it.stock=pc.stock; }
+  if('stockf' in pc){ if(pc.stockf===null) delete it.stockf; else it.stockf=pc.stockf; }
+}
+function commitOne(id){ applyPendingToItem(id); delete pending[id]; save(); render(); toast('Cambio aplicado'); }
+function commitAllPending(){ const n=Object.keys(pending).length; Object.keys(pending).forEach(k=>applyPendingToItem(Number(k))); pending={}; save(); render(); toast(n+' cambio(s) aplicado(s)'); }
+function discardPending(){ pending={}; render(); toast('Cambios descartados'); }
 let invQuery = '';
 function exitEdit(){
   editingId = null;
@@ -691,6 +727,7 @@ $('#addForm').addEventListener('submit', e=>{
 function editItem(id){
   const p = items.find(x=>x.id===id); if(!p) return;
   editingId = id;
+  delete pending[id];   // el formulario pasa a ser la fuente de verdad de esta carta
   const fm = $('#addForm');
   fm.name.value = p.name||'';
   fm.cat.value = p.cat||'Otro';
@@ -890,11 +927,13 @@ function render(){
   if(!list.length){ wrap.innerHTML='<p class="empty">Sin resultados para esos filtros.</p>'; return; }
   wrap.innerHTML='';
   pageItems.forEach(p=>{
-    const el=document.createElement('div'); el.className='item'+(p.id===editingId?' editing':'');
+    const pc = pending[p.id];
+    const isPending = !!pc;
+    const el=document.createElement('div'); el.className='item'+(p.id===editingId?' editing':'')+(isPending?' item--pending':'');
     const noImg = !p.img;
     const media = p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : `<div class="noimgp"><span>Sin imagen</span></div>`;
-    const s = admStock(p);
-    const sf = admStockF(p);
+    const s  = (pc && 'stock'  in pc) ? pc.stock  : admStock(p);   // valor pendiente si lo hay
+    const sf = (pc && 'stockf' in pc) ? pc.stockf : admStockF(p);
     const hasFoil = p.foil!=null;
     const setTxt = p.set ? esc(p.set)+' · ' : '';
     const condTxt = p.type==='sealed' ? 'Sellado' : esc(p.cond||'');
@@ -913,39 +952,51 @@ function render(){
         <div class="stkrow"><span class="stklab">stock</span>${normStk}</div>
         <div class="stkrow"><span class="stklab stklab--f">✨ foil</span>${foilStk}</div>
       </div>`;
+    const actsHtml = isPending
+      ? `<div class="rowpend"><button class="ap" title="Aplicar el cambio de esta carta">✓ Aplicar</button><button class="cx" title="Cancelar el cambio">✕</button></div>`
+      : `<div class="acts"><button class="e" title="Editar">✎</button><button class="x" title="Quitar">✕</button></div>`;
     el.innerHTML = `${media}
       <div class="meta">
-        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}</div>
+        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}${isPending?'<span class="pend-badge">cambio</span>':''}</div>
         <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}${foilTxt}</div>
         ${noImg?'<button class="putimg" type="button">📷 Poner imagen</button>':''}
       </div>
       ${stkBlock}
       <div class="pr">${fmt(p.price)}</div>
-      <div class="acts">
-        <button class="e" title="Editar">✎</button>
-        <button class="x" title="Quitar">✕</button>
-      </div>`;
-    const setStockTo=(v)=>{ const it=items.find(x=>x.id===p.id); if(!it) return; if(v===null) delete it.stock; else it.stock=Math.max(0,Math.floor(Number(v)||0)); save(); };
-    el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); setStockTo(Math.max(0,cur+Number(b.dataset.d))); });
-    el.querySelector('.stk__i').onchange=(ev)=> setStockTo(ev.target.value===''?null:ev.target.value);
+      ${actsHtml}`;
+    // los +/− NO guardan: marcan un cambio pendiente para esta carta
+    const markPending=(field,val)=>{ if(!pending[p.id]) pending[p.id]={}; pending[p.id][field]=val; render(); };
+    el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); markPending('stock', Math.max(0,cur+Number(b.dataset.d))); });
+    el.querySelector('.stk__i').onchange=(ev)=> markPending('stock', ev.target.value===''?null:Math.max(0,Math.floor(Number(ev.target.value)||0)));
     if(hasFoil){
-      const setFoilTo=(v)=>{ const it=items.find(x=>x.id===p.id); if(!it) return; if(v===null) delete it.stockf; else it.stockf=Math.max(0,Math.floor(Number(v)||0)); save(); };
-      el.querySelectorAll('.stkf__b').forEach(b=> b.onclick=()=>{ const cur=(sf===null?0:sf); setFoilTo(Math.max(0,cur+Number(b.dataset.d))); });
-      el.querySelector('.stkf__i').onchange=(ev)=> setFoilTo(ev.target.value===''?null:ev.target.value);
+      el.querySelectorAll('.stkf__b').forEach(b=> b.onclick=()=>{ const cur=(sf===null?0:sf); markPending('stockf', Math.max(0,cur+Number(b.dataset.d))); });
+      el.querySelector('.stkf__i').onchange=(ev)=> markPending('stockf', ev.target.value===''?null:Math.max(0,Math.floor(Number(ev.target.value)||0)));
     }
-    el.querySelector('.e').onclick=()=> editItem(p.id);
     const putimg=el.querySelector('.putimg');
     if(putimg) putimg.onclick=()=>{ editItem(p.id); const f=$('#imgUrl'); if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{ try{ f.focus(); }catch(e){} },350); } };
-    el.querySelector('.x').onclick=()=>{
-      if(!confirm(`⚠️ Cuidado: vas a borrar “${p.name}”.\nEsta carta desaparecerá de la base de datos.\n\n¿Seguro que la querés borrar?`)) return;
-      if(p.id===editingId) exitEdit();
-      const idx = items.findIndex(x=>x.id===p.id);
-      const removed = items[idx];
-      items = items.filter(x=>x.id!==p.id); save();
-      toastUndo(`Quité “${p.name}”`, ()=>{ items.splice(idx,0,removed); save(); toast('Restaurado'); });
-    };
+    if(isPending){
+      el.querySelector('.ap').onclick=()=> commitOne(p.id);
+      el.querySelector('.cx').onclick=()=>{ delete pending[p.id]; render(); };
+    } else {
+      el.querySelector('.e').onclick=()=> editItem(p.id);
+      el.querySelector('.x').onclick=()=>{
+        if(!confirm(`⚠️ Cuidado: vas a borrar “${p.name}”.\nEsta carta desaparecerá de la base de datos.\n\n¿Seguro que la querés borrar?`)) return;
+        if(p.id===editingId) exitEdit();
+        delete pending[p.id];
+        const idx = items.findIndex(x=>x.id===p.id);
+        const removed = items[idx];
+        items = items.filter(x=>x.id!==p.id); save();
+        toastUndo(`Quité “${p.name}”`, ()=>{ items.splice(idx,0,removed); save(); toast('Restaurado'); });
+      };
+    }
     wrap.appendChild(el);
   });
+  updatePendBar();
+}
+function updatePendBar(){
+  const n=Object.keys(pending).length, bar=$('#pendBar'); if(!bar) return;
+  bar.style.display = n ? '' : 'none';
+  const c=$('#pendCount'); if(c) c.textContent=n;
 }
 
 /* ====== Barra fija ====== */
@@ -1016,10 +1067,14 @@ $('#pgPrev').onclick=()=>{ if(page>1){ page--; render(); $('#invPanel').scrollIn
 $('#pgNext').onclick=()=>{ page++; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); };
 $('#pgSize').onchange=e=>{ pageSize=Number(e.target.value)||50; page=1; render(); };
 /* ====== Acciones masivas de stock ====== */
+$('#pendApplyAll').onclick=commitAllPending;
+$('#pendDiscard').onclick=()=>{ const n=Object.keys(pending).length; if(n && !confirm('¿Descartar '+n+' cambio(s) sin aplicar?')) return; discardPending(); };
 $('#bulkApply').onclick=()=>{
   const list=getFilteredInv();
   if(!list.length){ toast('No hay cartas en el filtro'); return; }
-  const v=Math.max(0,Math.floor(Number($('#bulkStockVal').value)||0));
+  const raw=$('#bulkStockVal').value;
+  if(raw===''){ toast('Escribí un número de stock primero'); return; }
+  const v=Math.max(0,Math.floor(Number(raw)||0));
   if(!confirm('¿Poner stock '+v+' a las '+list.length+' cartas filtradas?')) return;
   const ids=new Set(list.map(p=>p.id));
   items.forEach(p=>{ if(ids.has(p.id)) p.stock=v; });
