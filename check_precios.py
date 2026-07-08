@@ -204,11 +204,12 @@ def main():
             grp = [r for r in rows if (r["cat"] == g if g else r["cat"] not in GAME_ORDER)]
             if not grp: continue
             out += [f"### {g or 'Otros'} ({len(grp)})", "",
-                    "| id | carta | set | campo | actual | TCGplayer | dif |",
+                    "| id | carta | tipo | set | actual | TCGplayer | dif |",
                     "|---|---|---|---|--:|--:|--:|"]
             for r in grp:
+                tipo = "**✨ Foil**" if r["campo"] == "foil" else "Normal"
                 dif = (f"+₡{r['new']-r['old']:,} ({pct(r)})" if up else f"-₡{r['old']-r['new']:,}")
-                out.append(f"| {r['id']} | {r['name']} | {r['set']} | {r['campo']} | "
+                out.append(f"| {r['id']} | {r['name']} | {tipo} | {r['set']} | "
                            f"₡{r['old']:,} | ₡{r['new']:,} | {dif} |")
             out.append("")
         return out
@@ -246,9 +247,10 @@ def main():
     import csv
     with open(os.path.join(ROOT, "reporte_precios.csv"), "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
-        w.writerow(["id", "carta", "juego", "set", "campo", "precio_actual", "precio_tcgplayer", "diferencia", "estado"])
-        for r in subidas: w.writerow([r["id"], r["name"], r["cat"], r["set"], r["campo"], r["old"], r["new"], r["new"]-r["old"], "subio"])
-        for r in bajadas: w.writerow([r["id"], r["name"], r["cat"], r["set"], r["campo"], r["old"], r["new"], r["new"]-r["old"], "bajo"])
+        w.writerow(["id", "carta", "juego", "tipo", "set", "precio_actual", "precio_tcgplayer", "diferencia", "estado"])
+        def tipo(r): return "Foil" if r["campo"] == "foil" else "Normal"
+        for r in subidas: w.writerow([r["id"], r["name"], r["cat"], tipo(r), r["set"], r["old"], r["new"], r["new"]-r["old"], "subio"])
+        for r in bajadas: w.writerow([r["id"], r["name"], r["cat"], tipo(r), r["set"], r["old"], r["new"], r["new"]-r["old"], "bajo"])
 
     print("\n=== RESUMEN ===")
     print(f"  Subieron: {len(subidas)}   Bajaron: {len(bajadas)}   "
@@ -256,7 +258,8 @@ def main():
     if subidas:
         print("  Top subidas:")
         for r in subidas[:10]:
-            print(f"    #{r['id']} {r['name'][:34]:34} {r['set'][:16]:16} "
+            tag = " [FOIL]" if r["campo"] == "foil" else ""
+            print(f"    #{r['id']} {r['name'][:30]:30}{tag:7} {r['set'][:16]:16} "
                   f"{r['old']:>7} -> {r['new']:>7}  (+{r['new']-r['old']})")
     print("  Reporte: reporte_precios.md  /  reporte_precios.csv")
 
