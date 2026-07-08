@@ -1,4 +1,25 @@
 {
-  "seq": 0,
-  "pedidos": []
+  "seq": 1,
+  "pedidos": [
+    {
+      "id": "R-0001",
+      "ts": 1783479023412,
+      "estado": "pendiente",
+      "nombre": "PRUEBA (borrar)",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE M�vil",
+      "items": [
+        {
+          "id": 154,
+          "foil": false,
+          "qty": 1,
+          "name": "Catalyst of Aeons",
+          "price": 500
+        }
+      ],
+      "total": 500
+    }
+  ]
 }
