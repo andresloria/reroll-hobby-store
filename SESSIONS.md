@@ -8,6 +8,16 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Panel reorganizado + a prueba de pérdidas (tras perder 1 h de trabajo)
+- **Causa raíz de la pérdida:** al abrir el panel, `syncFromStore` pisaba las ediciones locales sin publicar con lo de la tienda, y el merge por NOMBRE descartaba cartas repetidas (así desaparecieron las Body Rune). Además los cambios "pendientes" vivían solo en memoria.
+- **Sync seguro:** ahora cada edición local lleva `_dirty:1` (o `_new:1` si es carta nueva; borradas → `deletedIds`), todo persistido en localStorage. El sync usa la tienda como base y **conserva lo tuyo encima, cruzando por ID** (ya no por nombre). Los `_flags` nunca se suben (`SIN_FLAGS` replacer). Al publicar, se limpian. `reindex()` eliminado (ya no se reasignan ids).
+- **Contador "sin publicar":** chip 📝 en la barra fija + botón "🚀 Publicar N cambios" + barrita dorada en la DB con "Descartar y cargar la tienda". Puntito dorado en cada fila con cambios. Publicar con números escritos sin confirmar ofrece confirmarlos en el mismo paso.
+- **Steppers instantáneos:** los +/− aplican al momento (click deliberado); solo escribir un número a mano pide ✓ Confirmar (ahí pasaban los ceros accidentales). `pending` ahora persiste en localStorage.
+- **Acordeón uniforme** en orden de flujo: 📦 Pedidos → 🗄️ Base de datos (abierta al entrar, con botón "🃏 Agregar del catálogo") → ➕ Agregar cartas (catálogo + a mano + CSV fusionados) → 💰 Ventas/Caja (plegada, total en la barrita) → ⚙️ Configuración (token). El panel "🚀 Publicar" duplicado desapareció: se publica SOLO desde la barra fija.
+- **Fuera botones-bomba** (pedido de Andrés): "Vaciar toda la base" y "Vaciar ventas" eliminados.
+- Bug corregido en el camino: quedaba un `$('#publishBtn').onclick` apuntando a un botón eliminado → rompía todo el init del panel.
+- Verificado E2E en preview: stepper aplica y persiste → **reload conserva el cambio** ("✅ cargada — 1 sin publicar") → input escrito pide ✓ → descartar restaura lo de la tienda → acordeón y secciones OK.
+
 ## 2026-07-07 — Promos de Riftbound al inventario (`make_promos_rb.py`)
 - Nuevo script **`make_promos_rb.py`**: baja los grupos de promo de Riftbound de TCGplayer/TCGCSV (Organized Play, Judge, Promotional) y agrega **115 promos** a `productos.json` como set **"Promos"**, `type` single, **stock 0** (agotados: se ven en la tienda cuando Andrés les ponga stock en el panel).
 - **Filtra** sellados (Box Set/Bundle) y ultra-raros de evento `(Metal)/(Prize Wall)/(Champion)/(Top 8)` — solo singles jugables.

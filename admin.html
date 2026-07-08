@@ -179,6 +179,7 @@
   .pendbar .pendbtns{display:flex;gap:8px}
   .pendbar .btn{padding:6px 13px;font-size:.82rem}
   .item--pending{border-color:var(--gold);box-shadow:0 0 0 1.5px rgba(201,162,75,.35)}
+  .dirty-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold-bright);margin-left:7px;vertical-align:middle}
   .pend-badge{background:var(--gold-bright);color:#241318;font-size:.56rem;font-weight:700;padding:1px 7px;border-radius:999px;margin-left:6px;letter-spacing:.03em;vertical-align:middle}
   .rowpend{display:flex;flex-direction:column;gap:4px;align-items:stretch;flex-shrink:0}
   .rowpend .ap{background:#2f6b3a;border:none;color:#eafaee;font-weight:600;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
@@ -260,6 +261,12 @@
     background:linear-gradient(0deg,rgba(22,16,15,.98),rgba(22,16,15,.93));backdrop-filter:blur(10px)}
   .stickybar__val{font-family:var(--font-mono);font-size:.9rem;color:var(--gold-bright);margin-right:auto;line-height:1.25}
   .stickybar__val small{display:block;color:var(--muted);font-size:.72rem}
+  .stickybar__dirty{background:rgba(201,162,75,.14);border:1px solid var(--gold);color:var(--gold-bright);
+    font-size:.78rem;font-weight:600;padding:6px 13px;border-radius:999px;white-space:nowrap;
+    animation:dirtypulse 2.2s ease-in-out infinite}
+  .stickybar__dirty b{font-family:var(--font-mono)}
+  @keyframes dirtypulse{0%,100%{box-shadow:0 0 0 0 rgba(201,162,75,.35)}50%{box-shadow:0 0 0 5px rgba(201,162,75,0)}}
+  @media(max-width:560px){ .stickybar__dirty{font-size:.7rem;padding:5px 9px} }
   body{padding-bottom:86px}
   @media(max-width:560px){ .stickybar__val small{display:none} .stickybar .btn{padding:10px 14px} }
   /* ventas / caja */
@@ -307,12 +314,19 @@
 
 <div class="wrap">
 
-  <div class="grid2">
-    <!-- AGREGAR UNA -->
-    <div class="panel">
-      <h2>Agregar una carta / producto</h2>
-      <p class="sub">Cargá una por una con su foto. La imagen se optimiza sola.</p>
-      <button type="button" class="btn btn--gold btn--block" id="openCatalog" style="margin-bottom:8px">🃏 Agregar desde el catálogo</button>
+  <!-- ➕ AGREGAR CARTAS (plegable: catálogo + a mano + importar) -->
+  <div class="panel" id="addPanel">
+    <button class="db-bar" id="addToggle" type="button" aria-expanded="false" aria-controls="addBody">
+      <span class="db-bar__ico" aria-hidden="true">➕</span>
+      <span class="db-bar__txt">
+        <span class="db-bar__title">Agregar cartas</span>
+        <span class="db-bar__sub">Del catálogo (recomendado), a mano con foto, o importar Excel/CSV.</span>
+      </span>
+      <span class="db-bar__cta">Abrir <span class="db-bar__arrow" id="addArrow">▾</span></span>
+    </button>
+    <div id="addBody" hidden>
+      <div style="max-width:640px">
+      <button type="button" class="btn btn--gold btn--block" id="openCatalog" style="margin:14px 0 8px">🃏 Agregar desde el catálogo</button>
       <p class="hint" style="margin:-2px 0 14px;text-align:center">Buscá la carta, ponés cuántas tenés y listo — imagen, precio y descripción salen solos. ↓ o cargala a mano abajo.</p>
       <form id="addForm">
         <label>Nombre
@@ -384,24 +398,23 @@
         </div>
         <p class="hint" id="addHint"></p>
       </form>
-    </div>
-
-    <!-- IMPORTAR EXCEL/CSV -->
-    <div class="panel">
-      <h2>Importar desde Excel / CSV</h2>
-      <p class="sub">¿Tenés muchas? Exportá tu Excel como CSV y subilo aquí.</p>
-      <div class="filebox" id="csvDrop">
-        <b>Elegí tu archivo CSV</b><br><span style="font-size:.8rem">Columnas: nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</span>
-        <input type="file" id="csvFile" accept=".csv,text/csv" hidden />
-      </div>
-      <p class="hint" id="csvHint"></p>
-      <div class="actions">
-        <button class="btn btn--ghost" id="tplBtn">Descargar plantilla CSV</button>
-      </div>
-      <details>
-        <summary>¿Cómo preparo el Excel?</summary>
-        <p class="hint">Poné estas columnas en la primera fila: <code>nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</code>. Llená una fila por carta. En Excel/Google Sheets: <b>Archivo → Descargar → CSV</b>. La columna <b>imagen</b> es un <b>link directo a la foto</b> (que termine en .jpg/.png/.webp) — la tienda la carga sola, no hace falta subir nada. Si la dejás vacía, la carta sale con emoji y le podés agregar la foto después desde la izquierda. <i>Ojo:</i> el link tiene que ser público y de un sitio que permita mostrar la imagen en otra página.</p>
+      <details style="margin-top:16px">
+        <summary>📄 Importar muchas de una — Excel / CSV</summary>
+        <p class="sub" style="margin:10px 0 12px">Exportá tu Excel como CSV y subilo aquí.</p>
+        <div class="filebox" id="csvDrop">
+          <b>Elegí tu archivo CSV</b><br><span style="font-size:.8rem">Columnas: nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</span>
+          <input type="file" id="csvFile" accept=".csv,text/csv" hidden />
+        </div>
+        <p class="hint" id="csvHint"></p>
+        <div class="actions">
+          <button class="btn btn--ghost" id="tplBtn">Descargar plantilla CSV</button>
+        </div>
+        <details>
+          <summary>¿Cómo preparo el Excel?</summary>
+          <p class="hint">Poné estas columnas en la primera fila: <code>nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</code>. Llená una fila por carta. En Excel/Google Sheets: <b>Archivo → Descargar → CSV</b>. La columna <b>imagen</b> es un <b>link directo a la foto</b> (que termine en .jpg/.png/.webp) — la tienda la carga sola, no hace falta subir nada. Si la dejás vacía, la carta sale con emoji y le podés agregar la foto después desde el formulario. <i>Ojo:</i> el link tiene que ser público y de un sitio que permita mostrar la imagen en otra página.</p>
+        </details>
       </details>
+      </div>
     </div>
   </div>
 
@@ -432,22 +445,29 @@
 
   <!-- INVENTARIO -->
   <div class="panel" id="invPanel">
-    <button class="db-bar" id="dbToggle" type="button" aria-expanded="false" aria-controls="dbBody">
+    <button class="db-bar" id="dbToggle" type="button" aria-expanded="true" aria-controls="dbBody">
       <span class="db-bar__ico" aria-hidden="true">🗄️</span>
       <span class="db-bar__txt">
         <span class="db-bar__title">Base de datos <span class="count" id="count">0</span></span>
         <span class="db-bar__sub"><span class="invval" id="invValue"></span><span id="dbSyncTag"></span></span>
       </span>
-      <span class="db-bar__cta">Ver / editar <span class="db-bar__arrow" id="dbArrow">▾</span></span>
+      <span class="db-bar__cta">Ver / editar <span class="db-bar__arrow" id="dbArrow">▴</span></span>
     </button>
 
-    <div id="dbBody" hidden>
-    <div class="actions" style="margin:0 0 10px">
+    <div id="dbBody">
+    <div class="actions" style="margin:16px 0 10px">
+      <button class="btn btn--gold" id="openCatalog2">🃏 Agregar del catálogo</button>
       <button class="btn btn--ghost" id="syncStore">🔄 Cargar de la tienda</button>
       <button class="btn btn--ghost" id="importJsonBtn">Importar archivo</button>
       <input type="file" id="jsonFile" accept="application/json,.json" hidden />
     </div>
     <p class="hint" id="syncHint" style="margin:-4px 0 10px">Al abrir, el panel carga tu inventario publicado para que no se pierda nada.</p>
+    <div class="pendbar" id="dirtyBar" style="display:none">
+      <span>📝 <b id="dirtyBarN">0</b> cambio(s) guardados en el panel, sin publicar — no se pierden aunque recargués. Publicá con la barra de abajo cuando estés listo.</span>
+      <div class="pendbtns">
+        <button class="btn btn--ghost" id="dirtyDiscard">Descartar y cargar la tienda</button>
+      </div>
+    </div>
     <input id="invSearch" type="search" placeholder="🔎 Buscar (nombre, juego, expansión)…" style="margin-bottom:12px" />
     <div class="invfilters">
       <label>Juego<select id="fCat"></select></label>
@@ -499,7 +519,6 @@
     <div class="divider"></div>
     <div class="actions">
       <button class="btn btn--gold" id="exportBtn">⬇ Descargar productos.json</button>
-      <button class="btn btn--danger" id="clearAll">Vaciar toda la base</button>
       <span class="hint" style="align-self:center">Backup, o para publicar directo con la barra de abajo 👇</span>
     </div>
     </div>
@@ -507,8 +526,16 @@
 
   <!-- VENTAS / CAJA -->
   <div class="panel" id="salesPanel">
-    <h2>Ventas / Caja</h2>
-    <p class="sub">Registrá ventas (también las de fuera de la tienda). Se guardan solo en este navegador — descargá el backup cada tanto.</p>
+    <button class="db-bar" id="salesToggle" type="button" aria-expanded="false" aria-controls="salesBody">
+      <span class="db-bar__ico" aria-hidden="true">💰</span>
+      <span class="db-bar__txt">
+        <span class="db-bar__title">Ventas / Caja</span>
+        <span class="db-bar__sub" id="salesSub">Registrá ventas y mirá cuánto llevás.</span>
+      </span>
+      <span class="db-bar__cta">Abrir <span class="db-bar__arrow" id="salesArrow">▾</span></span>
+    </button>
+    <div id="salesBody" hidden>
+    <p class="sub" style="margin-top:16px">Registrá ventas (también las de fuera de la tienda). Se guardan solo en este navegador — descargá el backup cada tanto.</p>
     <div class="stats3">
       <div class="stat"><span>Valor en inventario</span><b id="sVal">₡0</b></div>
       <div class="stat stat--sold"><span>Total vendido</span><b id="sSold">₡0</b></div>
@@ -559,27 +586,33 @@
       <button class="btn btn--ghost" id="salesExport">⬇ Descargar ventas (backup)</button>
       <button class="btn btn--ghost" id="salesImportBtn">Importar ventas</button>
       <input type="file" id="salesFile" accept="application/json,.json" hidden />
-      <button class="btn btn--danger" id="salesClear">Vaciar ventas</button>
+    </div>
     </div>
   </div>
 
-  <div class="panel">
-    <h2>🚀 Publicar a la tienda</h2>
-    <p class="sub">Subí tu inventario a la tienda en vivo con un clic. Tu tienda se actualiza sola en ~1 minuto.</p>
-
-    <label>Token de GitHub <span style="text-transform:none;letter-spacing:0">(se guarda solo en este navegador)</span>
-      <input id="ghToken" type="password" placeholder="github_pat_..." autocomplete="off" />
-    </label>
-    <div class="actions">
-      <button class="btn btn--gold" id="publishBtn">🚀 Publicar a la tienda</button>
-      <a class="btn btn--ghost" href="https://rerollhobbystore.com" target="_blank" rel="noopener">Ver tienda ↗</a>
+  <!-- ⚙️ CONFIGURACIÓN (token, backup — lo que se toca una vez) -->
+  <div class="panel" id="cfgPanel">
+    <button class="db-bar" id="cfgToggle" type="button" aria-expanded="false" aria-controls="cfgBody">
+      <span class="db-bar__ico" aria-hidden="true">⚙️</span>
+      <span class="db-bar__txt">
+        <span class="db-bar__title">Configuración</span>
+        <span class="db-bar__sub">Token de GitHub para publicar · cómo funciona.</span>
+      </span>
+      <span class="db-bar__cta">Abrir <span class="db-bar__arrow" id="cfgArrow">▾</span></span>
+    </button>
+    <div id="cfgBody" hidden>
+      <label style="margin-top:16px;max-width:640px">Token de GitHub <span style="text-transform:none;letter-spacing:0">(se guarda solo en este navegador)</span>
+        <input id="ghToken" type="password" placeholder="github_pat_..." autocomplete="off" />
+      </label>
+      <div class="actions">
+        <a class="btn btn--ghost" href="https://rerollhobbystore.com" target="_blank" rel="noopener">Ver tienda ↗</a>
+      </div>
+      <p class="hint" id="pubStatus" style="min-height:1.2em"></p>
+      <details>
+        <summary>¿Cómo funciona / dónde saco el token?</summary>
+        <p class="hint">Publicás con la barra dorada de abajo: tu inventario se sube a GitHub y la tienda (en Vercel) se actualiza sola en ~1&nbsp;min. El token va a <code>github.com/settings/tokens</code> → token <i>fine-grained</i> con permiso <b>Contents: Read and write</b> sobre el repo <code>reroll-hobby-store</code>. Se guarda solo en este navegador; lo pegás una vez. (Si descargás el <code>productos.json</code>, también podés mandármelo y lo publico yo.)</p>
+      </details>
     </div>
-    <p class="hint" id="pubStatus" style="min-height:1.2em"></p>
-
-    <details>
-      <summary>¿Cómo funciona / dónde saco el token?</summary>
-      <p class="hint">Al publicar, tu inventario se sube a GitHub y la tienda (en Vercel) se actualiza sola en ~1&nbsp;min. El token va a <code>github.com/settings/tokens</code> → token <i>fine-grained</i> con permiso <b>Contents: Read and write</b> sobre el repo <code>reroll-hobby-store</code>. Se guarda solo en este navegador; lo pegás una vez. (Si descargás el <code>productos.json</code> con el botón de arriba, también podés mandármelo y lo publico yo.)</p>
-    </details>
   </div>
 
 </div>
@@ -613,6 +646,7 @@
 <!-- barra fija: acciones siempre visibles (no hay que bajar hasta el final) -->
 <div class="stickybar">
   <span class="stickybar__val" id="stickyVal">—</span>
+  <span class="stickybar__dirty" id="dirtyChip" hidden>📝 <b id="dirtyN">0</b> sin publicar</span>
   <button class="btn btn--ghost" id="stickyDownload">⬇ Descargar</button>
   <button class="btn btn--gold" id="stickyPublish">🚀 Publicar</button>
 </div>
@@ -637,6 +671,13 @@ const $ = s=>document.querySelector(s);
 let items = JSON.parse(localStorage.getItem('reroll_inv')||'[]');
 let nextId = items.reduce((m,p)=>Math.max(m,p.id||0),0)+1;
 let pendingImg = null;
+/* cambios locales SIN PUBLICAR: cada carta editada lleva _dirty:1 (o _new:1 si es
+   nueva) y las borradas quedan en deletedIds. Todo persiste en el navegador, así
+   nada se pierde al recargar; se limpia al publicar. Los _flags nunca se suben. */
+let deletedIds = JSON.parse(localStorage.getItem('reroll_deleted')||'[]');
+function saveDeleted(){ localStorage.setItem('reroll_deleted', JSON.stringify(deletedIds)); }
+function markDirty(it){ if(it && !it._new) it._dirty = 1; }
+function dirtyCount(){ return items.filter(p=>p._dirty||p._new).length + deletedIds.length; }
 // ventas (historial local de este navegador)
 let sales = []; try{ sales = JSON.parse(localStorage.getItem('reroll_sales')||'[]'); }catch(e){ sales=[]; }
 let nextSaleId = sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1;
@@ -714,15 +755,18 @@ $('#foilOn').addEventListener('change', e=>{ foilFields(e.target.checked); if(e.
 
 /* ====== Agregar / Editar ====== */
 let editingId = null;
-let pending = {};   // cambios de stock/foil sin aplicar, por id: { <id>: {stock?, stockf?} }
+// cambios de stock/foil ESCRITOS a mano sin confirmar (✓) — persisten en el navegador
+let pending = {}; try{ pending = JSON.parse(localStorage.getItem('reroll_pending')||'{}'); }catch(e){ pending = {}; }
+function savePending(){ localStorage.setItem('reroll_pending', JSON.stringify(pending)); }
 function applyPendingToItem(id){
   const it=items.find(x=>x.id===id), pc=pending[id]; if(!it||!pc) return;
   if('stock' in pc){ if(pc.stock===null) delete it.stock; else it.stock=pc.stock; }
   if('stockf' in pc){ if(pc.stockf===null) delete it.stockf; else it.stockf=pc.stockf; }
+  markDirty(it);
 }
-function commitOne(id){ applyPendingToItem(id); delete pending[id]; save(); render(); toast('Cambio aplicado'); }
-function commitAllPending(){ const n=Object.keys(pending).length; Object.keys(pending).forEach(k=>applyPendingToItem(Number(k))); pending={}; save(); render(); toast(n+' cambio(s) aplicado(s)'); }
-function discardPending(){ pending={}; render(); toast('Cambios descartados'); }
+function commitOne(id){ applyPendingToItem(id); delete pending[id]; savePending(); save(); render(); toast('Cambio aplicado'); }
+function commitAllPending(){ const n=Object.keys(pending).length; Object.keys(pending).forEach(k=>applyPendingToItem(Number(k))); pending={}; savePending(); save(); render(); toast(n+' cambio(s) aplicado(s)'); }
+function discardPending(){ pending={}; savePending(); render(); toast('Cambios descartados'); }
 let invQuery = '';
 function exitEdit(){
   editingId = null;
@@ -760,11 +804,12 @@ $('#addForm').addEventListener('submit', e=>{
       if(!hasFoil){ delete it.foil; delete it.stockf; }   // destildar quita el foil y su stock
       if(img){ it.img = img; delete it.emoji; }
       else if(!it.img){ it.emoji = emojiByCat[it.cat]||"🎴"; }
+      markDirty(it);
       toast('Actualizado: '+it.name);
     }
     exitEdit(); save();
   } else {
-    const it = { id: nextId++, ...data };
+    const it = { id: nextId++, ...data, _new: 1 };
     if(img) it.img = img; else it.emoji = emojiByCat[it.cat]||"🎴";
     items.push(it);
     pendingImg=null; $('#prev').style.display='none'; e.target.reset(); photo.value='';
@@ -797,6 +842,7 @@ function editItem(id){
   $('#submitBtn').textContent = '💾 Guardar cambios';
   $('#cancelEdit').style.display = '';
   render();
+  openSection('#addToggle','#addBody');   // el formulario vive en "Agregar cartas"
   fm.scrollIntoView({behavior:'smooth', block:'center'});
 }
 $('#cancelEdit').onclick = exitEdit;
@@ -843,6 +889,7 @@ function readCSV(file){
         cond:(iE>=0?r[iE]:'Near Mint').trim()||'Near Mint', badge:(iB>=0?r[iB]:'').trim(),
         stock: iS>=0 ? Math.max(0,Number((r[iS]||'').replace(/[^\d]/g,''))||0) : 1 };
       if(imgUrl){ it.img = imgUrl; withImg++; } else { it.emoji = emojiByCat[cat]||"🎴"; }
+      it._new = 1;
       items.push(it); added++;
     });
     save(); $('#csvHint').innerHTML='<span class="ok">Importadas '+added+' filas'+(withImg?(' ('+withImg+' con imagen por link)'):'')+'.</span> A las que no tengan link, agregales foto desde la izquierda si querés.';
@@ -860,17 +907,15 @@ $('#importJsonBtn').onclick=()=>$('#jsonFile').click();
 $('#jsonFile').onchange=()=>{
   const file=$('#jsonFile').files[0]; if(!file)return;
   const r=new FileReader();
-  r.onload=()=>{ try{ const data=JSON.parse(r.result); if(Array.isArray(data)){ items=data.map((p,i)=>({id:p.id??i+1,...p})); nextId=items.reduce((m,p)=>Math.max(m,p.id||0),0)+1; save(); toast('Catálogo cargado'); } }catch(e){ toast('JSON inválido'); } };
+  r.onload=()=>{ try{ const data=JSON.parse(r.result); if(Array.isArray(data)){ items=data.map((p,i)=>({id:p.id??i+1,...p,_dirty:1})); nextId=items.reduce((m,p)=>Math.max(m,p.id||0),0)+1; deletedIds=[]; saveDeleted(); pending={}; savePending(); save(); toast('Catálogo cargado (sin publicar)'); } }catch(e){ toast('JSON inválido'); } };
   r.readAsText(file);
 };
 
-/* ====== Vaciar ====== */
-$('#clearAll').onclick=()=>{ if(confirm('¿Borrar todo el inventario del panel?')){ items=[]; nextId=1; save(); } };
-
-/* ====== Exportar ====== */
+/* ====== Exportar (sin los _flags internos del panel) ====== */
+const SIN_FLAGS = (k,v)=> (k && k[0]==='_') ? undefined : v;
 $('#exportBtn').onclick=()=>{
   if(!items.length){ toast('No hay nada que exportar'); return; }
-  download('productos.json', JSON.stringify(items,null,2), 'application/json');
+  download('productos.json', JSON.stringify(items,SIN_FLAGS,2), 'application/json');
   toast('productos.json descargado');
 };
 function download(name, content, type){
@@ -890,10 +935,17 @@ function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
 async function publishToStore(){
   const token = ghInput.value.trim();
   localStorage.setItem('reroll_gh_token', token);
-  if(!token){ pubStatus('Pegá tu token de GitHub en la sección "Publicar".', false); toast('Falta el token de GitHub'); $('#ghToken').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  if(!token){ pubStatus('Pegá tu token de GitHub aquí en Configuración.', false); toast('Falta el token de GitHub'); openSection('#cfgToggle','#cfgBody'); $('#ghToken').scrollIntoView({behavior:'smooth',block:'center'}); return; }
   if(!items.length){ pubStatus('No hay productos para publicar.', false); toast('Inventario vacío'); return; }
+  // si quedaron números escritos sin confirmar (✓), ofrecé aplicarlos en el mismo paso
+  const nPend = Object.keys(pending).length;
+  if(nPend){
+    if(!confirm(`Tenés ${nPend} número(s) escritos sin confirmar (✓).\n¿Confirmarlos y publicar todo junto?`)) return;
+    commitAllPending();
+  }
   // confirmación: esto actualiza la tienda EN VIVO
-  if(!confirm(`¿Publicar ${items.length} cartas a la tienda en vivo?\nLa tienda se actualiza sola en ~1 minuto.`)) return;
+  const nd = dirtyCount();
+  if(!confirm(`¿Publicar a la tienda en vivo?\n${nd ? nd+' cambio(s) tuyos · ' : ''}${items.length} cartas en total.\nLa tienda se actualiza sola en ~1 minuto.`)) return;
   const btns=[$('#publishBtn'),$('#stickyPublish')].filter(Boolean); btns.forEach(b=>b.disabled=true);
   const H = { Authorization:'Bearer '+token, Accept:'application/vnd.github+json' };
   const base = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
@@ -904,19 +956,23 @@ async function publishToStore(){
     if(g.ok){ sha = (await g.json()).sha; }
     else if(g.status!==404){ throw new Error(g.status===401?'Token inválido o sin permiso.':'GitHub respondió '+g.status); }
     pubStatus('Subiendo tu inventario…');
-    const body = { message:'Actualizar inventario desde el panel', content: toB64(JSON.stringify(items,null,2)), branch: GH_BRANCH };
+    const body = { message:'Actualizar inventario desde el panel', content: toB64(JSON.stringify(items,SIN_FLAGS,2)), branch: GH_BRANCH };
     if(sha) body.sha = sha;
     const p = await fetch(base, { method:'PUT', headers:{...H,'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if(!p.ok){
       const e = await p.json().catch(()=>({}));
       throw new Error(p.status===403||p.status===401 ? 'El token no tiene permiso de escritura (Contents: Read and write).' : ('GitHub: '+(e.message||p.status)));
     }
+    // publicado: los cambios locales ya están en la tienda → limpiar el contador
+    items.forEach(p2=>{ delete p2._dirty; delete p2._new; });
+    deletedIds = []; saveDeleted();
+    save();
     pubStatus('✅ ¡Publicado! Tu tienda se actualiza sola en ~1 minuto.', true);
     toast('¡Publicado! 🎉');
   }catch(err){ pubStatus('Error: '+err.message, false); toast('Error al publicar'); }
   finally{ btns.forEach(b=>b.disabled=false); }
 }
-$('#publishBtn').onclick = publishToStore;
+/* (el único botón de publicar es el de la barra fija de abajo) */
 
 /* ====== Helpers de stock / valor ====== */
 function stockNum(p){ const s=p.stock; return (s===undefined||s===null||s==='')?1:Number(s||0); }
@@ -1005,36 +1061,45 @@ function render(){
       : `<div class="acts"><button class="e" title="Editar">✎</button><button class="x" title="Quitar">✕</button></div>`;
     el.innerHTML = `${media}
       <div class="meta">
-        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}${isPending?'<span class="pend-badge">cambio</span>':''}</div>
+        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}${isPending?'<span class="pend-badge">cambio</span>':''}${(p._dirty||p._new)&&!isPending?'<span class="dirty-dot" title="Cambio sin publicar"></span>':''}</div>
         <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}${foilTxt}</div>
         ${noImg?'<button class="putimg" type="button">📷 Poner imagen</button>':''}
       </div>
       ${stkBlock}
       <div class="pr">${fmt(p.price)}</div>
       ${actsHtml}`;
-    // los +/− NO guardan: marcan un cambio pendiente para esta carta
-    const markPending=(field,val)=>{ if(!pending[p.id]) pending[p.id]={}; pending[p.id][field]=val; render(); };
-    el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); markPending('stock', Math.max(0,cur+Number(b.dataset.d))); });
+    // los +/− aplican AL INSTANTE (un click deliberado no es accidente);
+    // escribir un número a mano sí pide confirmar (✓) — ahí pasaban los ceros sin querer.
+    const stepNow=(field,delta)=>{
+      const cur = field==='stock' ? (s===null?0:s) : (sf===null?0:sf);   // parte del valor visible
+      if(pending[p.id]){ delete pending[p.id][field]; if(!Object.keys(pending[p.id]).length) delete pending[p.id]; savePending(); }
+      p[field] = Math.max(0, cur+delta);
+      markDirty(p); save();
+    };
+    const markPending=(field,val)=>{ if(!pending[p.id]) pending[p.id]={}; pending[p.id][field]=val; savePending(); render(); };
+    el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=> stepNow('stock', Number(b.dataset.d)));
     el.querySelector('.stk__i').onchange=(ev)=> markPending('stock', ev.target.value===''?null:Math.max(0,Math.floor(Number(ev.target.value)||0)));
     if(hasFoil){
-      el.querySelectorAll('.stkf__b').forEach(b=> b.onclick=()=>{ const cur=(sf===null?0:sf); markPending('stockf', Math.max(0,cur+Number(b.dataset.d))); });
+      el.querySelectorAll('.stkf__b').forEach(b=> b.onclick=()=> stepNow('stockf', Number(b.dataset.d)));
       el.querySelector('.stkf__i').onchange=(ev)=> markPending('stockf', ev.target.value===''?null:Math.max(0,Math.floor(Number(ev.target.value)||0)));
     }
     const putimg=el.querySelector('.putimg');
     if(putimg) putimg.onclick=()=>{ editItem(p.id); const f=$('#imgUrl'); if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{ try{ f.focus(); }catch(e){} },350); } };
     if(isPending){
       el.querySelector('.ap').onclick=()=> commitOne(p.id);
-      el.querySelector('.cx').onclick=()=>{ delete pending[p.id]; render(); };
+      el.querySelector('.cx').onclick=()=>{ delete pending[p.id]; savePending(); render(); };
     } else {
       el.querySelector('.e').onclick=()=> editItem(p.id);
       el.querySelector('.x').onclick=()=>{
         if(!confirm(`⚠️ Cuidado: vas a borrar “${p.name}”.\nEsta carta desaparecerá de la base de datos.\n\n¿Seguro que la querés borrar?`)) return;
         if(p.id===editingId) exitEdit();
-        delete pending[p.id];
+        delete pending[p.id]; savePending();
         const idx = items.findIndex(x=>x.id===p.id);
         const removed = items[idx];
+        const eraNueva = !!removed._new;
+        if(!eraNueva){ deletedIds.push(p.id); saveDeleted(); }   // para que el sync no la resucite
         items = items.filter(x=>x.id!==p.id); save();
-        toastUndo(`Quité “${p.name}”`, ()=>{ items.splice(idx,0,removed); save(); toast('Restaurado'); });
+        toastUndo(`Quité “${p.name}”`, ()=>{ items.splice(idx,0,removed); if(!eraNueva){ deletedIds=deletedIds.filter(x=>x!==p.id); saveDeleted(); } save(); toast('Restaurado'); });
       };
     }
     wrap.appendChild(el);
@@ -1047,8 +1112,14 @@ function updatePendBar(){
   const c=$('#pendCount'); if(c) c.textContent=n;
 }
 
-/* ====== Barra fija ====== */
-function updateStickyBar(){ const el=$('#stickyVal'); if(!el) return; el.innerHTML = items.length ? (fmt(invTotalValue())+' <small>'+items.length+' cartas · '+fmt(salesTotal())+' vendido</small>') : 'Inventario vacío'; }
+/* ====== Barra fija + contador de cambios sin publicar ====== */
+function updateStickyBar(){ const el=$('#stickyVal'); if(el) el.innerHTML = items.length ? (fmt(invTotalValue())+' <small>'+items.length+' cartas · '+fmt(salesTotal())+' vendido</small>') : 'Inventario vacío'; updateDirtyUI(); }
+function updateDirtyUI(){
+  const n = dirtyCount();
+  const chip=$('#dirtyChip'); if(chip){ chip.hidden=!n; const dn=$('#dirtyN'); if(dn) dn.textContent=n; }
+  const pb=$('#stickyPublish'); if(pb) pb.textContent = n ? ('🚀 Publicar '+n+' cambio'+(n===1?'':'s')) : '🚀 Publicar';
+  const bar=$('#dirtyBar'); if(bar){ bar.style.display = n ? '' : 'none'; const bn=$('#dirtyBarN'); if(bn) bn.textContent=n; }
+}
 
 /* ====== VENTAS / CAJA ====== */
 function salesTotal(){ return sales.reduce((s,v)=> s + Number(v.price||0)*Number(v.qty||1), 0); }
@@ -1064,6 +1135,7 @@ function updateSalesStats(){
   if(info) info.textContent = (salesFrom||salesTo)
     ? `Mostrando ${rs.length} venta(s) del período ${salesFrom||'inicio'} → ${salesTo||'hoy'} · ${fmt(sold)}.`
     : 'Mostrando todas las ventas (todo el historial).';
+  const ss=$('#salesSub'); if(ss) ss.textContent = sales.length ? (fmt(salesTotal())+' vendido en total · '+sales.length+' venta(s)') : 'Registrá ventas y mirá cuánto llevás.';
 }
 function refreshInvNames(){ const dl=$('#invNames'); if(!dl) return; const names=[...new Set(items.map(p=>p.name).filter(Boolean))]; dl.innerHTML=names.map(n=>`<option value="${String(n).replace(/"/g,'&quot;')}"></option>`).join(''); }
 function recalcSaleTotal(){ const q=Number($('#sqty').value||0), pr=Number($('#sprice').value||0); $('#stotal').value=fmt(q*pr); }
@@ -1125,13 +1197,13 @@ $('#bulkApply').onclick=()=>{
   const v=Math.max(0,Math.floor(Number(raw)||0));
   if(!confirm('¿Poner stock '+v+' a las '+list.length+' cartas filtradas?')) return;
   const ids=new Set(list.map(p=>p.id));
-  items.forEach(p=>{ if(ids.has(p.id)) p.stock=v; });
+  items.forEach(p=>{ if(ids.has(p.id)){ p.stock=v; markDirty(p); } });
   save(); toast('Stock '+v+' aplicado a '+list.length);
 };
 $('#bulkZeroAll').onclick=()=>{
   if(!items.length) return;
   if(!confirm('¿Poner en 0 el stock de TODAS las '+items.length+' cartas? (después subís solo lo que tenés)')) return;
-  items.forEach(p=> p.stock=0);
+  items.forEach(p=>{ p.stock=0; markDirty(p); });
   save(); toast('Todo el inventario en 0');
 };
 
@@ -1153,7 +1225,7 @@ $('#saleForm').addEventListener('submit', e=>{
     sales.push({ id:nextSaleId++, name, qty, price, date, channel });
     if($('#sdeduct').checked){
       const it=items.find(p=>(p.name||'').toLowerCase()===name.toLowerCase());
-      if(it){ const cur=(it.stock===undefined||it.stock===null||it.stock==='')?null:Number(it.stock); if(cur!==null){ it.stock=Math.max(0,cur-qty); save(); } }
+      if(it){ const cur=(it.stock===undefined||it.stock===null||it.stock==='')?null:Number(it.stock); if(cur!==null){ it.stock=Math.max(0,cur-qty); markDirty(it); save(); } }
     }
     e.target.reset(); $('#sdate').value=new Date().toISOString().slice(0,10); $('#stotal').value='';
     saveSales(); toast('Venta registrada 🧾');
@@ -1170,7 +1242,6 @@ $('#sAll').onclick=()=>{ salesFrom=''; salesTo=''; $('#sFrom').value=''; $('#sTo
 $('#salesExport').onclick=()=>{ if(!sales.length){ toast('No hay ventas'); return; } download('reroll-ventas.json', JSON.stringify(sales,null,2), 'application/json'); toast('Backup de ventas descargado'); };
 $('#salesImportBtn').onclick=()=>$('#salesFile').click();
 $('#salesFile').onchange=()=>{ const file=$('#salesFile').files[0]; if(!file)return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(Array.isArray(d)){ sales=d.map((s,i)=>({id:s.id??i+1,...s})); nextSaleId=sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1; saveSales(); toast('Ventas importadas ('+sales.length+')'); } else toast('Formato inesperado'); }catch(err){ toast('JSON inválido'); } }; r.readAsText(file); };
-$('#salesClear').onclick=()=>{ if(confirm('¿Borrar TODO el historial de ventas? (descargá un backup primero)')){ sales=[]; nextSaleId=1; saveSales(); } };
 
 $('#stickyDownload').onclick=()=>$('#exportBtn').click();
 $('#stickyPublish').onclick=()=>publishToStore();
@@ -1180,8 +1251,10 @@ $('#sdate').value=new Date().toISOString().slice(0,10);
 render();
 renderSales();
 
-/* ====== Cargar / fusionar el inventario publicado en la tienda ====== */
-function reindex(){ items.forEach((p,i)=> p.id = i+1); nextId = items.length+1; }
+/* ====== Cargar el inventario publicado — SIN pisar tus cambios sin publicar ======
+   Regla: la tienda es la base, pero cualquier carta tuya con _dirty/_new y las
+   borradas (deletedIds) se conservan encima. El cruce es por ID (ya no por nombre,
+   que descartaba cartas repetidas). Nunca se reasignan ids existentes. */
 async function syncFromStore(announce){
   const hint = $('#syncHint');
   try{
@@ -1189,34 +1262,69 @@ async function syncFromStore(announce){
     if(!r.ok) throw new Error('no se pudo leer la tienda');
     const live = await r.json();
     if(!Array.isArray(live)) throw new Error('formato inesperado');
-    // fusionar: empezamos con lo de la tienda + agregamos lo local que no esté
-    const seen = new Set(live.map(p=>(p.name||'').toLowerCase()));
-    const merged = [...live];
-    items.forEach(p=>{ if(!seen.has((p.name||'').toLowerCase())) merged.push(p); });
-    items = merged; reindex(); save();
-    if(hint) hint.textContent = `Cargado: ${items.length} producto(s) de tu tienda.`;
-    const tag=$('#dbSyncTag'); if(tag){ tag.textContent=' · ✅ cargada de la tienda'; tag.style.color='#9FE1CB'; }
-    if(announce) toast('Inventario cargado ('+items.length+')');
+    const nDirty = dirtyCount();
+    if(!nDirty){
+      items = live;                        // sin cambios locales: la tienda manda
+    } else {
+      const del = new Set(deletedIds);
+      const editById = new Map(items.filter(p=>p._dirty && !p._new).map(p=>[p.id,p]));
+      const liveIds = new Set(live.map(p=>p.id));
+      const merged = live.filter(p=>!del.has(p.id)).map(p=> editById.get(p.id) || p);
+      // ediciones tuyas de cartas que ya no están en la tienda: se conservan igual
+      items.filter(p=>p._dirty && !p._new && !liveIds.has(p.id)).forEach(p=> merged.push(p));
+      // cartas NUEVAS tuyas al final, con id fresco para no chocar con la tienda
+      let mx = merged.reduce((m,p)=>Math.max(m,p.id||0),0);
+      items.filter(p=>p._new).forEach(p=>{ p.id=++mx; merged.push(p); });
+      items = merged;
+    }
+    nextId = items.reduce((m,p)=>Math.max(m,p.id||0),0)+1;
+    save();
+    if(hint) hint.textContent = nDirty
+      ? `Cargado de la tienda · se conservaron tus ${nDirty} cambio(s) sin publicar.`
+      : `Cargado: ${items.length} producto(s) de tu tienda.`;
+    const tag=$('#dbSyncTag'); if(tag){
+      tag.textContent = nDirty ? (' · ✅ cargada — '+nDirty+' sin publicar') : ' · ✅ cargada de la tienda';
+      tag.style.color = nDirty ? 'var(--gold-bright)' : '#9FE1CB';
+    }
+    if(announce) toast(nDirty ? ('Cargado · tus '+nDirty+' cambio(s) siguen ahí') : ('Inventario cargado ('+items.length+')'));
   }catch(e){
     if(hint) hint.textContent = 'No se pudo cargar el inventario de la tienda (se usa el local).';
     const tag=$('#dbSyncTag'); if(tag){ tag.textContent=' · ⚠️ no cargó — no publiqués'; tag.style.color='#F09595'; }
   }
 }
 $('#syncStore').onclick = ()=> syncFromStore(true);
+/* descartar los cambios locales y volver a lo publicado (el botón de la barrita 📝) */
+$('#dirtyDiscard').onclick = ()=>{
+  const n = dirtyCount(); if(!n) return;
+  if(!confirm('¿Descartar tus '+n+' cambio(s) sin publicar y volver a lo que está en la tienda?')) return;
+  items = items.filter(p=>!p._new);
+  items.forEach(p=>{ delete p._dirty; });
+  deletedIds=[]; saveDeleted(); pending={}; savePending();
+  syncFromStore(true);
+};
 
-/* ====== Base de datos plegable ====== */
-(function(){
-  const tg=$('#dbToggle'), body=$('#dbBody'), arrow=$('#dbArrow');
+/* ====== Secciones plegables (acordeón uniforme) ====== */
+function wireToggle(tgSel, bodySel, arrowSel, onOpen){
+  const tg=$(tgSel), body=$(bodySel), arrow=$(arrowSel);
   if(!tg||!body) return;
   tg.addEventListener('click', ()=>{
     const opening = body.hasAttribute('hidden');
-    if(opening){ body.removeAttribute('hidden'); } else { body.setAttribute('hidden',''); }
+    if(opening){ body.removeAttribute('hidden'); if(onOpen) onOpen(); } else { body.setAttribute('hidden',''); }
     tg.setAttribute('aria-expanded', opening ? 'true' : 'false');
     if(arrow) arrow.textContent = opening ? '▴' : '▾';
   });
+}
+function openSection(tgSel, bodySel){ const body=$(bodySel); if(body && body.hasAttribute('hidden')) $(tgSel).click(); }
+wireToggle('#dbToggle','#dbBody','#dbArrow');
+wireToggle('#addToggle','#addBody','#addArrow');
+wireToggle('#salesToggle','#salesBody','#salesArrow');
+wireToggle('#cfgToggle','#cfgBody','#cfgArrow');
+/* orden del panel según el flujo real: Pedidos → Base de datos → Agregar → Ventas → Config */
+(function(){ const w=document.querySelector('.wrap'); if(!w) return;
+  ['pedPanel','invPanel','addPanel','salesPanel','cfgPanel'].forEach(id=>{ const el=document.getElementById(id); if(el) w.appendChild(el); });
 })();
 
-syncFromStore(false);   // al abrir, cargar lo publicado
+syncFromStore(false);   // al abrir, cargar lo publicado (conservando lo tuyo)
 
 /* ====== 📦 PEDIDOS de la tienda (reservas 48 h vía api/) ====== */
 let PEDKEY = localStorage.getItem('reroll_pedkey') || '';
@@ -1341,14 +1449,7 @@ async function pedConfirmar(id){
   }
 }
 (function(){
-  const tg=$('#pedToggle'), body=$('#pedBody'), arrow=$('#pedArrow');
-  if(!tg||!body) return;
-  tg.addEventListener('click', ()=>{
-    const opening = body.hasAttribute('hidden');
-    if(opening){ body.removeAttribute('hidden'); loadPedidos(); } else { body.setAttribute('hidden',''); }
-    tg.setAttribute('aria-expanded', opening?'true':'false');
-    if(arrow) arrow.textContent = opening ? '▴' : '▾';
-  });
+  wireToggle('#pedToggle','#pedBody','#pedArrow', loadPedidos);
   $('#pedRefresh').onclick=loadPedidos;
   $('#pedKeySave').onclick=()=>{ PEDKEY=$('#pedKey').value.trim(); if(!PEDKEY){ toast('Escribí la clave'); return; } localStorage.setItem('reroll_pedkey',PEDKEY); loadPedidos(); };
   loadPedidos();   // al abrir el panel: badge con pendientes
@@ -1397,6 +1498,7 @@ async function pedConfirmar(id){
   function open(){ ov.classList.add('open'); document.body.style.overflow='hidden'; loadGame(); setTimeout(()=>search.focus(),50); }
   function close(){ ov.classList.remove('open'); document.body.style.overflow=''; }
   $('#openCatalog').onclick=open; $('#catClose').onclick=close;
+  const oc2=$('#openCatalog2'); if(oc2) oc2.onclick=open;   // acceso rápido desde la Base de datos
   ov.addEventListener('click',e=>{ if(e.target===ov) close(); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&ov.classList.contains('open')) close(); });
 
@@ -1479,11 +1581,11 @@ async function pedConfirmar(id){
   }
   function setQty(e, q){
     let it=invMatch(e);
-    if(q<=0){ if(it){ items=items.filter(x=>x!==it); } }
-    else if(it){ it.stock=q; }
+    if(q<=0){ if(it){ if(!it._new){ deletedIds.push(it.id); saveDeleted(); } items=items.filter(x=>x!==it); } }
+    else if(it){ it.stock=q; markDirty(it); }
     else {
       it={ id:nextId++, name:e.name, cat:e.game, type:e.type||'single', set:e.set,
-           price:e.price, cond:'Near Mint', stock:q, img:e.img };
+           price:e.price, cond:'Near Mint', stock:q, img:e.img, _new:1 };
       if(e.foil!=null) it.foil=e.foil;
       const rd = richCache[gameSel.value] && richCache[gameSel.value][e.img];
       if(rd) it.d = { fx: cleanAbility(rd.ability_text||''), at: buildAttrs(rd, e.game) };  // quick-view
