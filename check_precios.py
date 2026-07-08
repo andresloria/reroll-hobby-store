@@ -195,8 +195,8 @@ def main():
     bajadas = sorted([r for r in bajadas if big(r)], key=keyfn)
 
     # ---- reporte legible (agrupado por juego) ----
-    def pct(r):
-        return f"+{round((r['new']-r['old'])/r['old']*100)}%" if r["old"] else "—"
+    HOT = 25  # 🔥 = subió más de este % (foil o normal)
+    def pctnum(r): return (r["new"] - r["old"]) / r["old"] * 100 if r["old"] else 0
     def section(title, rows, up):
         if not rows: return []
         out = [f"## {title}", ""]
@@ -208,18 +208,24 @@ def main():
                     "|---|---|---|---|--:|--:|--:|"]
             for r in grp:
                 tipo = "**✨ Foil**" if r["campo"] == "foil" else "Normal"
-                dif = (f"+₡{r['new']-r['old']:,} ({pct(r)})" if up else f"-₡{r['old']-r['new']:,}")
+                if up:
+                    fire = "🔥 " if pctnum(r) > HOT else ""
+                    dif = f"{fire}+₡{r['new']-r['old']:,} (+{round(pctnum(r))}%)"
+                else:
+                    dif = f"-₡{r['old']-r['new']:,}"
                 out.append(f"| {r['id']} | {r['name']} | {tipo} | {r['set']} | "
                            f"₡{r['old']:,} | ₡{r['new']:,} | {dif} |")
             out.append("")
         return out
     showcase = [(it, mot) for it, mot in sincruce if mot == "showcase-premium"]
     otras    = [(it, mot) for it, mot in sincruce if mot != "showcase-premium"]
+    hot_n = sum(1 for r in subidas if pctnum(r) > HOT)
     lines = ["# Reporte de precios — Reroll vs TCGplayer",
              f"_Generado: {time.strftime('%Y-%m-%d %H:%M')} · tipo de cambio ₡{RATE}/USD_", "",
-             f"- **{len(subidas)} subieron** · {len(bajadas)} bajaron · "
+             f"- **{len(subidas)} subieron** ({hot_n} con 🔥 = +{HOT}%) · {len(bajadas)} bajaron · "
              f"{len(showcase)} Showcase premium (tasar a mano) · {len(otras)} otras sin cruce · "
-             f"{len(sinprecio)} sin precio de referencia", ""]
+             f"{len(sinprecio)} sin precio de referencia",
+             f"_🔥 = subió más de {HOT}% · **✨ Foil** = variante foil_", ""]
     lines += section("⬆️ Subieron (revisar para actualizar)", subidas, True)
     lines += section("⬇️ Bajaron (opcional, para no quedar caro)", bajadas, False)
     if showcase:
@@ -247,10 +253,15 @@ def main():
     import csv
     with open(os.path.join(ROOT, "reporte_precios.csv"), "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
-        w.writerow(["id", "carta", "juego", "tipo", "set", "precio_actual", "precio_tcgplayer", "diferencia", "estado"])
+        w.writerow(["id", "carta", "juego", "tipo", "set", "precio_actual", "precio_tcgplayer",
+                    "diferencia", "pct", "salto_fuerte", "estado"])
         def tipo(r): return "Foil" if r["campo"] == "foil" else "Normal"
-        for r in subidas: w.writerow([r["id"], r["name"], r["cat"], tipo(r), r["set"], r["old"], r["new"], r["new"]-r["old"], "subio"])
-        for r in bajadas: w.writerow([r["id"], r["name"], r["cat"], tipo(r), r["set"], r["old"], r["new"], r["new"]-r["old"], "bajo"])
+        for r in subidas:
+            w.writerow([r["id"], r["name"], r["cat"], tipo(r), r["set"], r["old"], r["new"],
+                        r["new"]-r["old"], round(pctnum(r)), ("SI" if pctnum(r) > HOT else ""), "subio"])
+        for r in bajadas:
+            w.writerow([r["id"], r["name"], r["cat"], tipo(r), r["set"], r["old"], r["new"],
+                        r["new"]-r["old"], round(pctnum(r)), "", "bajo"])
 
     print("\n=== RESUMEN ===")
     print(f"  Subieron: {len(subidas)}   Bajaron: {len(bajadas)}   "
@@ -258,9 +269,9 @@ def main():
     if subidas:
         print("  Top subidas:")
         for r in subidas[:10]:
-            tag = " [FOIL]" if r["campo"] == "foil" else ""
-            print(f"    #{r['id']} {r['name'][:30]:30}{tag:7} {r['set'][:16]:16} "
-                  f"{r['old']:>7} -> {r['new']:>7}  (+{r['new']-r['old']})")
+            tag = ("F" if r["campo"] == "foil" else "") + ("!" if pctnum(r) > HOT else "")
+            print(f"    #{r['id']} {r['name'][:30]:30} {tag:3} {r['set'][:16]:16} "
+                  f"{r['old']:>7} -> {r['new']:>7}  (+{r['new']-r['old']}, +{round(pctnum(r))}%)")
     print("  Reporte: reporte_precios.md  /  reporte_precios.csv")
 
     # ---- aplicar (opcional, con backup, NUNCA push) ----
