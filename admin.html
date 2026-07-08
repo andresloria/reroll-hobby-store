@@ -163,6 +163,16 @@
   .stk__i:focus{box-shadow:none}
   .stk--out{border-color:rgba(180,60,70,.6)}
   .stk--out .stk__i{color:#e9a3ab}
+  /* columna con stepper normal + stepper foil apilados */
+  .stkcol{display:flex;flex-direction:column;gap:5px;flex-shrink:0}
+  .stkrow{display:flex;align-items:center;gap:7px}
+  .stklab{font-size:.6rem;color:var(--muted);width:38px;text-align:right;letter-spacing:.02em;text-transform:uppercase}
+  .stklab--f{color:var(--gold-bright)}
+  .stkf__b{width:30px;height:32px;border:none;background:rgba(201,162,75,.1);color:var(--gold-bright);font-size:1.1rem;line-height:1;cursor:pointer}
+  .stkf__b:hover{background:rgba(201,162,75,.22)}
+  .stkf{border-color:rgba(201,162,75,.45)}
+  .stkf__i{width:46px;height:32px;margin:0;border:none;border-left:1px solid rgba(201,162,75,.35);border-right:1px solid rgba(201,162,75,.35);border-radius:0;background:transparent;color:var(--gold-bright);text-align:center;font-size:.9rem;padding:0}
+  .stkf__i:focus{box-shadow:none}
   /* barra de acciones masivas + resumen */
   .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
   .bulksum{font-size:.86rem;color:var(--muted)}
@@ -308,6 +318,9 @@
           </label>
           <label id="foilPriceWrap" style="display:none">Precio foil (₡)
             <input name="foilPrice" id="foilPrice" type="number" min="0" placeholder="Ej: 600" />
+          </label>
+          <label id="foilStockWrap" style="display:none">Cantidad foil
+            <input name="foilStock" id="foilStock" type="number" min="0" value="1" />
           </label>
         </div>
         <label>Etiqueta <span style="text-transform:none;letter-spacing:0">(opcional — sale como insignia, ej. Destacada, Rara)</span>
@@ -620,8 +633,9 @@ imgUrlInput.addEventListener('input', ()=>{
 });
 $('#clearPhoto').onclick = ()=>{ pendingImg=null; $('#prev').style.display='none'; photo.value=''; imgUrlInput.value=''; $('#addHint').textContent=''; };
 
-/* ====== Foil: mostrar/ocultar el precio según la casilla ====== */
-$('#foilOn').addEventListener('change', e=>{ $('#foilPriceWrap').style.display = e.target.checked ? '' : 'none'; if(e.target.checked) $('#foilPrice').focus(); });
+/* ====== Foil: mostrar/ocultar precio + cantidad según la casilla ====== */
+function foilFields(on){ $('#foilPriceWrap').style.display = on?'':'none'; $('#foilStockWrap').style.display = on?'':'none'; }
+$('#foilOn').addEventListener('change', e=>{ foilFields(e.target.checked); if(e.target.checked) $('#foilPrice').focus(); });
 
 /* ====== Agregar / Editar ====== */
 let editingId = null;
@@ -631,7 +645,7 @@ function exitEdit(){
   $('#submitBtn').textContent = '+ Agregar al inventario';
   $('#cancelEdit').style.display = 'none';
   pendingImg = null; $('#prev').style.display='none'; $('#addForm').reset(); photo.value='';
-  $('#foilPriceWrap').style.display='none';
+  foilFields(false);
   render();
 }
 $('#addForm').addEventListener('submit', e=>{
@@ -650,15 +664,16 @@ $('#addForm').addEventListener('submit', e=>{
   // foil (opcional): solo si la casilla está tildada y hay precio
   const foilOn = !!f.get('foilOn');
   const foilPrice = Math.max(0, Number(f.get('foilPrice')||0));
+  const foilStock = Math.max(0, Number(f.get('foilStock')||0));
   const hasFoil = foilOn && foilPrice>0;
-  if(hasFoil) data.foil = foilPrice;
+  if(hasFoil){ data.foil = foilPrice; data.stockf = foilStock; }   // stock foil aparte del normal
   // imagen: foto subida (base64) o link pegado (URL). El link gana si está presente.
   const img = pendingImg || (f.get('imgUrl')||'').trim();
   if(editingId !== null){
     const it = items.find(p=>p.id===editingId);
     if(it){
       Object.assign(it, data);
-      if(!hasFoil) delete it.foil;              // destildar quita el foil
+      if(!hasFoil){ delete it.foil; delete it.stockf; }   // destildar quita el foil y su stock
       if(img){ it.img = img; delete it.emoji; }
       else if(!it.img){ it.emoji = emojiByCat[it.cat]||"🎴"; }
       toast('Actualizado: '+it.name);
@@ -669,7 +684,7 @@ $('#addForm').addEventListener('submit', e=>{
     if(img) it.img = img; else it.emoji = emojiByCat[it.cat]||"🎴";
     items.push(it);
     pendingImg=null; $('#prev').style.display='none'; e.target.reset(); photo.value='';
-    $('#foilPriceWrap').style.display='none';
+    foilFields(false);
     save(); toast('Agregado: '+it.name);
   }
 });
@@ -688,7 +703,8 @@ function editItem(id){
   const hf = p.foil!=null && p.foil!=='';
   fm.foilOn.checked = hf;
   fm.foilPrice.value = hf ? p.foil : '';
-  $('#foilPriceWrap').style.display = hf ? '' : 'none';
+  fm.foilStock.value = hf ? ((p.stockf==null||p.stockf==='') ? 1 : p.stockf) : 1;
+  foilFields(hf);
   if(p.img){
     pendingImg = p.img; $('#prevImg').src = p.img; $('#prev').style.display='flex';
     $('#imgUrl').value = /^https?:/i.test(p.img) ? p.img : '';   // muestra el link si lo es
@@ -851,6 +867,7 @@ function populateInvFilters(){
 
 /* ====== Render inventario (filtros + paginación) ====== */
 function admStock(p){ const s=p.stock; return (s===undefined||s===null||s==='')?null:Number(s); }
+function admStockF(p){ const s=p.stockf; return (s===undefined||s===null||s==='')?null:Number(s); }
 function render(){
   const wrap=$('#items');
   $('#count').textContent = items.length;
@@ -877,19 +894,32 @@ function render(){
     const noImg = !p.img;
     const media = p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : `<div class="noimgp"><span>Sin imagen</span></div>`;
     const s = admStock(p);
+    const sf = admStockF(p);
+    const hasFoil = p.foil!=null;
     const setTxt = p.set ? esc(p.set)+' · ' : '';
     const condTxt = p.type==='sealed' ? 'Sellado' : esc(p.cond||'');
-    el.innerHTML = `${media}
-      <div class="meta">
-        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}</div>
-        <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}${p.foil!=null?' · <span style="color:var(--gold-bright)">✨ Foil '+fmt(p.foil)+'</span>':''}</div>
-        ${noImg?'<button class="putimg" type="button">📷 Poner imagen</button>':''}
-      </div>
-      <div class="stk${s!==null&&s<=0?' stk--out':''}" title="Stock disponible">
+    const foilTxt = hasFoil ? (' · <span style="color:var(--gold-bright)">✨ Foil '+fmt(p.foil)+(sf!=null?(' · '+sf+' en stock'):'')+'</span>') : '';
+    const normStk = `<div class="stk${s!==null&&s<=0?' stk--out':''}" title="Stock disponible">
         <button class="stk__b" data-d="-1" aria-label="Menos">−</button>
         <input class="stk__i" type="number" min="0" value="${s===null?'':s}" placeholder="∞" />
         <button class="stk__b" data-d="1" aria-label="Más">+</button>
+      </div>`;
+    const foilStk = !hasFoil ? '' : `<div class="stk stkf${sf!==null&&sf<=0?' stk--out':''}" title="Stock foil">
+        <button class="stkf__b" data-d="-1" aria-label="Menos foil">−</button>
+        <input class="stkf__i" type="number" min="0" value="${sf===null?'':sf}" placeholder="∞" />
+        <button class="stkf__b" data-d="1" aria-label="Más foil">+</button>
+      </div>`;
+    const stkBlock = !hasFoil ? normStk : `<div class="stkcol">
+        <div class="stkrow"><span class="stklab">stock</span>${normStk}</div>
+        <div class="stkrow"><span class="stklab stklab--f">✨ foil</span>${foilStk}</div>
+      </div>`;
+    el.innerHTML = `${media}
+      <div class="meta">
+        <div class="nm">${esc(p.name)}${noImg?'<span class="noimg-badge">sin imagen</span>':''}</div>
+        <div class="sm">${esc(p.cat)} · ${setTxt}${condTxt}${p.badge?' · '+esc(p.badge):''}${foilTxt}</div>
+        ${noImg?'<button class="putimg" type="button">📷 Poner imagen</button>':''}
       </div>
+      ${stkBlock}
       <div class="pr">${fmt(p.price)}</div>
       <div class="acts">
         <button class="e" title="Editar">✎</button>
@@ -898,6 +928,11 @@ function render(){
     const setStockTo=(v)=>{ const it=items.find(x=>x.id===p.id); if(!it) return; if(v===null) delete it.stock; else it.stock=Math.max(0,Math.floor(Number(v)||0)); save(); };
     el.querySelectorAll('.stk__b').forEach(b=> b.onclick=()=>{ const cur=(s===null?0:s); setStockTo(Math.max(0,cur+Number(b.dataset.d))); });
     el.querySelector('.stk__i').onchange=(ev)=> setStockTo(ev.target.value===''?null:ev.target.value);
+    if(hasFoil){
+      const setFoilTo=(v)=>{ const it=items.find(x=>x.id===p.id); if(!it) return; if(v===null) delete it.stockf; else it.stockf=Math.max(0,Math.floor(Number(v)||0)); save(); };
+      el.querySelectorAll('.stkf__b').forEach(b=> b.onclick=()=>{ const cur=(sf===null?0:sf); setFoilTo(Math.max(0,cur+Number(b.dataset.d))); });
+      el.querySelector('.stkf__i').onchange=(ev)=> setFoilTo(ev.target.value===''?null:ev.target.value);
+    }
     el.querySelector('.e').onclick=()=> editItem(p.id);
     const putimg=el.querySelector('.putimg');
     if(putimg) putimg.onclick=()=>{ editItem(p.id); const f=$('#imgUrl'); if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{ try{ f.focus(); }catch(e){} },350); } };

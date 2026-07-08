@@ -43,27 +43,65 @@
   var pid = document.body.getAttribute("data-pid");
   if (!pid) return;
 
-  /* ---------- Toggle Normal / Foil (commons/uncommons con precio foil) ---------- */
+  /* ---------- Toggle Normal / Foil + disponibilidad por variante ---------- */
   var priceEl = document.getElementById("cdPrice");
   var ftoggle = document.getElementById("cdFtoggle");
+  var stockEl = document.getElementById("cdStock");
   var isFoil = false;
-  function applyVariant() {
-    if (!priceEl) return;
-    var pf = priceEl.getAttribute("data-foil");
-    if (isFoil && pf) {
-      priceEl.textContent = pf;
-      priceEl.classList.add("cd-price--foil");
-    } else {
-      var pn = priceEl.getAttribute("data-normal");
-      if (pn) priceEl.textContent = pn;
-      priceEl.classList.remove("cd-price--foil");
+  var prod = null;
+  function normStock(s) { return (s === undefined || s === null || s === "") ? null : Number(s); }
+  // stock de la variante elegida: el foil usa su propio stock (stockf) si está definido; si no, sigue el normal
+  function variantAvail() {
+    var sN = prod ? normStock(prod.stock) : null;
+    if (isFoil && prod && prod.foil != null) {
+      var sf = normStock(prod.stockf);
+      if (sf === null) return { count: sN, out: (sN !== null && sN <= 0) };
+      return { count: sf, out: sf <= 0 };
+    }
+    return { count: sN, out: (sN !== null && sN <= 0) };
+  }
+  function refreshAvail() {
+    var a = variantAvail();
+    if (stockEl) {
+      var cls, txt;
+      if (a.count === null) { cls = "cd-stock cd-stock--ok"; txt = "Disponible"; }
+      else if (a.out) { cls = "cd-stock cd-stock--out"; txt = "Agotado" + (isFoil ? " en foil" : ""); }
+      else if (a.count <= 3) { cls = "cd-stock cd-stock--low"; txt = "¡Solo " + a.count + (a.count === 1 ? " unidad!" : " unidades!"); }
+      else { cls = "cd-stock cd-stock--ok"; txt = a.count + " disponibles"; }
+      stockEl.innerHTML = '<span class="' + cls + '">' + txt + "</span>";
     }
     var act = document.getElementById("cdAction");
-    var buy = document.getElementById("cdBuy");
-    if (act && buy) {
-      var bf = act.getAttribute("data-buy-foil");
-      buy.href = (isFoil && bf) ? bf : (act.getAttribute("data-buy") || buy.href);
+    if (act) {
+      var hasNotify = !!act.querySelector(".cd-btn--notify");
+      if (a.out && !hasNotify) {
+        act.innerHTML = '<a class="cd-btn cd-btn--notify" href="' + act.getAttribute("data-notify") +
+          '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" ' +
+          'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>' +
+          'Avísame cuando llegue</a>';
+      } else if (!a.out && hasNotify) {
+        act.innerHTML = '<a class="cd-btn cd-btn--wa" id="cdBuy" href="' + (act.getAttribute("data-buy") || "#") +
+          '" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" width="21" height="21" aria-hidden="true">' +
+          '<path fill="currentColor" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 ' +
+          '6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>Comprar por WhatsApp</a>';
+        var nb = document.getElementById("cdBuy"), bf = act.getAttribute("data-buy-foil");
+        if (nb && isFoil && bf) nb.href = bf;
+      }
     }
+  }
+  function applyVariant() {
+    if (priceEl) {
+      var pf = priceEl.getAttribute("data-foil");
+      if (isFoil && pf) { priceEl.textContent = pf; priceEl.classList.add("cd-price--foil"); }
+      else { var pn = priceEl.getAttribute("data-normal"); if (pn) priceEl.textContent = pn; priceEl.classList.remove("cd-price--foil"); }
+    }
+    var buy = document.getElementById("cdBuy");
+    if (buy) {
+      var act = document.getElementById("cdAction");
+      var bf = act ? act.getAttribute("data-buy-foil") : null;
+      buy.href = (isFoil && bf) ? bf : ((act && act.getAttribute("data-buy")) || buy.href);
+    }
+    refreshAvail();
   }
   if (ftoggle) {
     var fbtns = ftoggle.querySelectorAll(".cd-ftoggle__btn");
@@ -82,45 +120,13 @@
       if (!Array.isArray(data)) return;
       var p = data.find(function (x) { return String(x.id) === String(pid); });
       if (!p) return;
-
+      prod = p;
       // refrescar precios normal/foil desde el JSON y respetar el toggle actual
       if (priceEl) {
         if (p.price != null) priceEl.setAttribute("data-normal", fmt(p.price));
         if (p.foil != null) priceEl.setAttribute("data-foil", fmt(p.foil));
       }
-
-      var s = p.stock;
-      var st = (s === undefined || s === null || s === "") ? null : Number(s);
-      var soldOut = st !== null && st <= 0;
-      var stockEl = document.getElementById("cdStock");
-      if (stockEl) {
-        var cls, txt;
-        if (st === null) { cls = "cd-stock cd-stock--ok"; txt = "Disponible"; }
-        else if (soldOut) { cls = "cd-stock cd-stock--out"; txt = "Agotado"; }
-        else if (st <= 3) { cls = "cd-stock cd-stock--low"; txt = "¡Solo " + st + (st === 1 ? " unidad!" : " unidades!"); }
-        else { cls = "cd-stock cd-stock--ok"; txt = st + " disponibles"; }
-        stockEl.innerHTML = '<span class="' + cls + '">' + txt + "</span>";
-      }
-
-      // Mantener el botón consistente con el stock fresco (por si la carta se
-      // agotó/repuso después del último build de make_cartas.py)
-      var act = document.getElementById("cdAction");
-      if (act) {
-        var hasNotify = !!act.querySelector(".cd-btn--notify");
-        if (soldOut && !hasNotify) {
-          act.innerHTML = '<a class="cd-btn cd-btn--notify" href="' + act.getAttribute("data-notify") +
-            '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" ' +
-            'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-            '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>' +
-            'Avísame cuando llegue</a>';
-        } else if (!soldOut && hasNotify) {
-          act.innerHTML = '<a class="cd-btn cd-btn--wa" id="cdBuy" href="' + act.getAttribute("data-buy") +
-            '" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" width="21" height="21" aria-hidden="true">' +
-            '<path fill="currentColor" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 ' +
-            '6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>Comprar por WhatsApp</a>';
-        }
-      }
-      applyVariant();  // refleja precios frescos + variante elegida en el botón de compra
+      applyVariant();  // precios + disponibilidad frescos según la variante elegida
     })
     .catch(function () {});
 })();

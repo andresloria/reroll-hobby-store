@@ -28,7 +28,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 WHATSAPP    = "50687807813"
 SITE        = "https://rerollhobbystore.com"
 ASSET_V     = 47   # debe coincidir con el ?v= de styles.css en index/juego
-CARTA_JS_V  = 2
+CARTA_JS_V  = 3
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
 DOMAIN_HEX = {

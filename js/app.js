@@ -102,6 +102,9 @@ let showSoldOut = false;   // por defecto NO se muestran las cartas agotadas (st
 
 // stock de un producto: null = ilimitado (sin campo), número = unidades
 function stockVal(p){ const s=p.stock; return (s===undefined||s===null||s==="")?null:Number(s); }
+function stockValF(p){ const s=p.stockf; return (s===undefined||s===null||s==="")?null:Number(s); }
+// disponibilidad de la variante foil: usa su propio stock si está definido; si no, sigue el normal
+function foilAvailable(p){ if(p.foil==null) return false; const sf=stockValF(p); return sf===null ? isAvailable(p) : sf>0; }
 // disponible = sin campo de stock (ilimitado) o con stock > 0
 function isAvailable(p){ const s=stockVal(p); return s===null || s>0; }
 
@@ -167,6 +170,7 @@ function qvEl(){
         <h3 class="qv__name"></h3>
         <div class="qv__price"></div>
         <div class="qv__ftog"></div>
+        <div class="qv__stock"></div>
         <div class="qv__effect"></div>
         <div class="qv__attrs"></div>
         <div class="qv__actions">
@@ -192,11 +196,24 @@ function openQuickView(p){
   m.querySelector(".qv__name").textContent = p.name;
   // precio + selector Normal/Foil (si la carta tiene variante foil)
   const priceEl = m.querySelector(".qv__price"), ftog = m.querySelector(".qv__ftog");
+  const stockEl = m.querySelector(".qv__stock"), addBtn = m.querySelector(".qv__add");
   let qvFoil = false;
+  const stockN = stockVal(p);
+  const qvAvail = ()=>{
+    if(qvFoil){ const sf=stockValF(p); if(sf===null) return {count:stockN, out:(stockN!==null&&stockN<=0)}; return {count:sf, out:sf<=0}; }
+    return {count:stockN, out:(stockN!==null&&stockN<=0)};
+  };
   const paintPrice = ()=>{
     priceEl.textContent = fmt(qvFoil ? p.foil : p.price);
     priceEl.classList.toggle("card__price--foil", qvFoil);
     ftog.querySelectorAll(".ftoggle__btn").forEach(b=> b.classList.toggle("is-on", (b.dataset.v==="foil")===qvFoil));
+    const a = qvAvail();
+    if(a.count===null) stockEl.innerHTML = "";
+    else if(a.out) stockEl.innerHTML = `<span class="card__stock card__stock--out">Agotado${qvFoil?" en foil":""}</span>`;
+    else if(a.count<=3) stockEl.innerHTML = `<span class="card__stock card__stock--low">¡Solo ${a.count} disponible${a.count>1?"s":""}!</span>`;
+    else stockEl.innerHTML = `<span class="card__stock">${a.count} disponibles</span>`;
+    addBtn.disabled = a.out;
+    addBtn.textContent = a.out ? "Agotado" : "Agregar al carrito";
   };
   if(p.foil!=null){
     ftog.innerHTML = `<div class="ftoggle" role="group" aria-label="Acabado de la carta">
@@ -212,7 +229,7 @@ function openQuickView(p){
     : "";
   const full = m.querySelector(".qv__full"); const href = cartaHref(p);
   if(href){ full.href = href; full.style.display=""; } else { full.style.display="none"; }
-  m.querySelector(".qv__add").onclick = ()=>{ addToCart(p.id, qvFoil); closeQV(); };
+  addBtn.onclick = ()=>{ if(addBtn.disabled) return; addToCart(p.id, qvFoil); closeQV(); };
   m.hidden = false; document.body.style.overflow = "hidden";
 }
 document.addEventListener("click", e=>{
@@ -670,19 +687,24 @@ function makeCard(p, i){
   const metaLine = p.type==="sealed"
     ? `${p.set?p.set+" · ":""}Producto sellado`
     : `${p.set?p.set+" · ":""}${p.cond}`;
-  const stock = (p.stock===undefined || p.stock===null || p.stock==="") ? null : Number(p.stock);
-  const soldOut = stock!==null && stock<=0;
-  let stockHtml = "";
-  if(stock!==null){
-    if(soldOut) stockHtml = `<span class="card__stock card__stock--out">Agotado</span>`;
-    else if(stock<=3) stockHtml = `<span class="card__stock card__stock--low">¡Solo ${stock} disponible${stock>1?"s":""}!</span>`;
-    else stockHtml = `<span class="card__stock">${stock} disponibles</span>`;
-  }
+  const stockN = (p.stock===undefined || p.stock===null || p.stock==="") ? null : Number(p.stock);
+  // disponibilidad según la variante elegida (normal / foil con su propio stock)
+  const availOf = (foil)=>{
+    if(foil){ const sf=stockValF(p); if(sf===null) return {count:stockN, out:(stockN!==null&&stockN<=0)}; return {count:sf, out:sf<=0}; }
+    return {count:stockN, out:(stockN!==null&&stockN<=0)};
+  };
+  const stockLineHTML = (a, foil)=>{
+    if(a.count===null) return "";
+    if(a.out) return `<span class="card__stock card__stock--out">Agotado${foil?" en foil":""}</span>`;
+    if(a.count<=3) return `<span class="card__stock card__stock--low">¡Solo ${a.count} disponible${a.count>1?"s":""}!</span>`;
+    return `<span class="card__stock">${a.count} disponibles</span>`;
+  };
+  const a0 = availOf(false);
   const href = cartaHref(p) || "#";
   const mediaHtml = `<a class="card__link" href="${href}" data-pid="${p.id}" aria-label="Ver detalle de ${p.name}">${media(p,"card__photo")}</a>`;
   const nameHtml = `<a class="card__link" href="${href}" data-pid="${p.id}">${p.name}</a>`;
   el.innerHTML = `
-    <div class="card__img${p.img?" card__img--photo":""}${soldOut?" card__img--out":""}">
+    <div class="card__img${p.img?" card__img--photo":""}${a0.out?" card__img--out":""}">
       ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
       <button class="card__fav" aria-label="Favorito" title="Guardar">♡</button>
       ${mediaHtml}
@@ -691,7 +713,7 @@ function makeCard(p, i){
       <span class="card__cat">${p.cat}${p.color?" · "+p.color:""}</span>
       <h3 class="card__name" style="font-size:${cardNameSize(p.name)}">${nameHtml}</h3>
       <span class="card__meta">${metaLine}</span>
-      ${stockHtml}
+      <div class="card__stockwrap">${stockLineHTML(a0,false)}</div>
       ${p.foil!=null?`<div class="ftoggle" role="group" aria-label="Acabado de la carta">
         <button type="button" class="ftoggle__btn is-on" data-v="normal">Normal</button>
         <button type="button" class="ftoggle__btn" data-v="foil">Foil ✨</button>
@@ -699,10 +721,20 @@ function makeCard(p, i){
       <div class="card__foot">
         <span class="card__price">${fmt(p.price)}</span>
         ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
-        <button class="card__add" data-id="${p.id}"${soldOut?" disabled":""}>${soldOut?"Agotado":"Añadir"}</button>
+        <button class="card__add" data-id="${p.id}"${a0.out?" disabled":""}>${a0.out?"Agotado":"Añadir"}</button>
       </div>
     </div>`;
+  const addBtn = el.querySelector(".card__add");
+  const imgBox = el.querySelector(".card__img");
+  const stockWrap = el.querySelector(".card__stockwrap");
   let cardFoil = false;
+  const paintAvail = ()=>{
+    const a = availOf(cardFoil);
+    stockWrap.innerHTML = stockLineHTML(a, cardFoil);
+    addBtn.disabled = a.out;
+    addBtn.textContent = a.out ? "Agotado" : "Añadir";
+    imgBox.classList.toggle("card__img--out", a.out);
+  };
   if(p.foil!=null){
     const tgl = el.querySelector(".ftoggle");
     const priceEl = el.querySelector(".card__price");
@@ -712,19 +744,18 @@ function makeCard(p, i){
         tgl.querySelectorAll(".ftoggle__btn").forEach(x=>x.classList.toggle("is-on", x===b));
         priceEl.textContent = fmt(cardFoil ? p.foil : p.price);
         priceEl.classList.toggle("card__price--foil", cardFoil);
+        paintAvail();
       };
     });
   }
-  if(!soldOut){
-    const addBtn = el.querySelector(".card__add");
-    addBtn.onclick = ()=>{
-      addToCart(p.id, cardFoil);
-      addBtn.classList.add("card__add--done");
-      addBtn.textContent = "✓ Agregado";
-      clearTimeout(addBtn._doneT);
-      addBtn._doneT = setTimeout(()=>{ addBtn.classList.remove("card__add--done"); addBtn.textContent = "Añadir"; }, 1500);
-    };
-  }
+  addBtn.onclick = ()=>{
+    if(addBtn.disabled) return;
+    addToCart(p.id, cardFoil);
+    addBtn.classList.add("card__add--done");
+    addBtn.textContent = "✓ Agregado";
+    clearTimeout(addBtn._doneT);
+    addBtn._doneT = setTimeout(()=>{ addBtn.classList.remove("card__add--done"); paintAvail(); }, 1500);
+  };
   el.querySelector(".card__fav").onclick = (e)=>{
     e.currentTarget.textContent = e.currentTarget.textContent==="♡" ? "♥" : "♡";
     e.currentTarget.style.color = e.currentTarget.textContent==="♥" ? "var(--gold-bright)" : "";
@@ -816,10 +847,13 @@ function addToCart(id, foil){
   foil = !!foil && p.foil!=null;                 // solo foil si la carta lo permite
   const key = lineKey(id, foil);
   const price = foil ? p.foil : p.price;
-  const st = stockOf(id);
+  // tope de stock por variante: el foil usa su propio stock si está definido
+  let st = stockOf(id);
+  if(foil){ const sf=stockValF(p); if(sf!==null) st=sf; }
+  if(st!==null && st<=0){ toast(`Agotado${foil?" en foil":""}: ${p.name}`); return; }
   const line = cart.find(c=>c.key===key);
   if(line){
-    if(st!==null && line.qty>=st){ toast(`Solo hay ${st} de ${p.name}`); return; }
+    if(st!==null && line.qty>=st){ toast(`Solo hay ${st}${foil?" foil":""} de ${p.name}`); return; }
     line.qty++;
   } else {
     cart.push({ key, id:p.id, foil, name:p.name+(foil?" · Foil":""), cat:p.cat, price, emoji:p.emoji, img:p.img, qty:1 });
@@ -828,9 +862,10 @@ function addToCart(id, foil){
 }
 function changeQty(key, delta){
   const line = cart.find(c=>c.key===key); if(!line) return;
-  const st = stockOf(line.id);
+  let st = stockOf(line.id);
+  if(line.foil){ const p=PRODUCTS.find(x=>x.id===line.id); const sf=p?stockValF(p):null; if(sf!==null) st=sf; }
   let q = line.qty + delta;
-  if(st!==null && q>st){ q=st; toast(`Solo hay ${st} disponibles`); }
+  if(st!==null && q>st){ q=st; toast(`Solo hay ${st}${line.foil?" foil":""} disponibles`); }
   if(q<=0){ cart = cart.filter(c=>c.key!==key); }
   else line.qty = q;
   saveCart(); renderCart();

@@ -1521,6 +1521,7 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .qv__ftog{margin:-4px 0 12px}
 .qv__ftog .ftoggle{font-size:.7rem}
 .qv__ftog .ftoggle__btn{padding:6px 13px}
+.qv__stock{margin:-4px 0 12px;min-height:1px}
 
 /* buscador: fila "Ver los N resultados" al final del desplegable */
 .sr__more{display:block;width:100%;border:0;cursor:pointer;font-family:var(--font-mono);font-size:.78rem;
