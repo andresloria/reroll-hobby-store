@@ -8,6 +8,16 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — QA del panel: suite E2E de 26 pruebas (pedido de Andrés) + 1 bug real corregido
+- Andrés pidió un loop de pruebas de TODAS las formas de subir producto ("si le vendo una tienda a un cliente, me pediría reembolso por estos bugs"). Se corrió una suite E2E en el preview contra el panel real (estado en localStorage del navegador de prueba, la tienda nunca se tocó):
+  - **Catálogo RB (7):** agregar nueva · re-buscar reconoce y edita sin duplicar · − a 0 = agotada sin borrar · − en 0 se queda · promo edita el existente · set sin CSV (Vendetta) con fallback · carta foil en base cruza.
+  - **Catálogo OP (3):** carga/cruce (imgs TCGplayer en ambos lados) · + edita sin duplicar · agrega nueva.
+  - **Form manual (5):** sellado sin foto (emoji) · single con foil+stockf · editar con lápiz (abre el details "a mano") · destildar foil limpia foil/stockf · visibilidad en el acordeón.
+  - **CSV (1)** · **Steppers/pendientes DB (8):** normal e instantáneo · foil aparte · escrito=pendiente · ✕ cancela · ✓ aplica · "Aplicar todos" · borrar _new no ensucia deletedIds · borrar real→deletedIds y Deshacer restaura.
+  - **Persistencia (5):** cartas/dirty/pendientes sobreviven recarga · tag y botón cuentan bien. **Ventas (1):** descuento de stock. **Publish (2):** sube sin _flags conservando `d` · "Descartar" restaura la tienda exacta.
+- **🐛 Bug real encontrado y corregido:** un número escrito PENDIENTE sobre una carta NUEVA quedaba apuntando al id viejo cuando el sync re-numera las nuevas → el ✓ podía aplicar el stock a otra carta. Fix: el sync re-mapea los pendientes al id nuevo (guard `viejo!==nuevo`, el primer intento se auto-borraba) y PODA pendientes huérfanos.
+- Falsas alarmas del propio test (documentadas): ids ya no son los del import original — los publishes del panel VIEJO corrían `reindex()` y re-numeraron todo (por eso el promo Challenge pasó de 3601→3645); nombres duplicados legítimos = impresión normal + Showcase.
+
 ## 2026-07-07 — Catálogo del panel: cruce por imagen arreglado (fix duplicados tipo Kai'Sa)
 - **Bug:** el catálogo maestro (`catalogo/riftbound.json`) traía imágenes de TCGplayer mientras el inventario RB usa las de Riot → el panel nunca reconocía cartas ya registradas (`invMatch` cruza por img) → "+" en vez del stepper → **duplicó Kai'Sa - Survivor** (id 3690, borrada; quedan id 42 Showcase ×1 y id 43 base ×3 — revisar conteo físico).
 - **`make_catalogo.py`:** Riftbound ahora resuelve la imagen de **Riot** por número+set (misma lógica de denominadores 298/219/221/024 que `make_promos_rb.py`, con desambiguación Showcase/normal y de números reciclados). Grupos promocionales de TCGplayer → set **"Promos"** (igual que el inventario). Rebuild: 1105/1249 con img de Riot; fallback TCGplayer (Vendetta, sin CSV aún).

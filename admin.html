@@ -1277,10 +1277,21 @@ async function syncFromStore(announce){
       // ediciones tuyas de cartas que ya no están en la tienda: se conservan igual
       items.filter(p=>p._dirty && !p._new && !liveIds.has(p.id)).forEach(p=> merged.push(p));
       // cartas NUEVAS tuyas al final, con id fresco para no chocar con la tienda
+      // (si tenían un número escrito pendiente, el pendiente se re-mapea al id nuevo)
       let mx = merged.reduce((m,p)=>Math.max(m,p.id||0),0);
-      items.filter(p=>p._new).forEach(p=>{ p.id=++mx; merged.push(p); });
+      items.filter(p=>p._new).forEach(p=>{
+        const viejo = p.id; p.id = ++mx;
+        if(viejo!==p.id && pending[viejo]){ pending[p.id]=pending[viejo]; delete pending[viejo]; }
+        merged.push(p);
+      });
       items = merged;
     }
+    // podar pendientes huérfanos (ids que ya no existen) — que un ✓ nunca le
+    // aplique el stock a la carta equivocada
+    const vivos = new Set(items.map(p=>p.id));
+    let poda = false;
+    Object.keys(pending).forEach(k=>{ if(!vivos.has(Number(k))){ delete pending[k]; poda=true; } });
+    if(poda || Object.keys(pending).length) savePending();
     nextId = items.reduce((m,p)=>Math.max(m,p.id||0),0)+1;
     save();
     if(hint) hint.textContent = nDirty
