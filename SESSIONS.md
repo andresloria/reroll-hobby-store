@@ -8,6 +8,15 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Promos de Riftbound al inventario (`make_promos_rb.py`)
+- Nuevo script **`make_promos_rb.py`**: baja los grupos de promo de Riftbound de TCGplayer/TCGCSV (Organized Play, Judge, Promotional) y agrega **115 promos** a `productos.json` como set **"Promos"**, `type` single, **stock 0** (agotados: se ven en la tienda cuando Andrés les ponga stock en el panel).
+- **Filtra** sellados (Box Set/Bundle) y ultra-raros de evento `(Metal)/(Prize Wall)/(Champion)/(Top 8)` — solo singles jugables.
+- **Precio:** market USD (foil si es foil-only, casi todos) × 520 + redondeo escalonado. Rango ₡200 → ₡385.000 (Teemo Scout GG EZ).
+- **Imagen:** el CDN de TCGplayer bloquea hotlinking (verificado: 403/AccessDenied en navegador), así que cada promo se cruza con su carta BASE por **número de coleccionista + set** (campo "Number" tipo `246b/298`; denom 298→Origins, 219→Unleashed, 221→Spiritforged, 024→Proving Grounds) y usa la **imagen de Riot**. Desambigua por nombre cuando un número tiene varias cartas (Unleashed recicla numeración). **0 errores de cruce.**
+- Tras `--aplicar` se corrió `python make_cartas.py` → cada promo tiene su ficha `/carta/…` con efecto + atributos (Regla de Oro). 3574 → **3689** productos/páginas.
+- **Se saltan** (reportados): 8 sin precio (Jayce, Blue Sentinel, runas R0xc dup) + 3 tokens sin base (Bird//Buff). Agregables a mano luego.
+- Verificado en preview: "Challenge" promo renderiza (Promos · ₡400 · Agotado), imagen carga, enlaza a su ficha. No se tocó CSS/JS (sin bump de `?v`).
+
 ## 2026-07-07 — Checkout: teléfono del cliente + "recordar mis datos" (pedido de Andrés)
 - Andrés no quería buscar en WhatsApp por número. Ahora el checkout pide **Teléfono/WhatsApp** (obligatorio, valida ≥8 dígitos) en index.html y juego.html; el número **viaja en el pedido** y en el mensaje de WhatsApp (`Tel: …`).
 - **Panel 📦 Pedidos:** cada pedido muestra `📱 número` + botón verde **💬 WhatsApp** que abre el chat directo (`pedWaLink`: normaliza a `wa.me/506…`, agrega código país a los 8 dígitos ticos). Pedidos viejos sin teléfono muestran "(sin teléfono)".

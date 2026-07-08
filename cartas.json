@@ -165590,5 +165590,5018 @@
 ]
 ]
 }
+},
+"3590": {
+"slug": "teemo-scout-gg-ez-ogn-197",
+"number": "197",
+"code": "OGN-197/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hidden]</b> (Hide now for <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to react with later for <span class=\"fx-energy\" aria-label=\"Energía 0\">0</span>.) When you play me, give me +3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"197 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3679": {
+"slug": "heimerdinger-inventor-ogn-111-2",
+"number": "111",
+"code": "OGN-111/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "I have all <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span> abilities of all friendly legends, units, and gear.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"111 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3683": {
+"slug": "teemo-swift-scout-alternate-art-ogn-263",
+"number": "263",
+"code": "OGN-263/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind | Chaos",
+"d": {
+"fx": "You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> to hide a card with <b class=\"fx-kw\">[Hidden]</b> instead of <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span>. <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"263 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Shawn Lee"
+]
+]
+}
+},
+"3680": {
+"slug": "svellsongur-sfd-059-2",
+"number": "59",
+"code": "SFD-059/221",
+"type": "Gear",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span> (<span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span>: Attach this to a unit you control.) As this is attached to a unit, copy that unit&#x27;s text to this Equipment&#x27;s effect text for as long as this is attached to it.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"59 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3615": {
+"slug": "miss-fortune-buccaneer-ogn-193-3",
+"number": "193",
+"code": "OGN-193/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "You may play me to an open battlefield. Friendly units may be played to open battlefields.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"193 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3584": {
+"slug": "ahri-nine-tailed-fox-ogn-255",
+"number": "255",
+"code": "OGN-255/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm | Mind",
+"d": {
+"fx": "When an enemy unit attacks a battlefield you control, give it -1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn, to a minimum of 1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"N.º",
+"255 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3681": {
+"slug": "ahri-alluring-launch-exclusive-ogn-066",
+"number": "66",
+"code": "OGN-066/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "When I hold, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"66 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3689": {
+"slug": "vi-destructive-ogn-036-2",
+"number": "36",
+"code": "OGN-036/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Ganking]</b> (I can move from battlefield to battlefield.) Recycle 1 from your trash: Give me +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"36 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3576": {
+"slug": "jinx-rebel-ogn-202-3",
+"number": "202",
+"code": "OGN-202/298",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "When you discard one or more cards, ready me and give me +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"202 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3686": {
+"slug": "aspirant-s-climb-ogn-276-2",
+"number": "276",
+"code": "OGN-276/298",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "Colorless",
+"d": {
+"fx": "Increase the points needed to win the game by 1.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Colorless</span>"
+],
+[
+"N.º",
+"276 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Polar Engine Studio"
+]
+]
+}
+},
+"3657": {
+"slug": "lee-sin-centered-ogn-151-3",
+"number": "151",
+"code": "OGN-151/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Accelerate]</b> (You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C98A3E;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C98A3E\"></span>Body</span> as an additional cost to have me enter ready.) Other buffed friendly units at my battlefield have +2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"N.º",
+"151 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3588": {
+"slug": "kai-sa-daughter-of-the-void-ogn-247",
+"number": "247",
+"code": "OGN-247/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury | Mind",
+"d": {
+"fx": "<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: <b class=\"fx-kw\">[Reaction]</b> — <b class=\"fx-kw\">[Add]</b> <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span>. Use only to play spells. (Abilities that add resources can&#x27;t be reacted to.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"N.º",
+"247 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3621": {
+"slug": "master-yi-wuju-bladesman-ogs-019",
+"number": "19",
+"code": "OGS-019/024",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm | Body",
+"d": {
+"fx": "While a friendly unit defends alone, it gets +2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"N.º",
+"19 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Grafit Studio/Quy Ho"
+]
+]
+}
+},
+"3586": {
+"slug": "jinx-loose-cannon-ogn-251",
+"number": "251",
+"code": "OGN-251/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury | Chaos",
+"d": {
+"fx": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"251 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Sugar Free"
+]
+]
+}
+},
+"3653": {
+"slug": "boneshiver-sfd-118-2",
+"number": "118",
+"code": "SFD-118/221",
+"type": "Gear",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C98A3E;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C98A3E\"></span>Body</span> (<span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C98A3E;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C98A3E\"></span>Body</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"118 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3676": {
+"slug": "poppy-defender-of-the-meek-unl-178-3",
+"number": "178",
+"code": "UNL-178/219",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "You may spend 3 XP as an additional cost to play me. If you do, I cost <span class=\"fx-energy\" aria-label=\"Energía 3\">3</span> less. <b class=\"fx-kw\">[Ambush]</b> (You may play me as a <b class=\"fx-kw\">[Reaction]</b> to a battlefield where you have units.) <b class=\"fx-kw\">[Tank]</b> (I must be assigned combat damage first.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"178 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Dao Trong Le"
+]
+]
+}
+},
+"3579": {
+"slug": "teemo-swift-scout-ogn-263",
+"number": "263",
+"code": "OGN-263/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind | Chaos",
+"d": {
+"fx": "You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> to hide a card with <b class=\"fx-kw\">[Hidden]</b> instead of <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span>. <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"263 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Shawn Lee"
+]
+]
+}
+},
+"3688": {
+"slug": "caitlyn-patrolling-ogn-068-2",
+"number": "68",
+"code": "OGN-068/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "I must be assigned combat damage last. <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Deal damage equal to my Might to a unit at a battlefield. Use this ability only while I&#x27;m at a battlefield.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"68 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3575": {
+"slug": "viktor-leader-ogn-246-3",
+"number": "246",
+"code": "OGN-246/298",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "When another non-Recruit unit you control dies, play a 1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Recruit unit token into your base.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"246 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3650": {
+"slug": "lux-crownguard-ogs-014-2",
+"number": "14",
+"code": "OGS-014/024",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: <b class=\"fx-kw\">[Reaction]</b> — <b class=\"fx-kw\">[Add]</b> <span class=\"fx-energy\" aria-label=\"Energía 2\">2</span>. Use only to play spells. (Abilities that add resources can&#x27;t be reacted to.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"14 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3684": {
+"slug": "bandle-tree-ogn-278-2",
+"number": "278",
+"code": "OGN-278/298",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "Colorless",
+"d": {
+"fx": "You may hide an additional card here.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Colorless</span>"
+],
+[
+"N.º",
+"278 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3580": {
+"slug": "miss-fortune-bounty-hunter-ogn-267",
+"number": "267",
+"code": "OGN-267/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Body | Chaos",
+"d": {
+"fx": "<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Give a unit <b class=\"fx-kw\">[Ganking]</b> this turn. (It can move from battlefield to battlefield.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"267 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3619": {
+"slug": "annie-dark-child-ogs-017",
+"number": "17",
+"code": "OGS-017/024",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury | Chaos",
+"d": {
+"fx": "At the end of your turn, ready up to 2 runes.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"17 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3678": {
+"slug": "rengar-trophy-hunter-unl-120-3",
+"number": "120",
+"code": "UNL-120/219",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Ambush]</b> (You may play me as a <b class=\"fx-kw\">[Reaction]</b> to a battlefield where you have units.) I can be played to a battlefield where there are enemy units (even if you don&#x27;t have units there).",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"N.º",
+"120 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"TSWCK逍"
+]
+]
+}
+},
+"3687": {
+"slug": "warwick-hunter-ogn-159-2",
+"number": "159",
+"code": "OGN-159/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "I enter ready. When I attack, kill all damaged enemy units here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"159 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3577": {
+"slug": "lee-sin-ascetic-ogn-078-3",
+"number": "78",
+"code": "OGN-078/298",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Shield]</b> (+1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m a defender.) <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Buff me. (I get a +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> buff.) I can have any number of buffs.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"78 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3581": {
+"slug": "viktor-herald-of-the-arcane-ogn-265",
+"number": "265",
+"code": "OGN-265/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind | Order",
+"d": {
+"fx": "<span class=\"fx-energy\" aria-label=\"Energía 1\">1</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Play a 1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Recruit unit token.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"265 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Fortiche Production"
+]
+]
+}
+},
+"3646": {
+"slug": "annie-stubborn-ogs-010-2",
+"number": "10",
+"code": "OGS-010/024",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When you play me, return a spell from your trash to your hand.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"10 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3623": {
+"slug": "lux-lady-of-luminosity-ogs-021",
+"number": "21",
+"code": "OGS-021/024",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind | Order",
+"d": {
+"fx": "When you play a spell that costs <span class=\"fx-energy\" aria-label=\"Energía 5\">5</span> or more, draw 1.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"21 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Grafit Studio/Maki Planas Mata"
+]
+]
+}
+},
+"3685": {
+"slug": "the-grand-plaza-ogn-293-2",
+"number": "293",
+"code": "OGN-293/298",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "Colorless",
+"d": {
+"fx": "When you hold here, if you have 7+ units here, you win the game.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Colorless</span>"
+],
+[
+"N.º",
+"293 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3583": {
+"slug": "yasuo-unforgiven-ogn-259",
+"number": "259",
+"code": "OGN-259/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm | Chaos",
+"d": {
+"fx": "<span class=\"fx-energy\" aria-label=\"Energía 2\">2</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Move a friendly unit to or from its base.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"259 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"TSWCK逍"
+]
+]
+}
+},
+"3589": {
+"slug": "volibear-relentless-storm-ogn-249",
+"number": "249",
+"code": "OGN-249/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury | Body",
+"d": {
+"fx": "When you play a <b class=\"fx-kw\">[Mighty]</b> unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"N.º",
+"249 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Grafit Studio"
+]
+]
+}
+},
+"3597": {
+"slug": "stacked-deck-ogn-183-2",
+"number": "183",
+"code": "OGN-183/298",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Action]</b> (Play on your turn or in showdowns.) Look at the top 3 cards of your Main Deck. Put 1 into your hand and recycle the rest.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"183 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3578": {
+"slug": "sett-the-boss-ogn-269",
+"number": "269",
+"code": "OGN-269/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Body | Order",
+"d": {
+"fx": "If a buffed unit you control would die, you may pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span>, exhaust me, and spend its buff to heal it, exhaust it, and recall it instead. (Send it to base. This isn&#x27;t a move.) When you conquer, ready me.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"269 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3682": {
+"slug": "teemo-scout-ogn-197-3",
+"number": "197",
+"code": "OGN-197/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hidden]</b> (Hide now for <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to react with later for <span class=\"fx-energy\" aria-label=\"Energía 0\">0</span>.) When you play me, give me +3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"197 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3582": {
+"slug": "leona-radiant-dawn-ogn-261",
+"number": "261",
+"code": "OGN-261/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm | Order",
+"d": {
+"fx": "When you stun one or more enemy units, buff a friendly unit. (If it doesn&#x27;t have a buff, it gets a +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> buff.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"261 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3587": {
+"slug": "darius-hand-of-noxus-ogn-253",
+"number": "253",
+"code": "OGN-253/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury | Order",
+"d": {
+"fx": "<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: <b class=\"fx-kw\">[Reaction]</b>, <b class=\"fx-kw\">[Legion]</b> — <b class=\"fx-kw\">[Add]</b> <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span>. (Abilities that add resources can&#x27;t be reacted to. Get the effect if you&#x27;ve played a card this turn.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"253 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3642": {
+"slug": "master-yi-honed-ogs-009",
+"number": "9",
+"code": "OGS-009/024",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Ganking]</b> (I can move from battlefield to battlefield.) I enter ready.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"N.º",
+"9 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3596": {
+"slug": "chaos-rune-ogn-166-2",
+"number": "166",
+"code": "OGN-166/298",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"166 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Greg Ghielmetti &amp; Leah Chen"
+]
+]
+}
+},
+"3591": {
+"slug": "mind-rune-ogn-089-3",
+"number": "89",
+"code": "OGN-089/298",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"N.º",
+"89 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Greg Ghielmetti &amp; Leah Chen"
+]
+]
+}
+},
+"3617": {
+"slug": "blitzcrank-impassive-ogn-067-2",
+"number": "67",
+"code": "OGN-067/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Tank]</b> (I must be assigned combat damage first.) When you play me to a battlefield, you may move an enemy unit to here. When I hold, return me to my owner&#x27;s hand.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"67 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"League Splash Team"
+]
+]
+}
+},
+"3637": {
+"slug": "lux-illuminated-ogs-006-2",
+"number": "6",
+"code": "OGS-006/024",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "When you play a spell that costs <span class=\"fx-energy\" aria-label=\"Energía 5\">5</span> or more, give me +3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"6 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3612": {
+"slug": "discipline-ogn-058-2",
+"number": "58",
+"code": "OGN-058/298",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Reaction]</b> (Play any time, even before spells and abilities resolve.) Give a unit +2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn. Draw 1.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"58 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3594": {
+"slug": "calm-rune-ogn-042-3",
+"number": "42",
+"code": "OGN-042/298",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"N.º",
+"42 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Greg Ghielmetti &amp; Leah Chen"
+]
+]
+}
+},
+"3624": {
+"slug": "final-spark-ogs-022-2",
+"number": "22",
+"code": "OGS-022/024",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Mind | Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Action]</b> (Play on your turn or in showdowns.) Deal 8 to a unit.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"N.º",
+"22 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3585": {
+"slug": "lee-sin-blind-monk-ogn-257",
+"number": "257",
+"code": "OGN-257/298",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm | Body",
+"d": {
+"fx": "<span class=\"fx-energy\" aria-label=\"Energía 1\">1</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Buff a friendly unit. (If it doesn&#x27;t have a buff, it gets a +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> buff.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"N.º",
+"257 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3614": {
+"slug": "ravenbloom-student-ogn-103-2",
+"number": "103",
+"code": "OGN-103/298",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "When you play a spell, give me +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"103 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Polar Engine Studio"
+]
+]
+}
+},
+"3620": {
+"slug": "tibbers-ogs-018-2",
+"number": "18",
+"code": "OGS-018/024",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury | Chaos",
+"d": {
+"fx": "When you play me, deal 3 to all units at battlefields.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"7"
+],
+[
+"N.º",
+"18 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Polar Engine Studio"
+]
+]
+}
+},
+"3640": {
+"slug": "garen-rugged-ogs-007-2",
+"number": "7",
+"code": "OGS-007/024",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Assault 2]</b>, <b class=\"fx-kw\">[Shield 2]</b> (+2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m an attacker or defender.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"7 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3625": {
+"slug": "garen-might-of-demacia-ogs-023",
+"number": "23",
+"code": "OGS-023/024",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Body | Order",
+"d": {
+"fx": "When you conquer, if you have 4+ units at that battlefield, draw 2.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"23 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3593": {
+"slug": "order-rune-ogn-214-3",
+"number": "214",
+"code": "OGN-214/298",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"214 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Greg Ghielmetti &amp; Leah Chen"
+]
+]
+}
+},
+"3629": {
+"slug": "annie-fiery-ogs-001-2",
+"number": "1",
+"code": "OGS-001/024",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"1 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Polar Engine Studio"
+]
+]
+}
+},
+"3633": {
+"slug": "master-yi-meditative-ogs-004",
+"number": "4",
+"code": "OGS-004/024",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "While you have 8+ runes, I have +4 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"4 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3595": {
+"slug": "body-rune-ogn-126-3",
+"number": "126",
+"code": "OGN-126/298",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"N.º",
+"126 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Greg Ghielmetti &amp; Leah Chen"
+]
+]
+}
+},
+"3592": {
+"slug": "fury-rune-ogn-007-3",
+"number": "7",
+"code": "OGN-007/298",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"N.º",
+"7 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Greg Ghielmetti &amp; Leah Chen"
+]
+]
+}
+},
+"3651": {
+"slug": "garen-commander-ogs-013-2",
+"number": "13",
+"code": "OGS-013/024",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "Other friendly units have +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"13 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3622": {
+"slug": "highlander-ogs-020-2",
+"number": "20",
+"code": "OGS-020/024",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Calm | Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Reaction]</b> (Play any time, even before spells and abilities resolve.) Choose a friendly unit. The next time it would die this turn, heal it, exhaust it, and recall it instead. (Send it to base. This isn&#x27;t a move.)",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"N.º",
+"20 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3656": {
+"slug": "ashe-focused-unl-169-2",
+"number": "169",
+"code": "UNL-169/219",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "When you play me, choose an opponent. They reveal their hand. Choose a card revealed this way and banish it. When they hold, return it to their hand (even if I&#x27;m no longer on the board).",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"169 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3626": {
+"slug": "decisive-strike-ogs-024-2",
+"number": "24",
+"code": "OGS-024/024",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Body | Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Action]</b> (Play on your turn or in showdowns.) Give friendly units +2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"24 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3632": {
+"slug": "stellacorn-herder-sfd-048-2",
+"number": "48",
+"code": "SFD-048/221",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "When I move, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"48 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3655": {
+"slug": "flash-ogs-011-2",
+"number": "11",
+"code": "OGS-011/024",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Reaction]</b> (Play any time, even before spells and abilities resolve.) Move up to 2 friendly units to base.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"11 / 024"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Sugar Free"
+]
+]
+}
+},
+"3616": {
+"slug": "tryndamere-barbarian-ogn-034-2",
+"number": "34",
+"code": "OGN-034/298",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "When I conquer after an attack, if you assigned 5 or more excess damage to enemy units, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"8"
+],
+[
+"N.º",
+"34 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3666": {
+"slug": "sinister-poro-unl-137-2",
+"number": "137",
+"code": "UNL-137/219",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "When I attack, you may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> to move an enemy unit here to its base.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"137 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3677": {
+"slug": "yuumi-magical-cat-unl-056-2",
+"number": "56",
+"code": "UNL-056/219",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "When I attack or defend, give one of your other units here +3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> and <b class=\"fx-kw\">[Tank]</b> this turn. (It must be assigned combat damage first.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"56 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3668": {
+"slug": "mutated-mouser-unl-036-2",
+"number": "36",
+"code": "UNL-036/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Shield 2]</b> (+2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m a defender.) <b class=\"fx-kw\">[Tank]</b> (I must be assigned combat damage first.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"36 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Caravan Studio"
+]
+]
+}
+},
+"3670": {
+"slug": "dragonsoul-sage-unl-093-2",
+"number": "93",
+"code": "UNL-093/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Reaction]</b><b class=\"fx-kw\">[&gt;]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: <b class=\"fx-kw\">[Add]</b> <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span>. (Abilities that add resources can&#x27;t be reacted to.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"93 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Dao Trong Le"
+]
+]
+}
+},
+"3674": {
+"slug": "ultrasoft-poro-unl-160-2",
+"number": "160",
+"code": "UNL-160/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Play two <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Bird unit tokens with <b class=\"fx-kw\">[Deflect]</b>. Use this ability only while I&#x27;m at a battlefield. (Opponents must pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to choose a <b class=\"fx-kw\">[Deflect]</b> unit with a spell or ability.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"160 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Caravan Studio"
+]
+]
+}
+},
+"3658": {
+"slug": "arena-kingpin-unl-001-2",
+"number": "1",
+"code": "UNL-001/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "I enter ready. <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Give a unit +3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"1 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3662": {
+"slug": "icevale-archer-unl-065-2",
+"number": "65",
+"code": "UNL-065/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "When I attack, you may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> to give a unit here -1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"65 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3665": {
+"slug": "mister-root-unl-127-2",
+"number": "127",
+"code": "UNL-127/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Accelerate]</b> (You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#9B5BB0;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#9B5BB0\"></span>Chaos</span> as an additional cost to have me enter ready.) When I move to a battlefield, gain 2 XP.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"127 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Caravan Studio"
+]
+]
+}
+},
+"3601": {
+"slug": "challenge-ogn-128-2",
+"number": "128",
+"code": "OGN-128/298",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Action]</b> (Play on your turn or in showdowns.) Choose a friendly unit and an enemy unit. They deal damage equal to their Mights to each other.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"128 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3618": {
+"slug": "yone-blademaster-sfd-116-2",
+"number": "116",
+"code": "SFD-116/221",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Weaponmaster]</b> (When you play me, you may <b class=\"fx-kw\">[Equip]</b> one of your Equipment to me for <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> less, even if it&#x27;s already attached.) When I conquer a battlefield that was uncontrolled, deal damage equal to my Might to an enemy unit in a base.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"116 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"蛋费鸡丁"
+]
+]
+}
+},
+"3644": {
+"slug": "treasure-hunter-sfd-130-2",
+"number": "130",
+"code": "SFD-130/221",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "When I move, play a Gold gear token exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"N.º",
+"130 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Grafit Studio"
+]
+]
+}
+},
+"3660": {
+"slug": "scorchclaw-unl-016-2",
+"number": "16",
+"code": "UNL-016/219",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hunt 2]</b> (When I conquer or hold, gain 2 XP.) <b class=\"fx-kw\">[Level 3]</b><b class=\"fx-kw\">[&gt;]</b> I have +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> and enter ready. (While you have 3+ XP, get the effect.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"16 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3664": {
+"slug": "lunar-boon-unl-125-2",
+"number": "125",
+"code": "UNL-125/219",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Reaction]</b> (Play any time, even before spells and abilities resolve.) Discard 1, then draw 2.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"125 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3669": {
+"slug": "mosstomper-unl-047-2",
+"number": "47",
+"code": "UNL-047/219",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hunt 2]</b> (When I conquer or hold, gain 2 XP.) <b class=\"fx-kw\">[Level 3]</b><b class=\"fx-kw\">[&gt;]</b> I have +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> and <b class=\"fx-kw\">[Deflect]</b>. (While you have 3+ XP, get the effect. Opponents must pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to choose a <b class=\"fx-kw\">[Deflect]</b> unit with a spell or ability.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"47 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3673": {
+"slug": "loyal-poro-unl-156-2",
+"number": "156",
+"code": "UNL-156/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Deathknell]</b><b class=\"fx-kw\">[&gt;]</b> If I didn&#x27;t die alone, draw 1. (When I die, get the effect. I wasn&#x27;t alone if there were other friendly units here.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"156 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3598": {
+"slug": "stalwart-poro-ogn-052-2",
+"number": "52",
+"code": "OGN-052/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Shield]</b> (+1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m a defender.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"52 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3599": {
+"slug": "pouty-poro-ogn-013-2",
+"number": "13",
+"code": "OGN-013/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Deflect]</b> (Opponents must pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to choose me with a spell or ability.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"13 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Caravan Studio"
+]
+]
+}
+},
+"3602": {
+"slug": "consult-the-past-ogn-083-2",
+"number": "83",
+"code": "OGN-083/298",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hidden]</b> (Hide now for <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to react with later for <span class=\"fx-energy\" aria-label=\"Energía 0\">0</span>.) <b class=\"fx-kw\">[Reaction]</b> (Play any time, even before spells and abilities resolve.) Draw 2.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"N.º",
+"83 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3613": {
+"slug": "void-seeker-ogn-024-2",
+"number": "24",
+"code": "OGN-024/298",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Action]</b> (Play on your turn or in showdowns.) Deal 4 to a unit at a battlefield. Draw 1.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"24 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3654": {
+"slug": "world-atlas-sfd-086-2",
+"number": "86",
+"code": "SFD-086/221",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4A86C9;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4A86C9\"></span>Mind</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4A86C9;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4A86C9\"></span>Mind</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"86 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3659": {
+"slug": "upstage-comedy-unl-009-2",
+"number": "9",
+"code": "UNL-009/219",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Repeat]</b> <span class=\"fx-energy\" aria-label=\"Energía 2\">2</span> (You may pay the additional cost to repeat this spell&#x27;s effect.) Ready a unit.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"9 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"莺之歌"
+]
+]
+}
+},
+"3661": {
+"slug": "downstage-dramatics-unl-061-2",
+"number": "61",
+"code": "UNL-061/219",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[Reaction]</b> (Play any time, even before spells and abilities resolve.) <b class=\"fx-kw\">[Repeat]</b> <span class=\"fx-energy\" aria-label=\"Energía 2\">2</span> (You may pay the additional cost to repeat this spell&#x27;s effect.) Draw 1.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"61 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"莺之歌"
+]
+]
+}
+},
+"3667": {
+"slug": "soul-sword-unl-039-2",
+"number": "39",
+"code": "UNL-039/219",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"39 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3671": {
+"slug": "voracious-gromp-unl-100-2",
+"number": "100",
+"code": "UNL-100/219",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hunt 3]</b> (When I conquer or hold, gain 3 XP.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"100 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Polar Engine Studio"
+]
+]
+}
+},
+"3672": {
+"slug": "stare-down-unl-107-2",
+"number": "107",
+"code": "UNL-107/219",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "Choose a friendly unit and a battlefield. Move all enemy units at that battlefield with less Might than the chosen unit to their base. Gain 1 XP.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"107 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Polar Engine Studio"
+]
+]
+}
+},
+"3600": {
+"slug": "vengeance-ogn-229-2",
+"number": "229",
+"code": "OGN-229/298",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "Kill a unit.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"2"
+],
+[
+"N.º",
+"229 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Max Grecke"
+]
+]
+}
+},
+"3603": {
+"slug": "vanguard-captain-ogn-218-2",
+"number": "218",
+"code": "OGN-218/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Legion]</b> — When you play me, play two 1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Recruit unit tokens here. (Get the effect if you&#x27;ve played another card this turn.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"218 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3604": {
+"slug": "pakaa-cub-ogn-135-2",
+"number": "135",
+"code": "OGN-135/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hidden]</b> (Hide now for <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to react with later for <span class=\"fx-energy\" aria-label=\"Energía 0\">0</span>.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"135 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Bubble Cat Studio"
+]
+]
+}
+},
+"3605": {
+"slug": "blazing-scorcher-ogn-001-2",
+"number": "1",
+"code": "OGN-001/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Accelerate]</b> (You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C13B26;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C13B26\"></span>Fury</span> as an additional cost to have me enter ready.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"N.º",
+"1 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3606": {
+"slug": "stormclaw-ursine-ogn-137-2",
+"number": "137",
+"code": "OGN-137/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Tank]</b> (I must be assigned combat damage first.) When you play me, channel 1 rune exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Might",
+"6"
+],
+[
+"N.º",
+"137 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3607": {
+"slug": "riptide-rex-ogn-092-2",
+"number": "92",
+"code": "OGN-092/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "When you play me, deal 6 to an enemy unit at a battlefield.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"6"
+],
+[
+"N.º",
+"92 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"MAR Studio"
+]
+]
+}
+},
+"3608": {
+"slug": "daring-poro-ogn-210-2",
+"number": "210",
+"code": "OGN-210/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Assault]</b> (+1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m an attacker.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"210 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3609": {
+"slug": "stealthy-pursuer-ogn-177-2",
+"number": "177",
+"code": "OGN-177/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "When a friendly unit moves from my location, I may be moved with it.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"177 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3610": {
+"slug": "wielder-of-water-ogn-055-2",
+"number": "55",
+"code": "OGN-055/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "While I&#x27;m attacking or defending alone, I have +2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"55 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3611": {
+"slug": "mystic-poro-ogn-171-2",
+"number": "171",
+"code": "OGN-171/298",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Vision]</b> (When you play me, look at the top card of your Main Deck. You may recycle it.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"171 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3627": {
+"slug": "blast-corps-cadet-sfd-013-2",
+"number": "13",
+"code": "SFD-013/221",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span><span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C13B26;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C13B26\"></span>Fury</span> as an additional cost to play me. When you play me, if you paid the additional cost, deal 2 to a unit at a battlefield.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"13 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3628": {
+"slug": "gem-jammer-sfd-007-2",
+"number": "7",
+"code": "SFD-007/221",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "When you play me, give a unit <b class=\"fx-kw\">[Ganking]</b> this turn. (It can move from battlefield to battlefield.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"7 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Caravan Studio"
+]
+]
+}
+},
+"3630": {
+"slug": "serrated-dirk-sfd-009-2",
+"number": "9",
+"code": "SFD-009/221",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C13B26;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C13B26\"></span>Fury</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C13B26;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C13B26\"></span>Fury</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"9 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3631": {
+"slug": "navori-scout-sfd-037-2",
+"number": "37",
+"code": "SFD-037/221",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Deflect]</b> (Opponents must pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> to choose me with a spell or ability.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"37 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3634": {
+"slug": "doran-s-shield-sfd-033-2",
+"number": "33",
+"code": "SFD-033/221",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"33 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3635": {
+"slug": "frostcoat-cub-sfd-067-2",
+"number": "67",
+"code": "SFD-067/221",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "You may pay <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4A86C9;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4A86C9\"></span>Mind</span> as an additional cost to play me. When you play me, if you paid the additional cost, give a unit -2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"67 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Caravan Studio"
+]
+]
+}
+},
+"3636": {
+"slug": "production-surge-sfd-076-2",
+"number": "76",
+"code": "SFD-076/221",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "This costs <span class=\"fx-energy\" aria-label=\"Energía 2\">2</span> less if you control a Mech. Play a 3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Mech unit token to your base. Draw 1.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"76 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Kudos Productions"
+]
+]
+}
+},
+"3638": {
+"slug": "cloth-armor-sfd-064-2",
+"number": "64",
+"code": "SFD-064/221",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[Quick-Draw]</b> (This has <b class=\"fx-kw\">[Reaction]</b>. When you play it, attach it to a unit you control.) <b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4A86C9;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4A86C9\"></span>Mind</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4A86C9;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4A86C9\"></span>Mind</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"64 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3639": {
+"slug": "sea-monkey-sfd-098-2",
+"number": "98",
+"code": "SFD-098/221",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "You may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> as an additional cost to play me. When you play me, if you paid the additional cost, buff me. (Give me a +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> buff if I don&#x27;t already have one.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"98 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Bubble Cat Studio"
+]
+]
+}
+},
+"3641": {
+"slug": "fae-dragon-sfd-101-2",
+"number": "101",
+"code": "SFD-101/221",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "When you play me, buff up to four friendly units. (Give each a +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> buff if it doesn&#x27;t have one.) When you spend a buff, play a Gold gear token exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"7"
+],
+[
+"N.º",
+"101 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Bubble Cat Studio"
+]
+]
+}
+},
+"3643": {
+"slug": "doran-s-blade-sfd-095-2",
+"number": "95",
+"code": "SFD-095/221",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C98A3E;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C98A3E\"></span>Body</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#C98A3E;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#C98A3E\"></span>Body</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"95 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3645": {
+"slug": "harpoon-squad-sfd-137-2",
+"number": "137",
+"code": "SFD-137/221",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "When I move from a battlefield, give me +2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"N.º",
+"137 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3647": {
+"slug": "doran-s-ring-sfd-124-2",
+"number": "124",
+"code": "SFD-124/221",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#9B5BB0;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#9B5BB0\"></span>Chaos</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#9B5BB0;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#9B5BB0\"></span>Chaos</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"124 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3648": {
+"slug": "unsung-hero-sfd-167-2",
+"number": "167",
+"code": "SFD-167/221",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Deathknell]</b> — If I was <b class=\"fx-kw\">[Mighty]</b>, draw 2. (When I die, get the effect. I&#x27;m Mighty while I have 5+ <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span>.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"167 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Six More Vodka"
+]
+]
+}
+},
+"3649": {
+"slug": "laurent-duelist-sfd-156-2",
+"number": "156",
+"code": "SFD-156/221",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Assault 2]</b> (+2 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m an attacker.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"156 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"JiHun Lee"
+]
+]
+}
+},
+"3652": {
+"slug": "eye-of-the-herald-sfd-153-2",
+"number": "153",
+"code": "SFD-153/221",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#D9C56A;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#D9C56A\"></span>Order</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#D9C56A;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#D9C56A\"></span>Order</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"153 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3663": {
+"slug": "gustwalker-unl-075-2",
+"number": "75",
+"code": "UNL-075/219",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[Hunt 2]</b> (When I conquer or hold, gain 2 XP.) <b class=\"fx-kw\">[Level 3]</b><b class=\"fx-kw\">[&gt;]</b> I have +1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> and <b class=\"fx-kw\">[Ganking]</b>. (While you have 3+ XP, get the effect. A <b class=\"fx-kw\">[Ganking]</b> unit can move from battlefield to battlefield.)",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"N.º",
+"75 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
+},
+"3675": {
+"slug": "undying-loyalty-unl-168-2",
+"number": "168",
+"code": "UNL-168/219",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "This costs <span class=\"fx-energy\" aria-label=\"Energía 2\">2</span> less if you choose a Bird, Cat, Dog, or Poro. Play a unit with cost no more than <span class=\"fx-energy\" aria-label=\"Energía 2\">2</span> and no more than <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> from your trash, ignoring its cost.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"168 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Max Grecke"
+]
+]
+}
 }
 }
