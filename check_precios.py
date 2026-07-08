@@ -23,6 +23,10 @@ Uso:
 Seguridad: --aplicar NUNCA hace push. Deja backup productos_backup_precios.json.
 """
 import json, os, re, sys, math, time, urllib.request
+try:  # que no truene al imprimir ₡/… cuando corre sin consola (Task Scheduler)
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 RATE = 520

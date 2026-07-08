@@ -27,6 +27,9 @@ catalogo/_cache/
 reporte_precios.md
 reporte_precios.csv
 productos_backup_precios.json
+cambios_aplicados_*.md
+cambios_aplicados_*.csv
+precios_semanal.log
 
 # Python bytecode
 __pycache__/
