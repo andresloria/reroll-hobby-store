@@ -8,6 +8,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Rutina de precios TCGplayer + 386 subidas aplicadas
+- **Nueva herramienta `check_precios.py`:** compara `productos.json` contra los precios **frescos** de TCGplayer (vía TCGCSV, sin cache de precios) y reporta qué cambió. Cruce: One Piece por **ID exacto** de la imagen (2.623/2.629; 6 sin img); Riftbound por **nombre+set**, con manejo de campeones (`Nine-Tailed Fox`→`Ahri - Nine-Tailed Fox`) y fallback por nombre único global (31 sin cruce = tokens tipo *Recruit (DE)* y algún campeón de Proving Grounds). Si el cruce es ambiguo NO adivina. Misma conversión USD×₡520 + redondeo escalonado que make_catalogo.
+- Genera `reporte_precios.md` (legible) + `reporte_precios.csv` (Excel), ordenados de mayor subida a menor. Ambos + `productos_backup_precios.json` en `.gitignore` (locales).
+- Uso: `python check_precios.py` (solo reporta) · `--min N` (ignora cambios chicos) · `--aplicar-subidas` (aplica solo las que subieron, con backup) · `--aplicar` (subidas+bajadas).
+- **Corrida de hoy:** 385 subieron · 579 bajaron · 31 sin cruce · 6 sin precio. **Aplicadas solo las 386 subidas** (Andrés: dejar las bajadas para no rematar); 0 bajadas tocadas. Escrito con `indent=2` (mismo formato del inventario). Las fichas re-hidratan precio desde productos.json en vivo (`carta.js`), así que NO hizo falta rebuild ni bump de caché.
+- Commit `63546ed`, push a main. **Verificado en producción:** #1854 Marshall.D.Teach ₡860.000→**₡920.000** en vivo.
+
 ## 2026-07-04 — Buscador: "Ver los N resultados" (reporte de Andrés)
 - El desplegable del buscador del hero se cortaba contra "Trabajamos con" y no dejaba ver todas las coincidencias. Ahora muestra **máx. 5 resultados + botón dorado "Ver los N resultados de "query" ↓"** (`.sr__more`) que lleva al catálogo filtrado con TODAS (mismo flujo `chooseResult`). Con ≤5 coincidencias no aparece el botón. Cache `v56→v57`. Verificado: ahri 5+botón→catálogo 6; sin errores.
 
