@@ -190,6 +190,24 @@
   .bulkadv>summary::-webkit-details-marker{display:none}
   .bulkadv>summary:hover{color:var(--gold-bright)}
   .bulkadv[open]>summary{margin-bottom:10px;color:var(--gold-bright)}
+  /* bandeja de pedidos de la tienda */
+  .ped{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:rgba(255,255,255,.02)}
+  .ped--pend{border-color:var(--gold);box-shadow:0 0 0 1px rgba(201,162,75,.2)}
+  .ped__head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:4px}
+  .ped__id{font-weight:700;color:var(--gold-bright)}
+  .ped__meta{font-size:.8rem;color:var(--muted)}
+  .ped__badge{font-size:.62rem;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(201,162,75,.15);color:var(--gold-bright);letter-spacing:.03em}
+  .ped__badge--ok{background:rgba(60,140,80,.2);color:#a9d3a0}
+  .ped__badge--off{background:rgba(180,60,70,.15);color:#e9a3ab}
+  .ped__line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:.86rem}
+  .ped__line .sm2{color:var(--muted);font-size:.76rem}
+  .ped__quitar{background:none;border:1px solid transparent;color:#c9a48d;cursor:pointer;font-size:.76rem;padding:3px 8px;border-radius:7px}
+  .ped__quitar:hover{color:#e9a3ab;border-color:rgba(180,60,70,.4)}
+  .ped__foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
+  .ped__total{font-weight:700;color:var(--gold-bright)}
+  .ped__hist>summary{cursor:pointer;color:var(--muted);font-size:.85rem;margin:10px 0;list-style:none}
+  .ped__hist>summary::-webkit-details-marker{display:none}
+  .ped__hist>summary:hover{color:var(--gold-bright)}
   /* barra de acciones masivas + resumen */
   .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
   .bulksum{font-size:.86rem;color:var(--muted)}
@@ -379,6 +397,31 @@
         <summary>¿Cómo preparo el Excel?</summary>
         <p class="hint">Poné estas columnas en la primera fila: <code>nombre, categoria, tipo, expansion, precio, estado, etiqueta, cantidad, imagen</code>. Llená una fila por carta. En Excel/Google Sheets: <b>Archivo → Descargar → CSV</b>. La columna <b>imagen</b> es un <b>link directo a la foto</b> (que termine en .jpg/.png/.webp) — la tienda la carga sola, no hace falta subir nada. Si la dejás vacía, la carta sale con emoji y le podés agregar la foto después desde la izquierda. <i>Ojo:</i> el link tiene que ser público y de un sitio que permita mostrar la imagen en otra página.</p>
       </details>
+    </div>
+  </div>
+
+  <!-- PEDIDOS DE LA TIENDA (reservas 48 h) -->
+  <div class="panel" id="pedPanel">
+    <button class="db-bar" id="pedToggle" type="button" aria-expanded="false" aria-controls="pedBody">
+      <span class="db-bar__ico" aria-hidden="true">📦</span>
+      <span class="db-bar__txt">
+        <span class="db-bar__title">Pedidos <span class="count" id="pedCount">…</span></span>
+        <span class="db-bar__sub" id="pedSub">Pedidos de la tienda con reserva de 48 h — confirmá la venta o liberá las cartas.</span>
+      </span>
+      <span class="db-bar__cta">Ver <span class="db-bar__arrow" id="pedArrow">▾</span></span>
+    </button>
+    <div id="pedBody" hidden>
+      <div id="pedKeyRow" class="actions" style="margin:0 0 12px;align-items:flex-end" hidden>
+        <label style="flex:1;min-width:230px;margin:0">Clave del panel (la PANEL_KEY de Vercel)
+          <input id="pedKey" type="password" placeholder="Tu clave secreta" />
+        </label>
+        <button class="btn btn--gold" id="pedKeySave" type="button">Conectar</button>
+      </div>
+      <div class="actions" style="margin:0 0 12px">
+        <button class="btn btn--ghost" id="pedRefresh" type="button">🔄 Actualizar</button>
+        <span class="hint" id="pedInfo" style="align-self:center"></span>
+      </div>
+      <div id="pedList"></div>
     </div>
   </div>
 
@@ -1169,6 +1212,131 @@ $('#syncStore').onclick = ()=> syncFromStore(true);
 })();
 
 syncFromStore(false);   // al abrir, cargar lo publicado
+
+/* ====== 📦 PEDIDOS de la tienda (reservas 48 h vía api/) ====== */
+let PEDKEY = localStorage.getItem('reroll_pedkey') || '';
+let pedidosCache = [];
+async function pedApi(path, opts={}){
+  const r = await fetch('api/'+path, { ...opts, cache:'no-store',
+    headers:{ 'x-panel-key':PEDKEY, 'Content-Type':'application/json', ...(opts.headers||{}) } });
+  if(r.status===401){ $('#pedKeyRow').hidden=false; $('#pedInfo').textContent='Poné la clave del panel para conectar.'; throw {silent:true}; }
+  if(r.status===404) { $('#pedInfo').textContent='La bandeja funciona en el panel publicado (rerollhobbystore.com/admin.html).'; throw {silent:true}; }
+  const j = await r.json().catch(()=>null);
+  if(!r.ok) throw new Error((j&&j.error)||('error '+r.status));
+  return j;
+}
+function pedHace(ts){
+  const m=Math.floor((Date.now()-ts)/60000);
+  if(m<60) return 'hace '+m+' min';
+  const h=Math.floor(m/60); if(h<48) return 'hace '+h+' h';
+  return 'hace '+Math.floor(h/24)+' días';
+}
+function pedExpira(ts){
+  const h = 48 - Math.floor((Date.now()-ts)/3600000);
+  return h>0 ? ('expira en '+h+' h') : 'expirado';
+}
+async function loadPedidos(){
+  try{
+    const j = await pedApi('pedidos');
+    pedidosCache = j.pedidos || [];
+    $('#pedKeyRow').hidden = true;
+    renderPedidos();
+  }catch(e){
+    $('#pedCount').textContent = '—';
+    if(!e || !e.silent){ $('#pedInfo').textContent = 'No se pudo cargar: '+(e && e.message || e); }
+  }
+}
+function renderPedidos(){
+  const wrap=$('#pedList'); if(!wrap) return;
+  const pend = pedidosCache.filter(p=>p.estado==='pendiente');
+  const resto = pedidosCache.filter(p=>p.estado!=='pendiente');
+  $('#pedCount').textContent = pend.length;
+  $('#pedInfo').textContent = pend.length ? (pend.length+' pendiente(s) por revisar') : 'Sin pedidos pendientes ✨';
+  const linea = (p,it)=>`
+    <div class="ped__line">
+      <span>${esc(it.name)}${it.foil?' <span style="color:var(--gold-bright)">✨ Foil</span>':''} ×${it.qty}
+        <span class="sm2">· ${fmt(it.price)} c/u</span></span>
+      <span style="display:flex;gap:10px;align-items:center">
+        <b style="color:var(--gold-bright)">${fmt(it.price*it.qty)}</b>
+        ${p.estado==='pendiente'?`<button class="ped__quitar" data-ped="${p.id}" data-lid="${it.id}" data-lfoil="${it.foil?1:''}" type="button">✕ quitar</button>`:''}
+      </span>
+    </div>`;
+  const card = (p)=>{
+    const badge = p.estado==='pendiente' ? '<span class="ped__badge">⏳ PENDIENTE</span>'
+      : p.estado==='confirmado' ? '<span class="ped__badge ped__badge--ok">✓ CONFIRMADO</span>'
+      : p.estado==='expirado' ? '<span class="ped__badge ped__badge--off">⌛ EXPIRADO</span>'
+      : '<span class="ped__badge ped__badge--off">✕ RECHAZADO</span>';
+    const entrega = p.entrega==='envio' ? ('Envío'+(p.provincia?' · '+esc(p.provincia):'')) : 'Retiro en Cartago';
+    return `<div class="ped${p.estado==='pendiente'?' ped--pend':''}">
+      <div class="ped__head">
+        <span><span class="ped__id">Pedido #${esc(p.id)}</span> ${badge}</span>
+        <span class="ped__meta">${pedHace(p.ts)} · ${esc(p.nombre)} · ${entrega} · ${esc(p.pago||'')}${p.estado==='pendiente'?' · '+pedExpira(p.ts):''}</span>
+      </div>
+      ${p.items.map(it=>linea(p,it)).join('')}
+      <div class="ped__foot">
+        <span class="ped__total">Total ${fmt(p.total)}</span>
+        ${p.estado==='pendiente'||p.estado==='expirado'?`<span style="display:flex;gap:8px">
+          <button class="btn btn--gold ped__conf" data-ped="${p.id}" type="button">✓ Confirmar venta</button>
+          ${p.estado==='pendiente'?`<button class="btn btn--ghost ped__rej" data-ped="${p.id}" type="button">Rechazar</button>`:''}
+        </span>`:''}
+      </div>
+    </div>`;
+  };
+  wrap.innerHTML = (pend.length ? pend.map(card).join('') : '<p class="empty">No hay pedidos pendientes.</p>')
+    + (resto.length ? `<details class="ped__hist"><summary>▸ Historial (${resto.length})</summary>${resto.map(card).join('')}</details>` : '');
+  wrap.querySelectorAll('.ped__quitar').forEach(b=> b.onclick=()=> pedQuitar(b.dataset.ped, Number(b.dataset.lid), !!b.dataset.lfoil));
+  wrap.querySelectorAll('.ped__conf').forEach(b=> b.onclick=()=> pedConfirmar(b.dataset.ped));
+  wrap.querySelectorAll('.ped__rej').forEach(b=> b.onclick=()=> pedRechazar(b.dataset.ped));
+}
+async function pedQuitar(id, lid, lfoil){
+  const ped=pedidosCache.find(p=>p.id===id); const it=ped&&ped.items.find(x=>x.id===lid&&!!x.foil===lfoil);
+  if(!it) return;
+  if(!confirm(`¿Quitar "${it.name}${lfoil?' (Foil)':''}" del pedido ${id}?\nEsa carta vuelve al stock de la tienda al instante.`)) return;
+  try{ await pedApi('pedido-accion',{method:'POST',body:JSON.stringify({id,accion:'quitar',linea:{id:lid,foil:lfoil}})});
+    toast('Carta liberada'); loadPedidos();
+  }catch(e){ if(!e.silent) toast('Error: '+(e.message||e)); }
+}
+async function pedRechazar(id){
+  if(!confirm(`¿Rechazar TODO el pedido ${id}?\nTodas sus cartas vuelven al stock.`)) return;
+  try{ await pedApi('pedido-accion',{method:'POST',body:JSON.stringify({id,accion:'rechazar'})});
+    toast('Pedido rechazado y stock liberado'); loadPedidos();
+  }catch(e){ if(!e.silent) toast('Error: '+(e.message||e)); }
+}
+async function pedConfirmar(id){
+  const ped=pedidosCache.find(p=>p.id===id); if(!ped) return;
+  if(!confirm(`✓ Confirmar la VENTA del pedido ${id} (${fmt(ped.total)}).\nSe descuenta el stock de la tienda y queda registrado en Ventas.\n\n¿Confirmar?`)) return;
+  try{
+    const j = await pedApi('pedido-accion',{method:'POST',body:JSON.stringify({id,accion:'confirmar'})});
+    // espejo local: mismo descuento que hizo el servidor (así tu copia local no lo pisa al publicar)
+    const hoy = new Date().toISOString().slice(0,10);
+    (j.pedido.items||[]).forEach(it=>{
+      const p=items.find(x=>x.id===it.id);
+      if(p){
+        if(it.foil && p.stockf!==undefined && p.stockf!==null && p.stockf!=='') p.stockf=Math.max(0,Number(p.stockf)-it.qty);
+        else if(p.stock!==undefined && p.stock!==null && p.stock!=='') p.stock=Math.max(0,Number(p.stock)-it.qty);
+      }
+      sales.push({ id:nextSaleId++, name: it.name+(it.foil?' (Foil)':''), qty: it.qty, price: it.price, date: hoy, channel: 'Pedido web '+id });
+    });
+    save(); saveSales(); render();
+    toast('¡Venta confirmada! Stock descontado y registrado en Ventas 🎉');
+    loadPedidos();
+  }catch(e){
+    if(!e.silent) alert('No se pudo confirmar: '+(e.message||e));
+  }
+}
+(function(){
+  const tg=$('#pedToggle'), body=$('#pedBody'), arrow=$('#pedArrow');
+  if(!tg||!body) return;
+  tg.addEventListener('click', ()=>{
+    const opening = body.hasAttribute('hidden');
+    if(opening){ body.removeAttribute('hidden'); loadPedidos(); } else { body.setAttribute('hidden',''); }
+    tg.setAttribute('aria-expanded', opening?'true':'false');
+    if(arrow) arrow.textContent = opening ? '▴' : '▾';
+  });
+  $('#pedRefresh').onclick=loadPedidos;
+  $('#pedKeySave').onclick=()=>{ PEDKEY=$('#pedKey').value.trim(); if(!PEDKEY){ toast('Escribí la clave'); return; } localStorage.setItem('reroll_pedkey',PEDKEY); loadPedidos(); };
+  loadPedidos();   // al abrir el panel: badge con pendientes
+})();
 
 /* ====== Agregar desde el catálogo maestro (quick-search) ====== */
 (function(){

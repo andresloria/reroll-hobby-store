@@ -6,6 +6,7 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 - **Sitio estático: HTML + CSS + JavaScript vanilla. SIN build, SIN React/Tailwind/TypeScript, SIN node/npm.**
 - No se pueden "integrar componentes shadcn/React" tal cual: hay que **reescribir el efecto en vanilla JS**. Librerías externas solo por `<script>` CDN si hace falta.
 - Python disponible solo para: servir local y scripts de assets (Pillow).
+- **Única excepción al "sin backend": `api/`** — funciones serverless de Vercel (Node CommonJS, CERO dependencias, sin package.json) para el sistema de pedidos/reservas. No agregar npm ni build por esto.
 
 ## Archivos
 - `index.html` — home. `juego.html` — catálogo por juego (`?g=<TCG>`). `admin.html` — panel privado (clave `reroll`). `vintage.html` — muestra aparte.
@@ -19,6 +20,8 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 - **Analytics:** Google Analytics 4 (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas; `admin.html` excluido. En `make_cartas.py` las llaves del snippet van escapadas `{{ }}` (la plantilla usa `.format()`).
 - **Google Search Console:** verificación por meta tag en el `<head>` de **index.html**: `<meta name="google-site-verification" content="_6DX60aqNivRzGGvFqaIqbOsWTtpV53mqTG60wBe4U0" />`.
 - **Foil (Riftbound commons/uncommons):** campo opcional `foil` (₡) en `productos.json` = precio foil; su presencia habilita el toggle Normal/Foil en catálogo/ficha/carrito (variante de carrito por `key` `id`/`id_f`) y se edita en el panel. Precios foil de TCGplayer (API `mpapi.tcgplayer.com/v2/product/<id>/pricepoints`) × ₡520 + el mismo redondeo escalonado. Rare/Epic/Showcase ya son foil-only (no llevan `foil`).
+- **Stock foil aparte:** campo opcional `stockf` en `productos.json` = unidades de la variante foil. Si NO está, el foil sigue el stock normal. La tienda (card/quick-view/ficha/carrito) respeta el stock por variante; el panel lo edita (campo "Cantidad foil" + stepper ✨ FOIL en la base).
+- **📦 PEDIDOS / RESERVAS (api/):** el checkout hace `POST api/pedido` → el pedido queda **pendiente 48 h** en `data/pedidos.json` (el repo ES la base de datos, vía GitHub Contents API) y esas unidades se **reservan**: la tienda resta `GET api/reservas` del stock visible (app.js `applyReservas` + carta.js). El panel (`admin.html` → sección 📦 Pedidos, header `x-panel-key`) lista pedidos y por cada uno: **quitar línea** (libera al instante), **rechazar**, o **✓ confirmar** → `api/pedido-accion` descuenta stock en `productos.json` del repo (commit + deploy) y el panel espeja el descuento local + registra en Ventas. Reservas expiran solas a las 48 h (calculado en lectura, sin cron). **Env vars en Vercel: `GITHUB_TOKEN` (contents RW del repo) y `PANEL_KEY` (clave de la bandeja)** — sin ellas la API responde vacío/503 y la tienda funciona normal (igual que en local, donde no hay `/api`). `api/_lib.js` = helpers compartidos; archivos >1MB (productos.json) se leen con sha-del-listado + media type raw. NO editar `data/pedidos.json` a mano.
 - **`SESSIONS.md`** — bitácora legible de todas las sesiones (backup histórico). Actualizar al cerrar una tanda de trabajo.
 
 ## Build / deploy

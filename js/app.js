@@ -105,6 +105,19 @@ function stockVal(p){ const s=p.stock; return (s===undefined||s===null||s==="")?
 function stockValF(p){ const s=p.stockf; return (s===undefined||s===null||s==="")?null:Number(s); }
 // disponibilidad de la variante foil: usa su propio stock si está definido; si no, sigue el normal
 function foilAvailable(p){ if(p.foil==null) return false; const sf=stockValF(p); return sf===null ? isAvailable(p) : sf>0; }
+// resta del stock visible las unidades reservadas por pedidos pendientes (map: {"id":n,"id_f":n})
+function applyReservas(map){
+  for(const k in map){
+    const foil = k.endsWith("_f");
+    const id = Number(foil ? k.slice(0,-2) : k);
+    const q = Number(map[k])||0;
+    const p = PRODUCTS.find(x=>x.id===id);
+    if(!p || q<=0) continue;
+    const has = (v)=> v!==undefined && v!==null && v!=="";
+    if(foil && has(p.stockf))      p.stockf = Math.max(0, Number(p.stockf)-q);
+    else if(has(p.stock))          p.stock  = Math.max(0, Number(p.stock)-q);
+  }
+}
 // disponible = sin campo de stock (ilimitado) o con stock > 0
 function isAvailable(p){ const s=stockVal(p); return s===null || s>0; }
 
@@ -949,7 +962,20 @@ function showCheckoutSuccess(url){
   const t=$(".co__title"); if(t) t.style.display="none";
   const s=$("#coSuccess"); if(s){ s.hidden=false; s.querySelector("#coWaLink")?.focus(); }
 }
-function submitCheckout(e){
+// si la API avisa que ya no alcanza el stock (alguien reservó antes), ajusta el carrito
+function ajustarCarritoPorFaltantes(faltantes){
+  const avisos = [];
+  (faltantes||[]).forEach(fa=>{
+    const key = lineKey(fa.id, fa.foil);
+    const line = cart.find(c=>c.key===key); if(!line) return;
+    const nm = line.name.replace(/ · Foil$/,"") + (fa.foil ? " (Foil)" : "");
+    if(fa.disponible>0){ line.qty = fa.disponible; avisos.push(`${nm}: quedan ${fa.disponible}`); }
+    else { cart = cart.filter(c=>c.key!==key); avisos.push(`${nm}: se agotó`); }
+  });
+  saveCart(); renderCart();
+  toast(avisos.length ? ("Uy — alguien apartó antes. Ajustamos tu carrito: " + avisos.join(" · ")) : "Alguna carta se agotó; revisá el carrito");
+}
+async function submitCheckout(e){
   e.preventDefault();
   const f = new FormData(e.target);
   const entrega = f.get("entrega");
@@ -960,21 +986,51 @@ function submitCheckout(e){
     const dir = (f.get("direccion")||"").trim();
     if(!dir){ showFieldError(e.target.querySelector('[name="direccion"]'), "Necesitamos la dirección para el envío."); return; }
   }
+  const prov = (f.get("provincia")||"").trim();
+  const dir  = (f.get("direccion")||"").trim();
+  // ---- 1) reservar el pedido en la API (si está disponible) ----
+  const sbtn = e.target.querySelector('[type="submit"]');
+  if(sbtn){ sbtn.disabled = true; }
+  let pedidoId = null;
+  try{
+    const r = await fetch("api/pedido", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, entrega, provincia: prov, direccion: dir, pago,
+        items: cart.map(c=>({ id: c.id, foil: !!c.foil, qty: c.qty||1 })) })
+    });
+    if(r.status===409){
+      const j = await r.json().catch(()=>null);
+      ajustarCarritoPorFaltantes(j && j.faltantes);
+      if(sbtn) sbtn.disabled = false;
+      return;   // el cliente revisa el carrito ajustado y reenvía
+    }
+    if(r.ok){ const j = await r.json().catch(()=>null); if(j && j.ok) pedidoId = j.id; }
+  }catch(err){ /* API no disponible (ej. local): el pedido va solo por WhatsApp, sin reserva */ }
+  if(sbtn) sbtn.disabled = false;
+  // ---- 2) mensaje de WhatsApp (igual que siempre, + número de pedido si hubo reserva) ----
   const items = cart.map(c=>`• ${c.name} ×${c.qty} (${c.cat}) — ${fmt(c.price*c.qty)}`).join("%0A");
-  let msg = `¡Hola Reroll! Quiero hacer un pedido:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`;
+  let msg = pedidoId
+    ? `¡Hola Reroll! Pedido *%23${pedidoId}*:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`
+    : `¡Hola Reroll! Quiero hacer un pedido:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`;
   msg += `%0A%0ANombre: ${nombre}`;
   if(entrega==="envio"){
-    const prov = (f.get("provincia")||"").trim();
-    const dir  = (f.get("direccion")||"").trim();
     msg += `%0AEntrega: Envío por Correos de Costa Rica%0AProvincia: ${prov}%0ADirección: ${dir}%0A(el costo de envío se confirma según destino)`;
   } else {
     msg += `%0AEntrega: Retiro en Cartago`;
   }
   msg += `%0APago: ${pago}`;
   if(pago==="SINPE Móvil") msg += `%0A(SINPE a ${SINPE_NOMBRE} ${SINPE_NUMERO})`;
+  if(pedidoId) msg += `%0A%0A(Cartas reservadas 48 h con el pedido %23${pedidoId})`;
   const url = `https://wa.me/${WHATSAPP}?text=${msg}`;
   window.open(url, "_blank", "noopener");
   showCheckoutSuccess(url);   // confirmación + enlace de respaldo si el pop-up se bloquea
+  // ---- 3) con reserva creada: bajar stock local y vaciar el carrito ----
+  if(pedidoId){
+    const rm = {};
+    cart.forEach(c=>{ const k=lineKey(c.id, !!c.foil); rm[k]=(rm[k]||0)+(c.qty||1); });
+    applyReservas(rm);
+    cart = []; saveCart(); renderCart(); renderGrid();
+  }
 }
 
 /* ============================================================
@@ -1379,6 +1435,12 @@ async function loadCatalog(){
       }
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
+  try{
+    // reservas de pedidos pendientes (48 h): se restan del stock que ve el cliente.
+    // En local no existe /api → se ignora y la tienda funciona igual.
+    const rres = await fetch("api/reservas", { cache: "no-store" });
+    if(rres.ok){ const rj = await rres.json(); if(rj && rj.reservas) applyReservas(rj.reservas); }
+  }catch(e){ /* sin API: sin reservas */ }
   enrichProducts();   // rareza / tipo de carta / dominio-color para los filtros avanzados
   renderGameBar(); renderGameBanner(); renderFilters(); renderGrid(); renderHeroFan(); renderGameTiles(); renderHeroChips();
   renderHeroMarquee();   // desfile de cartas reales en el hero

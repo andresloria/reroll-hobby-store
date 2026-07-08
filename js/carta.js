@@ -114,12 +114,26 @@
     });
   }
 
-  fetch("../productos.json", { cache: "no-cache" })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (data) {
+  // productos.json (precio/stock frescos) + api/reservas (pedidos pendientes 48 h;
+  // en local la API no existe y se ignora)
+  Promise.all([
+    fetch("../productos.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }),
+    fetch("../api/reservas", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+  ])
+    .then(function (rs) {
+      var data = rs[0], rj = rs[1];
       if (!Array.isArray(data)) return;
       var p = data.find(function (x) { return String(x.id) === String(pid); });
       if (!p) return;
+      // restar unidades reservadas de esta carta (normal y foil)
+      var res = (rj && rj.reservas) || {};
+      var has = function (v) { return v !== undefined && v !== null && v !== ""; };
+      var qN = Number(res[String(p.id)]) || 0, qF = Number(res[p.id + "_f"]) || 0;
+      if (qN > 0 && has(p.stock)) p.stock = Math.max(0, Number(p.stock) - qN);
+      if (qF > 0) {
+        if (has(p.stockf)) p.stockf = Math.max(0, Number(p.stockf) - qF);
+        else if (has(p.stock)) p.stock = Math.max(0, Number(p.stock) - qF);
+      }
       prod = p;
       // refrescar precios normal/foil desde el JSON y respetar el toggle actual
       if (priceEl) {
