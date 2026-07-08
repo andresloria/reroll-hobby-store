@@ -177,13 +177,17 @@ def build():
     if os.path.exists(op_path):
         with open(op_path, encoding="utf-8") as f:
             rich_by_img.update(json.load(f))
-    # datos ricos del CATÁLOGO MAESTRO (Riftbound + One Piece completos), keyed por img
+    # datos ricos del CATÁLOGO MAESTRO (Riftbound + One Piece completos), keyed por img.
+    # OJO: solo RELLENA huecos — los CSVs de Riftbound_Cards tienen PRIORIDAD (traen
+    # set_id/ilustrador y definen el slug; el catálogo comparte las mismas imágenes
+    # de Riot y si pisara, cambiarían las URLs de todas las fichas).
     cat_dir = os.path.join(ROOT, "catalogo")
     if os.path.isdir(cat_dir):
         for fn in os.listdir(cat_dir):
             if fn.endswith("_rich.json"):
                 with open(os.path.join(cat_dir, fn), encoding="utf-8") as f:
-                    rich_by_img.update(json.load(f))
+                    for k, v in json.load(f).items():
+                        rich_by_img.setdefault(k, v)
 
     # --- 1ra pasada: calcular slug único por producto ---
     used = {}
