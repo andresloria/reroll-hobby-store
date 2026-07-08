@@ -8,6 +8,16 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Stock foil por separado (pedido de Andrés)
+- Faltaba poder llevar el stock del **foil aparte** del normal. Nuevo campo opcional `stockf` en `productos.json` (solo cartas con `foil`). Si no está definido, el foil sigue el stock normal (compatibilidad: ninguna carta actual cambia hasta ponerle su cantidad foil).
+- **Panel (`admin.html`):** al tildar "✨ Disponible en foil" aparece **"Cantidad foil"** junto al precio foil (`foilFields()` togglea ambos; se guarda/edita/borra con el foil). En la **Base de datos**: la línea muestra "✨ Foil ₡X · N en stock" y hay un **stepper de foil aparte** (`.stkf__b/.stkf__i`, dorado) apilado bajo el normal con etiquetas STOCK / ✨ FOIL (`admStockF`, `setFoilTo`).
+- **Tienda (`js/app.js`):** helpers `stockValF()` + `foilAvailable()`. El toggle Normal/Foil del card y del quick-view ahora recalcula disponibilidad por variante (`paintAvail`/`qvAvail`): si el foil se agota pero el normal no, solo se deshabilita "Añadir" al elegir Foil (y al revés), con label "Agotado en foil". `addToCart`/`changeQty` topean por la variante correcta. Quick-view ganó línea `qv__stock`.
+- **Ficha (`js/carta.js` v2→3):** re-hidrata disponibilidad por variante (`variantAvail`/`refreshAvail`), swap Comprar↔Avísame según la variante. Rebuild de las 3.574 fichas. Cache `app.js`/`styles.css` `?v=57→58`.
+- **Probado en navegador (localhost):** Normal 5/Foil 0 → foil "Agotado en foil" + botón off, normal OK; Normal 0/Foil 3 → normal "Agotado", foil "¡Solo 3!"; addToCart foil agrega / normal bloquea; quick-view igual; panel: form crea `stockf`, stepper foil sube/baja. 0 errores de consola. Screenshots del form y de la base con doble stepper.
+- Commit del feature + rebase sobre publish del panel (`c30df007`, stock/precio de ~10 cartas) + re-sync de 8 fichas.
+
+---
+
 ## 2026-07-07 — Rutina de precios TCGplayer + 386 subidas aplicadas
 - **Nueva herramienta `check_precios.py`:** compara `productos.json` contra los precios **frescos** de TCGplayer (vía TCGCSV, sin cache de precios) y reporta qué cambió. Cruce: One Piece por **ID exacto** de la imagen (2.623/2.629; 6 sin img); Riftbound por **nombre+set**, con manejo de campeones (`Nine-Tailed Fox`→`Ahri - Nine-Tailed Fox`) y fallback por nombre único global (31 sin cruce = tokens tipo *Recruit (DE)* y algún campeón de Proving Grounds). Si el cruce es ambiguo NO adivina. Misma conversión USD×₡520 + redondeo escalonado que make_catalogo.
 - Genera `reporte_precios.md` (legible) + `reporte_precios.csv` (Excel), ordenados de mayor subida a menor. Ambos + `productos_backup_precios.json` en `.gitignore` (locales).
