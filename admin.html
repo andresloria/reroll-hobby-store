@@ -327,8 +327,10 @@
     <div id="addBody" hidden>
       <div style="max-width:640px">
       <button type="button" class="btn btn--gold btn--block" id="openCatalog" style="margin:14px 0 8px">🃏 Agregar desde el catálogo</button>
-      <p class="hint" style="margin:-2px 0 14px;text-align:center">Buscá la carta, ponés cuántas tenés y listo — imagen, precio y descripción salen solos. ↓ o cargala a mano abajo.</p>
-      <form id="addForm">
+      <p class="hint" style="margin:-2px 0 14px;text-align:center">LA forma de agregar cartas: buscá, tocá + y listo — imagen, precio y descripción salen solos. Si la carta ya está en tu base, el mismo catálogo te muestra y edita su stock.</p>
+      <details id="manualAdd">
+        <summary>✍️ Agregar a mano (sellado, otros juegos, casos especiales)</summary>
+      <form id="addForm" style="margin-top:12px">
         <label>Nombre
           <input name="name" required placeholder="Ej: Charizard Holo 1ª ed." />
         </label>
@@ -398,6 +400,7 @@
         </div>
         <p class="hint" id="addHint"></p>
       </form>
+      </details>
       <details style="margin-top:16px">
         <summary>📄 Importar muchas de una — Excel / CSV</summary>
         <p class="sub" style="margin:10px 0 12px">Exportá tu Excel como CSV y subilo aquí.</p>
@@ -843,6 +846,7 @@ function editItem(id){
   $('#cancelEdit').style.display = '';
   render();
   openSection('#addToggle','#addBody');   // el formulario vive en "Agregar cartas"
+  const ma=$('#manualAdd'); if(ma) ma.open=true;   // …dentro del plegado "a mano"
   fm.scrollIntoView({behavior:'smooth', block:'center'});
 }
 $('#cancelEdit').onclick = exitEdit;
@@ -1521,10 +1525,27 @@ async function pedConfirmar(id){
     const sets=[...new Set(cur.map(e=>e.set))].sort();
     setSel.innerHTML='<option value="all">Todas las expansiones</option>'+sets.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
   }
-  // match catálogo→base: por imagen; si la entrada NO tiene imagen, por nombre+set
-  // (nunca por img vacía: emparejaría cartas sin foto que no tienen nada que ver)
+  // match catálogo→base: por imagen (la misma de Riot en ambos lados). Si varias
+  // cartas comparten imagen (carta base y su promo), desempata por set y nombre.
+  // Si no hay match por imagen, intenta nombre+set normalizados — SOLO si es
+  // inequívoco (así "Kai'Sa - Survivor" cruza con "Kai'Sa, Survivor" sin duplicar).
+  // variantes de evento que comparten imagen con la carta normal pero son OTRA
+  // carta física: solo cruzan si el nombre coincide exacto (si no, botón +)
+  const CAT_VAR_EXCL = /\((metal|prize wall|champion|top 8|overnumbered|signature|serialized)\b/i;
   function invMatch(e){
-    if(e.img) return items.find(p=>p.img===e.img);
+    const nE = norm(e.name);
+    if(e.img){
+      const cands = items.filter(p=>p.img===e.img);
+      if(cands.length){
+        if(CAT_VAR_EXCL.test(e.name)) return cands.find(p=> norm(p.name)===nE) || null;
+        if(cands.length===1) return cands[0];
+        const setOk = cands.filter(p=> (p.set||'')===(e.set||''));
+        const pool = setOk.length ? setOk : cands;
+        return pool.find(p=> norm(p.name)===nE) || pool[0];
+      }
+      const byNS = items.filter(p=> norm(p.name)===nE && (p.set||'')===(e.set||''));
+      return byNS.length===1 ? byNS[0] : null;
+    }
     return items.find(p=>!p.img && p.name===e.name && (p.set||'')===(e.set||''));
   }
   function filtered(){
@@ -1555,18 +1576,20 @@ async function pedConfirmar(id){
     const rar = e.rarity ? `<span class="catpill">${esc(e.rarity)}</span>` : '';
     const num = e.number ? `<small>${esc(e.number)}</small>` : '';
     const priceTxt = fmt(e.price)+(e.foil!=null?` · foil ${fmt(e.foil)}`:'');
-    const ctrl = qty>0
+    // si la carta YA está en tu base, SIEMPRE stepper con su stock (0 = agotada);
+    // el + solo aparece para cartas que todavía no tenés registradas
+    const ctrl = it
       ? `<div class="catqty" data-i="${i}"><button class="minus" data-i="${i}">−</button><b id="catq-${i}">${qty}</b><button class="plus" data-i="${i}">+</button></div>`
       : `<button class="catadd" data-i="${i}" title="Agregar">+</button>`;
     const media = e.img
       ? `<img class="catit__img" src="${esc(e.img)}" alt="" loading="lazy" onerror="catImgFail(this)">`
       : `<div class="catit__img noimgp"><span>Sin imagen</span></div>`;
-    return `<div class="catit${qty>0?' inbase':''}" id="catit-${i}">
+    return `<div class="catit${it?' inbase':''}" id="catit-${i}">
       ${media}
       <div class="catit__meta">
         <div class="catit__nm">${esc(e.name)} ${num}</div>
         <div class="catit__sub">${esc(e.set)}${e.type==='sealed'?' · Sellado':''}</div>
-        <div class="catit__tags">${rar}${finish}<span class="catprice">${priceTxt}</span>${qty>0?'<span class="catin">✓ en tu base</span>':''}</div>
+        <div class="catit__tags">${rar}${finish}<span class="catprice">${priceTxt}</span>${it?('<span class="catin">✓ en tu base'+(qty>0?'':' · agotada')+'</span>'):''}</div>
       </div>
       ${ctrl}
     </div>`;
@@ -1580,10 +1603,11 @@ async function pedConfirmar(id){
     if(minus) minus.onclick=()=>{ const it=invMatch(e); setQty(e,(it?stockNum(it):0)-1); };
   }
   function setQty(e, q){
+    q = Math.max(0, q);
     let it=invMatch(e);
-    if(q<=0){ if(it){ if(!it._new){ deletedIds.push(it.id); saveDeleted(); } items=items.filter(x=>x!==it); } }
-    else if(it){ it.stock=q; markDirty(it); }
+    if(it){ it.stock=q; markDirty(it); }   // 0 = agotada; la carta y su ficha se conservan
     else {
+      if(q<1) return;
       it={ id:nextId++, name:e.name, cat:e.game, type:e.type||'single', set:e.set,
            price:e.price, cond:'Near Mint', stock:q, img:e.img, _new:1 };
       if(e.foil!=null) it.foil=e.foil;

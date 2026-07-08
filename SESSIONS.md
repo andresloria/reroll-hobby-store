@@ -8,6 +8,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-07 — Catálogo del panel: cruce por imagen arreglado (fix duplicados tipo Kai'Sa)
+- **Bug:** el catálogo maestro (`catalogo/riftbound.json`) traía imágenes de TCGplayer mientras el inventario RB usa las de Riot → el panel nunca reconocía cartas ya registradas (`invMatch` cruza por img) → "+" en vez del stepper → **duplicó Kai'Sa - Survivor** (id 3690, borrada; quedan id 42 Showcase ×1 y id 43 base ×3 — revisar conteo físico).
+- **`make_catalogo.py`:** Riftbound ahora resuelve la imagen de **Riot** por número+set (misma lógica de denominadores 298/219/221/024 que `make_promos_rb.py`, con desambiguación Showcase/normal y de números reciclados). Grupos promocionales de TCGplayer → set **"Promos"** (igual que el inventario). Rebuild: 1105/1249 con img de Riot; fallback TCGplayer (Vendetta, sin CSV aún).
+- **`admin.html` `invMatch`:** desempata cuando base y promo comparten imagen (por set, luego nombre normalizado — cruza "Kai'Sa - Survivor" TCGplayer con "Kai'Sa, Survivor" Riot); variantes de evento `(Metal)/(Prize Wall)/(Champion)/(Top 8)/(Overnumbered)/(Signature)` solo cruzan por nombre exacto (si no → "+").
+- **El catálogo es LA forma de agregar** (pedido de Andrés): el formulario manual quedó plegado en "✍️ Agregar a mano (avanzado)". Las cartas en tu base **siempre muestran stepper con su stock real** (0 = "✓ en tu base · agotada"); el − a 0 marca agotada y **ya no borra** la carta.
+- Verificado E2E en preview: Kai'Sa Survivor→3, Alt Art→1, promo DV→2, Metal/Signature→"+"; + sobre agotada edita la existente SIN duplicar.
+
 ## 2026-07-07 — Panel reorganizado + a prueba de pérdidas (tras perder 1 h de trabajo)
 - **Causa raíz de la pérdida:** al abrir el panel, `syncFromStore` pisaba las ediciones locales sin publicar con lo de la tienda, y el merge por NOMBRE descartaba cartas repetidas (así desaparecieron las Body Rune). Además los cambios "pendientes" vivían solo en memoria.
 - **Sync seguro:** ahora cada edición local lleva `_dirty:1` (o `_new:1` si es carta nueva; borradas → `deletedIds`), todo persistido en localStorage. El sync usa la tienda como base y **conserva lo tuyo encima, cruzando por ID** (ya no por nombre). Los `_flags` nunca se suben (`SIN_FLAGS` replacer). Al publicar, se limpian. `reindex()` eliminado (ya no se reasignan ids).

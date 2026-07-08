@@ -29,6 +29,7 @@ reporte_precios.csv
 productos_backup_precios.json
 productos_backup_promos.json
 productos_backup_op_stock0.json
+productos_backup_dedup.json
 cambios_aplicados_*.md
 cambios_aplicados_*.csv
 revisar_a_mano.csv

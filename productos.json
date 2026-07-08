@@ -41024,53 +41024,5 @@
     "cond": "Near Mint",
     "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/703b85f8284ed13865012289d03602e2cd24f4b2-744x1039.png?accountingTag=RB"
-  },
-  {
-    "id": 3690,
-    "name": "Kai'Sa - Survivor",
-    "cat": "Riftbound",
-    "type": "single",
-    "set": "Origins",
-    "price": 38000,
-    "cond": "Near Mint",
-    "stock": 3,
-    "img": "https://tcgplayer-cdn.tcgplayer.com/product/652812_400w.jpg",
-    "d": {
-      "fx": "ACCELERATE <i>(You may pay 1 and 1 Fury as an additional cost to have me enter ready.)</i><br><br><br>When I conquer, draw 1.",
-      "at": [
-        [
-          "Tipo",
-          "Champion Unit"
-        ],
-        [
-          "Rareza",
-          "Epic"
-        ],
-        [
-          "Dominio",
-          "Fury"
-        ],
-        [
-          "Energía",
-          "4"
-        ],
-        [
-          "Power",
-          "0"
-        ],
-        [
-          "Might",
-          "4"
-        ],
-        [
-          "Subtipos",
-          "Kai'Sa;The Void"
-        ],
-        [
-          "N.º",
-          "039"
-        ]
-      ]
-    }
   }
 ]

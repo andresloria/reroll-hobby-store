@@ -15,6 +15,7 @@ Correr: python make_catalogo.py           (todos los juegos)
         python make_catalogo.py riftbound (solo uno)
 """
 import json, os, sys, math, time, urllib.request
+import csv, glob, re, unicodedata
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR = os.path.join(ROOT, "catalogo")
@@ -118,13 +119,60 @@ def rich_onepiece(ed):
 
 RICH = {"riftbound": rich_riftbound, "one-piece": rich_onepiece}
 
+# ---- Riftbound: imagen de RIOT (la MISMA del inventario) ---------------------
+# El inventario RB usa las imágenes del CDN de Riot (CSVs de Riftbound_Cards/).
+# El catálogo cruza cada producto por número de coleccionista + set para usar
+# esa misma imagen: así el panel reconoce por img las cartas que YA están en la
+# base (muestra el stepper con tu stock) y no se duplican al agregar.
+# Fallback: la imagen de TCGplayer (sets sin CSV todavía, ej. Vendetta).
+RB_DENOM_SET = {"298": "Origins", "219": "Unleashed", "221": "Spiritforged",
+                "24": "Proving Grounds", "024": "Proving Grounds"}
+RB_PROMO_HINTS = ("Promotional", "Judge", "Worlds Bundle", "Organized Play")
+
+def _norm(s):
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", " ", s).strip()
+
+def _base_num(n):
+    n = re.sub(r"[a-z]+$", "", (n or "").strip())   # quita sufijo de variante (039a, 246b)
+    return n.lstrip("0") or "0"
+
+def load_rb_base():
+    idx = {}
+    for f in glob.glob(os.path.join(ROOT, "Riftbound_Cards", "*", "*_cards.csv")):
+        for r in csv.DictReader(open(f, encoding="utf-8-sig")):
+            idx.setdefault((r["set_name"], r["collector_number"]), []).append(r)
+    return idx
+
+def rb_riot_img(name, number, rarity, idx):
+    if "/" not in (number or ""):
+        return ""
+    N, D = number.rsplit("/", 1)
+    st = RB_DENOM_SET.get(D.strip())
+    rows = idx.get((st, _base_num(N))) if st else None
+    if not rows:
+        return ""
+    # Showcase/Alt-Art usa la impresión Showcase; el resto (incl. promos) la normal
+    want_sc = (rarity == "Showcase")
+    pool = [r for r in rows if (r.get("rarity") == "Showcase") == want_sc] or rows
+    if len(pool) == 1:
+        return pool[0]["image_url"]
+    # varios con el mismo número (Unleashed recicla numeración): por solape de nombre
+    words = set(_norm(re.sub(r"\(.*?\)", "", name)).split())
+    best = max(pool, key=lambda r: len(words & set(_norm(r["name"]).split())))
+    return best["image_url"]
+
 def build_game(key):
     cfg = GAMES[key]; cat = cfg["cat"]; label = cfg["label"]
     groups = results(fetch_json(f"https://tcgcsv.com/tcgplayer/{cat}/groups", f"{key}_groups"))
     print(f"[{label}] {len(groups)} sets")
+    rb_idx = load_rb_base() if key == "riftbound" else None
     entries = []; rich = {}
     for g in groups:
         gid = g["groupId"]; setn = set_label(key, g["name"])
+        # grupos promocionales de RB -> set corto "Promos" (igual que el inventario)
+        if key == "riftbound" and any(h in g["name"] for h in RB_PROMO_HINTS):
+            setn = "Promos"
         prods = results(fetch_json(f"https://tcgcsv.com/tcgplayer/{cat}/{gid}/products", f"{key}_{gid}_p"))
         prices = results(fetch_json(f"https://tcgcsv.com/tcgplayer/{cat}/{gid}/prices", f"{key}_{gid}_pr"))
         # precios: productId -> {subtype: marketPrice}
@@ -141,9 +189,13 @@ def build_game(key):
             usd_norm = subs.get("Normal"); usd_foil = subs.get("Foil")
             base_usd = usd_norm if usd_norm else usd_foil
             price = round_crc(base_usd)
-            # solo cableamos imagen si TCGplayer tiene una (imageCount>0); si no, emoji
+            # imagen: RB primero intenta la de Riot (la del inventario) por número+set;
+            # fallback TCGplayer si existe (imageCount>0); si no, emoji
             has_img = (p.get("imageCount") or 0) > 0
             img = f"https://tcgplayer-cdn.tcgplayer.com/product/{pid}_400w.jpg" if has_img else ""
+            if rb_idx is not None and is_single:
+                riot = rb_riot_img(name, ed.get("Number", ""), ed.get("Rarity", ""), rb_idx)
+                if riot: img = riot
             entry = {
                 "name": name,
                 "game": label,
