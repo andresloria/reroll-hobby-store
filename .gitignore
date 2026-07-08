@@ -23,6 +23,11 @@ node_modules/
 # cache crudo de TCGCSV (make_catalogo.py) — no versionar
 catalogo/_cache/
 
+# reportes/backup de la rutina de precios (check_precios.py) — locales, no versionar
+reporte_precios.md
+reporte_precios.csv
+productos_backup_precios.json
+
 # Python bytecode
 __pycache__/
 *.pyc
