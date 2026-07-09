@@ -633,8 +633,11 @@
         <select class="catgame" id="catGame">
           <option value="riftbound">🎲 Riftbound</option>
           <option value="one-piece">🏴‍☠️ One Piece</option>
+          <option value="pokemon">⚡ Pokémon</option>
+          <option value="magic">🌸 Magic</option>
+          <option value="yugioh">🐉 Yu-Gi-Oh</option>
         </select>
-        <input type="search" id="catSearch" placeholder="🔎 Buscá la carta (ej. Ahri, Luffy)…" autocomplete="off" />
+        <input type="search" id="catSearch" placeholder="🔎 Buscá la carta (ej. Ahri, Pikachu)…" autocomplete="off" />
       </div>
       <div class="catfilters">
         <select id="catType"><option value="all">Todo tipo</option><option value="single">Singles</option><option value="sealed">Sellado</option></select>
@@ -1504,9 +1507,11 @@ async function pedConfirmar(id){
     const rows=[]; const add=(k,v)=>{ if(v!=null&&v!==''&&v!=='—') rows.push([k, escH(String(v))]); };
     add('Tipo',r.type); add('Rareza',r.rarity);
     if(cat==='One Piece'){ add('Color',r.color); add('Costo',r.cost); add('Vida',r.life); add('Counter',r.counter); add('Atributo',r.attribute); }
+    else add('Atributo',r.attribute);               // Yu-Gi-Oh: DARK/LIGHT…
     if(r.domains) add('Dominio',r.domains);
     add('Energía',r.energy); add('Power',r.power); add('Might',r.might);
     if(r.tags) add('Subtipos',r.tags);
+    (r.extra||[]).forEach(par=>{ if(Array.isArray(par)&&par.length===2) add(par[0],par[1]); });   // HP, ATK/DEF, P/T…
     const num=r.collector_number||r.number; if(num) add('N.º',num);
     return rows;
   }

@@ -21,10 +21,17 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR = os.path.join(ROOT, "catalogo")
 RATE = 520  # ₡ por USD (igual que el inventario)
 
-# categorías de TCGCSV/TCGplayer
+# categorías de TCGCSV/TCGplayer.
+# RB y OP van COMPLETOS. Magic/YGO/Pokémon solo los ÚLTIMOS sets ("recent" grupos
+# más nuevos por groupId, con piso de fecha; sus catálogos completos serían
+# gigantes: Magic tiene 450 grupos). "excl" filtra grupos que no son cartas.
 GAMES = {
     "riftbound": {"cat": 89, "label": "Riftbound"},
     "one-piece": {"cat": 68, "label": "One Piece"},
+    "pokemon":   {"cat": 3,  "label": "Pokémon",  "recent": 12, "min_pub": "2025-01-01"},
+    "magic":     {"cat": 1,  "label": "Magic",    "recent": 12, "min_pub": "2025-01-01",
+                  "excl": ("Art Series",)},
+    "yugioh":    {"cat": 2,  "label": "Yu-Gi-Oh", "recent": 12, "min_pub": "2025-01-01"},
 }
 
 # One Piece: prefijo con el código de set (más fácil de buscar/ordenar: "OP01: Romance Dawn")
@@ -117,7 +124,62 @@ def rich_onepiece(ed):
         "op": True,
     }
 
-RICH = {"riftbound": rich_riftbound, "one-piece": rich_onepiece}
+def rich_magic(ed):
+    extra = []
+    if ed.get("P") and ed.get("T"): extra.append(["Fuerza / Resistencia", f'{ed["P"]}/{ed["T"]}'])
+    if ed.get("Color"): extra.append(["Color", ed["Color"]])
+    return {
+        "ability_text": ed.get("OracleText", ""),
+        "type": ed.get("SubType", ""),
+        "rarity": ed.get("Rarity", ""),
+        "number": ed.get("Number", ""),
+        "extra": extra,
+        "op": True,   # usa el renderizador de texto con <br>/[keywords] (no el de Riftbound)
+    }
+
+def rich_yugioh(ed):
+    extra = []
+    if ed.get("Attack") or ed.get("Defense"):
+        extra.append(["ATK / DEF", f'{ed.get("Attack","?")}/{ed.get("Defense","?")}'])
+    if ed.get("Level"): extra.append(["Nivel", ed["Level"]])
+    if ed.get("LinkRating"): extra.append(["Link", ed["LinkRating"]])
+    return {
+        "ability_text": ed.get("Description", ""),
+        "type": ed.get("Card Type", ""),
+        "rarity": ed.get("Rarity", ""),
+        "attribute": ed.get("Attribute", ""),
+        "tags": ed.get("MonsterType", ""),
+        "number": ed.get("Number", ""),
+        "extra": extra,
+        "op": True,
+    }
+
+def rich_pokemon(ed):
+    # el "efecto" de un Pokémon son sus ataques; los entrenadores traen CardText
+    partes = [ed[k] for k in ("Attack 1", "Attack 2", "Attack 3", "Attack 4") if ed.get(k)]
+    ability = ed.get("CardText", "") or "<br>".join(partes)
+    extra = []
+    if ed.get("HP"): extra.append(["HP", ed["HP"]])
+    if ed.get("Card Type"): extra.append(["Tipo de energía", ed["Card Type"]])
+    if ed.get("Weakness"): extra.append(["Debilidad", ed["Weakness"]])
+    if ed.get("Resistance"): extra.append(["Resistencia", ed["Resistance"]])
+    if ed.get("RetreatCost"): extra.append(["Retirada", ed["RetreatCost"]])
+    return {
+        "ability_text": ability,
+        "type": ed.get("Stage", "") or ed.get("Card Type", ""),
+        "rarity": ed.get("Rarity", ""),
+        "number": ed.get("Number", ""),
+        "extra": extra,
+        "op": True,
+    }
+
+RICH = {"riftbound": rich_riftbound, "one-piece": rich_onepiece,
+        "magic": rich_magic, "yugioh": rich_yugioh, "pokemon": rich_pokemon}
+
+# prioridad del precio base y subtipo que cuenta como "foil" por juego
+BASE_SUBS = ["Normal", "1st Edition", "Holofoil", "Unlimited", "Foil", "Reverse Holofoil"]
+FOIL_SUB  = {"riftbound": "Foil", "one-piece": "Foil",
+             "magic": "Foil", "pokemon": "Reverse Holofoil"}   # yugioh: sin variante foil
 
 # ---- Riftbound: imagen de RIOT (la MISMA del inventario) ---------------------
 # El inventario RB usa las imágenes del CDN de Riot (CSVs de Riftbound_Cards/).
@@ -165,6 +227,14 @@ def rb_riot_img(name, number, rarity, idx):
 def build_game(key):
     cfg = GAMES[key]; cat = cfg["cat"]; label = cfg["label"]
     groups = results(fetch_json(f"https://tcgcsv.com/tcgplayer/{cat}/groups", f"{key}_groups"))
+    # juegos "solo últimos sets": los N grupos más nuevos (groupId ≈ cronológico;
+    # publishedOn viene contaminado en grupos viejos) con piso de fecha
+    if cfg.get("recent"):
+        groups = [g for g in groups
+                  if (g.get("publishedOn") or "")[:10] >= cfg.get("min_pub", "")
+                  and not any(x in g["name"] for x in cfg.get("excl", ()))]
+        groups.sort(key=lambda g: -g["groupId"])
+        groups = groups[:cfg["recent"]]
     print(f"[{label}] {len(groups)} sets")
     rb_idx = load_rb_base() if key == "riftbound" else None
     entries = []; rich = {}
@@ -184,10 +254,18 @@ def build_game(key):
         for p in prods:
             pid = p["productId"]; name = p["name"]
             ed = ed_map(p)
-            is_single = bool(ed)  # las cartas traen extendedData; el sellado no
+            # single = carta: en RB/OP el sellado no trae extendedData; en
+            # Magic/YGO/Pokémon SÍ trae (con UPC) → carta = tiene Rarity y no UPC
+            if cat in (1, 2, 3):
+                is_single = ("Rarity" in ed) and ("UPC" not in ed)
+            else:
+                is_single = bool(ed)
             subs = pm.get(pid, {})
-            usd_norm = subs.get("Normal"); usd_foil = subs.get("Foil")
-            base_usd = usd_norm if usd_norm else usd_foil
+            base_sub = next((s for s in BASE_SUBS if subs.get(s)), None)
+            usd_norm = subs.get(base_sub) if base_sub else None
+            fsub = FOIL_SUB.get(key, "Foil")
+            usd_foil = subs.get(fsub) if fsub != base_sub else None   # no duplicar el mismo acabado
+            base_usd = usd_norm
             price = round_crc(base_usd)
             # imagen: RB primero intenta la de Riot (la del inventario) por número+set;
             # fallback TCGplayer si existe (imageCount>0); si no, emoji

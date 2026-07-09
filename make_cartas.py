@@ -135,6 +135,8 @@ def attr_rows(rich, prod):
         add("Vida", rich.get("life"))
         add("Counter", rich.get("counter"))
         add("Atributo", rich.get("attribute"))
+    else:
+        add("Atributo", rich.get("attribute"))   # Yu-Gi-Oh: DARK/LIGHT…
     dom = (rich.get("domains") or "").strip()
     if dom:
         chips = []
@@ -147,6 +149,10 @@ def attr_rows(rich, prod):
     add("Might", rich.get("might"))
     tags = (rich.get("tags") or "").strip()
     if tags: add("Subtipos", tags)
+    # pares extra por juego (HP/Debilidad de Pokémon, ATK/DEF de Yu-Gi-Oh, P/T de Magic…)
+    for par in (rich.get("extra") or []):
+        if isinstance(par, (list, tuple)) and len(par) == 2:
+            add(str(par[0]), par[1])
     num = rich.get("collector_number") or rich.get("number")
     if num:
         total = ""

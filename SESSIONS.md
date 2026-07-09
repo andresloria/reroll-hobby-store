@@ -8,6 +8,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-08 — Catálogo del panel: Pokémon, Magic y Yu-Gi-Oh (últimos sets)
+- Pedido de Andrés: "agregá los últimos sets de yugioh, magic y pokemon… que todo quede en el catálogo para agregar sin ningún problema", igual que OP/RB.
+- **`make_catalogo.py` ahora soporta 5 juegos.** Los 3 nuevos van con los **12 sets más nuevos** (por `groupId` desc, piso 2025; `publishedOn` viene contaminado en grupos viejos): **Pokémon 1962** entradas (ME01→ME05, White Flare, 30th Celebration…), **Magic 3028** (Marvel Super Heroes, Strixhaven, The Hobbit, Reality Fracture…), **Yu-Gi-Oh 1670** (Chaos Origins, Rarity Collection 5, Blazing Dominion…).
+- Particularidades manejadas: su **sellado SÍ trae extendedData** (single = `Rarity` sin `UPC`); **subtipos de precio** nuevos (base = 1º de Normal/1st Edition/Holofoil/…; foil = Foil MTG / Reverse Holofoil PKM; YGO sin foil); **atributos por juego** vía campo genérico `extra` (HP/Debilidad/Retirada PKM, ATK-DEF/Nivel/Atributo YGO, Fuerza-Resistencia MTG) que `attr_rows` (fichas) y `buildAttrs` (quick-view del panel) renderizan.
+- Panel: selector del catálogo con los 5 juegos (⚡🌸🐉).
+- **Suite E2E 13/13** en preview: cada juego agrega con cat/set/precio/img correctos + descripción embebida, re-cruza sin duplicar; fichas de detalle generadas con efecto+atributos (Pikachu HP/Debilidad, Sauron 7/6 + oracle text, Black Chaos ATK/DEF+DARK — Regla de Oro ✓); la carta renderiza en `juego.html?g=Magic` con link a su ficha. Cartas de prueba revertidas: inventario intacto (3689).
+
 ## 2026-07-07 — QA del panel: suite E2E de 26 pruebas (pedido de Andrés) + 1 bug real corregido
 - Andrés pidió un loop de pruebas de TODAS las formas de subir producto ("si le vendo una tienda a un cliente, me pediría reembolso por estos bugs"). Se corrió una suite E2E en el preview contra el panel real (estado en localStorage del navegador de prueba, la tienda nunca se tocó):
   - **Catálogo RB (7):** agregar nueva · re-buscar reconoce y edita sin duplicar · − a 0 = agotada sin borrar · − en 0 se queda · promo edita el existente · set sin CSV (Vendetta) con fallback · carta foil en base cruza.
