@@ -67,8 +67,82 @@
         cat: prod.cat, price: price, emoji: prod.emoji, img: prod.img, qty: 1 });
     }
     saveCart(cart);
+    renderCart();
     return { ok: true, count: cartCount() };
   }
+
+  /* ---------- Drawer del carrito en la ficha (ver / quitar / ajustar) ---------- */
+  var SVG_CARD = '🎴';
+  function cartTotal() { return loadCart().reduce(function (s, l) { return s + Number(l.price || 0) * (l.qty || 1); }, 0); }
+  function updateCount() {
+    var el = document.getElementById("cdCartCount");
+    if (el) { var n = cartCount(); el.textContent = n; el.style.visibility = n > 0 ? "visible" : "hidden"; }
+  }
+  // stock disponible de una línea del carrito SI es la carta de esta ficha (si no, null).
+  // No depende del toggle: calcula el stock de la variante de la línea desde prod.
+  function lineStock(l) {
+    if (!prod || String(l.id) !== String(prod.id)) return null;
+    if (l.foil && prod.foil != null) {
+      var sf = normStock(prod.stockf);
+      return sf === null ? normStock(prod.stock) : sf;   // foil sigue el normal si no tiene stockf
+    }
+    return normStock(prod.stock);
+  }
+  function changeQty(key, delta) {
+    var cart = loadCart();
+    var l = cart.find(function (c) { return c.key === key; });
+    if (!l) return;
+    l.qty = (l.qty || 1) + delta;
+    // tope: si es la carta de ESTA ficha, respeta su stock; el checkout revalida el resto
+    if (delta > 0) {
+      var mx = lineStock(l);
+      if (mx !== null && l.qty > mx) l.qty = mx;
+    }
+    if (l.qty <= 0) cart = cart.filter(function (c) { return c.key !== key; });
+    saveCart(cart); renderCart();
+  }
+  function removeLine(key) { saveCart(loadCart().filter(function (c) { return c.key !== key; })); renderCart(); }
+  function renderCart() {
+    updateCount();
+    var wrap = document.getElementById("cdDrawerItems");
+    if (!wrap) return;
+    var cart = loadCart();
+    if (!cart.length) {
+      wrap.innerHTML = '<p class="drawer__empty">Tu carrito está vacío.<br>Añade algunas cartas para empezar.</p>';
+    } else {
+      wrap.innerHTML = "";
+      cart.forEach(function (c) {
+        var row = document.createElement("div");
+        row.className = "di";
+        var thumb = c.img ? '<img class="di__photo" src="' + c.img + '" alt="" loading="lazy">' : '<div class="di__emoji">' + (c.emoji || SVG_CARD) + '</div>';
+        var nm = c.foil ? c.name.replace(/ · Foil$/, "") + ' <span class="foilpill">✨ Foil</span>' : c.name;
+        row.innerHTML = thumb +
+          '<div class="di__info"><div class="di__name">' + nm + '</div>' +
+          '<div class="di__price">' + fmt(c.price) + ' c/u · <span style="color:var(--muted)">' + (c.cat || "") + '</span></div>' +
+          '<div class="qty"><button class="qty__btn" data-act="dec" aria-label="Menos">−</button>' +
+          '<span class="qty__n">' + c.qty + '</span>' +
+          '<button class="qty__btn" data-act="inc" aria-label="Más">+</button></div></div>' +
+          '<div class="di__right"><div class="di__sub">' + fmt(c.price * c.qty) + '</div>' +
+          '<button class="di__rm" aria-label="Quitar">✕</button></div>';
+        row.querySelector('[data-act="dec"]').onclick = function () { changeQty(c.key, -1); };
+        row.querySelector('[data-act="inc"]').onclick = function () { changeQty(c.key, +1); };
+        row.querySelector(".di__rm").onclick = function () { removeLine(c.key); };
+        wrap.appendChild(row);
+      });
+    }
+    var tot = document.getElementById("cdDrawerTotal");
+    if (tot) tot.textContent = fmt(cartTotal());
+  }
+  (function () {
+    var drawer = document.getElementById("cdDrawer");
+    var btn = document.getElementById("cdCartBtn");
+    function open() { if (drawer) { drawer.classList.add("open"); drawer.setAttribute("aria-hidden", "false"); } }
+    function close() { if (drawer) { drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); } }
+    if (btn) btn.addEventListener("click", open);
+    document.querySelectorAll("[data-cdclose]").forEach(function (el) { el.addEventListener("click", close); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+  })();
+  renderCart();   // pinta el badge + contenido con lo que ya haya en el carrito
 
   /* ---------- Toggle Normal / Foil + disponibilidad por variante ---------- */
   var priceEl = document.getElementById("cdPrice");

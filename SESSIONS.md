@@ -8,6 +8,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-08 — Ficha: carrito visible + drawer para ver/quitar/ajustar sin salir (pedido de Andrés)
+- Andrés: "el carrito debería verse en todo momento, incluso en las fichas… en caso que se arrepienta y quiera quitarla, que no se tenga que devolver".
+- **`make_cartas.py`:** el header de la ficha ahora tiene el **icono de carrito con contador** (`#cdCartBtn`/`#cdCartCount`, badge oculto en 0) y al final del body el **drawer** (mismo markup/CSS que la tienda; ya cargaba `css/styles.css` → cero CSS nuevo). "Finalizar el pedido" → `../index.html#carrito`. `CARTA_JS_V 5→6`.
+- **`js/carta.js`:** `renderCart`/`changeQty`/`removeLine`/`cartTotal`/`updateCount` sobre el **mismo** `localStorage.reroll_cart`; open/close del drawer (botón, backdrop, Esc). Tope de stock en `+` vía `lineStock(l)` que calcula el stock de la variante de la línea desde `prod` (no depende del toggle Normal/Foil).
+- **🐛 Bug hallado en la prueba con varias cartas y corregido:** el `+` solo capaba el stock si el toggle de la ficha coincidía con la variante de la línea (una foil no se capaba viendo la normal) → ahora `lineStock` capa cualquier variante de la carta actual.
+- **Prueba E2E con carrito variado (10/10 + 3 de consistencia):** 4 líneas (normal + foil de la misma carta como líneas separadas con pill, + otra RB, + Pokémon); contador suma cantidades; quitar ✕, −/+ ajustan y recalculan total; − a 0 elimina la línea; `+` respeta el tope de la carta actual; vaciar muestra "vacío" y esconde el badge. **Consistencia ficha↔tienda:** lo agregado en la ficha aparece idéntico en el drawer de la tienda (contador/líneas/total). `productos.json` intacto (3689).
+
 ## 2026-07-08 — Ficha: "Agregar al carrito" primero, WhatsApp después (Regla de Oro, pedido de Andrés)
 - Antes la ficha `/carta/` tenía como CTA principal "Comprar por WhatsApp" (mandaba una carta suelta sin datos). Andrés lo quería al revés: **primero al carrito** para recibir el pedido completo, y el WhatsApp recién en el checkout.
 - **`make_cartas.py`:** el botón principal (carta disponible) pasa a **"🛒 Agregar al carrito"** (`#cdAddCart`) + link secundario chico **"o consultar por WhatsApp"** (`#cdAsk`, conserva el `buy_url`). El caso agotado sigue igual ("Avísame cuando llegue"). `CARTA_JS_V 4→5`, `ASSET_V 47→48`.

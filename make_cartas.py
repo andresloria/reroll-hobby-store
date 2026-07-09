@@ -28,7 +28,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 WHATSAPP    = "50687807813"
 SITE        = "https://rerollhobbystore.com"
 ASSET_V     = 48   # debe coincidir con el ?v= de styles.css en index/juego
-CARTA_JS_V  = 5
+CARTA_JS_V  = 6
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
 DOMAIN_HEX = {
@@ -501,10 +501,30 @@ TEMPLATE = """<!DOCTYPE html>
       <a href="../index.html#contacto">Contacto</a>
     </nav>
     <div class="nav__actions">
+      <button class="btn btn--ghost" id="cdCartBtn" aria-label="Carrito">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l1.9 11a1.3 1.3 0 0 0 1.3 1.1h8.3a1.3 1.3 0 0 0 1.3-1l1.5-7.4H6.2"/><circle cx="9.2" cy="20" r="1.3"/><circle cx="17.6" cy="20" r="1.3"/></svg>
+        <span class="cart-count" id="cdCartCount" style="visibility:hidden">0</span>
+      </button>
       <a href="../juego.html?g={cat_q}" class="btn btn--gold">Ver catálogo</a>
     </div>
   </div>
 </header>
+
+<!-- Carrito deslizable (mismo estilo que la tienda; carta.js lo maneja) -->
+<div class="drawer" id="cdDrawer" aria-hidden="true">
+  <div class="drawer__backdrop" data-cdclose></div>
+  <aside class="drawer__panel" role="dialog" aria-label="Carrito">
+    <header class="drawer__head">
+      <h3>Tu carrito</h3>
+      <button class="drawer__x" data-cdclose aria-label="Cerrar">✕</button>
+    </header>
+    <div class="drawer__items" id="cdDrawerItems"></div>
+    <footer class="drawer__foot">
+      <div class="drawer__total"><span>Total</span><strong id="cdDrawerTotal">₡0</strong></div>
+      <a class="btn btn--gold btn--lg" href="../index.html#carrito">Finalizar el pedido</a>
+    </footer>
+  </aside>
+</div>
 
 <main id="cd-main" class="cd-wrap">
   <nav class="cd-crumb" aria-label="Migas de pan">
