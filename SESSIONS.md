@@ -8,6 +8,14 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-08 — QA profundo de los 3 juegos nuevos + fix de sellado (pedido de Andrés)
+- Andrés pidió: loop agregando muchas cartas de los TCG nuevos, simular una compra, y confirmar que el **producto sellado** sale en su sección.
+- **Fix real (`admin.html` setQty):** al agregar del catálogo, el sellado ahora queda con `cond:'Sellado'` + `badge:'Sellado'` (antes heredaba 'Near Mint'). El `type` ya se preservaba.
+- **Suite E2E (preview):** agregado en masa de Pokémon/Magic/Yu-Gi-Oh (singles + sellados) → cat/precio/img/type correctos, singles con descripción+atributos, sellados con type+cond+badge=Sellado, re-cruce sin duplicar. Click de agregar ~100-200 ms (los "timeouts" del test eran el tope de 30 s del harness al encadenar cambios de juego con cargas de catálogo de 4 s c/u — NO hay bug de rendimiento).
+- **Tienda (18 cartas de prueba inyectadas y revertidas):** filtro **Sellado** muestra SOLO sellados (badge + "Producto sellado"), filtro **Singles** ninguno; quick-view y ficha `/carta/` con efecto+atributos por juego (Greninja Stealthy Slash + HP 300/Debilidad).
+- **Compra E2E 8/8:** carrito con cantidades, **tope de stock** respetado (sellado no pasa de 2), subtotal correcto, checkout genera el mensaje de WhatsApp con las 3 cartas nuevas + nombre/teléfono/entrega/SINPE; fallback local sin reserva no rompe. (Nota: la firma real es `addToCart(id, foil)` — cada click suma 1; el 2º arg es foil, no cantidad.)
+- Inventario intacto (3689); solo se commiteó el fix de `admin.html`.
+
 ## 2026-07-08 — Catálogo del panel: Pokémon, Magic y Yu-Gi-Oh (últimos sets)
 - Pedido de Andrés: "agregá los últimos sets de yugioh, magic y pokemon… que todo quede en el catálogo para agregar sin ningún problema", igual que OP/RB.
 - **`make_catalogo.py` ahora soporta 5 juegos.** Los 3 nuevos van con los **12 sets más nuevos** (por `groupId` desc, piso 2025; `publishedOn` viene contaminado en grupos viejos): **Pokémon 1962** entradas (ME01→ME05, White Flare, 30th Celebration…), **Magic 3028** (Marvel Super Heroes, Strixhaven, The Hobbit, Reality Fracture…), **Yu-Gi-Oh 1670** (Chaos Origins, Rarity Collection 5, Blazing Dominion…).

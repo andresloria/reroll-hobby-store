@@ -1624,8 +1624,10 @@ async function pedConfirmar(id){
     if(it){ it.stock=q; markDirty(it); }   // 0 = agotada; la carta y su ficha se conservan
     else {
       if(q<1) return;
-      it={ id:nextId++, name:e.name, cat:e.game, type:e.type||'single', set:e.set,
-           price:e.price, cond:'Near Mint', stock:q, img:e.img, _new:1 };
+      const esSellado = (e.type||'single')==='sealed';
+      it={ id:nextId++, name:e.name, cat:e.game, type:esSellado?'sealed':'single', set:e.set,
+           price:e.price, cond:esSellado?'Sellado':'Near Mint', stock:q, img:e.img, _new:1 };
+      if(esSellado) it.badge='Sellado';
       if(e.foil!=null) it.foil=e.foil;
       const rd = richCache[gameSel.value] && richCache[gameSel.value][e.img];
       if(rd) it.d = { fx: cleanAbility(rd.ability_text||''), at: buildAttrs(rd, e.game) };  // quick-view
