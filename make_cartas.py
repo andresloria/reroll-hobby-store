@@ -27,8 +27,8 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 # --- Config espejada de js/app.js (mantener en sync) ---
 WHATSAPP    = "50687807813"
 SITE        = "https://rerollhobbystore.com"
-ASSET_V     = 47   # debe coincidir con el ?v= de styles.css en index/juego
-CARTA_JS_V  = 4
+ASSET_V     = 48   # debe coincidir con el ?v= de styles.css en index/juego
+CARTA_JS_V  = 5
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
 DOMAIN_HEX = {
@@ -357,15 +357,17 @@ def write_page(p, by_set):
             '</svg>Avísame cuando llegue</a>'
         )
     else:
+        # Regla de oro: primero AL CARRITO (para recibir el pedido completo);
+        # el WhatsApp queda como consulta secundaria. carta.js maneja el click.
         action_html = (
-            f'<a class="cd-btn cd-btn--wa" id="cdBuy" href="{esc(buy_url)}" target="_blank" rel="noopener">'
-            '<svg viewBox="0 0 32 32" width="21" height="21" aria-hidden="true"><path fill="currentColor" '
-            'd="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 '
-            '12-12S22.6 3 16 3zm5.4 14.8c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1'
-            '-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0'
-            '-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 '
-            '3.1c.1.2 2.1 3.2 5 4.5.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1'
-            '-.2-.3-.2-.6-.4z"/></svg>Comprar por WhatsApp</a>'
+            '<button type="button" class="cd-btn cd-btn--cart" id="cdAddCart">'
+            '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" '
+            'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+            '<circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>'
+            '<path d="M2 3h2l2.6 12.4a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L21 7H5"/></svg>'
+            'Agregar al carrito</button>'
+            f'<a class="cd-ask" id="cdAsk" href="{esc(buy_url)}" target="_blank" rel="noopener">'
+            'o consultar por WhatsApp</a>'
         )
 
     # --- relacionadas (mismo set, disponibles, distintas) ---

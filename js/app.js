@@ -1613,3 +1613,9 @@ $("#year").textContent = new Date().getFullYear();
 $("#catDice")?.addEventListener("click", ()=> document.getElementById("gameBar").scrollIntoView({behavior:"smooth",block:"center"}));
 $("#checkoutOpen")?.addEventListener("click", e=>{ e.preventDefault(); openCheckout(); });
 $("#checkoutForm")?.addEventListener("submit", submitCheckout);
+
+// Si se llega con #carrito (ej. "Ir a finalizar el pedido" desde una ficha), abrir el carrito.
+if(location.hash === "#carrito" && cartCount() > 0){
+  setTimeout(openDrawer, 300);
+  history.replaceState(null, "", location.pathname + location.search);
+}

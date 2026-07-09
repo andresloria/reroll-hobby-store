@@ -8,6 +8,14 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-08 — Ficha: "Agregar al carrito" primero, WhatsApp después (Regla de Oro, pedido de Andrés)
+- Antes la ficha `/carta/` tenía como CTA principal "Comprar por WhatsApp" (mandaba una carta suelta sin datos). Andrés lo quería al revés: **primero al carrito** para recibir el pedido completo, y el WhatsApp recién en el checkout.
+- **`make_cartas.py`:** el botón principal (carta disponible) pasa a **"🛒 Agregar al carrito"** (`#cdAddCart`) + link secundario chico **"o consultar por WhatsApp"** (`#cdAsk`, conserva el `buy_url`). El caso agotado sigue igual ("Avísame cuando llegue"). `CARTA_JS_V 4→5`, `ASSET_V 47→48`.
+- **`js/carta.js`:** agrega al **mismo** `localStorage.reroll_cart` que la tienda (misma estructura/`lineKey`/tope de stock/variante Foil). Tras agregar: confirmación "Agregado (N cartas)" + **"Ir a finalizar el pedido →"** (`../index.html#carrito`) + "Seguir viendo". `refreshAvail` reconstruye al botón de carrito (no al de WA) y respeta la confirmación (`data-added`).
+- **`js/app.js`:** al cargar con `#carrito` (y carrito no vacío) abre el drawer y limpia el hash.
+- Cache-busting: index/juego `?v=60→61`.
+- **E2E verificado en preview (14 checks):** disponible → agrega al carrito + confirmación; **Foil** agrega variante `id_f` con precio foil; **tope de stock** respetado; "Seguir viendo" restaura; ficha→"Ir a finalizar"→`index#carrito` **abre el carrito solo** con la carta y su total; agotada muestra "Avísame". Botón dorado + link verde = igual al mockup aprobado.
+
 ## 2026-07-08 — QA profundo de los 3 juegos nuevos + fix de sellado (pedido de Andrés)
 - Andrés pidió: loop agregando muchas cartas de los TCG nuevos, simular una compra, y confirmar que el **producto sellado** sale en su sección.
 - **Fix real (`admin.html` setQty):** al agregar del catálogo, el sellado ahora queda con `cond:'Sellado'` + `badge:'Sellado'` (antes heredaba 'Near Mint'). El `type` ya se preservaba.

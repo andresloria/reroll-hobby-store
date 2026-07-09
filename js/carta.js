@@ -43,6 +43,33 @@
   var pid = document.body.getAttribute("data-pid");
   if (!pid) return;
 
+  /* ---------- Carrito (mismo storage que la tienda) ---------- */
+  var CART_KEY = "reroll_cart";
+  function loadCart() { try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); } catch (e) { return []; } }
+  function saveCart(c) { try { localStorage.setItem(CART_KEY, JSON.stringify(c)); } catch (e) {} }
+  function lineKey(id, foil) { return foil ? id + "_f" : String(id); }
+  function cartCount() { return loadCart().reduce(function (s, l) { return s + (l.qty || 1); }, 0); }
+  // agrega la carta actual (respetando Foil + tope de stock); devuelve true/estado
+  function addCurrentToCart() {
+    if (!prod) return { ok: false, msg: "Cargando…" };
+    var foil = isFoil && prod.foil != null;
+    var a = variantAvail();
+    if (a.count !== null && a.count <= 0) return { ok: false, msg: "Agotado" + (foil ? " en foil" : "") };
+    var cart = loadCart();
+    var key = lineKey(prod.id, foil);
+    var line = cart.find(function (c) { return c.key === key; });
+    if (line) {
+      if (a.count !== null && line.qty >= a.count) return { ok: false, msg: "Solo hay " + a.count + (foil ? " foil" : "") };
+      line.qty++;
+    } else {
+      var price = foil ? prod.foil : prod.price;
+      cart.push({ key: key, id: prod.id, foil: foil, name: prod.name + (foil ? " · Foil" : ""),
+        cat: prod.cat, price: price, emoji: prod.emoji, img: prod.img, qty: 1 });
+    }
+    saveCart(cart);
+    return { ok: true, count: cartCount() };
+  }
+
   /* ---------- Toggle Normal / Foil + disponibilidad por variante ---------- */
   var priceEl = document.getElementById("cdPrice");
   var ftoggle = document.getElementById("cdFtoggle");
@@ -71,35 +98,79 @@
       stockEl.innerHTML = '<span class="' + cls + '">' + txt + "</span>";
     }
     var act = document.getElementById("cdAction");
-    if (act) {
+    if (act && !act.getAttribute("data-added")) {   // no pisar la confirmación "Agregado ✓"
       var hasNotify = !!act.querySelector(".cd-btn--notify");
       if (a.out && !hasNotify) {
-        act.innerHTML = '<a class="cd-btn cd-btn--notify" href="' + act.getAttribute("data-notify") +
-          '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" ' +
-          'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-          '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>' +
-          'Avísame cuando llegue</a>';
-      } else if (!a.out && hasNotify) {
-        act.innerHTML = '<a class="cd-btn cd-btn--wa" id="cdBuy" href="' + (act.getAttribute("data-buy") || "#") +
-          '" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" width="21" height="21" aria-hidden="true">' +
-          '<path fill="currentColor" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 ' +
-          '6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>Comprar por WhatsApp</a>';
-        var nb = document.getElementById("cdBuy"), bf = act.getAttribute("data-buy-foil");
-        if (nb && isFoil && bf) nb.href = bf;
+        act.innerHTML = soldOutHTML(act);
+      } else if (!a.out && (hasNotify || !act.querySelector("#cdAddCart"))) {
+        act.innerHTML = buyHTML(act);
+        wireCart();
       }
     }
   }
+  // markup del botón "Agregar al carrito" + consulta por WhatsApp
+  function buyHTML(act) {
+    var wa = act.getAttribute("data-buy") || "#";
+    var bf = act.getAttribute("data-buy-foil");
+    if (isFoil && bf) wa = bf;
+    return '<button type="button" class="cd-btn cd-btn--cart" id="cdAddCart">' +
+      '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1"/>' +
+      '<circle cx="18" cy="20" r="1"/><path d="M2 3h2l2.6 12.4a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L21 7H5"/></svg>' +
+      'Agregar al carrito</button>' +
+      '<a class="cd-ask" id="cdAsk" href="' + wa + '" target="_blank" rel="noopener">o consultar por WhatsApp</a>';
+  }
+  function soldOutHTML(act) {
+    return '<a class="cd-btn cd-btn--notify" href="' + act.getAttribute("data-notify") +
+      '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>' +
+      'Avísame cuando llegue</a>';
+  }
+  // confirmación tras agregar: "Agregado ✓" + ir a finalizar / seguir viendo
+  function showAdded(count) {
+    var act = document.getElementById("cdAction");
+    if (!act) return;
+    act.setAttribute("data-added", "1");
+    var n = count || cartCount();
+    var txt = n === 1 ? "Agregado al carrito" : "Agregado al carrito (" + n + " cartas)";
+    act.innerHTML =
+      '<div class="cd-added"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
+      'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>' +
+      txt + '</div>' +
+      '<div class="cd-actrow">' +
+      '<a class="cd-btn cd-btn--go" href="../index.html#carrito">' +
+      '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
+      'Ir a finalizar el pedido</a>' +
+      '<button type="button" class="cd-btn cd-btn--ghost" id="cdKeep">Seguir viendo</button>' +
+      '</div>';
+    var keep = document.getElementById("cdKeep");
+    if (keep) keep.addEventListener("click", function () {
+      act.removeAttribute("data-added"); act.innerHTML = buyHTML(act); wireCart();
+    });
+  }
+  function wireCart() {
+    var btn = document.getElementById("cdAddCart");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var r = addCurrentToCart();
+      if (r.ok) { showAdded(r.count); }
+      else { btn.textContent = r.msg; setTimeout(function () { var a = document.getElementById("cdAction"); if (a && !a.getAttribute("data-added")) { a.innerHTML = buyHTML(a); wireCart(); } }, 1400); }
+    });
+  }
+  wireCart();   // engancha el botón horneado en el HTML
   function applyVariant() {
     if (priceEl) {
       var pf = priceEl.getAttribute("data-foil");
       if (isFoil && pf) { priceEl.textContent = pf; priceEl.classList.add("cd-price--foil"); }
       else { var pn = priceEl.getAttribute("data-normal"); if (pn) priceEl.textContent = pn; priceEl.classList.remove("cd-price--foil"); }
     }
-    var buy = document.getElementById("cdBuy");
-    if (buy) {
+    var ask = document.getElementById("cdAsk");
+    if (ask) {
       var act = document.getElementById("cdAction");
       var bf = act ? act.getAttribute("data-buy-foil") : null;
-      buy.href = (isFoil && bf) ? bf : ((act && act.getAttribute("data-buy")) || buy.href);
+      ask.href = (isFoil && bf) ? bf : ((act && act.getAttribute("data-buy")) || ask.href);
     }
     refreshAvail();
   }

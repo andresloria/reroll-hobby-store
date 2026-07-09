@@ -1283,6 +1283,18 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .cd-btn--wa{background:#25D366;color:#06351c}
 .cd-btn--notify{background:transparent;color:var(--gold-bright);border-color:var(--gold-bright);box-shadow:4px 4px 0 rgba(201,162,75,.35)}
 .cd-btn--notify:hover{box-shadow:1px 1px 0 rgba(201,162,75,.35)}
+/* Regla de oro: agregar al carrito primero (dorado) + WhatsApp como consulta secundaria */
+.cd-btn--cart{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#2a1a08}
+.cd-btn--go{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#2a1a08;text-decoration:none}
+.cd-btn--ghost{background:transparent;color:var(--cream);border-color:var(--gold-bright);box-shadow:4px 4px 0 rgba(201,162,75,.35)}
+.cd-btn--ghost:hover{box-shadow:1px 1px 0 rgba(201,162,75,.35)}
+.cd-ask{display:block;text-align:center;margin:10px 0 0;font-size:.82rem;color:#8fc7a3;text-decoration:none}
+.cd-ask:hover{text-decoration:underline}
+.cd-added{display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(47,107,58,.16);
+  border:1px solid #2f6b3a;color:#9FE1CB;border-radius:var(--brut-edge);padding:10px 14px;font-size:.9rem;font-weight:600;margin-bottom:10px}
+.cd-actrow{display:flex;gap:8px}
+.cd-actrow .cd-btn--go{flex:1}
+.cd-actrow .cd-btn--ghost{width:auto;padding:14px 18px;white-space:nowrap}
 .cd-note{font-size:.72rem;color:var(--muted);text-align:center;margin:9px 0 0}
 
 /* --- efecto --- */
