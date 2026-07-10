@@ -1556,15 +1556,30 @@ async function pedConfirmar(id){
   // variantes de evento que comparten imagen con la carta normal pero son OTRA
   // carta física: solo cruzan si el nombre coincide exacto (si no, botón +)
   const CAT_VAR_EXCL = /\((metal|prize wall|champion|top 8|overnumbered|signature|serialized)\b/i;
+  // marcador de variante de un nombre ("overnumbered"/"signature"/…) o null si es carta base
+  function varMark(name){ const m = CAT_VAR_EXCL.exec(name||''); return m ? m[1].toLowerCase() : null; }
   function invMatch(e){
     const nE = norm(e.name);
+    const mk = varMark(e.name);          // variante del catálogo (o null = carta base)
     if(e.img){
       const cands = items.filter(p=>p.img===e.img);
       if(cands.length){
-        if(CAT_VAR_EXCL.test(e.name)) return cands.find(p=> norm(p.name)===nE) || null;
-        if(cands.length===1) return cands[0];
-        const setOk = cands.filter(p=> (p.set||'')===(e.set||''));
-        const pool = setOk.length ? setOk : cands;
+        if(mk){
+          // variante (overnumbered/signature/…): comparte imagen con la carta base
+          // pero es OTRA carta física → cruza SOLO con una carta de la MISMA variante.
+          // Por nombre exacto; si no, por el mismo marcador (así el nombre corto del
+          // inventario "Bashful Bloom (Overnumbered)" cruza con el largo del catálogo
+          // "Lillia - Bashful Bloom (Overnumbered)" — igual que las cartas normales).
+          return cands.find(p=> norm(p.name)===nE)
+              || cands.find(p=> varMark(p.name)===mk)
+              || null;
+        }
+        // carta base: nunca se liga a una variante (que es otra carta física)
+        const base = cands.filter(p=> !varMark(p.name));
+        if(!base.length) return null;
+        if(base.length===1) return base[0];
+        const setOk = base.filter(p=> (p.set||'')===(e.set||''));
+        const pool = setOk.length ? setOk : base;
         return pool.find(p=> norm(p.name)===nE) || pool[0];
       }
       const byNS = items.filter(p=> norm(p.name)===nE && (p.set||'')===(e.set||''));

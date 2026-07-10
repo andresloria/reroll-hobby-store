@@ -8,6 +8,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-10 — 🐛 Fix: cartas "Overnumbered" (y demás variantes) no se reconocían en la base (pedido de Andrés)
+- Andrés: "las cartas overnumbered de Riftbound… no me deja quitarlas de mi stock, solo me deja agregar más". Síntoma real: en el catálogo del panel esas cartas salían con **"+"** (no en base) aunque él las tuviera en stock → no aparecía el stepper para bajarlas.
+- **Causa raíz (asimetría de nombres):** el inventario base de Riftbound usa **nombres cortos de Riot** ("Bashful Bloom") y el catálogo usa **nombres largos de TCGplayer** ("Lillia - Bashful Bloom"). Las cartas normales cruzan por **imagen** (así el corto liga con el largo), pero las variantes de `CAT_VAR_EXCL` (overnumbered/signature/metal/prize wall/champion/top 8/serialized) exigían **nombre exacto** → el corto nunca igualaba al largo → "+".
+- **`admin.html` (`invMatch`):** nueva helper `varMark(name)` (marcador de variante o null). Ahora una entrada-variante del catálogo cruza con una carta del inventario **de la MISMA variante que comparte imagen** — por nombre exacto o, si no, por el mismo marcador (igual que las normales por imagen). Y la carta **base** ya nunca se liga a una variante (`cands.filter(!varMark)`), evitando que editar una overnumbered toque la carta base.
+- **Reproducido y verificado en preview:** inyecté "Bashful Bloom (Overnumbered)" (nombre corto, misma arte que la base) → antes salía "+"; con el fix aparece **stepper = 4**, el − baja 4→3→2 (quita stock), y la carta **base se queda en 1** sin tocarse. Regresión OK (cartas normales siguen cruzando por imagen; sin errores de consola). `productos.json` intacto (3689); solo `admin.html`.
+- ⚠️ `admin.html` no tiene cache-busting → para ver el fix hay que **recargar fuerte (Ctrl+F5)** una vez.
+
 ## 2026-07-09 — Catálogo del panel: steppers Normal y Foil separados (pedido de Andrés)
 - Antes, en el modal "Agregar desde el catálogo", una carta con foil disponible tenía UN solo stepper que solo movía `stock` (el foil guardaba el precio pero no dejaba poner cantidad foil aparte).
 - **`admin.html`:** para entradas con `e.foil != null` el `rowHTML` ahora muestra **dos steppers apilados** — **Normal** (→ `stock`) y **✨ Foil** (→ `stockf`, con borde dorado). `setQty(e, q, variant)` recibe la variante; al crear una carta nueva inicializa `stock`/`stockf` (el que no se toca queda en 0) + precio foil; al editar toca solo esa variante. Cartas sin foil siguen igual (un stepper, o `+` si no está en base). El badge "· agotada" ahora considera `stock` **y** `stockf`. CSS nuevo: `.catqty2/.catqty2row/.catqty2lab/.catqty--f`.
