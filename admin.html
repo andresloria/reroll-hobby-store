@@ -130,6 +130,14 @@
   .catqty button{width:26px;height:26px;border-radius:6px;border:none;background:rgba(255,255,255,.08);color:var(--cream);cursor:pointer}
   .catqty button.plus{background:rgba(201,162,75,.25);color:var(--gold-bright)}
   .catqty b{font-family:var(--font-mono);min-width:16px;text-align:center}
+  /* fila con foil: dos steppers apilados (Normal + ✨ Foil) */
+  .catqty2{display:flex;flex-direction:column;gap:5px;flex-shrink:0}
+  .catqty2row{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+  .catqty2lab{font-size:.6rem;color:var(--muted);width:40px;text-align:right;text-transform:uppercase;letter-spacing:.02em}
+  .catqty2lab--f{color:var(--gold-bright)}
+  .catqty.catqty--f{border:1px solid rgba(201,162,75,.35)}
+  .catqty.catqty--f button.minus{background:rgba(201,162,75,.1);color:var(--gold-bright)}
+  .catqty.catqty--f b{color:var(--gold-bright)}
   .catmore{margin:12px auto 0;display:block}
   .items{display:flex;flex-direction:column;gap:10px}
   .item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:9px 12px;
@@ -1586,17 +1594,37 @@ async function pedConfirmar(id){
     page.forEach((e,i)=>wireRow(e,i));
     const more=$('#catMore'); if(more) more.onclick=()=>{ shown+=40; render(); };
   }
+  // cantidad de cada variante de un item del inventario (0 si no está / vacío)
+  function qN(it){ const s=it&&it.stock; return (s===undefined||s===null||s==='')?0:Number(s); }
+  function qF(it){ const s=it&&it.stockf; return (s===undefined||s===null||s==='')?0:Number(s); }
+  function stepperHTML(i, variant, val){
+    const f = variant==='stockf';
+    return `<div class="catqty${f?' catqty--f':''}" data-i="${i}" data-v="${variant}">`+
+      `<button class="minus" data-i="${i}" data-v="${variant}">−</button>`+
+      `<b>${val}</b>`+
+      `<button class="plus" data-i="${i}" data-v="${variant}">+</button></div>`;
+  }
   function rowHTML(e,i){
-    const it=invMatch(e); const qty=it?stockNum(it):0;
-    const finish = e.foil!=null ? '<span class="catpill">✨ Foil disp.</span>' : '';
+    const it=invMatch(e);
+    const hasFoil = e.foil!=null;
+    const finish = hasFoil ? '<span class="catpill">✨ Foil disp.</span>' : '';
     const rar = e.rarity ? `<span class="catpill">${esc(e.rarity)}</span>` : '';
     const num = e.number ? `<small>${esc(e.number)}</small>` : '';
-    const priceTxt = fmt(e.price)+(e.foil!=null?` · foil ${fmt(e.foil)}`:'');
-    // si la carta YA está en tu base, SIEMPRE stepper con su stock (0 = agotada);
-    // el + solo aparece para cartas que todavía no tenés registradas
-    const ctrl = it
-      ? `<div class="catqty" data-i="${i}"><button class="minus" data-i="${i}">−</button><b id="catq-${i}">${qty}</b><button class="plus" data-i="${i}">+</button></div>`
-      : `<button class="catadd" data-i="${i}" title="Agregar">+</button>`;
+    const priceTxt = fmt(e.price)+(hasFoil?` · foil ${fmt(e.foil)}`:'');
+    let ctrl;
+    if(hasFoil){
+      // dos steppers separados: Normal (stock) + ✨ Foil (stockf)
+      ctrl = `<div class="catqty2">`+
+        `<div class="catqty2row"><span class="catqty2lab">Normal</span>${stepperHTML(i,'stock',qN(it))}</div>`+
+        `<div class="catqty2row"><span class="catqty2lab catqty2lab--f">✨ Foil</span>${stepperHTML(i,'stockf',qF(it))}</div>`+
+        `</div>`;
+    } else {
+      // carta sin foil: un solo stepper (o + si aún no está en base)
+      ctrl = it
+        ? stepperHTML(i,'stock',qN(it))
+        : `<button class="catadd" data-i="${i}" title="Agregar">+</button>`;
+    }
+    const enBase = it ? (qN(it)>0 || qF(it)>0) : false;
     const media = e.img
       ? `<img class="catit__img" src="${esc(e.img)}" alt="" loading="lazy" onerror="catImgFail(this)">`
       : `<div class="catit__img noimgp"><span>Sin imagen</span></div>`;
@@ -1605,30 +1633,45 @@ async function pedConfirmar(id){
       <div class="catit__meta">
         <div class="catit__nm">${esc(e.name)} ${num}</div>
         <div class="catit__sub">${esc(e.set)}${e.type==='sealed'?' · Sellado':''}</div>
-        <div class="catit__tags">${rar}${finish}<span class="catprice">${priceTxt}</span>${it?('<span class="catin">✓ en tu base'+(qty>0?'':' · agotada')+'</span>'):''}</div>
+        <div class="catit__tags">${rar}${finish}<span class="catprice">${priceTxt}</span>${it?('<span class="catin">✓ en tu base'+(enBase?'':' · agotada')+'</span>'):''}</div>
       </div>
       ${ctrl}
     </div>`;
   }
   function wireRow(e,i){
     const add=results.querySelector(`.catadd[data-i="${i}"]`);
-    if(add) add.onclick=()=>{ setQty(e, 1); };
-    const minus=results.querySelector(`.catqty .minus[data-i="${i}"]`);
-    const plus=results.querySelector(`.catqty .plus[data-i="${i}"]`);
-    if(plus) plus.onclick=()=>{ const it=invMatch(e); setQty(e,(it?stockNum(it):0)+1); };
-    if(minus) minus.onclick=()=>{ const it=invMatch(e); setQty(e,(it?stockNum(it):0)-1); };
+    if(add) add.onclick=()=>{ setQty(e, 1, 'stock'); };
+    ['stock','stockf'].forEach(variant=>{
+      const cur=()=>{ const it=invMatch(e); return variant==='stockf'?qF(it):qN(it); };
+      const minus=results.querySelector(`.catqty[data-v="${variant}"] .minus[data-i="${i}"]`);
+      const plus=results.querySelector(`.catqty[data-v="${variant}"] .plus[data-i="${i}"]`);
+      if(plus) plus.onclick=()=> setQty(e, cur()+1, variant);
+      if(minus) minus.onclick=()=> setQty(e, cur()-1, variant);
+    });
   }
-  function setQty(e, q){
+  // variant: 'stock' (normal) | 'stockf' (foil)
+  function setQty(e, q, variant){
+    variant = variant || 'stock';
     q = Math.max(0, q);
+    const hasFoil = e.foil!=null;
     let it=invMatch(e);
-    if(it){ it.stock=q; markDirty(it); }   // 0 = agotada; la carta y su ficha se conservan
-    else {
+    if(it){
+      it[variant]=q;
+      if(variant==='stockf' && hasFoil && it.foil==null) it.foil=e.foil;   // asegura el precio foil
+      markDirty(it);   // 0 = agotada; la carta y su ficha se conservan
+    } else {
       if(q<1) return;
       const esSellado = (e.type||'single')==='sealed';
       it={ id:nextId++, name:e.name, cat:e.game, type:esSellado?'sealed':'single', set:e.set,
-           price:e.price, cond:esSellado?'Sellado':'Near Mint', stock:q, img:e.img, _new:1 };
+           price:e.price, cond:esSellado?'Sellado':'Near Mint', img:e.img, _new:1 };
       if(esSellado) it.badge='Sellado';
-      if(e.foil!=null) it.foil=e.foil;
+      if(hasFoil){
+        it.foil=e.foil;
+        it.stock  = variant==='stock'  ? q : 0;
+        it.stockf = variant==='stockf' ? q : 0;
+      } else {
+        it.stock = q;
+      }
       const rd = richCache[gameSel.value] && richCache[gameSel.value][e.img];
       if(rd) it.d = { fx: cleanAbility(rd.ability_text||''), at: buildAttrs(rd, e.game) };  // quick-view
       if(it.d && !it.d.fx && (!it.d.at || !it.d.at.length)) delete it.d;

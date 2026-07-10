@@ -8,6 +8,11 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-09 — Catálogo del panel: steppers Normal y Foil separados (pedido de Andrés)
+- Antes, en el modal "Agregar desde el catálogo", una carta con foil disponible tenía UN solo stepper que solo movía `stock` (el foil guardaba el precio pero no dejaba poner cantidad foil aparte).
+- **`admin.html`:** para entradas con `e.foil != null` el `rowHTML` ahora muestra **dos steppers apilados** — **Normal** (→ `stock`) y **✨ Foil** (→ `stockf`, con borde dorado). `setQty(e, q, variant)` recibe la variante; al crear una carta nueva inicializa `stock`/`stockf` (el que no se toca queda en 0) + precio foil; al editar toca solo esa variante. Cartas sin foil siguen igual (un stepper, o `+` si no está en base). El badge "· agotada" ahora considera `stock` **y** `stockf`. CSS nuevo: `.catqty2/.catqty2row/.catqty2lab/.catqty--f`.
+- **E2E verificado en preview (11 checks):** fija stock/foil conocidos → +/− Normal y Foil son independientes (sin cruce) y marcan cambio sin publicar; carta foil NUEVA (Magic "The One Ring") agregada solo por foil → `stock:0, stockf:1` sin duplicar, luego +Normal → `1/1`, ambos a 0 se conserva; regresión OK (Yu-Gi-Oh sin foil = un solo control). Screenshot: Salvage con "NORMAL − 6 +" y "✨ FOIL − 2 +". `productos.json` intacto; solo `admin.html`.
+
 ## 2026-07-08 — Ficha: carrito visible + drawer para ver/quitar/ajustar sin salir (pedido de Andrés)
 - Andrés: "el carrito debería verse en todo momento, incluso en las fichas… en caso que se arrepienta y quiera quitarla, que no se tenga que devolver".
 - **`make_cartas.py`:** el header de la ficha ahora tiene el **icono de carrito con contador** (`#cdCartBtn`/`#cdCartCount`, badge oculto en 0) y al final del body el **drawer** (mismo markup/CSS que la tienda; ya cargaba `css/styles.css` → cero CSS nuevo). "Finalizar el pedido" → `../index.html#carrito`. `CARTA_JS_V 5→6`.
