@@ -1,8 +1,16 @@
-# HANDOFF — estado de la sesión (act. 2026-07-07)
+# HANDOFF — estado de la sesión (act. 2026-07-09)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=60`** (index.html y juego.html alineados; `carta.js` en **v4**). Tienda: **3.574 cartas**. Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=61`** (index.html y juego.html alineados; `carta.js` en **v6**). Tienda: **3.689 cartas** (3.574 + 115 promos Riftbound). Historial completo en [SESSIONS.md](SESSIONS.md).
 
-## En qué estábamos (sesión 2026-07-07) — precios, foil-stock, panel a prueba de fallos, y PEDIDOS
+## En qué estábamos (sesiones 2026-07-08/09) — promos, panel a prueba de pérdidas, catálogo 5 juegos, carrito en fichas, steppers foil
+Todo verificado en preview y pusheado (último `adcc1a24`):
+- **Promos de Riftbound** al inventario (`make_promos_rb.py`, 115 cartas set "Promos", stock 0, imagen de Riot). **One Piece a stock 0** temporal (oculto mientras Andrés carga Riftbound) — backup `productos_backup_op_stock0.json` para restaurar.
+- **Panel reorganizado (acordeón) y A PRUEBA DE PÉRDIDAS:** sync ya no pisa cambios locales (cruza por ID, marca `_dirty`/`_new` persistidos, poda pendientes huérfanos); contador "N sin publicar" en la barra fija; steppers +/− aplican al instante, escribir número pide ✓. Quitados los botones "vaciar toda la base"/"vaciar ventas". Publicar SOLO desde la barra fija.
+- **Catálogo del panel = 5 juegos:** RB y OP completos; **Pokémon/Magic/Yu-Gi-Oh** con los 12 sets más nuevos (`make_catalogo.py`). Sellado del catálogo queda con `cond:Sellado`+badge. **Steppers Normal y ✨ Foil separados** por carta (→ `stock`/`stockf`).
+- **Fichas `/carta/`:** CTA principal **"Agregar al carrito"** (WhatsApp secundario) y **carrito visible** en el header con drawer para ver/quitar/ajustar sin salir (mismo `reroll_cart`). "Finalizar el pedido" → `index.html#carrito` abre el drawer.
+- **PENDIENTE / OJO:** (a) el token de GitHub se expuso en el chat hace días — conviene **regenerarlo** y actualizar el Value en Vercel; (b) las cartas subidas por el panel siguen necesitando `python make_cartas.py` + push para su ficha de detalle (avisar a Andrés cuando cargue su 1ª tanda de Pokémon/Magic/YGO); (c) cuando quiera volver a mostrar One Piece, restaurar stock desde el backup.
+
+## (histórico) sesión 2026-07-07 — precios, foil-stock, panel a prueba de fallos, y PEDIDOS
 Todo verificado (navegador + harness) y pusheado (`45e843b`, `a255ddf`, `5cb5e67`, `3204631`, `e6d6bc3e` entre otros):
 1. **Rutina de precios `check_precios.py`:** compara `productos.json` vs TCGplayer fresco (TCGCSV) → `reporte_precios.md/csv` (gitignored) agrupado por juego, marca **✨ Foil** y **🔥 +25%**. OP por ID exacto; RB por nombre+set con **exclusión de Showcase** (rareza vía CSV; no adivina variantes premium → `revisar_a_mano.csv`). `--aplicar-subidas` aplica solo subidas (backup). Hoy: 381 subidas aplicadas. **Tarea semanal de Windows** (lunes 9am, solo reporta).
 2. **Stock foil aparte (`stockf`):** panel tiene "Cantidad foil" + stepper ✨ FOIL en la base; tienda respeta stock por variante (card/quick-view/ficha/carrito); si no está definido, el foil sigue el normal.
