@@ -1634,10 +1634,9 @@ async function pedConfirmar(id){
         `<div class="catqty2row"><span class="catqty2lab catqty2lab--f">✨ Foil</span>${stepperHTML(i,'stockf',qF(it))}</div>`+
         `</div>`;
     } else {
-      // carta sin foil: un solo stepper (o + si aún no está en base)
-      ctrl = it
-        ? stepperHTML(i,'stock',qN(it))
-        : `<button class="catadd" data-i="${i}" title="Agregar">+</button>`;
+      // carta sin foil: SIEMPRE stepper (si no está en base arranca en 0; el +
+      // la crea, el − en 0 no hace nada). En 0 la tienda no la muestra (agotada).
+      ctrl = stepperHTML(i,'stock',qN(it));
     }
     const enBase = it ? (qN(it)>0 || qF(it)>0) : false;
     const media = e.img
@@ -1654,8 +1653,6 @@ async function pedConfirmar(id){
     </div>`;
   }
   function wireRow(e,i){
-    const add=results.querySelector(`.catadd[data-i="${i}"]`);
-    if(add) add.onclick=()=>{ setQty(e, 1, 'stock'); };
     ['stock','stockf'].forEach(variant=>{
       const cur=()=>{ const it=invMatch(e); return variant==='stockf'?qF(it):qN(it); };
       const minus=results.querySelector(`.catqty[data-v="${variant}"] .minus[data-i="${i}"]`);
