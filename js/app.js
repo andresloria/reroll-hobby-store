@@ -3,8 +3,8 @@
    ============================================================ */
 
 // === CONFIG (cambiá por tus datos reales) ===
-const WHATSAPP     = "50660387738";   // WhatsApp con código país, sin + ni espacios
-const SINPE_NUMERO = "8780-7813";     // número SINPE Móvil
+const WHATSAPP     = "50660387738";   // WhatsApp de la tienda (línea dedicada 6038-7738)
+const SINPE_NUMERO = "8780-7813";     // ⚠️ SINPE de PAGOS — SE MANTIENE en 8780-7813 (cuenta bancaria de Andrés). NO cambiar aunque el WhatsApp sea otro.
 const SINPE_NOMBRE = "Reroll Hobby Store";
 
 // === FASE 4: umbrales de credibilidad en pre-apertura ===

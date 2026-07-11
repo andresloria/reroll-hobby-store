@@ -13,7 +13,7 @@ Todo verificado en preview y pusheado:
 - **Skills de Reroll Design:** los 3 (básico/profesional/tienda) ahora exigen la súper-revisión de diseño con ui-ux-pro-max + frontend-design + emil-design-eng antes de entregar.
 - **PENDIENTES / OJO:**
   - ⚠️ **`ASSET_V=48` desalineado:** las fichas `/carta/` linkean `styles.css?v=48` → cargan el CSS viejo (SIN el motion de Emil ni el fix touch). Para alinear: subir `ASSET_V` a 65 en `make_cartas.py`, `python make_cartas.py` y push. (Cosmético, no roto.)
-  - ⚠️ **SINPE de pagos:** `SINPE_NUMERO` en `js/app.js` sigue en `8780-7813` (número personal, atado a la cuenta bancaria). Confirmar con Andrés si el pago también pasa al 6038-7738 — NO tocado por ser dato financiero.
+  - ✅ **SINPE de pagos = `8780-7813` (CONFIRMADO por Andrés, se mantiene).** El WhatsApp cambió a 6038-7738 pero el SINPE se queda en el número personal (atado a la cuenta bancaria). NO cambiar `SINPE_NUMERO` en `js/app.js` — ya lleva comentario de advertencia.
   - Token de GitHub expuesto hace días → **regenerar** y actualizar el Value en Vercel.
   - Cartas subidas por el panel necesitan `python make_cartas.py` + push para su ficha de detalle.
   - One Piece en stock 0 (backup `productos_backup_op_stock0.json`) — restaurar cuando se quiera mostrar.
