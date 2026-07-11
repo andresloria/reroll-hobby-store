@@ -259,6 +259,7 @@ def write_sitemap(products):
     games = sorted({p.get("cat", "").strip() for p in products if p.get("cat", "").strip()})
 
     rows = [(f"{SITE}/", "1.0")]
+    rows += [(f"{SITE}/terminos.html", "0.3")]
     rows += [(f"{SITE}/juego.html?g={quote(g)}", "0.8") for g in games]
     rows += [(f"{SITE}/carta/{p['_slug']}.html", "0.6") for p in products]
 
