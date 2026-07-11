@@ -1309,6 +1309,9 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .cd-img:hover{border-color:var(--gold)}
 .cd-img:hover img{transform:scale(1.015)}
 .cd-img img{transition:transform .4s var(--ease)}
+/* sellado: caja/booster no es carta -> imagen contenida sobre fondo premium */
+.cd-img--sealed{background:radial-gradient(120% 90% at 50% 18%,#241826,#130c0e);cursor:zoom-in}
+.cd-img--sealed img{aspect-ratio:3/4;object-fit:contain;padding:24px}
 
 /* --- columna compra --- */
 .cd-eyebrow{font-family:var(--font-mono);font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;

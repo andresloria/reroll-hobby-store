@@ -27,7 +27,7 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 # --- Config espejada de js/app.js (mantener en sync) ---
 WHATSAPP    = "50660387738"
 SITE        = "https://rerollhobbystore.com"
-ASSET_V     = 48   # debe coincidir con el ?v= de styles.css en index/juego
+ASSET_V     = 70   # debe coincidir con el ?v= de styles.css en index/juego
 CARTA_JS_V  = 6
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
@@ -280,6 +280,11 @@ def stock_val(p):
     try: return int(s)
     except (TypeError, ValueError): return None
 
+def is_sealed(p):
+    """Producto sellado (caja/booster/deck) vs single. Su ficha usa imagen
+    'contain' + descripción y atributos propios (no tiene efecto de carta)."""
+    return (p.get("type") == "sealed") or ((p.get("badge") or "").strip().lower() == "sellado")
+
 def write_page(p, by_set):
     r = p["_rich"]; slug = p["_slug"]
     name = p.get("name", "Carta"); setn = p.get("set", "")
@@ -290,10 +295,13 @@ def write_page(p, by_set):
     num = r.get("collector_number", "")
     numtxt = f" ({num})" if num else ""
     code = r.get("code", "")
+    sealed = is_sealed(p)
+    noun = "este producto" if sealed else "esta carta"
 
     # --- WhatsApp: comprar / avísame ---
-    buy_msg = (f"¡Hola Reroll! Me interesa esta carta: {name} — {setn}{numtxt}, "
-               f"condición {cond}, precio {fmt_precio(price)}. ¿Está disponible?")
+    cond_txt = f"condición {cond}, " if cond else ""
+    buy_msg = (f"¡Hola Reroll! Me interesa {noun}: {name} — {setn}{numtxt}, "
+               f"{cond_txt}precio {fmt_precio(price)}. ¿Está disponible?")
     notify_msg = (f"¡Hola Reroll! Avísenme cuando llegue: {name} — {setn}{numtxt}. ¡Gracias!")
     from urllib.parse import quote
     buy_url    = f"https://wa.me/{WHATSAPP}?text={quote(buy_msg)}"
@@ -325,13 +333,25 @@ def write_page(p, by_set):
     else:
         stock_badge = f'<span class="cd-stock cd-stock--ok">{st} disponibles</span>'
 
-    # --- efecto ---
+    # --- efecto (cartas) / descripción (sellado) ---
     ability = (r.get("ability_text") or "").strip()
     # descripciones de TCGplayer traen HTML (<em>/<br>/<strong>) -> limpiador;
     # las de los CSV de Riftbound usan tokens :rb_...: -> render Riftbound.
     render_fx = render_op_ability if (r.get("op") or "<" in ability) else render_ability
     effect_html = ""
-    if ability:
+    if sealed:
+        sealed_desc = (f"Producto sellado de fábrica, sin abrir. {setn} de {cat}. "
+                       f"Ideal para abrir en vivo, coleccionar o revender. "
+                       f"Coordinamos preventa con 50% de apartado si aún no llega.")
+        effect_html = (
+            '<div class="cd-effect">'
+            '<div class="cd-effect__h"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" '
+            'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" '
+            'aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5"/>'
+            '<path d="M12 13v8"/></svg>Sellado</div>'
+            f'<p class="cd-effect__txt">{esc(sealed_desc)}</p></div>'
+        )
+    elif ability:
         effect_html = (
             '<div class="cd-effect">'
             '<div class="cd-effect__h"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" '
@@ -342,7 +362,12 @@ def write_page(p, by_set):
         )
 
     # --- atributos ---
-    rows = attr_rows(r, p)
+    if sealed:
+        rows = [("Tipo", "Producto sellado"), ("Juego", cat)]
+        if setn: rows.append(("Expansión", setn))
+        rows.append(("Condición", "Nuevo · sellado de fábrica"))
+    else:
+        rows = attr_rows(r, p)
     attrs_html = "".join(
         f'<div class="cd-attr"><div class="cd-attr__k">{esc(k)}</div>'
         f'<div class="cd-attr__v">{v}</div></div>' for k, v in rows
@@ -412,7 +437,8 @@ def write_page(p, by_set):
             "@type": "Offer", "url": canonical, "priceCurrency": "CRC",
             "price": str(int(round(float(price or 0)))),
             "availability": availability,
-            "itemCondition": "https://schema.org/UsedCondition",
+            "itemCondition": ("https://schema.org/NewCondition" if sealed
+                              else "https://schema.org/UsedCondition"),
             "seller": {"@type": "Store", "name": "Reroll Hobby Store"},
         },
     }
@@ -441,6 +467,8 @@ def write_page(p, by_set):
         price=esc(fmt_precio(price)), cond=esc(cond),
         stock_badge=stock_badge, cond_pill=(f'<span class="cd-cond">{esc(cond)}</span>' if cond else ""),
         action_html=action_html, effect_html=effect_html,
+        media_cls=(" cd-img--sealed" if sealed else ""),
+        details_h2=("Detalles del producto" if sealed else "Detalles de la carta"),
         attrs_html=attrs_html, rel_html=rel_html, pid=esc(p.get("id", "")),
         slug=esc(slug), buy_url=esc(buy_url), notify_url=esc(notify_url),
         buy_url_foil=esc(buy_url_foil), foil_attr=foil_attr, foil_toggle=foil_toggle,
@@ -537,7 +565,7 @@ TEMPLATE = """<!DOCTYPE html>
 
   <div class="cd-top">
     <div class="cd-media">
-      <button class="cd-img" id="cdImg" type="button" aria-label="Ampliar imagen de {name}">
+      <button class="cd-img{media_cls}" id="cdImg" type="button" aria-label="Ampliar imagen de {name}">
         <img src="{img_big}" alt="{name}" width="744" height="1039" data-full="{img_full}" />
         <span class="cd-img__hint"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar</span>
       </button>
@@ -564,7 +592,7 @@ TEMPLATE = """<!DOCTYPE html>
   </div>
 
   <section class="cd-section">
-    <h2 class="cd-h2">Detalles de la carta</h2>
+    <h2 class="cd-h2">{details_h2}</h2>
     <div class="cd-attrs">{attrs_html}</div>
   </section>
 
