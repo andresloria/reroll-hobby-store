@@ -121,6 +121,7 @@
   .catit__sub{font-size:.74rem;color:var(--muted);margin-top:1px}
   .catit__tags{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap}
   .catpill{font-size:.66rem;padding:1px 7px;border-radius:999px;background:rgba(201,162,75,.16);color:var(--gold-bright)}
+  .catpill--promo{background:rgba(226,75,74,.22);color:#F5A9A9;border:1px solid rgba(226,75,74,.45);font-weight:700;letter-spacing:.04em}
   .catprice{font-family:var(--font-mono);font-size:.82rem;color:var(--gold-bright)}
   .catin{font-size:.68rem;color:#9FE1CB}
   .catadd{width:34px;height:34px;flex-shrink:0;border-radius:9px;border:1px solid rgba(201,162,75,.4);
@@ -1673,6 +1674,9 @@ async function pedConfirmar(id){
     const hasFoil = e.foil!=null;
     const finish = hasFoil ? '<span class="catpill">✨ Foil disp.</span>' : '';
     const rar = e.rarity ? `<span class="catpill">${esc(e.rarity)}</span>` : '';
+    // los PROMOS comparten el arte con la carta normal → etiqueta bien visible
+    // para no confundirlos al agregar stock (son otra carta física, otro precio)
+    const promo = (e.set==='Promos') ? '<span class="catpill catpill--promo">🏷️ PROMO</span>' : '';
     const num = e.number ? `<small>${esc(e.number)}</small>` : '';
     const priceTxt = fmt(e.price)+(hasFoil?` · foil ${fmt(e.foil)}`:'');
     let ctrl;
@@ -1696,7 +1700,7 @@ async function pedConfirmar(id){
       <div class="catit__meta">
         <div class="catit__nm">${esc(e.name)} ${num}</div>
         <div class="catit__sub">${esc(e.set)}${e.type==='sealed'?' · Sellado':''}</div>
-        <div class="catit__tags">${rar}${finish}<span class="catprice">${priceTxt}</span>${it?('<span class="catin">✓ en tu base'+(enBase?'':' · agotada')+'</span>'):''}</div>
+        <div class="catit__tags">${promo}${rar}${finish}<span class="catprice">${priceTxt}</span>${it?('<span class="catin">✓ en tu base'+(enBase?'':' · agotada')+'</span>'):''}</div>
       </div>
       ${ctrl}
     </div>`;
@@ -1726,6 +1730,7 @@ async function pedConfirmar(id){
       it={ id:nextId++, name:e.name, cat:e.game, type:esSellado?'sealed':'single', set:e.set,
            price:e.price, cond:esSellado?'Sellado':'Near Mint', img:e.img, _new:1 };
       if(esSellado) it.badge='Sellado';
+      else if(e.set==='Promos') it.badge='Promo';   // distingue del arte base en la tienda
       if(hasFoil){
         it.foil=e.foil;
         it.stock  = variant==='stock'  ? q : 0;

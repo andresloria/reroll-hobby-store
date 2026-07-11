@@ -31,6 +31,9 @@ productos_backup_promos.json
 productos_backup_op_stock0.json
 productos_backup_dedup.json
 productos_backup_fixdatos.json
+productos_backup_fixdatos2.json
+productos_backup_swaps.json
+productos_backup_premium.json
 cambios_aplicados_*.md
 cambios_aplicados_*.csv
 revisar_a_mano.csv

@@ -8,6 +8,15 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (5) — Gran revisión: duplicadas, promos distinguidas y rutina de precios completa (aprobado por Andrés)
+- Andrés reportó "cartas duplicadas con distintos precios" + pidió la rutina de precios del lunes con reporte por TCG.
+- **Duplicadas:** las "duplicadas" eran (a) los PROMOS (comparten arte con la base a propósito — TCGplayer bloquea sus imágenes) y (b) 4 zombies reales: Overnumbered legado con nombre corto en stock 0, superadas por las nuevas con nombre completo (mismo arte+set). Borradas ids 350/623/653/927 → **3689 items** (backup `productos_backup_fixdatos2.json`). Sus fichas se limpiaron en el rebuild.
+- **Promos distinguidas (3 niveles):** badge **"Promo"** en las 115 promos de `productos.json` (la tienda ya renderiza `badge`); `make_promos_rb.py` lo pone en futuras corridas; el panel muestra etiqueta roja **🏷️ PROMO** en el catálogo (`.catpill--promo`) y `setQty` pone el badge al crear desde una entrada Promos. Los 8 promos con stock son reales (confirmado por Andrés).
+- **🔴 15 parejas más con precios cruzados ON↔Signature** (mismo bug del import; detección sistemática validada en AMBAS direcciones contra el mercado): Loose Cannon, Swift Scout, Blind Monk, Unforgiven, Hand of Noxus, Herald of the Arcane, Deceiver, Sett Brawler, Windrider, Mercurial, Keeper of the Hammer, Piltover Enforcer, Virtuoso, Pridestalker, Bloodharbor Ripper → intercambiadas (backup `productos_backup_swaps.json`).
+- **Rutina de precios (`check_precios.py --aplicar --min 300`):** 334 precios actualizados (88 subieron / 246 bajaron; OP: Luffy 119 SP +₡265k, Shanks Gold −₡120k; RB: Seal of Rage +57%…). El Luffy (119) Manga placeholder ₡100 → ₡1 405 000. Backup `productos_backup_precios.json`.
+- **Premium por catálogo (NUEVO):** cruce inverso item→entrada del catálogo con el mismo matcher del panel (espejo en Python) para las Showcase/AltArt/ON/Sig que la rutina manda "a mano" → **157 ajustes** aplicados (Irelia Alt Art ₡4 500→₡10 500 — el caso que reportó Andrés; poros ON; Signatures al mercado). Backup `productos_backup_premium.json`.
+- `make_cartas.py` → 3689 fichas + sitemap. Verificación final: ids únicos, 0 foils ≤ normal, spot-checks OK (332=44k/333=505k, 440=10.5k, 2325=1.405M), 115 badges Promo.
+
 ## 2026-07-11 (4) — Limpieza de datos: duplicado, precios ON↔Sig y foils (aprobado por Andrés)
 - Con OK de Andrés, script Python (backup `productos_backup_fixdatos.json`, gitignored):
   1. **Borrado el duplicado id 3691** "Irelia - Fervent (Overnumbered)" (creado por accidente al probar el +; el real es el id 627 con el arte del ON). 3694 → **3693 items**.

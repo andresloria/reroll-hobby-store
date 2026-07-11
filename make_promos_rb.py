@@ -153,7 +153,7 @@ def main():
             nuevos.append({
                 "id": next_id, "name": name, "cat": "Riftbound", "type": "single",
                 "set": "Promos", "price": round_crc(usd), "cond": "Near Mint",
-                "stock": 0, "img": img,
+                "stock": 0, "img": img, "badge": "Promo",   # distingue del arte base en la tienda
             })
             ya.add((name, "Promos"))
             next_id += 1

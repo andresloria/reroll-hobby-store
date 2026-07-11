@@ -15301,45 +15301,8 @@
 ]
 }
 },
-"350": {
-"slug": "the-boss-ogn-310",
-"number": "310",
-"code": "OGN-310/298",
-"type": "Legend",
-"rarity": "Showcase",
-"domains": "Body | Order",
-"d": {
-"fx": "When a buffed unit you control would die, you may pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn&#x27;t a move.) When you conquer, ready me.",
-"at": [
-[
-"Tipo",
-"Legend"
-],
-[
-"Rareza",
-"Showcase"
-],
-[
-"Dominio",
-"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
-],
-[
-"N.º",
-"310 / 298"
-],
-[
-"Condición",
-"Near Mint"
-],
-[
-"Ilustrador",
-"Gem Lim"
-]
-]
-}
-},
 "351": {
-"slug": "the-boss-ogn-310-2",
+"slug": "the-boss-ogn-310",
 "number": "310",
 "code": "OGN-310*/298",
 "type": "Legend",
@@ -27394,57 +27357,8 @@
 ]
 }
 },
-"623": {
-"slug": "vayne-hunter-sfd-223",
-"number": "223",
-"code": "SFD-223/221",
-"type": "Unit",
-"rarity": "Showcase",
-"domains": "Fury",
-"d": {
-"fx": "<b class=\"fx-kw\">[Assault 3]</b> (+3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m an attacker.) If an opponent controls a battlefield, I enter ready. When I conquer, you may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> to return me to my owner&#x27;s hand.",
-"at": [
-[
-"Tipo",
-"Unit"
-],
-[
-"Rareza",
-"Showcase"
-],
-[
-"Dominio",
-"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
-],
-[
-"Energía",
-"4"
-],
-[
-"Power",
-"1"
-],
-[
-"Might",
-"2"
-],
-[
-"N.º",
-"223 / 221"
-],
-[
-"Condición",
-"Near Mint"
-],
-[
-"Ilustrador",
-"John Kafka"
-]
-]
-}
-},
 "624": {
-"slug": "vayne-hunter-sfd-223-2",
+"slug": "vayne-hunter-sfd-223",
 "number": "223",
 "code": "SFD-223*/221",
 "type": "Unit",
@@ -28812,43 +28726,6 @@
 [
 "N.º",
 "240 / 221"
-],
-[
-"Condición",
-"Near Mint"
-],
-[
-"Ilustrador",
-"Envar Studio"
-]
-]
-}
-},
-"653": {
-"slug": "purifier-sfd-241",
-"number": "241",
-"code": "SFD-241/221",
-"type": "Legend",
-"rarity": "Showcase",
-"domains": "Fury | Body",
-"d": {
-"fx": "Your Equipment each give <b class=\"fx-kw\">[Assault]</b>. (+1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while equipped unit is an attacker.)",
-"at": [
-[
-"Tipo",
-"Legend"
-],
-[
-"Rareza",
-"Showcase"
-],
-[
-"Dominio",
-"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
-],
-[
-"N.º",
-"241 / 221"
 ],
 [
 "Condición",
@@ -40882,45 +40759,8 @@
 ]
 }
 },
-"927": {
-"slug": "bashful-bloom-unl-230",
-"number": "230",
-"code": "UNL-230*/219",
-"type": "Legend",
-"rarity": "Showcase",
-"domains": "Calm | Mind",
-"d": {
-"fx": "<span class=\"fx-energy\" aria-label=\"Energía 4\">4</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Play a ready 3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Sprite unit token with <b class=\"fx-kw\">[Temporary]</b>. This ability costs <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> less for each friendly unit with <b class=\"fx-kw\">[Temporary]</b>.",
-"at": [
-[
-"Tipo",
-"Legend"
-],
-[
-"Rareza",
-"Showcase"
-],
-[
-"Dominio",
-"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
-],
-[
-"N.º",
-"230 / 219"
-],
-[
-"Condición",
-"Near Mint"
-],
-[
-"Ilustrador",
-"Oussama Agazzoum"
-]
-]
-}
-},
 "928": {
-"slug": "bashful-bloom-unl-230-2",
+"slug": "bashful-bloom-unl-230",
 "number": "230",
 "code": "UNL-230/219",
 "type": "Legend",
