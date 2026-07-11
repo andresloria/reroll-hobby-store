@@ -8,6 +8,14 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (7) — Selector de envío (Correos CR) en el checkout que suma al total (pedido de Andrés)
+- Investigué tarifas de Correos de Costa Rica (ARESEP, jun 2026; excluyen IVA). Andrés quería que la gente elija el envío y se sume al cobro.
+- **Checkout (index.html + app.js):** el "Entrega" (retiro/envío) pasó a un **selector de 4 opciones con precio** (radios): 🏬 Retiro/entrega coordinada (incl. coordinar por WhatsApp) — Gratis · 📮 Correo normal ₡1.700 · ✅ Certificado ₡3.300 (recomendado, con rastreo) · ⚡ EMS ₡2.500. El resumen ahora muestra **Subtotal → Envío → Total**; `recalcCheckoutTotal()` suma el envío al total al instante y muestra los campos de dirección solo si el método lo requiere. `submitCheckout` valida dirección para envíos, arma el mensaje de WhatsApp con Subtotal/Envío/Total y método, y manda `envioMetodo`/`envioCosto` en el payload.
+- **API (api/pedido.js):** guarda `envioMetodo` (≤60) y `envioCosto` (0–50.000) en el pedido.
+- **Panel (admin.html · Pedidos):** cada pedido muestra el método+costo de envío, la 📍 dirección (envíos) y el total con "+ envío = total".
+- **Precios = estimados** (nota en el checkout: se ajusta según peso; no es cobro rígido). SINPE de pago intacto (8780-7813); WhatsApp 6038-7738.
+- Cache-busting `?v=65→66`. **Verificado en preview:** total suma correcto por opción (Cert ₡3.800, Correo ₡2.200, EMS ₡3.000, Retiro ₡500 sin dirección); mensaje de WhatsApp con Subtotal/Envío/Total; validación de dirección corta el submit; consola limpia.
+
 ## 2026-07-11 (6) — Base de datos del panel: orden por N.º de carta + estado de "sin resultados" claro (pedido de Andrés)
 - Andrés (con captura): al filtrar por expansión (Origins) no salía nada; y las otras expansiones no estaban ordenadas por número.
 - **"No sale nada" = búsqueda pegada:** el filtro por set SÍ funciona (verificado: Riftbound+Origins con búsqueda vacía = 351 cartas). El "0" era porque quedaba "irelia" en el buscador (Irelia está en Spiritforged). Fix UX: el estado vacío ahora avisa **"tenés la búsqueda 'X' activa — puede que no esté en esta expansión"** + botón **Limpiar búsqueda**.

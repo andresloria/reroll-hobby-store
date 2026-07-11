@@ -1,6 +1,8 @@
 # HANDOFF — estado de la sesión (act. 2026-07-11)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=65`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v6**). Tienda: **3.689 cartas** (One Piece sigue en **stock 0** temporal). Último commit `60304f2a`. Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=66`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v6**). Tienda: **3.689 cartas** (One Piece sigue en **stock 0** temporal). Historial completo en [SESSIONS.md](SESSIONS.md).
+
+**Novedad 2026-07-11:** el checkout ahora tiene **selector de envío de Correos CR con precio que se suma al total** (Retiro gratis / Correo ₡1.700 / Certificado ₡3.300 / EMS ₡2.500); guarda `envioMetodo`/`envioCosto` en el pedido y el panel de Pedidos los muestra. Base de datos del panel ordena por **N.º de carta**. Página **terminos.html** publicada.
 
 ## En qué estábamos (sesiones 2026-07-10/11) — panel espejo, motion Emil, botón atrás, términos, limpieza de datos
 Todo verificado en preview y pusheado:

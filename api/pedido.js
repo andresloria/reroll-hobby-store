@@ -25,6 +25,8 @@ module.exports = async function handler(req, res) {
   const provincia = String(b.provincia || "").trim().slice(0, 40);
   const direccion = String(b.direccion || "").trim().slice(0, 200);
   const pago = String(b.pago || "").trim().slice(0, 40);
+  const envioMetodo = String(b.envioMetodo || "").trim().slice(0, 60);
+  const envioCosto = Math.max(0, Math.min(50000, Math.floor(Number(b.envioCosto) || 0)));
   if (!Array.isArray(b.items) || b.items.length < 1 || b.items.length > 40)
     return L.json(res, 400, { error: "items inválidos" });
   const lineas = [];
@@ -66,6 +68,7 @@ module.exports = async function handler(req, res) {
     db.pedidos.push({
       id, ts: now, estado: "pendiente",
       nombre, telefono, entrega, provincia, direccion, pago,
+      envioMetodo, envioCosto,
       items,
       total: items.reduce((s, i) => s + Number(i.price || 0) * i.qty, 0),
     });

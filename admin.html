@@ -1437,7 +1437,8 @@ function renderPedidos(){
       : p.estado==='confirmado' ? '<span class="ped__badge ped__badge--ok">✓ CONFIRMADO</span>'
       : p.estado==='expirado' ? '<span class="ped__badge ped__badge--off">⌛ EXPIRADO</span>'
       : '<span class="ped__badge ped__badge--off">✕ RECHAZADO</span>';
-    const entrega = p.entrega==='envio' ? ('Envío'+(p.provincia?' · '+esc(p.provincia):'')) : 'Retiro en Cartago';
+    const metodoCorto = p.envioMetodo ? esc(String(p.envioMetodo).replace(/\s*\(.*$/,'')) : (p.entrega==='envio'?'Envío':'Retiro en Cartago');
+    const entrega = p.entrega==='envio' ? (metodoCorto+(p.provincia?' · '+esc(p.provincia):'')+(p.envioCosto?' · '+fmt(p.envioCosto):'')) : metodoCorto;
     return `<div class="ped${p.estado==='pendiente'?' ped--pend':''}">
       <div class="ped__head">
         <span><span class="ped__id">Pedido #${esc(p.id)}</span> ${badge}</span>
@@ -1447,9 +1448,10 @@ function renderPedidos(){
         <b>${esc(p.nombre)}</b>
         ${p.telefono?`<span class="ped__tel">📱 ${esc(p.telefono)}</span><a class="ped__wa" href="${pedWaLink(p.telefono)}" target="_blank" rel="noopener">💬 WhatsApp</a>`:'<span class="ped__tel" style="color:#8a7d73">(sin teléfono)</span>'}
       </div>
+      ${p.entrega==='envio'&&p.direccion?`<div style="font-size:.82rem;color:#c8bbb0;margin:2px 0 4px">📍 ${esc(p.direccion)}</div>`:''}
       ${p.items.map(it=>linea(p,it)).join('')}
       <div class="ped__foot">
-        <span class="ped__total">Total ${fmt(p.total)}</span>
+        <span class="ped__total">Total ${fmt(p.total)}${p.envioCosto?` <small style="color:#9b8d83;font-weight:400">+ envío ${fmt(p.envioCosto)} = ${fmt(Number(p.total)+Number(p.envioCosto))}</small>`:''}</span>
         ${p.estado==='pendiente'||p.estado==='expirado'?`<span style="display:flex;gap:8px">
           <button class="btn btn--gold ped__conf" data-ped="${p.id}" type="button">✓ Confirmar venta</button>
           ${p.estado==='pendiente'?`<button class="btn btn--ghost ped__rej" data-ped="${p.id}" type="button">Rechazar</button>`:''}

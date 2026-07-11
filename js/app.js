@@ -936,14 +936,13 @@ function loadCliente(){ try{ return JSON.parse(localStorage.getItem("reroll_clie
 function prefillCheckout(){
   const c = loadCliente(); const form = $("#checkoutForm"); if(!c || !form) return;
   ["nombre","telefono","direccion"].forEach(k=>{ if(c[k] && form[k]) form[k].value = c[k]; });
-  if(c.entrega && form.entrega){ form.entrega.value = c.entrega; toggleEnvio(); }
   if(c.provincia && form.provincia){ form.provincia.value = c.provincia; }
 }
 function openCheckout(){
   if(!cart.length){ toast("Tu carrito está vacío"); return; }
   resetCheckoutView();
   $("#coItems").innerHTML = cart.map(c=>`<div class="co__line"><span>${c.name} ×${c.qty}</span><b>${fmt(c.price*c.qty)}</b></div>`).join("");
-  $("#coTotal").textContent = fmt(cartTotal());
+  recalcCheckoutTotal();
   $("#sinpeData").textContent = `${SINPE_NOMBRE} · ${SINPE_NUMERO}`;
   prefillCheckout();   // trae nombre/teléfono/datos si el cliente eligió "recordar"
   const m=$("#checkoutModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false");
@@ -952,9 +951,24 @@ function openCheckout(){
   const nom = $("#checkoutForm")?.querySelector('[name="nombre"]');
   if(nom){ if(nom.value){ $("#checkoutForm").querySelector('[name="telefono"]')?.focus(); } else nom.focus(); }
 }
-function toggleEnvio(){
-  const envio = $("#coEntrega").value === "envio";
-  $("#coEnvioFields").style.display = envio ? "" : "none";
+// recalcula Subtotal / Envío / Total según la opción de envío elegida, y
+// muestra los campos de dirección solo si el método lo requiere (Correos).
+function recalcCheckoutTotal(){
+  const sub = cartTotal();
+  const r = $("#coShip") && $("#coShip").querySelector('input[name="envio"]:checked');
+  const cost = r ? (Number(r.value)||0) : 0;
+  const se=$("#coSubtotal"); if(se) se.textContent = fmt(sub);
+  const line=$("#coEnvioLine");
+  if(cost>0){
+    if(line) line.hidden=false;
+    const lbl=$("#coEnvioLbl"); if(lbl) lbl.textContent = "Envío · " + (r ? r.dataset.metodo.replace(/\s*\(.*$/,"") : "");
+    const ev=$("#coEnvioVal"); if(ev) ev.textContent = fmt(cost);
+  } else if(line){ line.hidden=true; }
+  const te=$("#coTotal"); if(te) te.textContent = fmt(sub + cost);
+  const needAddr = !!(r && r.dataset.addr);
+  const ef=$("#coEnvioFields"); if(ef) ef.style.display = needAddr ? "" : "none";
+  // marca visual de la opción elegida (respaldo a :has())
+  if($("#coShip")) $("#coShip").querySelectorAll(".ship__opt").forEach(o=>o.classList.toggle("on", o.querySelector("input")?.checked));
 }
 function togglePago(){
   $("#sinpeBox").style.display = $("#coPago").value === "SINPE Móvil" ? "" : "none";
@@ -990,7 +1004,11 @@ function ajustarCarritoPorFaltantes(faltantes){
 async function submitCheckout(e){
   e.preventDefault();
   const f = new FormData(e.target);
-  const entrega = f.get("entrega");
+  const shipR = e.target.querySelector('input[name="envio"]:checked');
+  const envioCosto = shipR ? (Number(shipR.value)||0) : 0;
+  const envioMetodo = shipR ? (shipR.dataset.metodo||"") : "Retiro / entrega coordinada";
+  const needAddr = !!(shipR && shipR.dataset.addr);
+  const entrega = needAddr ? "envio" : "retiro";
   const pago = f.get("pago");
   const nombre = (f.get("nombre")||"").trim();
   const telefono = (f.get("telefono")||"").trim();
@@ -1016,6 +1034,7 @@ async function submitCheckout(e){
     const r = await fetch("api/pedido", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir, pago,
+        envioMetodo, envioCosto,
         items: cart.map(c=>({ id: c.id, foil: !!c.foil, qty: c.qty||1 })) })
     });
     if(r.status===409){
@@ -1029,14 +1048,19 @@ async function submitCheckout(e){
   if(sbtn) sbtn.disabled = false;
   // ---- 2) mensaje de WhatsApp (igual que siempre, + número de pedido si hubo reserva) ----
   const items = cart.map(c=>`• ${c.name} ×${c.qty} (${c.cat}) — ${fmt(c.price*c.qty)}`).join("%0A");
+  const sub = cartTotal();
+  const totalFinal = sub + envioCosto;
   let msg = pedidoId
-    ? `¡Hola Reroll! Pedido *%23${pedidoId}*:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`
-    : `¡Hola Reroll! Quiero hacer un pedido:%0A${items}%0A%0ASubtotal: ${fmt(cartTotal())}`;
+    ? `¡Hola Reroll! Pedido *%23${pedidoId}*:%0A${items}`
+    : `¡Hola Reroll! Quiero hacer un pedido:%0A${items}`;
+  msg += `%0A%0ASubtotal: ${fmt(sub)}`;
+  if(envioCosto>0) msg += `%0AEnvío (${envioMetodo}): ${fmt(envioCosto)}`;
+  msg += `%0ATotal: ${fmt(totalFinal)}`;
   msg += `%0A%0ANombre: ${nombre}%0ATel: ${telefono}`;
   if(entrega==="envio"){
-    msg += `%0AEntrega: Envío por Correos de Costa Rica%0AProvincia: ${prov}%0ADirección: ${dir}%0A(el costo de envío se confirma según destino)`;
+    msg += `%0AEntrega: ${envioMetodo}%0AProvincia: ${prov}%0ADirección: ${dir}%0A(costo de envío estimado; se ajusta según el peso)`;
   } else {
-    msg += `%0AEntrega: Retiro en Cartago`;
+    msg += `%0AEntrega: ${envioMetodo}`;
   }
   msg += `%0APago: ${pago}`;
   if(pago==="SINPE Móvil") msg += `%0A(SINPE a ${SINPE_NOMBRE} ${SINPE_NUMERO})`;
@@ -1202,7 +1226,7 @@ function setShowSoldOut(val){
 document.addEventListener("change", e=>{
   if(e.target.id==="sortFilter"){ sortMode = e.target.value; renderGrid(); }
   if(e.target.id==="showSoldOut" || e.target.id==="mfSoldOut"){ setShowSoldOut(e.target.checked); }
-  if(e.target.id==="coEntrega"){ toggleEnvio(); }
+  if(e.target.name==="envio"){ recalcCheckoutTotal(); }
   if(e.target.id==="coPago"){ togglePago(); }
 });
 

@@ -61,9 +61,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=65" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=65" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=65" />
+  <link rel="stylesheet" href="css/styles.css?v=66" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=66" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=66" />
 </head>
 <body>
 
@@ -351,7 +351,9 @@
 
       <div class="co__summary">
         <div class="co__items" id="coItems"></div>
-        <div class="co__line co__line--total"><span>Subtotal</span><b id="coTotal">₡0</b></div>
+        <div class="co__line co__line--sub"><span>Subtotal</span><b id="coSubtotal">₡0</b></div>
+        <div class="co__line co__line--envio" id="coEnvioLine" hidden><span id="coEnvioLbl">Envío</span><b id="coEnvioVal">—</b></div>
+        <div class="co__line co__line--total"><span>Total</span><b id="coTotal">₡0</b></div>
       </div>
 
       <form id="checkoutForm" class="co__form">
@@ -364,12 +366,29 @@
           <small class="co__hint">Para coordinar la entrega y el pago por WhatsApp.</small>
         </label>
 
-        <label>Entrega
-          <select name="entrega" id="coEntrega">
-            <option value="retiro">Retiro en Cartago</option>
-            <option value="envio">Envío por Correos de Costa Rica</option>
-          </select>
-        </label>
+        <fieldset class="co__ship" id="coShip">
+          <legend>¿Cómo querés recibirlo?</legend>
+          <label class="ship__opt">
+            <input type="radio" name="envio" value="0" data-metodo="Retiro / entrega coordinada" checked />
+            <span class="ship__txt"><span class="ship__nm">🏬 Retiro o entrega coordinada</span><span class="ship__sub">En Cartago, o lo coordinamos por WhatsApp (fines de semana en San José Centro / San Pedro / Curridabat)</span></span>
+            <span class="ship__price ship__price--free">Gratis</span>
+          </label>
+          <label class="ship__opt">
+            <input type="radio" name="envio" value="1700" data-metodo="Correo normal (Correos CR, sin rastreo)" data-addr="1" />
+            <span class="ship__txt"><span class="ship__nm">📮 Correo normal</span><span class="ship__sub">Correos CR · sin rastreo · todo el país</span></span>
+            <span class="ship__price">₡1 700</span>
+          </label>
+          <label class="ship__opt">
+            <input type="radio" name="envio" value="3300" data-metodo="Certificado (Correos CR, con rastreo)" data-addr="1" />
+            <span class="ship__txt"><span class="ship__nm">✅ Certificado <span class="ship__tag">Recomendado</span></span><span class="ship__sub">Correos CR · con rastreo y confirmación de entrega</span></span>
+            <span class="ship__price">₡3 300</span>
+          </label>
+          <label class="ship__opt">
+            <input type="radio" name="envio" value="2500" data-metodo="Exprés EMS (Correos CR, con rastreo)" data-addr="1" />
+            <span class="ship__txt"><span class="ship__nm">⚡ Exprés (EMS)</span><span class="ship__sub">Correos CR · más rápido · con rastreo</span></span>
+            <span class="ship__price">₡2 500</span>
+          </label>
+        </fieldset>
 
         <div id="coEnvioFields" style="display:none">
           <div class="co__row">
@@ -383,7 +402,7 @@
           <label>Dirección de entrega
             <input name="direccion" placeholder="Señas exactas para Correos de Costa Rica" />
           </label>
-          <p class="co__note co__note--icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7l8.7 5 8.7-5M12 22V12"/></svg> El costo de envío de Correos de Costa Rica se calcula según el destino y se confirma por WhatsApp.</p>
+          <p class="co__note co__note--icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7l8.7 5 8.7-5M12 22V12"/></svg> El costo de envío es un <b>estimado</b> para pedidos livianos de cartas. Si el paquete pesa más (sellado), lo ajustamos por WhatsApp antes de cobrar.</p>
         </div>
 
         <label>Método de pago
@@ -483,6 +502,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=65"></script>
+  <script src="js/app.js?v=66"></script>
 </body>
 </html>

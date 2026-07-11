@@ -681,8 +681,25 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .co__items{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;max-height:160px;overflow-y:auto}
 .co__line{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:#ddd2ca}
 .co__line span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.co__line--total{border-top:1px solid var(--line);padding-top:8px;font-family:var(--font-serif);font-size:1.15rem;color:var(--cream)}
+.co__line--sub,.co__line--envio{font-size:.86rem;color:var(--muted);padding-top:2px}
+.co__line--envio b{font-family:var(--font-mono);font-size:.82rem}
+.co__line--total{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-family:var(--font-serif);font-size:1.15rem;color:var(--cream)}
 .co__line--total b{color:var(--gold-bright)}
+/* selector de envío (checkout) */
+.co__ship{border:none;padding:0;margin:0 0 14px}
+.co__ship legend{font-size:.82rem;color:var(--muted);font-weight:500;padding:0;margin-bottom:8px}
+.ship__opt{display:flex;align-items:center;gap:11px;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  padding:10px 13px;margin-bottom:8px;cursor:pointer;transition:border-color .15s var(--ease),background .15s var(--ease)}
+.ship__opt:has(input:checked),.ship__opt.on{border-color:var(--gold-bright);background:rgba(232,199,122,.08)}
+.ship__opt input{accent-color:var(--gold);width:17px;height:17px;flex:0 0 auto;cursor:pointer}
+.ship__txt{flex:1;min-width:0}
+.ship__nm{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-weight:600;font-size:.9rem;color:var(--cream)}
+.ship__sub{display:block;font-size:.75rem;color:var(--muted);margin-top:2px;line-height:1.35}
+.ship__price{font-family:var(--font-mono);font-weight:700;font-size:.92rem;color:var(--gold-bright);white-space:nowrap}
+.ship__price--free{color:#8fe0c6}
+.ship__tag{font-size:.58rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:1px 7px;border-radius:999px;
+  background:rgba(93,202,165,.18);color:#8fe0c6;border:1px solid rgba(93,202,165,.4)}
+@media (hover:hover) and (pointer:fine){ .ship__opt:hover{border-color:rgba(232,199,122,.4)} }
 .co__form label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:14px;font-weight:500}
 .co__form input,.co__form select{
   width:100%;margin-top:6px;background:rgba(255,255,255,.04);border:1px solid var(--line);
