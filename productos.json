@@ -41610,5 +41610,17 @@
         ]
       ]
     }
+  },
+  {
+    "id": 3695,
+    "name": "Vendetta - Booster Display Case",
+    "cat": "Riftbound",
+    "type": "sealed",
+    "set": "Vendetta",
+    "price": 395000,
+    "cond": "Sellado",
+    "img": "https://tcgplayer-cdn.tcgplayer.com/product/693382_400w.jpg",
+    "badge": "Sellado",
+    "stock": 1
   }
 ]
