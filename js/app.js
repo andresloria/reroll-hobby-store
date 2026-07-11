@@ -198,7 +198,7 @@ function qvEl(){
   document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !_qv.hidden) closeQV(); });
   return _qv;
 }
-function closeQV(){ if(_qv){ _qv.hidden = true; document.body.style.overflow = ""; } }
+function closeQV(){ if(_qv){ _qv.hidden = true; document.body.style.overflow = ""; } overlayConsume(); }
 function openQuickView(p){
   const m = qvEl();
   const mediaBox = m.querySelector(".qv__media");
@@ -244,6 +244,7 @@ function openQuickView(p){
   if(href){ full.href = href; full.style.display=""; } else { full.style.display="none"; }
   addBtn.onclick = ()=>{ if(addBtn.disabled) return; addToCart(p.id, qvFoil); closeQV(); };
   m.hidden = false; document.body.style.overflow = "hidden";
+  overlayPush();
 }
 document.addEventListener("click", e=>{
   const a = e.target.closest("a.card__link, a.hmq__card"); if(!a) return;
@@ -947,6 +948,7 @@ function openCheckout(){
   prefillCheckout();   // trae nombre/teléfono/datos si el cliente eligió "recordar"
   const m=$("#checkoutModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false");
   $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden","true");
+  overlayPush();
   const nom = $("#checkoutForm")?.querySelector('[name="nombre"]');
   if(nom){ if(nom.value){ $("#checkoutForm").querySelector('[name="telefono"]')?.focus(); } else nom.focus(); }
 }
@@ -1059,14 +1061,45 @@ function openDrawer(){
   lastFocused = document.activeElement;
   const d=$("#drawer"); d.classList.add("open"); d.setAttribute("aria-hidden","false");
   d.querySelector(".drawer__x")?.focus();   // mueve el foco dentro del panel
+  overlayPush();
 }
 function closeAll(){
   ["#drawer","#checkoutModal"].forEach(s=>{ const el=$(s); if(el){ el.classList.remove("open"); el.setAttribute("aria-hidden","true"); } });
   if(lastFocused && lastFocused.focus){ lastFocused.focus(); lastFocused=null; }   // devuelve el foco al disparador
+  overlayConsume();
 }
 $("#cartBtn").onclick = openDrawer;
 $$("[data-close]").forEach(el=> el.onclick = closeAll);
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAll(); });
+
+/* ============================================================
+   Botón ATRÁS del celular = cerrar el overlay, NO salir del sitio.
+   Al abrir quick-view / carrito / checkout / filtros empujamos un
+   estado al historial; el back del cel dispara popstate y cerramos
+   el overlay abierto. Cerrar por la X/backdrop/Esc consume ese estado
+   (así el historial queda limpio y no hay que apretar atrás dos veces).
+   ============================================================ */
+let _ovPushed = false, _ovFromPop = false;
+function overlayAnyOpen(){
+  return (typeof _qv !== "undefined" && _qv && !_qv.hidden)
+      || !!document.querySelector("#drawer.open, #checkoutModal.open, .msheet.open");
+}
+function overlayCloseOpen(){
+  if(typeof _qv !== "undefined" && _qv && !_qv.hidden) closeQV();
+  if(document.querySelector("#drawer.open, #checkoutModal.open")) closeAll();
+  document.querySelectorAll(".msheet.open").forEach(s=> closeSheet("#"+s.id));
+}
+function overlayPush(){ if(!_ovPushed){ try{ history.pushState({rerollOverlay:1}, ""); }catch(e){} _ovPushed = true; } }
+function overlayConsume(){
+  if(_ovFromPop){ _ovPushed = false; return; }   // el cierre vino del back: ya se consumió
+  if(_ovPushed){ _ovPushed = false; try{ history.back(); }catch(e){} }
+}
+window.addEventListener("popstate", function(){
+  if(_ovPushed){
+    _ovPushed = false;
+    if(overlayAnyOpen()){ _ovFromPop = true; overlayCloseOpen(); _ovFromPop = false; }
+  }
+});
 
 /* ============================================================
    BUSCADOR
@@ -1481,8 +1514,8 @@ function updateHeroStat(){
    no duplica lógica, solo cambia la presentación en celular.
    ============================================================ */
 const MOBILE_GAMES = TILE_GAMES; // One Piece, Riftbound, Pokémon, Magic, Yu-Gi-Oh
-function openSheet(sel){ const s=$(sel); if(!s) return; s.classList.add('open'); s.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-function closeSheet(sel){ const s=$(sel); if(!s) return; s.classList.remove('open'); s.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+function openSheet(sel){ const s=$(sel); if(!s) return; s.classList.add('open'); s.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; overlayPush(); }
+function closeSheet(sel){ const s=$(sel); if(!s) return; s.classList.remove('open'); s.setAttribute('aria-hidden','true'); document.body.style.overflow=''; overlayConsume(); }
 // chips multi-selección de un grupo dentro del sheet móvil
 function mfChips(wrapId, g){
   const wrap=$(wrapId); if(!wrap) return;

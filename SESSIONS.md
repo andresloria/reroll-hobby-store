@@ -22,6 +22,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
   - **Duraciones de hover** (Emil: <300ms): `.card` .35→.2s; `.card__photo` y `.card__emoji` .5→.3s; `.card__img::after` (sheen) .7→.5s; `.tpanel` .45→.25s.
   - **`:active` (feedback de press, clave en cel):** nuevos en `.qty__btn` (scale .86 + destello dorado, +transform en la transición), `.herochip` (.96), `.gtile` (.98), `.gamebtn` (.97), `.pill` (.95, +transform en la transición).
 - Cache-busting `?v=62→63` (index/juego). Verificado en preview: estilos computados (card .2s, photo .3s), 8 reglas `:active` presentes (5 nuevas), bloque touch activo, consola sin errores. `productos.json` intacto.
+## 2026-07-11 — Botón atrás del cel cierra overlays (no sale del sitio) (pedido de Andrés)
+- Andrés: en el cel, mucha gente al abrir una carta (quick-view) por reflejo aprieta el botón de **retroceso** en vez de la X, y eso los **sacaba del sitio**. Pedido: que el back cierre la vista de la carta y los deje en la página.
+- **`js/app.js` — guardián de historial (History API):** al abrir cualquier overlay de la tienda (quick-view, drawer del carrito, checkout, sheets de filtro/orden) se hace `history.pushState`; el botón atrás dispara `popstate` → se cierra el overlay abierto **sin abandonar la página**. Cerrar por X/backdrop/Esc llama `overlayConsume()` que hace `history.back()` para consumir el estado (historial limpio, sin “apretar atrás dos veces”). Flags `_ovPushed` / `_ovFromPop` evitan doble-cierre. Cuando no hay overlay abierto, el back navega normal (se puede salir).
+- Enganches: `overlayPush()` en `openQuickView`/`openDrawer`/`openCheckout`/`openSheet`; `overlayConsume()` en `closeQV`/`closeAll`/`closeSheet`. No choca con el flujo `#carrito` (replaceScript limpia el hash y abre el drawer 300ms después).
+- Cache-busting `?v=64→65`. **Verificado en preview (juego.html?g=Riftbound):** abrir quick-view empuja estado (hist 9→10); `history.back()` lo cierra y queda en `/juego.html?g=Riftbound` (no sale); cerrar por X consume el estado (`_ovPushed=false`); el drawer igual. Sin errores de consola. Solo `js/app.js` (+ `?v`).
+- *Nota:* aplica a la tienda. Las fichas `/carta/*.html` son páginas propias (el back vuelve a la grilla, que es lo esperado); su lightbox/drawer podría recibir el mismo patrón en `carta.js` si Andrés lo pide.
+
 ## 2026-07-10 (5) — Motion/polish del CSS (Tanda 2, con criterio libre de Andrés)
 - Demo interactiva Antes/Después (drawer + stagger + subrayado) aprobada → apliqué la **Tanda 2** (solo `css/styles.css`):
   - **Subrayado del nav:** `width 0→100%` reemplazado por `transform:scaleX(0→1)` con `transform-origin:left` (corre en GPU, no dispara layout; se ve idéntico).
