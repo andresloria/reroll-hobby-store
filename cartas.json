@@ -170640,5 +170640,128 @@
 ]
 ]
 }
+},
+"3692": {
+"slug": "lucian-purifier-overnumbered-sfd-241",
+"number": "241",
+"code": "SFD-241/221",
+"type": "Legend",
+"rarity": "Showcase",
+"domains": "Fury | Body",
+"d": {
+"fx": "Your Equipment each give <b class=\"fx-kw\">[Assault]</b>. (+1 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while equipped unit is an attacker.)",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Showcase"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"N.º",
+"241 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Envar Studio"
+]
+]
+}
+},
+"3693": {
+"slug": "vayne-hunter-overnumbered-sfd-223",
+"number": "223",
+"code": "SFD-223/221",
+"type": "Unit",
+"rarity": "Showcase",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[Assault 3]</b> (+3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> while I&#x27;m an attacker.) If an opponent controls a battlefield, I enter ready. When I conquer, you may pay <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> to return me to my owner&#x27;s hand.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Showcase"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"2"
+],
+[
+"N.º",
+"223 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"John Kafka"
+]
+]
+}
+},
+"3694": {
+"slug": "lillia-bashful-bloom-overnumbered-unl-230",
+"number": "230",
+"code": "UNL-230*/219",
+"type": "Legend",
+"rarity": "Showcase",
+"domains": "Calm | Mind",
+"d": {
+"fx": "<span class=\"fx-energy\" aria-label=\"Energía 4\">4</span>, <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.06);border-color:var(--line);color:var(--cream)\">↻ Exhaust</span>: Play a ready 3 <span class=\"fx-chip\" style=\"background:rgba(201,162,75,.16);border-color:var(--gold);color:var(--gold-bright)\">Might</span> Sprite unit token with <b class=\"fx-kw\">[Temporary]</b>. This ability costs <span class=\"fx-energy\" aria-label=\"Energía 1\">1</span> less for each friendly unit with <b class=\"fx-kw\">[Temporary]</b>.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Showcase"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"N.º",
+"230 / 219"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Oussama Agazzoum"
+]
+]
+}
 }
 }

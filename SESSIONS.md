@@ -8,6 +8,14 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (4) — Limpieza de datos: duplicado, precios ON↔Sig y foils (aprobado por Andrés)
+- Con OK de Andrés, script Python (backup `productos_backup_fixdatos.json`, gitignored):
+  1. **Borrado el duplicado id 3691** "Irelia - Fervent (Overnumbered)" (creado por accidente al probar el +; el real es el id 627 con el arte del ON). 3694 → **3693 items**.
+  2. **Precios intercambiados** en las 3 parejas ON↔Signature: 328 ₡63k / 329 ₡1.14M (Kai'Sa) · 336 ₡78k / 337 ₡1M (NTF) · 627 ₡73k / 628 ₡620k (Irelia).
+  3. **Foil == precio normal → foil = normal + 100** (pedido de Andrés): 5 cartas — Solari Chief (RB 200→300), DON!! Alt Art (300→400), Streusen (100→200), Brook (200→300), Gecko Moria (200→300). Verificado: 0 foils ≤ normal en toda la base.
+- `python make_cartas.py` → 3693 fichas (incluye las 3 cartas nuevas del panel; sin ficha huérfana del 3691 porque nunca se generó).
+- **Verificado en panel:** las 3 familias cruzan COMPLETAS — Kai'Sa base 1/ON 1/**Sig 1**/Promo 2, NTF base 1/ON 1/**Sig 1**, Irelia base 1/AltArt 1/ON 1/**Sig 1**; Metal/Prize Wall separadas en 0; ids únicos; consola limpia.
+
 ## 2026-07-11 (3) — Catálogo del panel = espejo de la base: cruce de variantes legado (pedido de Andrés)
 - Andrés (con captura): la base de abajo muestra en 1 las Overnumbered/Signature viejas (Ahri ₡1.22M, Kai'Sa ₡1.14M…) pero el catálogo NO las reflejaba (0/+) — "el catálogo y lo de abajo deberían ser lo mismo".
 - **Causa:** el inventario legado guarda cada versión ultra-rara como carta aparte con **nombre corto sin marcador** ("Ahri, Inquisitive" ₡1.22M = la Signature) e imagen de Riot propia. El invMatch de ayer exigía el marcador en el nombre → no cruzaban.
