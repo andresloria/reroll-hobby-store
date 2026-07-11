@@ -15,6 +15,15 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 - **Reproducido y verificado en preview:** inyecté "Bashful Bloom (Overnumbered)" (nombre corto, misma arte que la base) → antes salía "+"; con el fix aparece **stepper = 4**, el − baja 4→3→2 (quita stock), y la carta **base se queda en 1** sin tocarse. Regresión OK (cartas normales siguen cruzando por imagen; sin errores de consola). `productos.json` intacto (3689); solo `admin.html`.
 - ⚠️ `admin.html` no tiene cache-busting → para ver el fix hay que **recargar fuerte (Ctrl+F5)** una vez.
 
+## 2026-07-10 (4) — Motion/polish del CSS con el skill de Emil Kowalski (Tanda 1)
+- Instalé el skill personal **`emil-design-eng`** (filosofía de Emil Kowalski) en `~/.claude/skills/` (venía como `Emil Skill.md` en Downloads; convertí la tabla a frontmatter YAML). Lo usé para auditar `css/styles.css` (~60 transiciones, ~15 animaciones).
+- Mostré demo interactiva Antes/Después en el navegador (aprobada por Andrés) → apliqué la **Tanda 1** (alto impacto, solo `css/styles.css`):
+  - **Touch (lo #1):** bloque `@media (hover:none),(pointer:coarse)` que neutraliza los lifts/zooms de hover en celular (antes el `:hover` se "quedaba pegado" al tocar). Cubre card/gtile/tpanel/herochip/gamebtn/brandbadge/offer/step/gpbar/fanarrow/cd-rel/cd-social/fsoc/empty/card__fav/hmq/cathead__dice + los hijos (emoji/photo/art). El `:active` sí queda.
+  - **Duraciones de hover** (Emil: <300ms): `.card` .35→.2s; `.card__photo` y `.card__emoji` .5→.3s; `.card__img::after` (sheen) .7→.5s; `.tpanel` .45→.25s.
+  - **`:active` (feedback de press, clave en cel):** nuevos en `.qty__btn` (scale .86 + destello dorado, +transform en la transición), `.herochip` (.96), `.gtile` (.98), `.gamebtn` (.97), `.pill` (.95, +transform en la transición).
+- Cache-busting `?v=62→63` (index/juego). Verificado en preview: estilos computados (card .2s, photo .3s), 8 reglas `:active` presentes (5 nuevas), bloque touch activo, consola sin errores. `productos.json` intacto.
+- **Pendiente Tanda 2 (pulido, no arrancada):** subrayado del nav `width`→`transform:scaleX`; drawer con curva iOS `cubic-bezier(.32,.72,0,1)` + salida más rápida que entrada; bajarle a los loops infinitos (ej. `heroReroll` dejarlo solo en hover); stagger 30-60ms en la grilla de cartas.
+
 ## 2026-07-10 (3) — Nuevo número de WhatsApp de la tienda (pedido de Andrés)
 - Andrés adquirió una línea dedicada para la página: **6038-7738** (antes usaba su personal 8780-7813).
 - Reemplazo `50687807813 → 50660387738` en las 4 fuentes: `index.html` (botón social + wafloat), `juego.html` (footer + wafloat), `js/app.js` (const `WHATSAPP` — checkout/carrito) y `make_cartas.py` (const + botón social de la plantilla de fichas).

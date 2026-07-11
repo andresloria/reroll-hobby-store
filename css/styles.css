@@ -230,6 +230,7 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .herochip:hover{transform:translateY(-2px);
   background:color-mix(in srgb, var(--c,#C13B26) 30%, transparent);
   border-color:var(--c,#C13B26);box-shadow:4px 4px 0 color-mix(in srgb, var(--c,#C13B26) 55%, transparent)}
+.herochip:active{transform:scale(.96)}
 .herochip__dot{width:9px;height:9px;border-radius:1px;background:var(--c,#C13B26);box-shadow:0 0 8px var(--c,#C13B26)}
 @media(max-width:520px){ .herochip{font-size:.74rem;padding:8px 13px} }
 
@@ -417,7 +418,7 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   border:1px solid rgba(201,162,75,.22);background:var(--negro,#140b0c);cursor:pointer;
   box-shadow:0 20px 40px -22px rgba(0,0,0,.85);
   transform:rotateY(var(--ry,0deg));
-  transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
   animation:tpfloat 5s ease-in-out infinite;animation-delay:var(--d,0s)}
 .tpanel__art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 .tpanel:hover .tpanel__art{transform:scale(1.08)}
@@ -488,6 +489,7 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   transition:transform .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
 }
 .gtile:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 20px 46px -18px var(--accent)}
+.gtile:active{transform:scale(.98)}
 .gtile:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .gtile__glow{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .2s var(--ease);
   background:radial-gradient(60% 45% at 50% 28%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%)}
@@ -609,6 +611,7 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   transition:transform .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease);
 }
 .gamebtn:hover{transform:translateY(-3px);border-color:var(--gold)}
+.gamebtn:active{transform:scale(.97)}
 .gamebtn.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,75,.3), var(--shadow-gold)}
 /* logos directos sobre el fondo oscuro: SIN pastilla/nube blanca */
 .gamebtn--logo{background:rgba(255,255,255,.03)}
@@ -623,8 +626,9 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .filters{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;justify-content:center;max-width:1000px;margin:0 auto}
 .filters__group{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .pill{background:transparent;border:none;color:#cdbfb6;padding:9px 16px;font-size:.86rem;font-weight:600;cursor:pointer;
-  font-family:inherit;transition:background .2s var(--ease), color .2s}
+  font-family:inherit;transition:background .2s var(--ease), color .2s, transform .12s var(--ease)}
 .pill:hover{color:#fff}
+.pill:active{transform:scale(.95)}
 .pill.active{background:linear-gradient(135deg,var(--wine-light),var(--wine));color:#fff}
 .filters__field{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .filters__select{
@@ -743,7 +747,7 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   background:linear-gradient(180deg,var(--ink-2),#1a1311);
   border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
   display:flex;flex-direction:column;
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
   animation:cardIn .5s var(--ease) both;
 }
 @keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -756,13 +760,13 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .card__img::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 48%,transparent 60%);
-  transform:translateX(-120%);transition:transform .7s var(--ease);
+  transform:translateX(-120%);transition:transform .5s var(--ease);
 }
 .card:hover .card__img::after{transform:translateX(120%)}
-.card__emoji{font-size:4rem;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));transition:transform .5s var(--ease)}
+.card__emoji{font-size:4rem;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));transition:transform .3s var(--ease)}
 .card:hover .card__emoji{transform:scale(1.1)}
 .card__img--photo{background:#0d0a0a}
-.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s var(--ease)}
 /* zoom sutil al hover; las cartas horizontales (--wide) ya vienen rotadas 90°, no se tocan */
 .card:hover .card__photo:not(.card__photo--wide){transform:scale(1.07)}
 /* cartas horizontales (battlefields/locations de Riftbound): se rotan 90° para
@@ -954,8 +958,9 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .di__rm{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
 .di__rm:hover{color:var(--wine-light)}
 .qty{display:inline-flex;align-items:center;gap:0;margin-top:7px;border:1px solid var(--line);border-radius:999px;overflow:hidden;width:max-content}
-.qty__btn{width:28px;height:28px;background:rgba(255,255,255,.04);border:none;color:var(--cream);font-size:1.05rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.qty__btn{width:28px;height:28px;background:rgba(255,255,255,.04);border:none;color:var(--cream);font-size:1.05rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s var(--ease),transform .1s var(--ease)}
 .qty__btn:hover{background:var(--wine-light)}
+.qty__btn:active{transform:scale(.86);background:var(--gold);color:#2a1a08}
 .qty__n{min-width:30px;text-align:center;font-weight:700;font-size:.9rem}
 .drawer__foot{padding:20px 24px;border-top:1px solid var(--line)}
 .drawer__total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
@@ -1544,3 +1549,20 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   font-weight:700;letter-spacing:.03em;color:#2a1a08;padding:12px 14px;text-align:center;
   background:linear-gradient(135deg,var(--gold-bright),var(--gold))}
 .sr__more:hover{filter:brightness(1.08)}
+
+/* ============================================================
+   TOUCH — hover solo-mouse (Emil Kowalski)
+   En pantallas sin mouse el :hover se "queda pegado" tras un
+   toque → las cartas/tiles quedaban levantadas. Neutralizamos
+   los lifts/zooms de hover en touch; el :active (press) sí queda.
+   ============================================================ */
+@media (hover:none), (pointer:coarse){
+  .card:hover,.gtile:hover,.tpanel:hover,.herochip:hover,.gamebtn:hover,
+  .brandbadge:hover,.brandbadge--logo:hover,.offer__card:hover,.step:hover,
+  .gpbar__btn:hover,.fanarrow:hover,.cd-rel__card:hover,.cd-social__btn:hover,
+  a.fsoc:hover,.empty__cta:hover,.card__fav:hover,.hmq__card:hover,
+  .cathead__dice:hover{transform:none}
+  .card:hover .card__emoji,
+  .card:hover .card__photo:not(.card__photo--wide),
+  .tpanel:hover .tpanel__art{transform:none}
+}
