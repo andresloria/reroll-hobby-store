@@ -8,6 +8,16 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (10) — Panel: sección 🚚 Preórdenes — control de apartados con 50% (pedido de Andrés, mockup aprobado)
+- Andrés: llevar control de preórdenes activas (ej. María preordenó ₡180k y abonó ₡90k) — nombre, teléfono, comprobante, producto, imagen, y al llegar el producto y cancelar el saldo → marcarla completada. Confirmó: (1) las pre-órdenes web ya NO se registran en Ventas al confirmar el pedido — van a Preórdenes y recién al completarse pasa la venta COMPLETA a Ventas; (2) comprobante = solo número de referencia del SINPE.
+- **`admin.html` — nueva sección acordeón "🚚 Preórdenes"** (entre 📦 Pedidos y Base de datos; storage `localStorage.reroll_preorders`):
+  - **Stats:** activas · valor total · abonado (verde) · saldo pendiente (rojo).
+  - **Tarjeta por preórden:** imagen (contain) + producto + juego + origen (Pedido web #R-XXXX / manual) + fecha; cliente + 📱 tel + 💬 WhatsApp; Valor/Abonado(%)/Saldo + barra de progreso; 🧾 lista de abonos (monto + ref SINPE + fecha); 📝 notas; badge ⏳ACTIVA/✓COMPLETADA/✕CANCELADA.
+  - **Acciones:** 💰 Registrar abono (prompt monto + comprobante) · ✓ Completada (avisa si queda saldo; registra la venta completa en Ventas con canal "Preórden · origen"; pasa al historial) · ✎ Editar · ✕ Cancelar · 🗑 borrar del historial.
+  - **"+ Nueva preórden manual"** (form: producto/juego/cliente/tel/valor/cantidad/abono inicial/ref/notas; si el producto calza con un sellado del inventario toma su imagen).
+  - **Auto-creación:** `pedConfirmar` ahora manda las líneas `preorden` a Preórdenes (con nombre/tel/producto/imagen del pedido) y NO a Ventas; el toast avisa "registrale el abono del 50%".
+- **Verificado en preview (ciclo completo del caso María):** crear manual (₡180k, abono 90k, SINPE ref) → stats 1/180k/90k/90k, barra 50%, WhatsApp `wa.me/50688112233`; segundo abono 90k → saldo ₡0; ✓ Completada → historial, badge 0, venta ₡180 000 en Ventas ("Preórden · manual"). Consola limpia. Solo `admin.html` (sin `?v`).
+
 ## 2026-07-11 (9) — Sellado: imagen completa + botón Pre-ordenar (50%) para todos los TCG (pedido de Andrés)
 - Confirmado que el catálogo tiene sellado en los 5 TCG (OP 381 · PKM 217 · Magic 105 · RB 49 · YGO 22). La mejora aplica a todo `type:sealed` automáticamente.
 - **Imagen (css + app.js):** las cajas selladas son más anchas/cuadradas y en el marco 3/4 con `object-fit:cover` se recortaban (y `media()` hasta las rotaba 90°). Ahora `media()` marca la img `is-sealed` (sin rotar) y el grid usa `.card__img--sealed` → `object-fit:contain` con fondo premium + aire (se ve la caja completa). El quick-view ya era contain; se le suma fondo sellado.

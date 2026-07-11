@@ -223,6 +223,45 @@
   .ped__hist>summary{cursor:pointer;color:var(--muted);font-size:.85rem;margin:10px 0;list-style:none}
   .ped__hist>summary::-webkit-details-marker{display:none}
   .ped__hist>summary:hover{color:var(--gold-bright)}
+  /* preórdenes (apartados con 50%) */
+  .postats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+  @media(max-width:560px){.postats{grid-template-columns:1fr 1fr}}
+  .postat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+  .postat b{display:block;font-family:var(--font-mono,monospace);font-size:1rem;color:var(--gold-bright)}
+  .postat span{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .postat--ab b{color:#8fe0c6}
+  .postat--sal b{color:#f0a3a3}
+  .po-form{border:1px dashed rgba(201,162,75,.35);border-radius:12px;padding:14px;margin-bottom:14px}
+  .po-form__grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+  @media(max-width:560px){.po-form__grid{grid-template-columns:1fr}}
+  .po{border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:12px;background:rgba(255,255,255,.02)}
+  .po--activa{border-color:rgba(93,202,165,.45)}
+  .po__top{display:flex;gap:12px}
+  .po__img{width:64px;height:64px;border-radius:9px;background:radial-gradient(120% 90% at 50% 20%,#241826,#130c0e);display:grid;place-items:center;border:1px solid var(--line);flex:0 0 auto;overflow:hidden;font-size:1.5rem}
+  .po__img img{width:100%;height:100%;object-fit:contain}
+  .po__info{flex:1;min-width:0}
+  .po__prod{font-weight:700;font-size:.95rem;line-height:1.25}
+  .po__meta{font-size:.74rem;color:var(--muted);margin-top:2px}
+  .po__badge{font-family:var(--font-mono,monospace);font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.04em;vertical-align:middle}
+  .po__badge--act{background:rgba(93,202,165,.15);color:#8fe0c6;border:1px solid rgba(93,202,165,.4)}
+  .po__badge--done{background:rgba(201,162,75,.15);color:var(--gold-bright);border:1px solid var(--line)}
+  .po__badge--x{background:rgba(226,75,74,.12);color:#f0a3a3;border:1px solid rgba(226,75,74,.35)}
+  .po__cli{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font-size:.84rem}
+  .po__wa{color:#8fe0c6;text-decoration:none;font-size:.74rem;border:1px solid rgba(93,202,165,.35);padding:2px 9px;border-radius:999px}
+  .po__money{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;font-family:var(--font-mono,monospace);font-size:.8rem}
+  .po__money>div{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+  .po__money span{display:block;font-size:.58rem;color:var(--muted);text-transform:uppercase}
+  .po__money .tot{color:var(--gold-bright)} .po__money .ab{color:#8fe0c6} .po__money .sal{color:#f0a3a3}
+  .po__bar{height:7px;border-radius:99px;background:rgba(255,255,255,.07);margin-top:9px;overflow:hidden}
+  .po__bar i{display:block;height:100%;background:linear-gradient(90deg,#5dcaa5,#8fe0c6);border-radius:99px}
+  .po__comp{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.5}
+  .po__comp b{color:var(--crema);font-family:var(--font-mono,monospace)}
+  .po__acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+  .po__acts .btn{font-size:.74rem;padding:7px 13px}
+  .btn--podone{background:transparent;border:1.5px solid #5dcaa5;color:#8fe0c6}
+  .btn--poab{background:transparent;border:1.5px solid var(--gold);color:var(--gold-bright)}
+  .btn--pox{background:transparent;border:1px solid rgba(226,75,74,.4);color:#f0a3a3}
+  .po--hist .po__img{opacity:.6}
   /* barra de acciones masivas + resumen */
   .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
   .bulksum{font-size:.86rem;color:var(--muted)}
@@ -452,6 +491,44 @@
         <span class="hint" id="pedInfo" style="align-self:center"></span>
       </div>
       <div id="pedList"></div>
+    </div>
+  </div>
+
+  <!-- PREÓRDENES (apartados con 50%) -->
+  <div class="panel" id="poPanel">
+    <button class="db-bar" id="poToggle" type="button" aria-expanded="false" aria-controls="poBody">
+      <span class="db-bar__ico" aria-hidden="true">🚚</span>
+      <span class="db-bar__txt">
+        <span class="db-bar__title">Preórdenes <span class="count" id="poCount">0</span></span>
+        <span class="db-bar__sub" id="poSub">Control de apartados con 50% — quién, cuánto abonó y cuánto falta.</span>
+      </span>
+      <span class="db-bar__cta">Ver <span class="db-bar__arrow" id="poArrow">▾</span></span>
+    </button>
+    <div id="poBody" hidden>
+      <div class="postats" id="poStats"></div>
+      <div class="actions" style="margin:0 0 14px">
+        <button class="btn btn--gold" id="poNewBtn" type="button">+ Nueva preórden manual</button>
+        <span class="hint" style="align-self:center">Las de la web se crean solas al confirmar el pedido ✨</span>
+      </div>
+      <!-- formulario nueva/editar (oculto) -->
+      <form id="poForm" class="po-form" hidden>
+        <div class="po-form__grid">
+          <label>Producto <input name="producto" required placeholder="Ej: OP-15 Booster Box" /></label>
+          <label>Juego <select name="cat"><option>One Piece</option><option>Riftbound</option><option>Pokémon</option><option>Magic</option><option>Yu-Gi-Oh</option><option>Otro</option></select></label>
+          <label>Cliente <input name="cliente" required placeholder="Nombre" /></label>
+          <label>Teléfono <input name="tel" placeholder="8888 8888" /></label>
+          <label>Valor total (₡) <input name="valor" type="number" min="0" required placeholder="180000" /></label>
+          <label>Cantidad <input name="qty" type="number" min="1" value="1" /></label>
+          <label>Abono inicial (₡) <input name="abono" type="number" min="0" placeholder="90000 (50%)" /></label>
+          <label>N.º comprobante <input name="ref" placeholder="SINPE #…" /></label>
+        </div>
+        <label>Notas <input name="notas" placeholder="Ej: llega a finales de julio" /></label>
+        <div class="actions" style="margin-top:10px">
+          <button class="btn btn--gold" type="submit" id="poFormSave">Guardar preórden</button>
+          <button class="btn btn--ghost" type="button" id="poFormCancel">Cancelar</button>
+        </div>
+      </form>
+      <div id="poList"></div>
     </div>
   </div>
 
@@ -697,6 +774,11 @@ function dirtyCount(){ return items.filter(p=>p._dirty||p._new).length + deleted
 // ventas (historial local de este navegador)
 let sales = []; try{ sales = JSON.parse(localStorage.getItem('reroll_sales')||'[]'); }catch(e){ sales=[]; }
 let nextSaleId = sales.reduce((m,s)=>Math.max(m,s.id||0),0)+1;
+// preórdenes (apartados con 50% — control local de este navegador)
+let preorders = []; try{ preorders = JSON.parse(localStorage.getItem('reroll_preorders')||'[]'); }catch(e){ preorders=[]; }
+let nextPoId = preorders.reduce((m,p)=>Math.max(m,p.id||0),0)+1;
+function savePreorders(){ localStorage.setItem('reroll_preorders', JSON.stringify(preorders)); renderPreorders(); }
+function poAbonado(po){ return (po.abonos||[]).reduce((s,a)=>s+Number(a.monto||0),0); }
 let saleEditId = null, salesQuery = '';
 let salesFrom = '', salesTo = '';   // rango de fechas para el tablero/historial
 // filtros + paginación del inventario
@@ -1372,7 +1454,7 @@ wireToggle('#salesToggle','#salesBody','#salesArrow');
 wireToggle('#cfgToggle','#cfgBody','#cfgArrow');
 /* orden del panel según el flujo real: Pedidos → Base de datos → Agregar → Ventas → Config */
 (function(){ const w=document.querySelector('.wrap'); if(!w) return;
-  ['pedPanel','invPanel','addPanel','salesPanel','cfgPanel'].forEach(id=>{ const el=document.getElementById(id); if(el) w.appendChild(el); });
+  ['pedPanel','poPanel','invPanel','addPanel','salesPanel','cfgPanel'].forEach(id=>{ const el=document.getElementById(id); if(el) w.appendChild(el); });
 })();
 
 syncFromStore(false);   // al abrir, cargar lo publicado (conservando lo tuyo)
@@ -1486,18 +1568,29 @@ async function pedConfirmar(id){
     const j = await pedApi('pedido-accion',{method:'POST',body:JSON.stringify({id,accion:'confirmar'})});
     // espejo local: mismo descuento que hizo el servidor (así tu copia local no lo pisa al publicar)
     const hoy = new Date().toISOString().slice(0,10);
+    let nuevasPo = 0;
     (j.pedido.items||[]).forEach(it=>{
-      if(!it.preorden){   // pre-orden: no descuenta stock (aún no llegó), igual que el servidor
-        const p=items.find(x=>x.id===it.id);
-        if(p){
-          if(it.foil && p.stockf!==undefined && p.stockf!==null && p.stockf!=='') p.stockf=Math.max(0,Number(p.stockf)-it.qty);
-          else if(p.stock!==undefined && p.stock!==null && p.stock!=='') p.stock=Math.max(0,Number(p.stock)-it.qty);
-        }
+      if(it.preorden){
+        // PRE-ORDEN → va al control de Preórdenes (NO a Ventas todavía):
+        // la venta completa se registra cuando llegue el producto y se complete.
+        const inv = items.find(x=>x.id===it.id);
+        preorders.push({ id: nextPoId++, producto: it.name, cat: (inv&&inv.cat)||'', img: (inv&&inv.img)||'',
+          qty: it.qty, valor: Number(it.price||0)*it.qty, abonos: [],
+          cliente: j.pedido.nombre||'', tel: j.pedido.telefono||'',
+          origen: 'Pedido web '+id, fecha: hoy, estado: 'activa', notas: '' });
+        nuevasPo++;
+        return;
       }
-      sales.push({ id:nextSaleId++, name: it.name+(it.foil?' (Foil)':'')+(it.preorden?' [PRE-ORDEN]':''), qty: it.qty, price: it.price, date: hoy, channel: 'Pedido web '+id });
+      const p=items.find(x=>x.id===it.id);
+      if(p){
+        if(it.foil && p.stockf!==undefined && p.stockf!==null && p.stockf!=='') p.stockf=Math.max(0,Number(p.stockf)-it.qty);
+        else if(p.stock!==undefined && p.stock!==null && p.stock!=='') p.stock=Math.max(0,Number(p.stock)-it.qty);
+      }
+      sales.push({ id:nextSaleId++, name: it.name+(it.foil?' (Foil)':''), qty: it.qty, price: it.price, date: hoy, channel: 'Pedido web '+id });
     });
-    save(); saveSales(); render();
-    toast('¡Venta confirmada! Stock descontado y registrado en Ventas 🎉');
+    save(); saveSales(); if(nuevasPo) savePreorders();
+    render();
+    toast(nuevasPo ? `¡Confirmado! ${nuevasPo} preórden(es) creada(s) en 🚚 Preórdenes — registrale el abono del 50% ahí.` : '¡Venta confirmada! Stock descontado y registrado en Ventas 🎉');
     loadPedidos();
   }catch(e){
     if(!e.silent) alert('No se pudo confirmar: '+(e.message||e));
@@ -1508,6 +1601,132 @@ async function pedConfirmar(id){
   $('#pedRefresh').onclick=loadPedidos;
   $('#pedKeySave').onclick=()=>{ PEDKEY=$('#pedKey').value.trim(); if(!PEDKEY){ toast('Escribí la clave'); return; } localStorage.setItem('reroll_pedkey',PEDKEY); loadPedidos(); };
   loadPedidos();   // al abrir el panel: badge con pendientes
+})();
+
+/* ====== 🚚 PREÓRDENES (apartados con 50%) ====== */
+let poEditId = null;
+function renderPreorders(){
+  const wrap=$('#poList'); if(!wrap) return;
+  const act = preorders.filter(p=>p.estado==='activa');
+  const hist = preorders.filter(p=>p.estado!=='activa').sort((a,b)=>(b.doneTs||0)-(a.doneTs||0));
+  // badge del header + stats
+  const c=$('#poCount'); if(c) c.textContent = act.length;
+  const valor = act.reduce((s,p)=>s+Number(p.valor||0),0);
+  const abonado = act.reduce((s,p)=>s+poAbonado(p),0);
+  const st=$('#poStats');
+  if(st) st.innerHTML = `
+    <div class="postat"><b>${act.length}</b><span>Activas</span></div>
+    <div class="postat"><b>${fmt(valor)}</b><span>Valor total</span></div>
+    <div class="postat postat--ab"><b>${fmt(abonado)}</b><span>Abonado</span></div>
+    <div class="postat postat--sal"><b>${fmt(Math.max(0,valor-abonado))}</b><span>Saldo pendiente</span></div>`;
+  const card = (po)=>{
+    const ab = poAbonado(po), saldo = Math.max(0, Number(po.valor||0)-ab);
+    const pct = po.valor>0 ? Math.min(100, Math.round(ab/po.valor*100)) : 0;
+    const badge = po.estado==='activa' ? '<span class="po__badge po__badge--act">⏳ ACTIVA</span>'
+      : po.estado==='completada' ? '<span class="po__badge po__badge--done">✓ COMPLETADA</span>'
+      : '<span class="po__badge po__badge--x">✕ CANCELADA</span>';
+    const media = po.img ? `<img src="${esc(po.img)}" alt="" loading="lazy">` : '📦';
+    const abonosTxt = (po.abonos||[]).map(a=>`${fmt(a.monto)}${a.ref?' · <b>'+esc(a.ref)+'</b>':''} <span style="color:var(--muted)">(${esc(a.fecha||'')})</span>`).join('<br>');
+    const tel = (po.tel||'').replace(/\D/g,'');
+    return `<div class="po${po.estado==='activa'?' po--activa':' po--hist'}">
+      <div class="po__top">
+        <div class="po__img">${media}</div>
+        <div class="po__info">
+          <div class="po__prod">${esc(po.producto)}${po.qty>1?' ×'+po.qty:''} ${badge}</div>
+          <div class="po__meta">${esc(po.cat||'')}${po.cat?' · ':''}${esc(po.origen||'manual')} · ${esc(po.fecha||'')}${po.estado!=='activa'&&po.doneFecha?(' → '+(po.estado==='completada'?'completada':'cancelada')+' '+po.doneFecha):''}</div>
+          <div class="po__cli">
+            <b>${esc(po.cliente||'—')}</b>
+            ${po.tel?`<span style="color:var(--muted)">📱 ${esc(po.tel)}</span>`:''}
+            ${tel.length>=8?`<a class="po__wa" href="https://wa.me/${tel.length===8?'506'+tel:tel}" target="_blank" rel="noopener">💬 WhatsApp</a>`:''}
+          </div>
+        </div>
+      </div>
+      <div class="po__money">
+        <div class="tot"><span>Valor total</span>${fmt(po.valor)}</div>
+        <div class="ab"><span>Abonado (${pct}%)</span>${fmt(ab)}</div>
+        <div class="sal"><span>Saldo</span>${fmt(saldo)}</div>
+      </div>
+      <div class="po__bar"><i style="width:${pct}%"></i></div>
+      ${abonosTxt?`<div class="po__comp">🧾 ${abonosTxt}</div>`:''}
+      ${po.notas?`<div class="po__comp">📝 ${esc(po.notas)}</div>`:''}
+      ${po.estado==='activa'?`<div class="po__acts">
+        <button class="btn btn--poab" data-po="${po.id}" data-act="abono" type="button">💰 Registrar abono</button>
+        <button class="btn btn--podone" data-po="${po.id}" data-act="done" type="button">✓ Completada (llegó y canceló)</button>
+        <button class="btn btn--ghost" data-po="${po.id}" data-act="edit" type="button">✎ Editar</button>
+        <button class="btn btn--pox" data-po="${po.id}" data-act="cancel" type="button">✕ Cancelar</button>
+      </div>`:`<div class="po__acts"><button class="btn btn--pox" data-po="${po.id}" data-act="del" type="button">🗑 Borrar del historial</button></div>`}
+    </div>`;
+  };
+  wrap.innerHTML = (act.length ? act.map(card).join('') : '<p class="empty">No hay preórdenes activas. Se crean solas al confirmar un pedido web con pre-orden, o con el botón de arriba.</p>')
+    + (hist.length ? `<details class="ped__hist"><summary>▸ Historial (${hist.length})</summary>${hist.map(card).join('')}</details>` : '');
+  wrap.querySelectorAll('[data-po]').forEach(b=>{
+    const po = preorders.find(p=>p.id===Number(b.dataset.po)); if(!po) return;
+    b.onclick = ()=> poAction(po, b.dataset.act);
+  });
+}
+function poAction(po, act){
+  const hoy = new Date().toISOString().slice(0,10);
+  if(act==='abono'){
+    const m = prompt(`💰 Abono de ${po.cliente||'cliente'} — "${po.producto}"\nSaldo actual: ${fmt(Math.max(0,po.valor-poAbonado(po)))}\n\n¿Monto del abono (₡)?`);
+    if(m===null) return;
+    const monto = Math.max(0, Math.floor(Number(String(m).replace(/[^\d]/g,''))||0));
+    if(!monto){ toast('Monto inválido'); return; }
+    const ref = prompt('🧾 N.º de comprobante (SINPE):') || '';
+    po.abonos = po.abonos||[]; po.abonos.push({ monto, ref: ref.trim(), fecha: hoy });
+    savePreorders(); toast(`Abono de ${fmt(monto)} registrado`);
+  } else if(act==='done'){
+    const saldo = Math.max(0, po.valor - poAbonado(po));
+    if(!confirm(`✓ Completar la preórden de "${po.producto}" (${po.cliente}).\n${saldo>0?('OJO: queda saldo de '+fmt(saldo)+' — ¿ya lo canceló?'):'Saldo en 0 ✓'}\n\nSe registra la VENTA COMPLETA (${fmt(po.valor)}) en Ventas.`)) return;
+    po.estado='completada'; po.doneTs=Date.now(); po.doneFecha=hoy;
+    sales.push({ id:nextSaleId++, name: po.producto+(po.qty>1?' ×'+po.qty:'')+' (preórden)', qty: 1, price: Number(po.valor||0), date: hoy, channel: 'Preórden'+(po.origen?' · '+po.origen:'') });
+    saveSales(); savePreorders(); toast('Preórden completada y venta registrada 🎉');
+  } else if(act==='cancel'){
+    if(!confirm(`✕ Cancelar la preórden de "${po.producto}" (${po.cliente}).\nAbonado hasta ahora: ${fmt(poAbonado(po))} — coordiná la devolución si aplica.\n\n¿Cancelar?`)) return;
+    po.estado='cancelada'; po.doneTs=Date.now(); po.doneFecha=hoy;
+    savePreorders(); toast('Preórden cancelada');
+  } else if(act==='edit'){
+    poEditId = po.id;
+    const f=$('#poForm'); f.hidden=false;
+    f.producto.value=po.producto||''; f.cat.value=po.cat||'Otro'; f.cliente.value=po.cliente||''; f.tel.value=po.tel||'';
+    f.valor.value=po.valor||''; f.qty.value=po.qty||1; f.abono.value=''; f.ref.value=''; f.notas.value=po.notas||'';
+    $('#poFormSave').textContent='Guardar cambios';
+    f.scrollIntoView({behavior:'smooth',block:'center'});
+  } else if(act==='del'){
+    if(!confirm(`🗑 Borrar del historial la preórden de "${po.producto}". No toca Ventas.\n¿Borrar?`)) return;
+    preorders = preorders.filter(p=>p.id!==po.id); savePreorders();
+  }
+}
+(function(){
+  wireToggle('#poToggle','#poBody','#poArrow', renderPreorders);
+  const f=$('#poForm'); if(!f) return;
+  $('#poNewBtn').onclick=()=>{ poEditId=null; f.reset(); f.hidden=false; $('#poFormSave').textContent='Guardar preórden'; f.producto.focus(); };
+  $('#poFormCancel').onclick=()=>{ f.hidden=true; poEditId=null; };
+  f.addEventListener('submit', e=>{
+    e.preventDefault();
+    const hoy = new Date().toISOString().slice(0,10);
+    const valor = Math.max(0, Math.floor(Number(f.valor.value)||0));
+    if(!f.producto.value.trim() || !valor){ toast('Poné el producto y el valor'); return; }
+    if(poEditId!=null){
+      const po = preorders.find(p=>p.id===poEditId); if(!po) return;
+      po.producto=f.producto.value.trim(); po.cat=f.cat.value; po.cliente=f.cliente.value.trim();
+      po.tel=f.tel.value.trim(); po.valor=valor; po.qty=Math.max(1,Number(f.qty.value)||1); po.notas=f.notas.value.trim();
+      toast('Preórden actualizada');
+    } else {
+      const po = { id: nextPoId++, producto: f.producto.value.trim(), cat: f.cat.value, img: '',
+        qty: Math.max(1,Number(f.qty.value)||1), valor, abonos: [],
+        cliente: f.cliente.value.trim(), tel: f.tel.value.trim(),
+        origen: 'manual', fecha: hoy, estado: 'activa', notas: f.notas.value.trim() };
+      const ab = Math.max(0, Math.floor(Number(f.abono.value)||0));
+      if(ab) po.abonos.push({ monto: ab, ref: (f.ref.value||'').trim(), fecha: hoy });
+      // si el producto coincide con uno del inventario, toma su imagen
+      const inv = items.find(x=> x.name && f.producto.value.trim().toLowerCase().includes(x.name.toLowerCase()) && (x.type==='sealed'));
+      if(inv) po.img = inv.img||'';
+      preorders.push(po);
+      toast('Preórden creada');
+    }
+    f.hidden=true; poEditId=null; savePreorders();
+  });
+  renderPreorders();   // badge al abrir el panel
 })();
 
 /* ====== Agregar desde el catálogo maestro (quick-search) ====== */
