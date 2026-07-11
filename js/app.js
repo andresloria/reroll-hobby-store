@@ -381,7 +381,7 @@ function renderGameTiles(){
     const cnt  = document.createElement("span"); cnt.className="gtile__count";
     cnt.textContent = count ? `${count} producto${count===1?"":"s"}` : "Catálogo en preparación";
     tile.append(glow, plate, name, cnt);
-    if(i===0){ const flag=document.createElement("span"); flag.className="gtile__flag"; flag.textContent="Foco de lanzamiento"; tile.append(flag); }
+    if(i===0){ const flag=document.createElement("span"); flag.className="gtile__flag"; flag.textContent="Próximamente"; tile.append(flag); }
     // enlace real (crawleable por buscadores) → misma pestaña, back funciona
     wrap.appendChild(tile);
   });
