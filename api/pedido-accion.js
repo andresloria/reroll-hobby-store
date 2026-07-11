@@ -56,6 +56,7 @@ module.exports = async function handler(req, res) {
         const otros = L.reservasDe(db.pedidos.filter((p) => p.id !== ped.id));
         const faltantes = [];
         for (const it of ped.items) {
+          if (it.preorden) continue;   // pre-orden: no valida stock (aún no llega)
           const p = productos.find((x) => x.id === it.id);
           if (!p) { faltantes.push({ name: it.name, disponible: 0 }); continue; }
           const st = L.stockVariante(p, it.foil);
@@ -64,6 +65,7 @@ module.exports = async function handler(req, res) {
         }
         if (faltantes.length) return L.json(res, 409, { error: "stock", faltantes });
         for (const it of ped.items) {
+          if (it.preorden) continue;   // pre-orden: no descuenta stock
           const p = productos.find((x) => x.id === it.id);
           if (!p) continue;
           if (it.foil && p.stockf !== undefined && p.stockf !== null && p.stockf !== "")

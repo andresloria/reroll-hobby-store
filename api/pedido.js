@@ -34,7 +34,7 @@ module.exports = async function handler(req, res) {
     const id = Number(it && it.id), qty = Math.floor(Number(it && it.qty));
     if (!Number.isInteger(id) || id < 1 || !Number.isInteger(qty) || qty < 1 || qty > 20)
       return L.json(res, 400, { error: "línea inválida" });
-    lineas.push({ id, foil: !!it.foil, qty });
+    lineas.push({ id, foil: !!it.foil, qty, preorden: !!(it && it.preorden) });
   }
 
   // ---- inventario actual (solo lectura) ----
@@ -54,6 +54,8 @@ module.exports = async function handler(req, res) {
     for (const ln of lineas) {
       const p = byId.get(ln.id);
       if (!p || (p.type && p.type !== "single" && p.type !== "sealed")) { faltantes.push({ id: ln.id, foil: ln.foil, name: "?", disponible: 0 }); continue; }
+      // PRE-ORDEN: producto que aún no llega → no valida stock ni reserva
+      if (ln.preorden) { items.push({ id: ln.id, foil: ln.foil, qty: ln.qty, preorden: true, name: p.name, price: ln.foil ? p.foil : p.price }); continue; }
       if (ln.foil && p.foil == null) { faltantes.push({ id: ln.id, foil: true, name: p.name, disponible: 0 }); continue; }
       const st = L.stockVariante(p, ln.foil);
       const disp = st === null ? null : Math.max(0, st - (reservas[L.lineKey(ln.id, ln.foil)] || 0));

@@ -1425,7 +1425,7 @@ function renderPedidos(){
   $('#pedInfo').textContent = pend.length ? (pend.length+' pendiente(s) por revisar') : 'Sin pedidos pendientes ✨';
   const linea = (p,it)=>`
     <div class="ped__line">
-      <span>${esc(it.name)}${it.foil?' <span style="color:var(--gold-bright)">✨ Foil</span>':''} ×${it.qty}
+      <span>${esc(it.name)}${it.foil?' <span style="color:var(--gold-bright)">✨ Foil</span>':''}${it.preorden?' <span style="color:#8fe0c6;font-weight:700;font-size:.72rem">📦 PRE-ORDEN · 50%</span>':''} ×${it.qty}
         <span class="sm2">· ${fmt(it.price)} c/u</span></span>
       <span style="display:flex;gap:10px;align-items:center">
         <b style="color:var(--gold-bright)">${fmt(it.price*it.qty)}</b>
@@ -1487,12 +1487,14 @@ async function pedConfirmar(id){
     // espejo local: mismo descuento que hizo el servidor (así tu copia local no lo pisa al publicar)
     const hoy = new Date().toISOString().slice(0,10);
     (j.pedido.items||[]).forEach(it=>{
-      const p=items.find(x=>x.id===it.id);
-      if(p){
-        if(it.foil && p.stockf!==undefined && p.stockf!==null && p.stockf!=='') p.stockf=Math.max(0,Number(p.stockf)-it.qty);
-        else if(p.stock!==undefined && p.stock!==null && p.stock!=='') p.stock=Math.max(0,Number(p.stock)-it.qty);
+      if(!it.preorden){   // pre-orden: no descuenta stock (aún no llegó), igual que el servidor
+        const p=items.find(x=>x.id===it.id);
+        if(p){
+          if(it.foil && p.stockf!==undefined && p.stockf!==null && p.stockf!=='') p.stockf=Math.max(0,Number(p.stockf)-it.qty);
+          else if(p.stock!==undefined && p.stock!==null && p.stock!=='') p.stock=Math.max(0,Number(p.stock)-it.qty);
+        }
       }
-      sales.push({ id:nextSaleId++, name: it.name+(it.foil?' (Foil)':''), qty: it.qty, price: it.price, date: hoy, channel: 'Pedido web '+id });
+      sales.push({ id:nextSaleId++, name: it.name+(it.foil?' (Foil)':'')+(it.preorden?' [PRE-ORDEN]':''), qty: it.qty, price: it.price, date: hoy, channel: 'Pedido web '+id });
     });
     save(); saveSales(); render();
     toast('¡Venta confirmada! Stock descontado y registrado en Ventas 🎉');

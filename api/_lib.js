@@ -83,6 +83,7 @@ function reservasDe(pedidos, now) {
   for (const p of pedidos) {
     if (!isActivo(p, now)) continue;
     for (const it of p.items) {
+      if (it.preorden) continue;   // las pre-órdenes no reservan stock (aún no llega)
       const k = lineKey(it.id, it.foil);
       map[k] = (map[k] || 0) + it.qty;
     }

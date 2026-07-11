@@ -159,11 +159,6 @@ function media(p, cls){
   if(p.img) return `<img class="${cls}" src="${imgURL(p.img,500)}" alt="${p.name}" loading="lazy" onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('card__photo--wide')" />`;
   return noImgBox("card__noimg");
 }
-// mensaje de WhatsApp para PRE-ORDEN de producto sellado (se aparta con 50%)
-function preorderWaUrl(p){
-  const t = `¡Hola Reroll! Quiero PRE-ORDENAR: ${p.name} (${p.cat}${p.set?" · "+p.set:""}) — ${fmt(p.price)}.%0AEntiendo que se aparta con el 50%25 de adelanto. 📦`;
-  return `https://wa.me/${WHATSAPP}?text=${t}`;
-}
 
 // Índice id → slug (lo genera make_cartas.py). Permite enlazar cada carta del
 // grid a su página de detalle /carta/<slug>.html. Si una carta no tiene slug
@@ -219,7 +214,7 @@ function openQuickView(p){
     : noImgBox("qv__noimg");
   // pre-orden: solo para sellado
   const preBtn = m.querySelector(".qv__pre"), preNote = m.querySelector(".qv__prenote");
-  if(preBtn){ preBtn.hidden = !esSellado; preBtn.onclick = esSellado ? (()=> window.open(preorderWaUrl(p), "_blank", "noopener")) : null; }
+  if(preBtn){ preBtn.hidden = !esSellado; preBtn.onclick = esSellado ? (()=>{ addToCart(p.id, false, true); closeQV(); openDrawer(); }) : null; }
   if(preNote) preNote.hidden = !esSellado;
   m.querySelector(".qv__cat").textContent = p.cat + (p.set ? " · "+p.set : "");
   m.querySelector(".qv__name").textContent = p.name;
@@ -760,7 +755,7 @@ function makeCard(p, i){
   const imgBox = el.querySelector(".card__img");
   const stockWrap = el.querySelector(".card__stockwrap");
   const preBtn = el.querySelector(".card__pre");
-  if(preBtn) preBtn.onclick = ()=> window.open(preorderWaUrl(p), "_blank", "noopener");
+  if(preBtn) preBtn.onclick = ()=>{ addToCart(p.id, false, true); openDrawer(); };
   let cardFoil = false;
   const paintAvail = ()=>{
     const a = availOf(cardFoil);
@@ -867,7 +862,7 @@ function lineKey(id, foil){ return foil ? id+"_f" : String(id); }
     const foil = !!it.foil;
     const key = it.key || lineKey(it.id, foil);
     if(map.has(key)) map.get(key).qty += (it.qty||1);
-    else map.set(key, { key, id:it.id, foil, name:it.name, cat:it.cat, price:it.price, emoji:it.emoji, img:it.img, qty: it.qty||1 });
+    else map.set(key, { key, id:it.id, foil, preorden:!!it.preorden, name:it.name, cat:it.cat, price:it.price, emoji:it.emoji, img:it.img, qty: it.qty||1 });
   });
   cart = [...map.values()];
 })();
@@ -876,28 +871,30 @@ function stockOf(id){ const p=PRODUCTS.find(x=>x.id===id); if(!p) return null; c
 function cartCount(){ return cart.reduce((s,c)=>s+(c.qty||1),0); }
 function cartTotal(){ return cart.reduce((s,c)=>s+Number(c.price||0)*(c.qty||1),0); }
 
-function addToCart(id, foil){
+function addToCart(id, foil, preorden){
   const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
   foil = !!foil && p.foil!=null;                 // solo foil si la carta lo permite
-  const key = lineKey(id, foil);
+  preorden = !!preorden;                          // pre-orden de sellado (se aparta con 50%)
+  const key = lineKey(id, foil) + (preorden?"_pre":"");   // línea aparte de la normal
   const price = foil ? p.foil : p.price;
-  // tope de stock por variante: el foil usa su propio stock si está definido
+  // tope de stock por variante (el foil usa su propio stock). La PRE-ORDEN no
+  // valida stock: es producto que aún no llega.
   let st = stockOf(id);
   if(foil){ const sf=stockValF(p); if(sf!==null) st=sf; }
-  if(st!==null && st<=0){ toast(`Agotado${foil?" en foil":""}: ${p.name}`); return; }
+  if(!preorden && st!==null && st<=0){ toast(`Agotado${foil?" en foil":""}: ${p.name}`); return; }
   const line = cart.find(c=>c.key===key);
   if(line){
-    if(st!==null && line.qty>=st){ toast(`Solo hay ${st}${foil?" foil":""} de ${p.name}`); return; }
+    if(!preorden && st!==null && line.qty>=st){ toast(`Solo hay ${st}${foil?" foil":""} de ${p.name}`); return; }
     line.qty++;
   } else {
-    cart.push({ key, id:p.id, foil, name:p.name+(foil?" · Foil":""), cat:p.cat, price, emoji:p.emoji, img:p.img, qty:1 });
+    cart.push({ key, id:p.id, foil, preorden, name:p.name+(foil?" · Foil":""), cat:p.cat, price, emoji:p.emoji, img:p.img, qty:1 });
   }
-  saveCart(); toast(`Añadido: ${p.name}${foil?" (Foil)":""}`); renderCart();
+  saveCart(); toast(preorden?`Pre-orden agregada: ${p.name}`:`Añadido: ${p.name}${foil?" (Foil)":""}`); renderCart();
 }
 function changeQty(key, delta){
   const line = cart.find(c=>c.key===key); if(!line) return;
-  let st = stockOf(line.id);
-  if(line.foil){ const p=PRODUCTS.find(x=>x.id===line.id); const sf=p?stockValF(p):null; if(sf!==null) st=sf; }
+  let st = line.preorden ? null : stockOf(line.id);   // pre-orden: sin tope de stock
+  if(!line.preorden && line.foil){ const p=PRODUCTS.find(x=>x.id===line.id); const sf=p?stockValF(p):null; if(sf!==null) st=sf; }
   let q = line.qty + delta;
   if(st!==null && q>st){ q=st; toast(`Solo hay ${st}${line.foil?" foil":""} disponibles`); }
   if(q<=0){ cart = cart.filter(c=>c.key!==key); }
@@ -920,8 +917,8 @@ function renderCart(){
       row.innerHTML = `
         ${thumb}
         <div class="di__info">
-          <div class="di__name">${c.foil ? c.name.replace(/ · Foil$/,'')+' <span class="foilpill">✨ Foil</span>' : c.name}</div>
-          <div class="di__price">${fmt(c.price)} c/u · <span style="color:var(--muted)">${c.cat}</span></div>
+          <div class="di__name">${c.foil ? c.name.replace(/ · Foil$/,'')+' <span class="foilpill">✨ Foil</span>' : c.name}${c.preorden?' <span class="prepill">📦 Pre-orden</span>':''}</div>
+          <div class="di__price">${fmt(c.price)} c/u · <span style="color:var(--muted)">${c.cat}</span>${c.preorden?' · <span style="color:#8fe0c6">aparta 50%</span>':''}</div>
           <div class="qty">
             <button class="qty__btn" data-act="dec" aria-label="Menos">−</button>
             <span class="qty__n">${c.qty}</span>
@@ -1055,7 +1052,7 @@ async function submitCheckout(e){
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir, pago,
         envioMetodo, envioCosto,
-        items: cart.map(c=>({ id: c.id, foil: !!c.foil, qty: c.qty||1 })) })
+        items: cart.map(c=>({ id: c.id, foil: !!c.foil, qty: c.qty||1, preorden: !!c.preorden })) })
     });
     if(r.status===409){
       const j = await r.json().catch(()=>null);
@@ -1067,7 +1064,8 @@ async function submitCheckout(e){
   }catch(err){ /* API no disponible (ej. local): el pedido va solo por WhatsApp, sin reserva */ }
   if(sbtn) sbtn.disabled = false;
   // ---- 2) mensaje de WhatsApp (igual que siempre, + número de pedido si hubo reserva) ----
-  const items = cart.map(c=>`• ${c.name} ×${c.qty} (${c.cat}) — ${fmt(c.price*c.qty)}`).join("%0A");
+  const items = cart.map(c=>`• ${c.name}${c.preorden?" [PRE-ORDEN · aparta 50%]":""} ×${c.qty} (${c.cat}) — ${fmt(c.price*c.qty)}`).join("%0A");
+  const hayPre = cart.some(c=>c.preorden);
   const sub = cartTotal();
   const totalFinal = sub + envioCosto;
   let msg = pedidoId
@@ -1084,6 +1082,7 @@ async function submitCheckout(e){
   }
   msg += `%0APago: ${pago}`;
   if(pago==="SINPE Móvil") msg += `%0A(SINPE a ${SINPE_NOMBRE} ${SINPE_NUMERO})`;
+  if(hayPre) msg += `%0A%0A📦 Incluye PRE-ORDEN: se aparta con el 50%25 de adelanto; coordinamos el resto cuando llega.`;
   if(pedidoId) msg += `%0A%0A(Cartas reservadas 48 h con el pedido %23${pedidoId})`;
   const url = `https://wa.me/${WHATSAPP}?text=${msg}`;
   window.open(url, "_blank", "noopener");
