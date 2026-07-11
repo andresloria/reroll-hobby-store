@@ -1,9 +1,26 @@
-# HANDOFF — estado de la sesión (act. 2026-07-09)
+# HANDOFF — estado de la sesión (act. 2026-07-11)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=61`** (index.html y juego.html alineados; `carta.js` en **v6**). Tienda: **3.689 cartas** (3.574 + 115 promos Riftbound). Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=65`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v6**). Tienda: **3.689 cartas** (One Piece sigue en **stock 0** temporal). Último commit `60304f2a`. Historial completo en [SESSIONS.md](SESSIONS.md).
 
-## En qué estábamos (sesiones 2026-07-08/09) — promos, panel a prueba de pérdidas, catálogo 5 juegos, carrito en fichas, steppers foil
-Todo verificado en preview y pusheado (último `adcc1a24`):
+## En qué estábamos (sesiones 2026-07-10/11) — panel espejo, motion Emil, botón atrás, términos, limpieza de datos
+Todo verificado en preview y pusheado:
+- **Catálogo del panel = espejo de la base:** las variantes (Overnumbered/Signature/Metal…) y los promos ahora SÍ se reconocen en la base aunque el inventario use nombre corto de Riot. `invMatch` cruza por imagen exclusiva + eliminación por nombre-base/set con candado de precio (±3×). Stepper − / + SIEMPRE (se eliminó el botón "+"); en 0 la tienda no la muestra.
+- **Promos distinguidos:** badge **"Promo"** en la tienda (115 cartas) + etiqueta roja **🏷️ PROMO** en el catálogo del panel (comparten arte con la normal — no confundirlos al dar stock).
+- **Limpieza de datos (con backups):** borrados 4 zombies Overnumbered legado (3693→**3689**); **18 parejas ON↔Signature** con precios cruzados corregidas; **rutina de precios** aplicada (334: 88↑/246↓, OP+RB) + **157 ajustes premium** por cruce con el catálogo (Showcase/AltArt/ON/Sig); 5 foils que costaban = normal → +₡100; **0 foils ≤ normal** en toda la base.
+- **Motion/polish CSS (skill `emil-design-eng` de Emil Kowalski, instalado):** Tanda 1 (hover solo-mouse en touch, duraciones <300ms, `:active` en botones/steppers) + Tanda 2 (drawer curva iOS + cierre rápido, subrayado `scaleX`, stagger en grilla, logo hero sin loop infinito).
+- **Botón ATRÁS del cel cierra overlays** (quick-view/drawer/checkout/sheets) en vez de salir del sitio — History API en `app.js`.
+- **Nuevo WhatsApp de la tienda `6038-7738`** en index/juego/app.js/fichas + JSON-LD. **`terminos.html`** publicada (T&C: precios/48h, fotos+video, envíos Cartago/Correos/entregas fin de semana SJ, reclamos con video de apertura 24h…) enlazada en footers + sitemap.
+- **Skills de Reroll Design:** los 3 (básico/profesional/tienda) ahora exigen la súper-revisión de diseño con ui-ux-pro-max + frontend-design + emil-design-eng antes de entregar.
+- **PENDIENTES / OJO:**
+  - ⚠️ **`ASSET_V=48` desalineado:** las fichas `/carta/` linkean `styles.css?v=48` → cargan el CSS viejo (SIN el motion de Emil ni el fix touch). Para alinear: subir `ASSET_V` a 65 en `make_cartas.py`, `python make_cartas.py` y push. (Cosmético, no roto.)
+  - ⚠️ **SINPE de pagos:** `SINPE_NUMERO` en `js/app.js` sigue en `8780-7813` (número personal, atado a la cuenta bancaria). Confirmar con Andrés si el pago también pasa al 6038-7738 — NO tocado por ser dato financiero.
+  - Token de GitHub expuesto hace días → **regenerar** y actualizar el Value en Vercel.
+  - Cartas subidas por el panel necesitan `python make_cartas.py` + push para su ficha de detalle.
+  - One Piece en stock 0 (backup `productos_backup_op_stock0.json`) — restaurar cuando se quiera mostrar.
+  - ~29 cartas legado Riftbound (Showcase viejas que TCGplayer no lista) se manejan a mano en la base de abajo.
+
+## (histórico) sesiones 2026-07-08/09 — promos, panel a prueba de pérdidas, catálogo 5 juegos, carrito en fichas, steppers foil
+Todo verificado en preview y pusheado (`adcc1a24`):
 - **Promos de Riftbound** al inventario (`make_promos_rb.py`, 115 cartas set "Promos", stock 0, imagen de Riot). **One Piece a stock 0** temporal (oculto mientras Andrés carga Riftbound) — backup `productos_backup_op_stock0.json` para restaurar.
 - **Panel reorganizado (acordeón) y A PRUEBA DE PÉRDIDAS:** sync ya no pisa cambios locales (cruza por ID, marca `_dirty`/`_new` persistidos, poda pendientes huérfanos); contador "N sin publicar" en la barra fija; steppers +/− aplican al instante, escribir número pide ✓. Quitados los botones "vaciar toda la base"/"vaciar ventas". Publicar SOLO desde la barra fija.
 - **Catálogo del panel = 5 juegos:** RB y OP completos; **Pokémon/Magic/Yu-Gi-Oh** con los 12 sets más nuevos (`make_catalogo.py`). Sellado del catálogo queda con `cond:Sellado`+badge. **Steppers Normal y ✨ Foil separados** por carta (→ `stock`/`stockf`).
