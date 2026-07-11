@@ -152,9 +152,17 @@ function noImgBox(cls){ return `<div class="${cls||''} noimg" aria-label="Imagen
 function qvImgFail(el){ try{ el.outerHTML = noImgBox("qv__noimg"); }catch(e){} }
 
 function media(p, cls){
+  // sellado: es una CAJA (booster box / ETB / mazo), no una carta → se muestra
+  // COMPLETA (contain) y sin rotar, para que se vea todo el arte del producto
+  if(p.type==="sealed" && p.img) return `<img class="${cls} is-sealed" src="${imgURL(p.img,500)}" alt="${p.name}" loading="lazy" />`;
   // si la imagen es horizontal (battlefields/locations), se rota para llenar el marco vertical
   if(p.img) return `<img class="${cls}" src="${imgURL(p.img,500)}" alt="${p.name}" loading="lazy" onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('card__photo--wide')" />`;
   return noImgBox("card__noimg");
+}
+// mensaje de WhatsApp para PRE-ORDEN de producto sellado (se aparta con 50%)
+function preorderWaUrl(p){
+  const t = `¡Hola Reroll! Quiero PRE-ORDENAR: ${p.name} (${p.cat}${p.set?" · "+p.set:""}) — ${fmt(p.price)}.%0AEntiendo que se aparta con el 50%25 de adelanto. 📦`;
+  return `https://wa.me/${WHATSAPP}?text=${t}`;
 }
 
 // Índice id → slug (lo genera make_cartas.py). Permite enlazar cada carta del
@@ -188,8 +196,10 @@ function qvEl(){
         <div class="qv__attrs"></div>
         <div class="qv__actions">
           <button class="qv__add btn btn--gold" type="button">Agregar al carrito</button>
+          <button class="qv__pre btn btn--pre" type="button" hidden>📦 Pre-ordenar</button>
           <a class="qv__full btn btn--ghost">Ver ficha completa ↗</a>
         </div>
+        <p class="qv__prenote" hidden>💳 Se pre-ordena con el <b>50%</b> de adelanto. Coordinamos el resto por WhatsApp cuando llega.</p>
       </div>
     </div>`;
   document.body.appendChild(_qv);
@@ -201,10 +211,16 @@ function qvEl(){
 function closeQV(){ if(_qv){ _qv.hidden = true; document.body.style.overflow = ""; } overlayConsume(); }
 function openQuickView(p){
   const m = qvEl();
+  const esSellado = p.type==="sealed";
   const mediaBox = m.querySelector(".qv__media");
+  mediaBox.classList.toggle("qv__media--sealed", esSellado);
   mediaBox.innerHTML = p.img
-    ? `<img class="qv__img" src="${imgURL(p.img,600)}" alt="" onerror="qvImgFail(this)" />`
+    ? `<img class="qv__img${esSellado?" is-sealed":""}" src="${imgURL(p.img,600)}" alt="" onerror="qvImgFail(this)" />`
     : noImgBox("qv__noimg");
+  // pre-orden: solo para sellado
+  const preBtn = m.querySelector(".qv__pre"), preNote = m.querySelector(".qv__prenote");
+  if(preBtn){ preBtn.hidden = !esSellado; preBtn.onclick = esSellado ? (()=> window.open(preorderWaUrl(p), "_blank", "noopener")) : null; }
+  if(preNote) preNote.hidden = !esSellado;
   m.querySelector(".qv__cat").textContent = p.cat + (p.set ? " · "+p.set : "");
   m.querySelector(".qv__name").textContent = p.name;
   // precio + selector Normal/Foil (si la carta tiene variante foil)
@@ -718,7 +734,7 @@ function makeCard(p, i){
   const mediaHtml = `<a class="card__link" href="${href}" data-pid="${p.id}" aria-label="Ver detalle de ${p.name}">${media(p,"card__photo")}</a>`;
   const nameHtml = `<a class="card__link" href="${href}" data-pid="${p.id}">${p.name}</a>`;
   el.innerHTML = `
-    <div class="card__img${p.img?" card__img--photo":""}${a0.out?" card__img--out":""}">
+    <div class="card__img${p.img?" card__img--photo":""}${p.type==="sealed"?" card__img--sealed":""}${a0.out?" card__img--out":""}">
       ${p.badge?`<span class="card__badge">${p.badge}</span>`:""}
       <button class="card__fav" aria-label="Favorito" title="Guardar">♡</button>
       ${mediaHtml}
@@ -737,10 +753,14 @@ function makeCard(p, i){
         ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
         <button class="card__add" data-id="${p.id}"${a0.out?" disabled":""}>${a0.out?"Agotado":"Añadir"}</button>
       </div>
+      ${p.type==="sealed"?`<button class="card__pre" data-pre="${p.id}" type="button">📦 Pre-ordenar</button>
+      <p class="card__prenote">💳 Se pre-ordena con el <b>50%</b> de adelanto.</p>`:""}
     </div>`;
   const addBtn = el.querySelector(".card__add");
   const imgBox = el.querySelector(".card__img");
   const stockWrap = el.querySelector(".card__stockwrap");
+  const preBtn = el.querySelector(".card__pre");
+  if(preBtn) preBtn.onclick = ()=> window.open(preorderWaUrl(p), "_blank", "noopener");
   let cardFoil = false;
   const paintAvail = ()=>{
     const a = availOf(cardFoil);

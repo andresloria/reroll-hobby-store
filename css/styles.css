@@ -805,6 +805,26 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
    llenar el marco vertical igual que las demás y verse completas (sin recorte) */
 .card__photo--wide{inset:auto;top:50%;left:50%;width:133.34%;height:75%;max-width:none;
   transform:translate(-50%,-50%) rotate(90deg);object-fit:contain}
+/* SELLADO en el grid: la caja (booster box / ETB / mazo) se ve COMPLETA con
+   fondo premium y aire alrededor — sin recorte ni rotación */
+.card__img--sealed{background:radial-gradient(120% 90% at 50% 18%,#241826,#130c0e)}
+.card__img--sealed .card__photo{inset:16px;width:auto;height:auto;object-fit:contain;transform:none;
+  filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
+.card:hover .card__img--sealed .card__photo{transform:scale(1.04)}
+/* botón + nota de pre-orden (solo sellado) */
+.card__pre{width:100%;margin-top:8px;background:transparent;border:1.5px solid #5dcaa5;color:#8fe0c6;
+  border-radius:999px;padding:9px 12px;font-family:var(--font-body);font-weight:700;font-size:.82rem;cursor:pointer;
+  transition:background .15s var(--ease),transform .12s var(--ease)}
+.card__pre:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){ .card__pre:hover{background:rgba(93,202,165,.12)} }
+.card__prenote{display:flex;gap:6px;align-items:flex-start;font-size:.7rem;color:#8fe0c6;margin-top:7px;line-height:1.35}
+.card__prenote b{color:#b6ecd8}
+/* pre-orden en el quick-view */
+.btn--pre{background:transparent;border:1.5px solid #5dcaa5;color:#8fe0c6}
+.btn--pre:hover{background:rgba(93,202,165,.12);color:#b6ecd8}
+.qv__media--sealed{background:radial-gradient(120% 90% at 50% 20%,#241826,#130c0e)}
+.qv__prenote{display:flex;gap:6px;align-items:flex-start;font-size:.78rem;color:#8fe0c6;margin-top:10px;line-height:1.4}
+.qv__prenote b{color:#b6ecd8}
 .di__photo{width:48px;height:48px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--line)}
 /* tag de estado PLANO (único guiño brutalist en la zona de catálogo) */
 .card__badge{

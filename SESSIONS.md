@@ -8,6 +8,12 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (9) — Sellado: imagen completa + botón Pre-ordenar (50%) para todos los TCG (pedido de Andrés)
+- Confirmado que el catálogo tiene sellado en los 5 TCG (OP 381 · PKM 217 · Magic 105 · RB 49 · YGO 22). La mejora aplica a todo `type:sealed` automáticamente.
+- **Imagen (css + app.js):** las cajas selladas son más anchas/cuadradas y en el marco 3/4 con `object-fit:cover` se recortaban (y `media()` hasta las rotaba 90°). Ahora `media()` marca la img `is-sealed` (sin rotar) y el grid usa `.card__img--sealed` → `object-fit:contain` con fondo premium + aire (se ve la caja completa). El quick-view ya era contain; se le suma fondo sellado.
+- **Pre-orden (app.js):** para todo sellado, botón **📦 Pre-ordenar** (verde) + nota **"Se pre-ordena con el 50% de adelanto"** en la card del grid y en el quick-view. Abre WhatsApp con `preorderWaUrl(p)` ("Quiero PRE-ORDENAR: … Entiendo que se aparta con el 50%"). Las cartas normales no lo muestran.
+- Cache-busting `?v=66→67`. **Verificado en preview:** el sellado (Vendetta Booster Display Case) tiene clase sellada, imagen carga (400px), botón+nota presentes, URL de WhatsApp correcta (50% + número 6038-7738); quick-view muestra pre-orden; regresión OK (Blazing Scorcher sin pre-orden, quick-view normal oculta el botón); consola limpia.
+
 ## 2026-07-11 (8) — Checkout: solo SINPE Móvil como método de pago (pedido de Andrés)
 - Andrés pidió ocultar Tarjeta y Efectivo por el momento → dejé solo **SINPE Móvil** en `#coPago` (index.html). La caja de SINPE se muestra siempre (número de pago 8780-7813 intacto). Cambio solo de HTML (sin bump de `?v`). Fácil de revertir agregando las `<option>`.
 
