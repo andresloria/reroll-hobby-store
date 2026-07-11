@@ -1,8 +1,15 @@
 # HANDOFF — estado de la sesión (act. 2026-07-11)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=66`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v6**). Tienda: **3.689 cartas** (One Piece sigue en **stock 0** temporal). Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=68`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v6**). Tienda: **3.689 cartas** (One Piece sigue en **stock 0** temporal). Último commit `b9033006`. Historial completo en [SESSIONS.md](SESSIONS.md).
 
-**Novedad 2026-07-11:** el checkout ahora tiene **selector de envío de Correos CR con precio que se suma al total** (Retiro gratis / Correo ₡1.700 / Certificado ₡3.300 / EMS ₡2.500); guarda `envioMetodo`/`envioCosto` en el pedido y el panel de Pedidos los muestra. Base de datos del panel ordena por **N.º de carta**. Página **terminos.html** publicada.
+**Novedades 2026-07-11 (todas LIVE):**
+- **Checkout — selector de envío de Correos CR** que **suma al total** (🏬 Retiro/entrega coordinada gratis · 📮 Correo ₡1.700 · ✅ Certificado ₡3.300 · ⚡ EMS ₡2.500); resumen Subtotal→Envío→Total; guarda `envioMetodo`/`envioCosto` en el pedido; el panel de Pedidos muestra método + dirección + total con envío. Tarifas investigadas de Correos CR (ARESEP jun-2026, +IVA).
+- **Checkout — solo SINPE Móvil** (Tarjeta y Efectivo ocultas; fácil de reactivar agregando las `<option>`).
+- **Sellado — imagen completa** (`object-fit:contain` + fondo premium, sin recorte/rotación) y **botón 📦 Pre-ordenar** con nota del 50% en card y quick-view, para **todo `type:sealed`** de los 5 TCG. El catálogo tiene sellado en todos (OP 381·PKM 217·Magic 105·RB 49·YGO 22).
+- **Pre-orden = va al CARRITO como "Añadir"** (flag `preorden`, línea `id_pre`, sin tope de stock): pasa por el checkout → pedido en panel + WhatsApp marcado `[PRE-ORDEN·50%]`. La API (`pedido.js`/`_lib.js`/`pedido-accion.js`) **no valida stock ni reserva** las líneas preorden.
+- **Panel — nueva sección 🚚 Preórdenes** (`localStorage.reroll_preorders`, entre Pedidos y Base de datos): stats (activas/valor/**abonado**/**saldo**), tarjeta con producto+imagen, cliente+tel+WhatsApp, abonos con **n.º de comprobante SINPE** + barra de progreso; acciones **💰 Registrar abono / ✓ Completada / ✎ Editar / ✕ Cancelar** + alta manual. Las líneas preorden de un pedido web confirmado **se crean solas aquí** y **ya NO van a Ventas** hasta completarse (ahí sí se registra la venta COMPLETA).
+- **Base de datos del panel** ordena por **N.º de carta** (default, vía `cartas.json`) + estado "sin resultados" avisa si hay búsqueda activa.
+- **`terminos.html`** publicada (T&C) enlazada en footers + sitemap. Nuevo **WhatsApp `6038-7738`** en todo el sitio + JSON-LD.
 
 ## En qué estábamos (sesiones 2026-07-10/11) — panel espejo, motion Emil, botón atrás, términos, limpieza de datos
 Todo verificado en preview y pusheado:
@@ -14,7 +21,8 @@ Todo verificado en preview y pusheado:
 - **Nuevo WhatsApp de la tienda `6038-7738`** en index/juego/app.js/fichas + JSON-LD. **`terminos.html`** publicada (T&C: precios/48h, fotos+video, envíos Cartago/Correos/entregas fin de semana SJ, reclamos con video de apertura 24h…) enlazada en footers + sitemap.
 - **Skills de Reroll Design:** los 3 (básico/profesional/tienda) ahora exigen la súper-revisión de diseño con ui-ux-pro-max + frontend-design + emil-design-eng antes de entregar.
 - **PENDIENTES / OJO:**
-  - ⚠️ **`ASSET_V=48` desalineado:** las fichas `/carta/` linkean `styles.css?v=48` → cargan el CSS viejo (SIN el motion de Emil ni el fix touch). Para alinear: subir `ASSET_V` a 65 en `make_cartas.py`, `python make_cartas.py` y push. (Cosmético, no roto.)
+  - ⚠️ **`ASSET_V=48` desalineado:** las fichas `/carta/` linkean `styles.css?v=48` → cargan el CSS viejo (SIN el motion de Emil, el fix touch ni el sellado). Para alinear: subir `ASSET_V` a 68 en `make_cartas.py`, `python make_cartas.py` y push. (Cosmético, no roto — las fichas son de cartas sueltas, no de sellado.)
+  - **Preórdenes = solo local** (`localStorage.reroll_preorders` en el navegador del panel). Igual que Ventas: es control personal de Andrés, no se publica ni se sincroniza entre dispositivos. Si cambia de PC, no las ve (aceptable por ahora; migrar a `api/` si algún día hace falta multi-dispositivo).
   - ✅ **SINPE de pagos = `8780-7813` (CONFIRMADO por Andrés, se mantiene).** El WhatsApp cambió a 6038-7738 pero el SINPE se queda en el número personal (atado a la cuenta bancaria). NO cambiar `SINPE_NUMERO` en `js/app.js` — ya lleva comentario de advertencia.
   - Token de GitHub expuesto hace días → **regenerar** y actualizar el Value en Vercel.
   - Cartas subidas por el panel necesitan `python make_cartas.py` + push para su ficha de detalle.
