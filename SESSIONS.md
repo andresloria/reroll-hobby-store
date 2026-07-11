@@ -8,6 +8,12 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (6) — Base de datos del panel: orden por N.º de carta + estado de "sin resultados" claro (pedido de Andrés)
+- Andrés (con captura): al filtrar por expansión (Origins) no salía nada; y las otras expansiones no estaban ordenadas por número.
+- **"No sale nada" = búsqueda pegada:** el filtro por set SÍ funciona (verificado: Riftbound+Origins con búsqueda vacía = 351 cartas). El "0" era porque quedaba "irelia" en el buscador (Irelia está en Spiritforged). Fix UX: el estado vacío ahora avisa **"tenés la búsqueda 'X' activa — puede que no esté en esta expansión"** + botón **Limpiar búsqueda**.
+- **Orden por número (nuevo, y por defecto):** los items de `productos.json` NO guardan `number`, pero `cartas.json` sí (id→N.º, 3689 entradas). El panel ahora carga `cartas.json` a un mapa `cardNums` y agrega la opción **"N.º de carta"** en Ordenar, **por defecto**. `byCardNumber` ordena por SET y luego por número (sin número = al final del set). Verificado: Origins 001,002,003… y Spiritforged 001,002,003… `fClear` también resetea a N.º.
+- Solo `admin.html` (standalone, sin `?v`). Consola limpia.
+
 ## 2026-07-11 (5) — Gran revisión: duplicadas, promos distinguidas y rutina de precios completa (aprobado por Andrés)
 - Andrés reportó "cartas duplicadas con distintos precios" + pidió la rutina de precios del lunes con reporte por TCG.
 - **Duplicadas:** las "duplicadas" eran (a) los PROMOS (comparten arte con la base a propósito — TCGplayer bloquea sus imágenes) y (b) 4 zombies reales: Overnumbered legado con nombre corto en stock 0, superadas por las nuevas con nombre completo (mismo arte+set). Borradas ids 350/623/653/927 → **3689 items** (backup `productos_backup_fixdatos2.json`). Sus fichas se limpiaron en el rebuild.

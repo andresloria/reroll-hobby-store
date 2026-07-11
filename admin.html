@@ -488,6 +488,7 @@
         <option value="all">Todos</option><option value="single">Single</option><option value="sealed">Sellado</option>
       </select></label>
       <label>Ordenar<select id="fSort">
+        <option value="number">N.º de carta</option>
         <option value="recent">Más recientes</option>
         <option value="name">Nombre A-Z</option>
         <option value="price-desc">Precio: mayor</option>
@@ -700,7 +701,21 @@ let saleEditId = null, salesQuery = '';
 let salesFrom = '', salesTo = '';   // rango de fechas para el tablero/historial
 // filtros + paginación del inventario
 let page = 1, pageSize = 50;
-let fCat='all', fSet='all', fType='all', fSort='recent', fMin='', fMax='';
+let fCat='all', fSet='all', fType='all', fSort='number', fMin='', fMax='';
+// número de coleccionista por id (de cartas.json) para ordenar la base por N.º
+let cardNums = {};
+fetch('cartas.json',{cache:'no-cache'}).then(r=>r.json()).then(j=>{
+  for(const id in j){ const n=parseInt(String(j[id].number||'').replace(/\D/g,''),10); if(!isNaN(n)) cardNums[id]=n; }
+  if(fSort==='number') render();
+}).catch(()=>{});
+// ordena por SET y luego por N.º de carta (los sin número van al final del set)
+function byCardNumber(a,b){
+  const sa=a.set||'', sb=b.set||''; if(sa!==sb) return sa.localeCompare(sb,'es');
+  const na=cardNums[a.id], nb=cardNums[b.id];
+  if(na==null && nb==null) return (a.name||'').localeCompare(b.name||'','es');
+  if(na==null) return 1; if(nb==null) return -1;
+  return na-nb;
+}
 
 const fmt = n => "₡"+Number(n||0).toLocaleString("es-CR");
 // escapa datos antes de inyectarlos en innerHTML (evita que nombres con & < > " rompan la fila)
@@ -1005,7 +1020,8 @@ function getFilteredInv(){
   if(mn!=null) list=list.filter(p=>Number(p.price||0)>=mn);
   if(mx!=null) list=list.filter(p=>Number(p.price||0)<=mx);
   if(invQuery) list=list.filter(p=>(p.name+' '+p.cat+' '+(p.set||'')).toLowerCase().includes(invQuery));
-  if(fSort==='name') list.sort((a,b)=>(a.name||'').localeCompare(b.name||'','es'));
+  if(fSort==='number') list.sort(byCardNumber);
+  else if(fSort==='name') list.sort((a,b)=>(a.name||'').localeCompare(b.name||'','es'));
   else if(fSort==='price-desc') list.sort((a,b)=>Number(b.price||0)-Number(a.price||0));
   else if(fSort==='price-asc') list.sort((a,b)=>Number(a.price||0)-Number(b.price||0));
   else if(fSort==='stock') list.sort((a,b)=>stkSort(a)-stkSort(b));
@@ -1044,7 +1060,15 @@ function render(){
   const pageItems=list.slice(start,start+pageSize);
   $('#pgInfo').textContent = list.length ? (`${start+1}–${Math.min(start+pageSize,list.length)} de ${list.length}`) : '0 resultados';
   $('#pgPrev').disabled = page<=1; $('#pgNext').disabled = page>=pages;
-  if(!list.length){ wrap.innerHTML='<p class="empty">Sin resultados para esos filtros.</p>'; return; }
+  if(!list.length){
+    // pista: casi siempre el "0" es porque quedó texto en el buscador (ej. un
+    // nombre que no está en la expansión elegida) — ofrecemos limpiarlo
+    wrap.innerHTML = invQuery
+      ? `<p class="empty">Sin resultados. Tenés la búsqueda “<b>${esc(invQuery)}</b>” activa — puede que no esté en esta expansión. <button class="btn btn--ghost" id="emptyClearQ" style="margin-left:8px">Limpiar búsqueda</button></p>`
+      : '<p class="empty">Sin resultados para esos filtros.</p>';
+    const ec=$('#emptyClearQ'); if(ec) ec.onclick=()=>{ invQuery=''; $('#invSearch').value=''; page=1; render(); };
+    return;
+  }
   wrap.innerHTML='';
   pageItems.forEach(p=>{
     const pc = pending[p.id];
@@ -1198,7 +1222,7 @@ $('#fType').onchange=e=>{ fType=e.target.value; page=1; render(); };
 $('#fSort').onchange=e=>{ fSort=e.target.value; page=1; render(); };
 $('#fMin').oninput=e=>{ fMin=e.target.value; page=1; render(); };
 $('#fMax').oninput=e=>{ fMax=e.target.value; page=1; render(); };
-$('#fClear').onclick=()=>{ fCat='all';fSet='all';fType='all';fSort='recent';fMin='';fMax='';invQuery=''; $('#invSearch').value=''; $('#fType').value='all'; $('#fSort').value='recent'; $('#fMin').value=''; $('#fMax').value=''; page=1; render(); };
+$('#fClear').onclick=()=>{ fCat='all';fSet='all';fType='all';fSort='number';fMin='';fMax='';invQuery=''; $('#invSearch').value=''; $('#fType').value='all'; $('#fSort').value='number'; $('#fMin').value=''; $('#fMax').value=''; page=1; render(); };
 $('#pgPrev').onclick=()=>{ if(page>1){ page--; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); } };
 $('#pgNext').onclick=()=>{ page++; render(); $('#invPanel').scrollIntoView({behavior:'smooth'}); };
 $('#pgSize').onchange=e=>{ pageSize=Number(e.target.value)||50; page=1; render(); };
