@@ -3,7 +3,7 @@
    ============================================================ */
 
 // === CONFIG (cambiá por tus datos reales) ===
-const WHATSAPP     = "50687807813";   // WhatsApp con código país, sin + ni espacios
+const WHATSAPP     = "50660387738";   // WhatsApp con código país, sin + ni espacios
 const SINPE_NUMERO = "8780-7813";     // número SINPE Móvil
 const SINPE_NOMBRE = "Reroll Hobby Store";
 

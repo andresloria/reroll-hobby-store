@@ -15,6 +15,12 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 - **Reproducido y verificado en preview:** inyecté "Bashful Bloom (Overnumbered)" (nombre corto, misma arte que la base) → antes salía "+"; con el fix aparece **stepper = 4**, el − baja 4→3→2 (quita stock), y la carta **base se queda en 1** sin tocarse. Regresión OK (cartas normales siguen cruzando por imagen; sin errores de consola). `productos.json` intacto (3689); solo `admin.html`.
 - ⚠️ `admin.html` no tiene cache-busting → para ver el fix hay que **recargar fuerte (Ctrl+F5)** una vez.
 
+## 2026-07-10 (3) — Nuevo número de WhatsApp de la tienda (pedido de Andrés)
+- Andrés adquirió una línea dedicada para la página: **6038-7738** (antes usaba su personal 8780-7813).
+- Reemplazo `50687807813 → 50660387738` en las 4 fuentes: `index.html` (botón social + wafloat), `juego.html` (footer + wafloat), `js/app.js` (const `WHATSAPP` — checkout/carrito) y `make_cartas.py` (const + botón social de la plantilla de fichas).
+- `python make_cartas.py` → regeneradas las **3690** fichas con el número nuevo; de paso se generó la ficha del "Sett - The Boss (Overnumbered)" agregado ayer por el panel (Regla de Oro ✓) + `cartas.json` + `sitemap.xml`.
+- Cache-busting `?v=61→62` (index/juego). Verificado en preview: home y fichas con `wa.me/50660387738`, cero rastros del viejo.
+
 ## 2026-07-10 (2) — Catálogo del panel: stepper − / + SIEMPRE, para toda carta de todo TCG (pedido de Andrés)
 - Andrés seguía viendo solo el "+" en las overnumbered → pidió que **cualquier carta** del catálogo (todos los TCG) se pueda agregar Y quitar directo: − hasta 0 = agotada y **la tienda no la muestra a los clientes** (eso ya funcionaba: `showSoldOut=false` por defecto en `js/app.js`).
 - **`admin.html` (`rowHTML`/`wireRow`):** se eliminó el botón "+" (`catadd`). Ahora TODA carta sin foil muestra el stepper − N + (arranca en 0 si no está en base; el + la crea vía `setQty`, el − en 0 no hace nada). Las foil ya tenían doble stepper siempre.

@@ -170603,5 +170603,42 @@
 ]
 ]
 }
+},
+"3690": {
+"slug": "sett-the-boss-overnumbered-ogn-310",
+"number": "310",
+"code": "OGN-310/298",
+"type": "Legend",
+"rarity": "Showcase",
+"domains": "Body | Order",
+"d": {
+"fx": "When a buffed unit you control would die, you may pay <span class=\"fx-chip fx-chip--rainbow\" aria-label=\"Runa de cualquier dominio\"><span class=\"fx-dot fx-dot--rainbow\"></span>Any</span> and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn&#x27;t a move.) When you conquer, ready me.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Showcase"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span> <span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"310 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Gem Lim"
+]
+]
+}
 }
 }
