@@ -8,6 +8,9 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (8) — Checkout: solo SINPE Móvil como método de pago (pedido de Andrés)
+- Andrés pidió ocultar Tarjeta y Efectivo por el momento → dejé solo **SINPE Móvil** en `#coPago` (index.html). La caja de SINPE se muestra siempre (número de pago 8780-7813 intacto). Cambio solo de HTML (sin bump de `?v`). Fácil de revertir agregando las `<option>`.
+
 ## 2026-07-11 (7) — Selector de envío (Correos CR) en el checkout que suma al total (pedido de Andrés)
 - Investigué tarifas de Correos de Costa Rica (ARESEP, jun 2026; excluyen IVA). Andrés quería que la gente elija el envío y se sume al cobro.
 - **Checkout (index.html + app.js):** el "Entrega" (retiro/envío) pasó a un **selector de 4 opciones con precio** (radios): 🏬 Retiro/entrega coordinada (incl. coordinar por WhatsApp) — Gratis · 📮 Correo normal ₡1.700 · ✅ Certificado ₡3.300 (recomendado, con rastreo) · ⚡ EMS ₡2.500. El resumen ahora muestra **Subtotal → Envío → Total**; `recalcCheckoutTotal()` suma el envío al total al instante y muestra los campos de dirección solo si el método lo requiere. `submitCheckout` valida dirección para envíos, arma el mensaje de WhatsApp con Subtotal/Envío/Total y método, y manda `envioMetodo`/`envioCosto` en el payload.
