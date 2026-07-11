@@ -44,6 +44,7 @@
   --shadow:      0 18px 50px -20px rgba(0,0,0,.55);
   --shadow-gold: 0 14px 40px -16px rgba(201,162,75,.45);
   --ease:        cubic-bezier(.16,1,.3,1);
+  --ease-drawer: cubic-bezier(.32,.72,0,1);   /* curva de panel iOS (drawer/sheet) */
 
   /* Sistema tipográfico de 3 niveles */
   --font-display:"Archivo Black", system-ui, sans-serif;        /* titulares, hero, marca */
@@ -151,11 +152,11 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .nav__links{display:flex;gap:26px;margin-left:8px}
 .nav__links a{font-size:.92rem;color:#cfc4bc;position:relative;padding:4px 0}
 .nav__links a::after{
-  content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;
-  background:var(--gold-bright);transition:width .3s var(--ease);
+  content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;
+  background:var(--gold-bright);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);
 }
 .nav__links a:hover{color:#fff}
-.nav__links a:hover::after{width:100%}
+.nav__links a:hover::after{transform:scaleX(1)}
 .nav__actions{margin-left:auto;display:flex;align-items:center;gap:12px}
 .cart-count{
   background:var(--wine-light);color:#fff;border-radius:999px;
@@ -334,8 +335,10 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
   width:100%;height:auto;display:block;
   filter:drop-shadow(0 22px 34px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgba(201,162,75,.18));
   transform-origin:center 58%;
-  /* "reroll" automático: gira y rebota cada ~6s, con descanso entre tiros */
-  animation:heroReroll 6s var(--ease) infinite;
+  transition:transform .2s var(--ease);
+  /* el "reroll" (giro completo) se dispara al pasar el mouse, no en loop
+     constante — el logo respira con el float sutil de .herologo y rueda por
+     intención del usuario (Emil: no animar en loop algo que se ve siempre). */
 }
 .herologo:hover .herologo__img{animation:heroReroll 1.1s var(--ease)}
 @keyframes heroReroll{
@@ -751,6 +754,18 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
   animation:cardIn .5s var(--ease) both;
 }
 @keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* stagger sutil de entrada: la grilla entra en cascada (35ms) en vez de toda
+   de golpe. Solo las primeras ~10; el resto entra sin delay (0ms). */
+.grid .card:nth-child(1){animation-delay:0ms}
+.grid .card:nth-child(2){animation-delay:35ms}
+.grid .card:nth-child(3){animation-delay:70ms}
+.grid .card:nth-child(4){animation-delay:105ms}
+.grid .card:nth-child(5){animation-delay:140ms}
+.grid .card:nth-child(6){animation-delay:175ms}
+.grid .card:nth-child(7){animation-delay:210ms}
+.grid .card:nth-child(8){animation-delay:245ms}
+.grid .card:nth-child(9){animation-delay:280ms}
+.grid .card:nth-child(10){animation-delay:315ms}
 .card:hover{transform:translateY(-8px);border-color:var(--gold-bright);
   box-shadow:0 22px 50px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(232,199,122,.5), 0 0 34px -6px rgba(201,162,75,.35)}
 .card__img{
@@ -939,9 +954,9 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .drawer__panel{
   position:absolute;top:0;right:0;height:100%;width:min(420px,92vw);
   background:linear-gradient(180deg,var(--ink-2),var(--ink));border-left:1px solid var(--line);
-  display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s var(--ease);
+  display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s var(--ease-drawer);
 }
-.drawer.open .drawer__panel{transform:none}
+.drawer.open .drawer__panel{transform:none;transition:transform .42s var(--ease-drawer)}
 .drawer__head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--line)}
 .drawer__head h3{font-size:1.5rem}
 .drawer__x,.modal__x{background:none;border:none;color:var(--cream);font-size:1.2rem;cursor:pointer;opacity:.7}
@@ -1097,9 +1112,9 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
 .msheet__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px)}
 .msheet__panel{position:absolute;left:0;right:0;bottom:0;background:#141414;border-top:2px solid var(--terracota);
   border-radius:20px 20px 0 0;padding:10px 16px calc(20px + env(safe-area-inset-bottom));
-  box-shadow:0 -14px 32px rgba(0,0,0,.55);transform:translateY(100%);transition:transform .35s var(--ease);
+  box-shadow:0 -14px 32px rgba(0,0,0,.55);transform:translateY(100%);transition:transform .24s var(--ease-drawer);
   max-height:85vh;overflow-y:auto}
-.msheet.open .msheet__panel{transform:none}
+.msheet.open .msheet__panel{transform:none;transition:transform .4s var(--ease-drawer)}
 .msheet__handle{display:block;width:42px;height:4px;background:#3a3a3a;border-radius:3px;margin:2px auto 12px}
 .msheet__head{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-display);
   font-size:1.05rem;color:var(--crema);margin-bottom:6px}

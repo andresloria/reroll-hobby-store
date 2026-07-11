@@ -22,7 +22,13 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
   - **Duraciones de hover** (Emil: <300ms): `.card` .35→.2s; `.card__photo` y `.card__emoji` .5→.3s; `.card__img::after` (sheen) .7→.5s; `.tpanel` .45→.25s.
   - **`:active` (feedback de press, clave en cel):** nuevos en `.qty__btn` (scale .86 + destello dorado, +transform en la transición), `.herochip` (.96), `.gtile` (.98), `.gamebtn` (.97), `.pill` (.95, +transform en la transición).
 - Cache-busting `?v=62→63` (index/juego). Verificado en preview: estilos computados (card .2s, photo .3s), 8 reglas `:active` presentes (5 nuevas), bloque touch activo, consola sin errores. `productos.json` intacto.
-- **Pendiente Tanda 2 (pulido, no arrancada):** subrayado del nav `width`→`transform:scaleX`; drawer con curva iOS `cubic-bezier(.32,.72,0,1)` + salida más rápida que entrada; bajarle a los loops infinitos (ej. `heroReroll` dejarlo solo en hover); stagger 30-60ms en la grilla de cartas.
+## 2026-07-10 (5) — Motion/polish del CSS (Tanda 2, con criterio libre de Andrés)
+- Demo interactiva Antes/Después (drawer + stagger + subrayado) aprobada → apliqué la **Tanda 2** (solo `css/styles.css`):
+  - **Subrayado del nav:** `width 0→100%` reemplazado por `transform:scaleX(0→1)` con `transform-origin:left` (corre en GPU, no dispara layout; se ve idéntico).
+  - **Drawer del carrito + bottom-sheet móvil:** nueva var `--ease-drawer:cubic-bezier(.32,.72,0,1)` (curva iOS). Apertura .42s / **cierre .25s** (drawer) y .4s/.24s (msheet) → salida más rápida que entrada (asimetría enter/exit de Emil).
+  - **Stagger de la grilla:** las primeras 10 `.grid .card` entran en cascada (35ms escalonado, tope ~315ms); el resto sin delay. Corto y no bloquea; se re-reproduce en cada render de la grilla.
+  - **Logo del hero:** quité el `heroReroll 6s infinite` (giro completo cada 6s para siempre = lo más "constante"); queda el `float` sutil + el giro **solo al hover** (que ya existía). El resto de loops (mascotBob, waPulse, tpfloat, marquee, foilShine, skelshimmer) se conservan a propósito (son sutiles / funcionales / marca juguetona).
+- Cache-busting `?v=63→64`. Verificado en preview: CSS servido correcto (scaleX en nav, curva iOS 0.42/0.25s en drawer, 10 reglas de stagger, sin heroReroll infinite), consola sin errores. `productos.json` intacto.
 
 ## 2026-07-10 (3) — Nuevo número de WhatsApp de la tienda (pedido de Andrés)
 - Andrés adquirió una línea dedicada para la página: **6038-7738** (antes usaba su personal 8780-7813).
