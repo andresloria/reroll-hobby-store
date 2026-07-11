@@ -8,6 +8,16 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (3) — Catálogo del panel = espejo de la base: cruce de variantes legado (pedido de Andrés)
+- Andrés (con captura): la base de abajo muestra en 1 las Overnumbered/Signature viejas (Ahri ₡1.22M, Kai'Sa ₡1.14M…) pero el catálogo NO las reflejaba (0/+) — "el catálogo y lo de abajo deberían ser lo mismo".
+- **Causa:** el inventario legado guarda cada versión ultra-rara como carta aparte con **nombre corto sin marcador** ("Ahri, Inquisitive" ₡1.22M = la Signature) e imagen de Riot propia. El invMatch de ayer exigía el marcador en el nombre → no cruzaban.
+- **`admin.html` (invMatch + varElim + buildCatMaps):** mapas por juego (`catImgCount`/`catImgSet`, se recalculan en fillSets). Reglas nuevas para entradas-variante: **(3)** imagen EXCLUSIVA de esa variante en el catálogo + un solo item con ella → cruce 1:1 (arregla las Overnumbered legado); **(4a)** item ya renombrado con el marcador → cruce directo (escape manual); **(4b)** eliminación: mismo nombre-base+set, sin marcador, imagen no reclamada por otra entrada; si hay varias, el precio desempata (una sola dentro de ±3×); candado final de precio ±3× (arregla las Signature tipo Ahri 631).
+- **Verificado en preview (datos reales):** Ahri ON=1 (id 630) y Sig=1 (id 631) como la base; − del ON baja SOLO el 630 y − de la Sig SOLO el 631 (quirúrgico, restaurado); Kai'Sa base 1 / ON 1 (id 328) / Promo 2 / Metal+Prize Wall separadas en 0; regresión One Piece OK; consola limpia.
+- **⚠️ Hallazgos de DATOS (no toqué productos.json, confirmar con Andrés):**
+  1. **Duplicado:** id 3691 "Irelia - Fervent (Overnumbered)" (creado al probar el + ayer, stock 1) duplica al id 627 (₡620k) que tiene el ARTE del Overnumbered. Borrar 3691 → el catálogo cruza solo con 627.
+  2. **Precios aparentemente cruzados** en 3 parejas (el item con arte de ON lleva precio de Signature y viceversa): 328 ₡1.14M ↔ 329 ₡63k (Kai'Sa) · 336 ₡1M ↔ 337 ₡78k (Nine-Tailed Fox) · 627 ₡620k ↔ 628 ₡73k (Irelia Fervent). Mercado: ON ≈ 85-135k, Sig ≈ 0.7-1.4M. Si se corrigen, las Signature cruzan solas (el candado de precio pasa).
+  3. Quedan ~29 items Riftbound con stock sin reflejo en el catálogo (versiones Showcase/legado que TCGplayer no lista como producto): se manejan desde la base de abajo, como siempre.
+
 ## 2026-07-10 — 🐛 Fix: cartas "Overnumbered" (y demás variantes) no se reconocían en la base (pedido de Andrés)
 - Andrés: "las cartas overnumbered de Riftbound… no me deja quitarlas de mi stock, solo me deja agregar más". Síntoma real: en el catálogo del panel esas cartas salían con **"+"** (no en base) aunque él las tuviera en stock → no aparecía el stepper para bajarlas.
 - **Causa raíz (asimetría de nombres):** el inventario base de Riftbound usa **nombres cortos de Riot** ("Bashful Bloom") y el catálogo usa **nombres largos de TCGplayer** ("Lillia - Bashful Bloom"). Las cartas normales cruzan por **imagen** (así el corto liga con el largo), pero las variantes de `CAT_VAR_EXCL` (overnumbered/signature/metal/prize wall/champion/top 8/serialized) exigían **nombre exacto** → el corto nunca igualaba al largo → "+".

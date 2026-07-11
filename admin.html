@@ -1548,6 +1548,15 @@ async function pedConfirmar(id){
   function fillSets(){
     const sets=[...new Set(cur.map(e=>e.set))].sort();
     setSel.innerHTML='<option value="all">Todas las expansiones</option>'+sets.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
+    buildCatMaps();
+  }
+  // mapas del catálogo activo: cuántas entradas usan cada imagen, y el set de
+  // TODAS las imágenes del catálogo (para saber qué cartas del inventario ya
+  // están "reclamadas" por alguna entrada). Se recalculan al cambiar de juego.
+  let catImgCount={}, catImgSet=new Set();
+  function buildCatMaps(){
+    catImgCount={}; catImgSet=new Set();
+    cur.forEach(e=>{ if(e.img){ catImgCount[e.img]=(catImgCount[e.img]||0)+1; catImgSet.add(e.img); } });
   }
   // match catálogo→base: por imagen (la misma de Riot en ambos lados). Si varias
   // cartas comparten imagen (carta base y su promo), desempata por set y nombre.
@@ -1565,14 +1574,17 @@ async function pedConfirmar(id){
       const cands = items.filter(p=>p.img===e.img);
       if(cands.length){
         if(mk){
-          // variante (overnumbered/signature/…): comparte imagen con la carta base
-          // pero es OTRA carta física → cruza SOLO con una carta de la MISMA variante.
-          // Por nombre exacto; si no, por el mismo marcador (así el nombre corto del
-          // inventario "Bashful Bloom (Overnumbered)" cruza con el largo del catálogo
-          // "Lillia - Bashful Bloom (Overnumbered)" — igual que las cartas normales).
-          return cands.find(p=> norm(p.name)===nE)
-              || cands.find(p=> varMark(p.name)===mk)
-              || null;
+          // variante (overnumbered/signature/…): puede compartir imagen con la
+          // base (metal/prize wall) pero es OTRA carta física.
+          // 1) nombre exacto  2) mismo marcador en el nombre del inventario
+          const hit = cands.find(p=> norm(p.name)===nE) || cands.find(p=> varMark(p.name)===mk);
+          if(hit) return hit;
+          // 3) imagen EXCLUSIVA de esta variante en el catálogo (p.ej. las
+          //    Overnumbered de Riot): si solo UNA carta del inventario la usa,
+          //    es un cruce 1:1 seguro aunque el inventario use el nombre corto.
+          if(catImgCount[e.img]===1 && cands.length===1) return cands[0];
+          // 4) último recurso: eliminación por nombre-base + set (Signatures)
+          return varElim(e, mk);
         }
         // carta base: nunca se liga a una variante (que es otra carta física)
         const base = cands.filter(p=> !varMark(p.name));
@@ -1582,11 +1594,48 @@ async function pedConfirmar(id){
         const pool = setOk.length ? setOk : base;
         return pool.find(p=> norm(p.name)===nE) || pool[0];
       }
+      // sin match por imagen: las variantes tipo Signature usan imagen de
+      // TCGplayer en el catálogo pero de Riot en el inventario → eliminación
+      if(mk) return varElim(e, mk);
       const byNS = items.filter(p=> norm(p.name)===nE && (p.set||'')===(e.set||''));
       return byNS.length===1 ? byNS[0] : null;
     }
     return items.find(p=>!p.img && p.name===e.name && (p.set||'')===(e.set||''));
   }
+  // Cruce por ELIMINACIÓN para variantes que no cruzan por imagen (Signatures):
+  // busca cartas del inventario del MISMO set cuyo nombre-base calce (el del
+  // catálogo trae el campeón adelante: "Ahri - Inquisitive" vs "Ahri, Inquisitive"
+  // o el corto "Inquisitive") y cuya imagen NO esté reclamada por ninguna otra
+  // entrada del catálogo. Si queda exactamente UNA y su precio es del mismo
+  // orden que el del catálogo (±3×), es esta variante. Si hay dudas → null.
+  function varElim(e, mk){
+    const bn = norm((e.name||'').replace(CAT_VAR_EXCL_FULL,' '));   // nombre sin "(Signature)…"
+    if(!bn) return null;
+    const nameFits = p=>{ const n=norm((p.name||'').replace(CAT_VAR_EXCL_FULL,' ')); return n && (n===bn || bn.endsWith(' '+n)); };
+    // 4a) carta del inventario que YA lleva el marcador en el nombre
+    //     ("Nine-Tailed Fox (Signature)"): cruce directo por marcador+nombre+set.
+    const marked = items.filter(p=> varMark(p.name)===mk && (p.set||'')===(e.set||'') && nameFits(p));
+    if(marked.length===1) return marked[0];
+    // 4b) eliminación: mismo nombre-base + set, sin marcador, y su imagen NO está
+    //     reclamada por ninguna otra entrada del catálogo.
+    let fit = items.filter(p=>{
+      if((p.set||'')!==(e.set||'')) return false;
+      if(varMark(p.name)) return false;                  // ya identificada como otra variante
+      if(p.img && catImgSet.has(p.img)) return false;    // reclamada por otra entrada del catálogo
+      return nameFits(p);
+    });
+    // si hay varias candidatas, el precio desempata (solo si UNA es del mismo orden)
+    const catP = Number(e.price)||0;
+    if(fit.length>1 && catP>0){
+      const ok = fit.filter(p=>{ const a=Number(p.price)||0; return a>0 && Math.max(a,catP)/Math.min(a,catP)<=3; });
+      if(ok.length===1) fit=ok;
+    }
+    if(fit.length!==1) return null;
+    const a=Number(fit[0].price)||0;
+    if(a>0 && catP>0){ const r=Math.max(a,catP)/Math.min(a,catP); if(r>3) return null; }  // precio de otro orden → no es
+    return fit[0];
+  }
+  const CAT_VAR_EXCL_FULL = /\((metal|prize wall|champion|top 8|overnumbered|signature|serialized)[^)]*\)/ig;
   function filtered(){
     const q=norm(search.value), ty=typeSel.value, st=setSel.value, fi=finishSel.value;
     const toks=q.split(' ').filter(Boolean);
