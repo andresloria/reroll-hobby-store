@@ -158,11 +158,12 @@
     "type": "single",
     "set": "Origins",
     "price": 300,
-    "foil": 1400,
+    "foil": 1700,
     "cond": "Near Mint",
     "stock": 7,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c3bb6f4cb58feeb50e396d12ec9865c5434025af-744x1039.png?accountingTag=RB",
-    "stockf": 4
+    "stockf": 4,
+    "badge": ""
   },
   {
     "id": 14,
@@ -285,11 +286,12 @@
     "type": "single",
     "set": "Origins",
     "price": 200,
-    "foil": 1200,
+    "foil": 1500,
     "cond": "Near Mint",
     "stock": 5,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/88661e852b864491e6d7f5f087caf4263f61c361-744x1039.png?accountingTag=RB",
-    "stockf": 2
+    "stockf": 2,
+    "badge": ""
   },
   {
     "id": 24,
@@ -334,10 +336,11 @@
     "cat": "Riftbound",
     "type": "single",
     "set": "Origins",
-    "price": 900,
+    "price": 1500,
     "cond": "Near Mint",
     "stock": 8,
-    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44e805aa0f2928acf1156eef692403df319b333a-744x1039.png?accountingTag=RB"
+    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44e805aa0f2928acf1156eef692403df319b333a-744x1039.png?accountingTag=RB",
+    "badge": ""
   },
   {
     "id": 28,
@@ -356,10 +359,11 @@
     "cat": "Riftbound",
     "type": "single",
     "set": "Origins",
-    "price": 1100,
+    "price": 1500,
     "cond": "Near Mint",
     "stock": 4,
-    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bf7a4900fd2296972c1305a4707c23860bb0522e-744x1039.png?accountingTag=RB"
+    "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bf7a4900fd2296972c1305a4707c23860bb0522e-744x1039.png?accountingTag=RB",
+    "badge": ""
   },
   {
     "id": 30,
