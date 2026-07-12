@@ -1,5 +1,5 @@
 {
-  "seq": 8,
+  "seq": 9,
   "pedidos": [
     {
       "id": "R-0001",
@@ -231,6 +231,68 @@
         }
       ],
       "total": 100
+    },
+    {
+      "id": "R-0009",
+      "ts": 1783825857117,
+      "estado": "pendiente",
+      "nombre": "José González",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 118,
+          "foil": false,
+          "qty": 1,
+          "name": "Ava Achiever",
+          "price": 100
+        },
+        {
+          "id": 135,
+          "foil": false,
+          "qty": 1,
+          "name": "Teemo, Strategist",
+          "price": 4500
+        },
+        {
+          "id": 293,
+          "foil": false,
+          "qty": 1,
+          "name": "Guerilla Warfare",
+          "price": 4200
+        },
+        {
+          "id": 93,
+          "foil": false,
+          "qty": 3,
+          "name": "Consult the Past",
+          "price": 100
+        },
+        {
+          "id": 108,
+          "foil": false,
+          "qty": 3,
+          "name": "Blastcone Fae",
+          "price": 100
+        },
+        {
+          "id": 115,
+          "foil": false,
+          "qty": 3,
+          "name": "Retreat",
+          "price": 400
+        }
+      ],
+      "total": 10600
     }
   ]
 }
