@@ -1,5 +1,5 @@
 {
-  "seq": 11,
+  "seq": 12,
   "pedidos": [
     {
       "id": "R-0001",
@@ -354,6 +354,75 @@
         }
       ],
       "total": 800
+    },
+    {
+      "id": "R-0012",
+      "ts": 1783828305205,
+      "estado": "pendiente",
+      "nombre": "David Liang Ma",
+      "telefono": "83882666",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 27,
+          "foil": false,
+          "qty": 3,
+          "name": "Brynhir Thundersong",
+          "price": 1500
+        },
+        {
+          "id": 29,
+          "foil": false,
+          "qty": 1,
+          "name": "Darius, Trifarian",
+          "price": 1500
+        },
+        {
+          "id": 43,
+          "foil": false,
+          "qty": 1,
+          "name": "Kai'Sa, Survivor",
+          "price": 42000
+        },
+        {
+          "id": 82,
+          "foil": false,
+          "qty": 1,
+          "name": "Tasty Faefolk",
+          "price": 500
+        },
+        {
+          "id": 120,
+          "foil": false,
+          "qty": 2,
+          "name": "Dr. Mundo, Expert",
+          "price": 500
+        },
+        {
+          "id": 178,
+          "foil": false,
+          "qty": 3,
+          "name": "Dazzling Aurora",
+          "price": 23000
+        },
+        {
+          "id": 291,
+          "foil": false,
+          "qty": 1,
+          "name": "Zenith Blade",
+          "price": 4000
+        }
+      ],
+      "total": 122500
     }
   ]
 }
