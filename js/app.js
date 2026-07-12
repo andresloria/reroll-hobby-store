@@ -987,7 +987,7 @@ function resetCheckoutView(){
 function loadCliente(){ try{ return JSON.parse(localStorage.getItem("reroll_cliente")||"null"); }catch(e){ return null; } }
 function prefillCheckout(){
   const c = loadCliente(); const form = $("#checkoutForm"); if(!c || !form) return;
-  ["nombre","telefono","direccion"].forEach(k=>{ if(c[k] && form[k]) form[k].value = c[k]; });
+  ["nombre","telefono","direccion","canton","distrito","cedula","recibeAlt"].forEach(k=>{ if(c[k] && form[k]) form[k].value = c[k]; });
   if(c.provincia && form.provincia){ form.provincia.value = c.provincia; }
 }
 function openCheckout(){
@@ -1068,15 +1068,22 @@ async function submitCheckout(e){
   if((telefono.match(/\d/g)||[]).length < 8){
     showFieldError(e.target.querySelector('[name="telefono"]'), "Poné un número de teléfono válido (8 dígitos)."); return;
   }
-  // Validación: si es envío, la dirección es obligatoria
-  if(entrega==="envio"){
-    const dir = (f.get("direccion")||"").trim();
-    if(!dir){ showFieldError(e.target.querySelector('[name="direccion"]'), "Necesitamos la dirección para el envío."); return; }
-  }
   const prov = (f.get("provincia")||"").trim();
   const dir  = (f.get("direccion")||"").trim();
+  // datos extra que pide Correos de Costa Rica (solo aplican al envío)
+  const canton   = (f.get("canton")||"").trim();
+  const distrito = (f.get("distrito")||"").trim();
+  const cedula   = (f.get("cedula")||"").trim();
+  const recibeAlt= (f.get("recibeAlt")||"").trim();
+  // Validación: si es envío, Correos pide dirección + cantón + distrito + cédula
+  if(entrega==="envio"){
+    if(!dir){ showFieldError(e.target.querySelector('[name="direccion"]'), "Necesitamos la dirección para el envío."); return; }
+    if(!canton){ showFieldError(e.target.querySelector('[name="canton"]'), "Correos pide el cantón."); return; }
+    if(!distrito){ showFieldError(e.target.querySelector('[name="distrito"]'), "Correos pide el distrito."); return; }
+    if((cedula.match(/\d/g)||[]).length < 9){ showFieldError(e.target.querySelector('[name="cedula"]'), "Poné el número de cédula (Correos lo pide)."); return; }
+  }
   // recordar / olvidar datos del cliente (solo su navegador)
-  if(f.get("recordar")) localStorage.setItem("reroll_cliente", JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir }));
+  if(f.get("recordar")) localStorage.setItem("reroll_cliente", JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir, canton, distrito, cedula, recibeAlt }));
   else localStorage.removeItem("reroll_cliente");
   // ---- 1) reservar el pedido en la API (si está disponible) ----
   const sbtn = e.target.querySelector('[type="submit"]');
@@ -1086,6 +1093,7 @@ async function submitCheckout(e){
     const r = await fetch("api/pedido", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre, telefono, entrega, provincia: prov, direccion: dir, pago,
+        canton, distrito, cedula, recibeAlt,
         envioMetodo, envioCosto,
         items: cart.map(c=>({ id: c.id, foil: !!c.foil, qty: c.qty||1, preorden: !!c.preorden })) })
     });
@@ -1111,7 +1119,9 @@ async function submitCheckout(e){
   msg += `%0ATotal: ${fmt(totalFinal)}`;
   msg += `%0A%0ANombre: ${nombre}%0ATel: ${telefono}`;
   if(entrega==="envio"){
-    msg += `%0AEntrega: ${envioMetodo}%0AProvincia: ${prov}%0ADirección: ${dir}%0A(costo de envío estimado; se ajusta según el peso)`;
+    msg += `%0AEntrega: ${envioMetodo}%0AProvincia: ${prov}%0ACantón: ${canton}%0ADistrito: ${distrito}%0ADirección: ${dir}%0ACédula: ${cedula}`;
+    if(recibeAlt) msg += `%0ARecibe también: ${recibeAlt}`;
+    msg += `%0A(costo de envío estimado; se ajusta según el peso)`;
   } else {
     msg += `%0AEntrega: ${envioMetodo}`;
   }

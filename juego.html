@@ -33,9 +33,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=71" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=71" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=71" />
+  <link rel="stylesheet" href="css/styles.css?v=72" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=72" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=72" />
 </head>
 <body>
 
@@ -195,9 +195,23 @@
                 <option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option>
               </select>
             </label>
+            <label>Cantón
+              <input name="canton" placeholder="Ej. Central" />
+            </label>
           </div>
-          <label>Dirección de entrega
+          <div class="co__row">
+            <label>Distrito
+              <input name="distrito" placeholder="Ej. Oriental" />
+            </label>
+            <label>Cédula
+              <input name="cedula" inputmode="numeric" placeholder="1 2345 6789" />
+            </label>
+          </div>
+          <label>Dirección exacta (señas)
             <input name="direccion" placeholder="Señas exactas para Correos de Costa Rica" />
+          </label>
+          <label>Otra persona que puede recibir <small class="co__hint">Opcional — por si no estás cuando llega el paquete</small>
+            <input name="recibeAlt" placeholder="Nombre completo (opcional)" />
           </label>
           <p class="co__note co__note--icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7l8.7 5 8.7-5M12 22V12"/></svg> El costo de envío es un <b>estimado</b> para pedidos livianos de cartas. Si el paquete pesa más (sellado), lo ajustamos por WhatsApp antes de cobrar.</p>
         </div>
@@ -280,6 +294,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=71"></script>
+  <script src="js/app.js?v=72"></script>
 </body>
 </html>

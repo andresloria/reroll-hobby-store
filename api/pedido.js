@@ -24,6 +24,11 @@ module.exports = async function handler(req, res) {
   const entrega = b.entrega === "envio" ? "envio" : "retiro";
   const provincia = String(b.provincia || "").trim().slice(0, 40);
   const direccion = String(b.direccion || "").trim().slice(0, 200);
+  // datos extra que pide Correos de Costa Rica (solo llegan en envíos)
+  const canton = String(b.canton || "").trim().slice(0, 60);
+  const distrito = String(b.distrito || "").trim().slice(0, 60);
+  const cedula = String(b.cedula || "").replace(/[^\d\- ]/g, "").trim().slice(0, 25);
+  const recibeAlt = String(b.recibeAlt || "").trim().slice(0, 80);
   const pago = String(b.pago || "").trim().slice(0, 40);
   const envioMetodo = String(b.envioMetodo || "").trim().slice(0, 60);
   const envioCosto = Math.max(0, Math.min(50000, Math.floor(Number(b.envioCosto) || 0)));
@@ -71,6 +76,7 @@ module.exports = async function handler(req, res) {
     const ped = {
       id, ts: now, estado: "pendiente",
       nombre, telefono, entrega, provincia, direccion, pago,
+      canton, distrito, cedula, recibeAlt,
       envioMetodo, envioCosto,
       items, total,
     };
@@ -107,7 +113,11 @@ function mailDePedido(ped) {
   const entregaTxt = ped.entrega === "envio"
     ? `Envío${ped.envioMetodo ? " · " + esc(ped.envioMetodo) : ""}${ped.envioCosto ? " · " + fmt(ped.envioCosto) : ""}`
       + (ped.provincia ? "<br>Provincia: " + esc(ped.provincia) : "")
+      + (ped.canton ? "<br>Cantón: " + esc(ped.canton) : "")
+      + (ped.distrito ? "<br>Distrito: " + esc(ped.distrito) : "")
       + (ped.direccion ? "<br>Dirección: " + esc(ped.direccion) : "")
+      + (ped.cedula ? "<br>Cédula: " + esc(ped.cedula) : "")
+      + (ped.recibeAlt ? "<br>Recibe también: " + esc(ped.recibeAlt) : "")
     : "Retiro en Cartago";
 
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">

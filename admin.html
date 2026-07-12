@@ -1537,7 +1537,12 @@ function renderPedidos(){
         <b>${esc(p.nombre)}</b>
         ${p.telefono?`<span class="ped__tel">📱 ${esc(p.telefono)}</span><a class="ped__wa" href="${pedWaLink(p.telefono)}" target="_blank" rel="noopener">💬 WhatsApp</a>`:'<span class="ped__tel" style="color:#8a7d73">(sin teléfono)</span>'}
       </div>
-      ${p.entrega==='envio'&&p.direccion?`<div style="font-size:.82rem;color:#c8bbb0;margin:2px 0 4px">📍 ${esc(p.direccion)}</div>`:''}
+      ${p.entrega==='envio'?`<div class="ped__envio" style="font-size:.82rem;color:#c8bbb0;margin:2px 0 4px;line-height:1.5">
+        ${[p.provincia,p.canton,p.distrito].filter(Boolean).map(esc).join(' · ')||''}
+        ${p.direccion?`<br>📍 ${esc(p.direccion)}`:''}
+        ${p.cedula?`<br>🪪 Cédula: ${esc(p.cedula)}`:''}
+        ${p.recibeAlt?`<br>👤 Recibe también: ${esc(p.recibeAlt)}`:''}
+      </div>`:''}
       ${p.items.map(it=>linea(p,it)).join('')}
       <div class="ped__foot">
         <span class="ped__total">Total ${fmt(p.total)}${p.envioCosto?` <small style="color:#9b8d83;font-weight:400">+ envío ${fmt(p.envioCosto)} = ${fmt(Number(p.total)+Number(p.envioCosto))}</small>`:''}</span>

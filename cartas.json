@@ -170704,5 +170704,41 @@
 ]
 ]
 }
+},
+"3698": {
+"slug": "chaos-rune-alternate-art-ogn-166",
+"number": "166",
+"code": "OGN-166a/298",
+"type": "Rune",
+"rarity": "Showcase",
+"domains": "Chaos",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Showcase"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"166 / 298"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"Fairfoul"
+]
+]
+}
 }
 }
