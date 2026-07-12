@@ -987,8 +987,41 @@ function resetCheckoutView(){
 function loadCliente(){ try{ return JSON.parse(localStorage.getItem("reroll_cliente")||"null"); }catch(e){ return null; } }
 function prefillCheckout(){
   const c = loadCliente(); const form = $("#checkoutForm"); if(!c || !form) return;
-  ["nombre","telefono","direccion","canton","distrito","cedula","recibeAlt"].forEach(k=>{ if(c[k] && form[k]) form[k].value = c[k]; });
-  if(c.provincia && form.provincia){ form.provincia.value = c.provincia; }
+  ["nombre","telefono","direccion","cedula","recibeAlt"].forEach(k=>{ if(c[k] && form[k]) form[k].value = c[k]; });
+  // provincia → cantón → distrito EN ORDEN (cada select se llena antes de fijar el valor)
+  if(c.provincia && form.provincia){ form.provincia.value = c.provincia; geoFillCantones(c.provincia); }
+  if(c.canton && form.canton){ form.canton.value = c.canton; geoFillDistritos(c.provincia, c.canton); }
+  if(c.distrito && form.distrito){ form.distrito.value = c.distrito; }
+}
+/* ---- Cascada Provincia → Cantón → Distrito (Costa Rica, window.CR_GEO) ---- */
+function geoFillSelect(sel, items, placeholder){
+  if(!sel) return;
+  sel.innerHTML = `<option value="">${placeholder}</option>` +
+    items.map(x=>`<option value="${x.replace(/"/g,"&quot;")}">${x}</option>`).join("");
+}
+function geoFillCantones(prov){
+  const g = window.CR_GEO || {};
+  geoFillSelect($("#coCanton"), prov && g[prov] ? Object.keys(g[prov]) : [], "Elegí cantón…");
+  geoFillSelect($("#coDistrito"), [], "Elegí cantón…");
+}
+function geoFillDistritos(prov, canton){
+  const g = window.CR_GEO || {};
+  const list = (prov && canton && g[prov] && g[prov][canton]) ? g[prov][canton] : [];
+  geoFillSelect($("#coDistrito"), list, "Elegí distrito…");
+}
+let _geoWired = false;
+function initGeoCascade(){
+  const prov = $("#coProvincia"); if(!prov || !window.CR_GEO) return;
+  // llena provincias una vez (respeta el placeholder "Elegí…")
+  if(prov.options.length <= 1){
+    prov.innerHTML = `<option value="">Elegí…</option>` +
+      Object.keys(window.CR_GEO).map(p=>`<option value="${p}">${p}</option>`).join("");
+  }
+  if(!_geoWired){
+    _geoWired = true;
+    prov.addEventListener("change", ()=> geoFillCantones(prov.value));
+    $("#coCanton")?.addEventListener("change", ()=> geoFillDistritos(prov.value, $("#coCanton").value));
+  }
 }
 function openCheckout(){
   if(!cart.length){ toast("Tu carrito está vacío"); return; }
@@ -996,6 +1029,7 @@ function openCheckout(){
   $("#coItems").innerHTML = cart.map(c=>`<div class="co__line"><span>${c.name} ×${c.qty}</span><b>${fmt(c.price*c.qty)}</b></div>`).join("");
   recalcCheckoutTotal();
   $("#sinpeData").textContent = `${SINPE_NOMBRE} · ${SINPE_NUMERO}`;
+  initGeoCascade();    // llena provincias y engancha la cascada cantón/distrito
   prefillCheckout();   // trae nombre/teléfono/datos si el cliente eligió "recordar"
   const m=$("#checkoutModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false");
   $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden","true");
@@ -1088,6 +1122,11 @@ async function submitCheckout(e){
   // ---- 1) reservar el pedido en la API (si está disponible) ----
   const sbtn = e.target.querySelector('[type="submit"]');
   if(sbtn){ sbtn.disabled = true; }
+  // Abrir la pestaña de WhatsApp YA, dentro del gesto (clic) del usuario. Si
+  // esperáramos al await, el celular bloquea el pop-up y WhatsApp NO abre → el
+  // cliente cree que envió y no fue así. La redirigimos al final con el link.
+  let waWin = null;
+  try{ waWin = window.open("", "_blank"); }catch(e){}
   let pedidoId = null;
   try{
     const r = await fetch("api/pedido", {
@@ -1130,15 +1169,18 @@ async function submitCheckout(e){
   if(hayPre) msg += `%0A%0A📦 Incluye PRE-ORDEN: se aparta con el 50%25 de adelanto; coordinamos el resto cuando llega.`;
   if(pedidoId) msg += `%0A%0A(Cartas reservadas 48 h con el pedido %23${pedidoId})`;
   const url = `https://wa.me/${WHATSAPP}?text=${msg}`;
-  window.open(url, "_blank", "noopener");
-  showCheckoutSuccess(url);   // confirmación + enlace de respaldo si el pop-up se bloquea
-  // ---- 3) con reserva creada: bajar stock local y vaciar el carrito ----
+  // ---- 3) con reserva creada: bajar stock local y vaciar el carrito (ANTES de navegar) ----
   if(pedidoId){
     const rm = {};
     cart.forEach(c=>{ const k=lineKey(c.id, !!c.foil); rm[k]=(rm[k]||0)+(c.qty||1); });
     applyReservas(rm);
     cart = []; saveCart(); renderCart(); renderGrid();
   }
+  showCheckoutSuccess(url);   // confirmación + enlace de respaldo si el pop-up se bloquea
+  // abrir WhatsApp: la pestaña ya se abrió en el gesto (waWin) → la redirigimos.
+  // Si el navegador la bloqueó, navegamos la pestaña actual (eso SIEMPRE abre).
+  if(waWin && !waWin.closed){ try{ waWin.location.href = url; }catch(e){ location.href = url; } }
+  else { location.href = url; }
 }
 
 /* ============================================================

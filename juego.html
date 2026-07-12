@@ -33,9 +33,9 @@
 
   <link rel="preload" href="assets/fonts/archivo-black-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/styles.css?v=72" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=72" />
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=72" />
+  <link rel="stylesheet" href="css/styles.css?v=73" />
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=73" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=73" />
 </head>
 <body>
 
@@ -190,18 +190,21 @@
         <div id="coEnvioFields" style="display:none">
           <div class="co__row">
             <label>Provincia
-              <select name="provincia">
-                <option>San José</option><option>Alajuela</option><option>Cartago</option>
-                <option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option>
+              <select name="provincia" id="coProvincia">
+                <option value="">Elegí…</option>
               </select>
             </label>
             <label>Cantón
-              <input name="canton" placeholder="Ej. Central" />
+              <select name="canton" id="coCanton">
+                <option value="">Elegí provincia…</option>
+              </select>
             </label>
           </div>
           <div class="co__row">
             <label>Distrito
-              <input name="distrito" placeholder="Ej. Oriental" />
+              <select name="distrito" id="coDistrito">
+                <option value="">Elegí cantón…</option>
+              </select>
             </label>
             <label>Cédula
               <input name="cedula" inputmode="numeric" placeholder="1 2345 6789" />
@@ -294,6 +297,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/app.js?v=72"></script>
+  <script src="js/cr-geo.js?v=73"></script>
+  <script src="js/app.js?v=73"></script>
 </body>
 </html>

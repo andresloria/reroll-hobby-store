@@ -743,8 +743,9 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .co__success .btn--wa{margin-bottom:10px}
 
 /* nota con ícono (envío) — reemplaza el emoji 📦 */
-.co__note--icon{display:flex;align-items:flex-start;gap:7px}
-.co__note--icon svg{width:18px;height:18px;flex-shrink:0;margin-top:1px;color:var(--gold-bright)}
+/* ícono posicionado (no flex): el texto fluye normal y NO se aplasta en el cel */
+.co__note--icon{position:relative;padding-left:25px}
+.co__note--icon svg{position:absolute;left:0;top:2px;width:18px;height:18px;color:var(--gold-bright)}
 
 /* ícono placeholder de carta (reemplaza 🎴 en productos sin imagen) */
 .ph-card{width:46px;height:auto;color:var(--gold-bright);opacity:.5}
@@ -874,9 +875,10 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .cqty{display:inline-flex;align-items:center;border:1px solid rgba(201,162,75,.45);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.03)}
 .cqty__b{width:28px;align-self:stretch;min-height:34px;background:transparent;border:none;color:var(--gold-bright);
   font-size:1.05rem;font-weight:700;cursor:pointer;display:grid;place-items:center;line-height:1;
-  transition:background .15s var(--ease)}
-.cqty__b:hover{background:rgba(201,162,75,.18)}
+  transition:background .15s var(--ease),transform .12s var(--ease)}
 .cqty__b:active{transform:scale(.92)}
+/* hover protegido para touch: si no, el resaltado se "pega" tras tocar en el cel */
+@media (hover:hover) and (pointer:fine){ .cqty__b:hover{background:rgba(201,162,75,.18)} }
 .cqty__n{min-width:20px;text-align:center;font-family:var(--font-mono);font-weight:700;font-size:.85rem;color:var(--cream)}
 .cqty--qv .cqty__b{width:34px;min-height:44px}
 .cqty--qv .cqty__n{min-width:26px;font-size:.95rem}
