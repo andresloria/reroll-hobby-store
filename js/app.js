@@ -190,6 +190,9 @@ function qvEl(){
         <div class="qv__effect"></div>
         <div class="qv__attrs"></div>
         <div class="qv__actions">
+          <div class="cqty cqty--qv" role="group" aria-label="Cantidad">
+            <button type="button" class="cqty__b" data-d="-1" aria-label="Menos">−</button><span class="cqty__n">1</span><button type="button" class="cqty__b" data-d="1" aria-label="Más">+</button>
+          </div>
           <button class="qv__add btn btn--gold" type="button">Agregar al carrito</button>
           <button class="qv__pre btn btn--pre" type="button" hidden>📦 Pre-ordenar</button>
           <a class="qv__full btn btn--ghost">Ver ficha completa ↗</a>
@@ -227,6 +230,15 @@ function openQuickView(p){
     if(qvFoil){ const sf=stockValF(p); if(sf===null) return {count:stockN, out:(stockN!==null&&stockN<=0)}; return {count:sf, out:sf<=0}; }
     return {count:stockN, out:(stockN!==null&&stockN<=0)};
   };
+  // stepper de cantidad (se resetea a 1 en cada apertura)
+  let qvQty = 1;
+  const qvQtyBox = m.querySelector(".qv__actions .cqty"), qvQtyN = qvQtyBox.querySelector(".cqty__n");
+  const qvMax = ()=>{ const a=qvAvail(); return a.count===null ? 99 : Math.max(1, a.count); };
+  qvQtyN.textContent = 1;
+  qvQtyBox.querySelectorAll(".cqty__b").forEach(b=> b.onclick = ()=>{
+    qvQty = Math.min(Math.max(1, qvQty + Number(b.dataset.d)), qvMax());
+    qvQtyN.textContent = qvQty;
+  });
   const paintPrice = ()=>{
     priceEl.textContent = fmt(qvFoil ? p.foil : p.price);
     priceEl.classList.toggle("card__price--foil", qvFoil);
@@ -238,6 +250,8 @@ function openQuickView(p){
     else stockEl.innerHTML = `<span class="card__stock">${a.count} disponibles</span>`;
     addBtn.disabled = a.out;
     addBtn.textContent = a.out ? "Agotado" : "Agregar al carrito";
+    qvQtyBox.hidden = a.out || p.type==="sealed";
+    if(qvQty > qvMax()){ qvQty = qvMax(); qvQtyN.textContent = qvQty; }
   };
   if(p.foil!=null){
     ftog.innerHTML = `<div class="ftoggle" role="group" aria-label="Acabado de la carta">
@@ -253,7 +267,7 @@ function openQuickView(p){
     : "";
   const full = m.querySelector(".qv__full"); const href = cartaHref(p);
   if(href){ full.href = href; full.style.display=""; } else { full.style.display="none"; }
-  addBtn.onclick = ()=>{ if(addBtn.disabled) return; addToCart(p.id, qvFoil); closeQV(); };
+  addBtn.onclick = ()=>{ if(addBtn.disabled) return; addToCart(p.id, qvFoil, false, qvQty); closeQV(); };
   m.hidden = false; document.body.style.overflow = "hidden";
   overlayPush();
 }
@@ -746,6 +760,11 @@ function makeCard(p, i){
       <div class="card__foot">
         <span class="card__price">${fmt(p.price)}</span>
         ${p.cond?`<span class="card__cond ${condClass(p.cond)}">${condShort(p.cond)}</span>`:""}
+      </div>
+      <div class="card__buy">
+        <div class="cqty"${a0.out?" hidden":""} role="group" aria-label="Cantidad">
+          <button type="button" class="cqty__b" data-d="-1" aria-label="Menos">−</button><span class="cqty__n">1</span><button type="button" class="cqty__b" data-d="1" aria-label="Más">+</button>
+        </div>
         <button class="card__add" data-id="${p.id}"${a0.out?" disabled":""}>${a0.out?"Agotado":"Añadir"}</button>
       </div>
       ${p.type==="sealed"?`<button class="card__pre" data-pre="${p.id}" type="button">📦 Pre-ordenar</button>
@@ -757,12 +776,22 @@ function makeCard(p, i){
   const preBtn = el.querySelector(".card__pre");
   if(preBtn) preBtn.onclick = ()=>{ addToCart(p.id, false, true); openDrawer(); };
   let cardFoil = false;
+  // stepper de cantidad: elegís cuántas y "Añadir" las mete de una
+  let cardQty = 1;
+  const qtyBox = el.querySelector(".cqty"), qtyN = el.querySelector(".cqty__n");
+  const maxAvail = ()=>{ const a = availOf(cardFoil); return a.count===null ? 99 : Math.max(1, a.count); };
+  el.querySelectorAll(".cqty__b").forEach(b=> b.onclick = ()=>{
+    cardQty = Math.min(Math.max(1, cardQty + Number(b.dataset.d)), maxAvail());
+    qtyN.textContent = cardQty;
+  });
   const paintAvail = ()=>{
     const a = availOf(cardFoil);
     stockWrap.innerHTML = stockLineHTML(a, cardFoil);
     addBtn.disabled = a.out;
     addBtn.textContent = a.out ? "Agotado" : "Añadir";
     imgBox.classList.toggle("card__img--out", a.out);
+    if(qtyBox) qtyBox.hidden = a.out;
+    if(cardQty > maxAvail()){ cardQty = maxAvail(); qtyN.textContent = cardQty; }
   };
   if(p.foil!=null){
     const tgl = el.querySelector(".ftoggle");
@@ -779,7 +808,8 @@ function makeCard(p, i){
   }
   addBtn.onclick = ()=>{
     if(addBtn.disabled) return;
-    addToCart(p.id, cardFoil);
+    addToCart(p.id, cardFoil, false, cardQty);
+    cardQty = 1; qtyN.textContent = 1;   // vuelve a 1 tras agregar
     addBtn.classList.add("card__add--done");
     addBtn.textContent = "✓ Agregado";
     clearTimeout(addBtn._doneT);
@@ -871,10 +901,11 @@ function stockOf(id){ const p=PRODUCTS.find(x=>x.id===id); if(!p) return null; c
 function cartCount(){ return cart.reduce((s,c)=>s+(c.qty||1),0); }
 function cartTotal(){ return cart.reduce((s,c)=>s+Number(c.price||0)*(c.qty||1),0); }
 
-function addToCart(id, foil, preorden){
+function addToCart(id, foil, preorden, qty){
   const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
   foil = !!foil && p.foil!=null;                 // solo foil si la carta lo permite
   preorden = !!preorden;                          // pre-orden de sellado (se aparta con 50%)
+  qty = Math.max(1, Math.round(Number(qty)||1)); // cuántas de una (stepper de la tarjeta/quick-view)
   const key = lineKey(id, foil) + (preorden?"_pre":"");   // línea aparte de la normal
   const price = foil ? p.foil : p.price;
   // tope de stock por variante (el foil usa su propio stock). La PRE-ORDEN no
@@ -883,13 +914,17 @@ function addToCart(id, foil, preorden){
   if(foil){ const sf=stockValF(p); if(sf!==null) st=sf; }
   if(!preorden && st!==null && st<=0){ toast(`Agotado${foil?" en foil":""}: ${p.name}`); return; }
   const line = cart.find(c=>c.key===key);
-  if(line){
-    if(!preorden && st!==null && line.qty>=st){ toast(`Solo hay ${st}${foil?" foil":""} de ${p.name}`); return; }
-    line.qty++;
-  } else {
-    cart.push({ key, id:p.id, foil, preorden, name:p.name+(foil?" · Foil":""), cat:p.cat, price, emoji:p.emoji, img:p.img, qty:1 });
+  const enCarrito = line ? line.qty : 0;
+  let n = qty;
+  if(!preorden && st!==null){
+    if(enCarrito >= st){ toast(`Solo hay ${st}${foil?" foil":""} de ${p.name}`); return; }
+    if(enCarrito + n > st){ n = st - enCarrito; toast(`Solo hay ${st}${foil?" foil":""}: agregamos ${n}`); }
   }
-  saveCart(); toast(preorden?`Pre-orden agregada: ${p.name}`:`Añadido: ${p.name}${foil?" (Foil)":""}`); renderCart();
+  if(line) line.qty += n;
+  else cart.push({ key, id:p.id, foil, preorden, name:p.name+(foil?" · Foil":""), cat:p.cat, price, emoji:p.emoji, img:p.img, qty:n });
+  saveCart();
+  toast(preorden?`Pre-orden agregada: ${p.name}`:`Añadido${n>1?` ×${n}`:""}: ${p.name}${foil?" (Foil)":""}`);
+  renderCart();
 }
 function changeQty(key, delta){
   const line = cart.find(c=>c.key===key); if(!line) return;

@@ -56,6 +56,9 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
+/* GUARDA: el atributo hidden SIEMPRE gana (si no, .btn{display:flex} lo pisa
+   y aparecen botones que deberían estar ocultos, ej. Pre-ordenar en singles) */
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{
   font-family:var(--font-sans);
@@ -865,6 +868,18 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .card__add:active{transform:scale(.95)}
 /* feedback de éxito al agregar al carrito (vuelve a "Añadir" solo) */
 .card__add--done,.card__add--done:hover{background:#2f855a;border-color:#2f855a;color:#fff}
+/* ===== fila de compra: stepper de cantidad (compacto) + Añadir ===== */
+.card__buy{display:flex;align-items:stretch;gap:7px;padding-top:7px}
+.card__buy .card__add{flex:1;text-align:center}
+.cqty{display:inline-flex;align-items:center;border:1px solid rgba(201,162,75,.45);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.03)}
+.cqty__b{width:28px;align-self:stretch;min-height:34px;background:transparent;border:none;color:var(--gold-bright);
+  font-size:1.05rem;font-weight:700;cursor:pointer;display:grid;place-items:center;line-height:1;
+  transition:background .15s var(--ease)}
+.cqty__b:hover{background:rgba(201,162,75,.18)}
+.cqty__b:active{transform:scale(.92)}
+.cqty__n{min-width:20px;text-align:center;font-family:var(--font-mono);font-weight:700;font-size:.85rem;color:var(--cream)}
+.cqty--qv .cqty__b{width:34px;min-height:44px}
+.cqty--qv .cqty__n{min-width:26px;font-size:.95rem}
 /* ===== Toggle Normal / Foil (cartas comunes/uncommon) ===== */
 .ftoggle{display:inline-flex;margin:2px 0 6px;border:1px solid rgba(201,162,75,.3);border-radius:999px;overflow:hidden;
   font-family:var(--font-mono);font-size:.62rem;letter-spacing:.03em;align-self:flex-start}
@@ -1200,7 +1215,9 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .card{border-radius:13px}
   .card__img{aspect-ratio:5/7}
   .card__body{padding:9px 10px 11px;gap:5px}
-  .card__cat,.card__meta,.card__stock{display:none}
+  .card__cat,.card__meta{display:none}
+  /* el stock SÍ se muestra en el cel (pedido de Andrés): compacto */
+  .card__stock{display:inline-flex;font-size:.68rem}
   .card__name{font-family:var(--font-body);font-weight:600;font-size:.86rem;line-height:1.18;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .card__foot{padding-top:4px;flex-wrap:wrap;gap:7px;align-items:center}
@@ -1210,7 +1227,10 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .card__cond--nm{background:rgba(242,194,48,.16);color:var(--gold-bright)}
   .card__cond--mt{background:rgba(255,255,255,.14);color:#fff}
   .card__cond--ex{background:rgba(193,59,38,.22);color:#e98a78}
-  .card__add{flex:1 0 100%;text-align:center;min-height:42px;border-radius:10px;font-size:.85rem}
+  .card__add{flex:1;text-align:center;min-height:42px;border-radius:10px;font-size:.85rem}
+  .card__buy{padding-top:5px;gap:6px}
+  .cqty{border-radius:10px}
+  .cqty__b{width:32px;min-height:42px}
   .card__fav{display:none}
   /* tipografía fluida (Archivo Black es ancho: apretamos en móvil) */
   .hero h1{font-size:clamp(1.6rem,8vw,2.6rem);letter-spacing:-.01em;line-height:1.03}
@@ -1542,6 +1562,8 @@ a.fsoc--wa:hover{border-color:#25D366;background:rgba(37,211,102,.16)}
   .grid.grid--4 .card__foot{padding-top:2px;gap:4px}
   .grid.grid--4 .card__price{font-size:.62rem}
   .grid.grid--4 .card__add{min-height:30px;font-size:.6rem;padding:4px 6px;border-radius:8px}
+  .grid.grid--4 .cqty{display:none}
+  .grid.grid--4 .card__buy{padding-top:2px;gap:4px}
 }
 
 /* ===== "Singles & sellado": desktop igual; en móvil tiles compactas tocables ===== */

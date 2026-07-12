@@ -123,6 +123,7 @@
   .catpill{font-size:.66rem;padding:1px 7px;border-radius:999px;background:rgba(201,162,75,.16);color:var(--gold-bright)}
   .catpill--promo{background:rgba(226,75,74,.22);color:#F5A9A9;border:1px solid rgba(226,75,74,.45);font-weight:700;letter-spacing:.04em}
   .catprice{font-family:var(--font-mono);font-size:.82rem;color:var(--gold-bright)}
+  .catmkt{font-size:.66rem;color:#8a7f76;font-weight:400}
   .catin{font-size:.68rem;color:#9FE1CB}
   .catadd{width:34px;height:34px;flex-shrink:0;border-radius:9px;border:1px solid rgba(201,162,75,.4);
     background:rgba(201,162,75,.12);color:var(--gold-bright);font-size:1.25rem;cursor:pointer;line-height:1}
@@ -804,7 +805,13 @@ const fmt = n => "₡"+Number(n||0).toLocaleString("es-CR");
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const emojiByCat = {"Pokémon":"⚡","Magic":"🌸","Yu-Gi-Oh":"🐉","One Piece":"🏴‍☠️","Riftbound":"💥","Weiss Schwarz":"◆","Digimon":"⬡","Otro":"🎴"};
 
-function save(){ localStorage.setItem('reroll_inv', JSON.stringify(items)); render(); }
+function save(){
+  localStorage.setItem('reroll_inv', JSON.stringify(items));
+  render();
+  // ESPEJO: la lista del catálogo muestra precio/stock de la base → cualquier
+  // cambio (precio editado, stock, borrado) la refresca al instante.
+  if(window._catRefresh) try{ window._catRefresh(); }catch(err){}
+}
 function toast(m){ const t=$('#toast'); t.innerHTML=esc(m); t.style.pointerEvents='none'; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1900); }
 // toast con acción "Deshacer" (5s) — para borrados recuperables
 function toastUndo(m, onUndo){
@@ -1925,7 +1932,17 @@ function poAction(po, act){
     // para no confundirlos al agregar stock (son otra carta física, otro precio)
     const promo = (e.set==='Promos') ? '<span class="catpill catpill--promo">🏷️ PROMO</span>' : '';
     const num = e.number ? `<small>${esc(e.number)}</small>` : '';
-    const priceTxt = fmt(e.price)+(hasFoil?` · foil ${fmt(e.foil)}`:'');
+    // ESPEJO: si la carta ya está en tu base manda TU precio (el que ve la
+    // tienda); el de mercado queda chiquito de referencia si difiere.
+    let priceTxt;
+    if(it){
+      const myF = it.foil!=null ? Number(it.foil) : (hasFoil ? e.foil : null);
+      priceTxt = fmt(it.price) + (myF!=null ? ` · foil ${fmt(myF)}` : '');
+      if(Number(e.price)>0 && Number(it.price)!==Number(e.price))
+        priceTxt += ` <small class="catmkt">mercado ${fmt(e.price)}</small>`;
+    } else {
+      priceTxt = fmt(e.price)+(hasFoil?` · foil ${fmt(e.foil)}`:'');
+    }
     let ctrl;
     if(hasFoil){
       // dos steppers separados: Normal (stock) + ✨ Foil (stockf)
@@ -1993,6 +2010,8 @@ function poAction(po, act){
     save();
     render();  // refresca contadores/estado
   }
+  // hook para que save() (base de datos) refresque esta lista: espejo total
+  window._catRefresh = render;
   gameSel.onchange=()=>{ shown=40; loadGame(); };
   [typeSel,setSel,finishSel].forEach(s=> s.onchange=()=>{ shown=40; render(); });
   let deb; search.oninput=()=>{ clearTimeout(deb); deb=setTimeout(()=>{ shown=40; render(); },160); };
