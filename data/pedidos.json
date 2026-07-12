@@ -1,5 +1,5 @@
 {
-  "seq": 10,
+  "seq": 11,
   "pedidos": [
     {
       "id": "R-0001",
@@ -327,6 +327,33 @@
         }
       ],
       "total": 1600
+    },
+    {
+      "id": "R-0011",
+      "ts": 1783827305526,
+      "estado": "pendiente",
+      "nombre": "Jose Gonzalez",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 352,
+          "foil": false,
+          "qty": 1,
+          "name": "Annie, Fiery",
+          "price": 800
+        }
+      ],
+      "total": 800
     }
   ]
 }
