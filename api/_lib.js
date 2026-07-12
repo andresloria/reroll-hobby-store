@@ -111,6 +111,30 @@ function prune(db, now) {
   if (db.pedidos.length > 300) db.pedidos = db.pedidos.slice(-300);
 }
 
+/* ---- Aviso por correo (best-effort, Resend REST; SIN dependencias) ----
+   Se activa SOLO si RESEND_API_KEY está en las env vars de Vercel. Nunca lanza:
+   si el correo falla, el pedido igual queda guardado (es un aviso extra al
+   WhatsApp, por si Andrés no está viendo el cel). Node 18+ trae fetch global.
+     - MAIL_FROM   (opcional) remitente. Sin dominio verificado en Resend, debe
+                   ser "onboarding@resend.dev" y el destino tu propio correo.
+     - NOTIFY_EMAIL(opcional) destino. Default rerollhobbystore@gmail.com. */
+async function sendMail({ subject, html, text }) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return { skipped: true };
+  const from = process.env.MAIL_FROM || "Reroll Hobby Store <onboarding@resend.dev>";
+  const to = process.env.NOTIFY_EMAIL || "rerollhobbystore@gmail.com";
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to, subject, html, text }),
+    });
+    return r.ok ? { ok: true } : { ok: false, status: r.status };
+  } catch (e) {
+    return { ok: false, error: String((e && e.message) || e) };
+  }
+}
+
 /* ---- helpers HTTP ---- */
 function panelOk(req) {
   const k = req.headers["x-panel-key"];
@@ -123,6 +147,6 @@ function json(res, status, obj) {
 
 module.exports = {
   readJsonFile, writeJsonFile, readPedidos, writePedidos,
-  isActivo, lineKey, reservasDe, stockVariante, prune, panelOk, json,
+  isActivo, lineKey, reservasDe, stockVariante, prune, panelOk, json, sendMail,
   EXP_MS, PEDIDOS_PATH,
 };

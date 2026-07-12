@@ -67,16 +67,81 @@ module.exports = async function handler(req, res) {
     // ---- crea el pedido ----
     db.seq = (db.seq || 0) + 1;
     const id = "R-" + String(db.seq).padStart(4, "0");
-    db.pedidos.push({
+    const total = items.reduce((s, i) => s + Number(i.price || 0) * i.qty, 0);
+    const ped = {
       id, ts: now, estado: "pendiente",
       nombre, telefono, entrega, provincia, direccion, pago,
       envioMetodo, envioCosto,
-      items,
-      total: items.reduce((s, i) => s + Number(i.price || 0) * i.qty, 0),
-    });
+      items, total,
+    };
+    db.pedidos.push(ped);
     L.prune(db, now);
     const ok = await L.writePedidos(db, sha, `Pedido ${id} (${nombre})`);
-    if (ok) return L.json(res, 200, { ok: true, id, expiraHoras: 48 });
+    if (ok) {
+      // aviso por correo (best-effort: no bloquea ni rompe el pedido si falla)
+      try { await L.sendMail(mailDePedido(ped)); } catch (_) {}
+      return L.json(res, 200, { ok: true, id, expiraHoras: 48 });
+    }
   }
   return L.json(res, 503, { error: "mucho tráfico, intentá de nuevo" });
 };
+
+/* Arma el correo de aviso de una reserva nueva (HTML simple, seguro para Gmail). */
+function mailDePedido(ped) {
+  const fmt = (n) => "₡" + Number(n || 0).toLocaleString("es-CR");
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const hayPre = ped.items.some((i) => i.preorden);
+  const granTotal = Number(ped.total || 0) + Number(ped.envioCosto || 0);
+
+  const filas = ped.items.map((i) => {
+    const sub = Number(i.price || 0) * i.qty;
+    const etq = (i.foil ? " ✨Foil" : "") + (i.preorden ? " 📦PRE-ORDEN" : "");
+    return `<tr>
+      <td style="padding:6px 10px;border-bottom:1px solid #eee">${esc(i.name)}${etq}</td>
+      <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:center">×${i.qty}</td>
+      <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">${fmt(sub)}</td>
+    </tr>`;
+  }).join("");
+
+  const entregaTxt = ped.entrega === "envio"
+    ? `Envío${ped.envioMetodo ? " · " + esc(ped.envioMetodo) : ""}${ped.envioCosto ? " · " + fmt(ped.envioCosto) : ""}`
+      + (ped.provincia ? "<br>Provincia: " + esc(ped.provincia) : "")
+      + (ped.direccion ? "<br>Dirección: " + esc(ped.direccion) : "")
+    : "Retiro en Cartago";
+
+  const html = `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
+    <div style="background:#6E1423;color:#fff;padding:16px 20px;border-radius:12px 12px 0 0">
+      <div style="font-size:13px;letter-spacing:.05em;opacity:.85">REROLL HOBBY STORE</div>
+      <div style="font-size:20px;font-weight:bold;margin-top:2px">🎴 Nueva reserva ${esc(ped.id)}</div>
+      ${hayPre ? '<div style="margin-top:6px;font-size:13px;background:#0f6e56;display:inline-block;padding:3px 9px;border-radius:6px">📦 Incluye PRE-ORDEN (aparta 50%)</div>' : ""}
+    </div>
+    <div style="border:1px solid #eee;border-top:none;border-radius:0 0 12px 12px;padding:18px 20px">
+      <p style="margin:0 0 4px"><b>Cliente:</b> ${esc(ped.nombre)}</p>
+      <p style="margin:0 0 4px"><b>Teléfono:</b> ${esc(ped.telefono)}</p>
+      <p style="margin:0 0 4px"><b>Pago:</b> ${esc(ped.pago) || "—"}</p>
+      <p style="margin:0 0 12px"><b>Entrega:</b> ${entregaTxt}</p>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:10px">
+        <thead><tr>
+          <th style="text-align:left;padding:6px 10px;border-bottom:2px solid #6E1423">Producto</th>
+          <th style="text-align:center;padding:6px 10px;border-bottom:2px solid #6E1423">Cant.</th>
+          <th style="text-align:right;padding:6px 10px;border-bottom:2px solid #6E1423">Subtotal</th>
+        </tr></thead>
+        <tbody>${filas}</tbody>
+      </table>
+      ${ped.envioCosto ? `<p style="margin:0;text-align:right;font-size:13px;color:#555">Productos: ${fmt(ped.total)} · Envío: ${fmt(ped.envioCosto)}</p>` : ""}
+      <p style="margin:8px 0 0;text-align:right;font-size:18px"><b>Total: ${fmt(granTotal)}</b></p>
+      <p style="margin:16px 0 0;font-size:13px;color:#666">La reserva aparta el stock por 48 h. Confirmala o rechazala desde el <b>panel</b> (sección 📦 Pedidos). Este es un aviso automático; el cliente también te escribe por WhatsApp.</p>
+    </div>
+  </div>`;
+
+  const text = `Nueva reserva ${ped.id}\nCliente: ${ped.nombre}\nTel: ${ped.telefono}\n`
+    + `Pago: ${ped.pago || "-"}\nEntrega: ${ped.entrega === "envio" ? "Envío" : "Retiro"}\n`
+    + ped.items.map((i) => `- ${i.name}${i.foil ? " Foil" : ""}${i.preorden ? " [PRE-ORDEN]" : ""} x${i.qty} = ${fmt(Number(i.price || 0) * i.qty)}`).join("\n")
+    + `\nTotal: ${fmt(granTotal)}`;
+
+  return {
+    subject: `🎴 Nueva reserva ${ped.id} — ${ped.nombre} (${fmt(granTotal)})`,
+    html, text,
+  };
+}
