@@ -1,5 +1,5 @@
 {
-  "seq": 12,
+  "seq": 13,
   "pedidos": [
     {
       "id": "R-0001",
@@ -427,6 +427,33 @@
       ],
       "total": 122500,
       "confirmadoTs": 1783840329117
+    },
+    {
+      "id": "R-0013",
+      "ts": 1783877857201,
+      "estado": "pendiente",
+      "nombre": "José González",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 293,
+          "foil": false,
+          "qty": 1,
+          "name": "Guerilla Warfare",
+          "price": 4200
+        }
+      ],
+      "total": 4200
     }
   ]
 }
