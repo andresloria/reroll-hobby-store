@@ -1,5 +1,5 @@
 {
-  "seq": 2,
+  "seq": 3,
   "pedidos": [
     {
       "id": "R-0001",
@@ -40,6 +40,64 @@
         }
       ],
       "total": 500
+    },
+    {
+      "id": "R-0003",
+      "ts": 1783817323801,
+      "estado": "pendiente",
+      "nombre": "Carolina Elizondo",
+      "telefono": "60575210",
+      "entrega": "retiro",
+      "provincia": "San José",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 2,
+          "foil": false,
+          "qty": 1,
+          "name": "Brazen Buccaneer",
+          "price": 100
+        },
+        {
+          "id": 11,
+          "foil": false,
+          "qty": 1,
+          "name": "Legion Rearguard",
+          "price": 100
+        },
+        {
+          "id": 20,
+          "foil": false,
+          "qty": 1,
+          "name": "Raging Soul",
+          "price": 100
+        },
+        {
+          "id": 3586,
+          "foil": false,
+          "qty": 1,
+          "name": "Kai'Sa - Daughter of the Void",
+          "price": 21000
+        },
+        {
+          "id": 818,
+          "foil": false,
+          "qty": 2,
+          "name": "Insightful Investigator",
+          "price": 100
+        },
+        {
+          "id": 823,
+          "foil": false,
+          "qty": 2,
+          "name": "Conscription",
+          "price": 100
+        }
+      ],
+      "total": 21700
     }
   ]
 }
