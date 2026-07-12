@@ -8,6 +8,19 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-11 (11) — Tanda de ajustes y fixes de tienda/panel (varias peticiones de Andrés)
+- **Home:** etiqueta de One Piece "Foco de lanzamiento" → **"Próximamente"**; sección "Cartas destacadas" → **"Productos destacados"** (más general, incluye sellado).
+- **Ficha de sellado:** el Booster Display Case (subido por panel) no abría su detalle (no estaba en `cartas.json`). Se mejoró `make_cartas.py` para sellado (imagen `contain` sobre fondo premium, bloque "Sellado" + nota preventa 50%, atributos propios, `NewCondition`) y se regeneraron las fichas. **`ASSET_V 48→70`** (las fichas cargaban CSS viejo — pendiente viejo resuelto).
+- **Auto-rebuild de fichas:** decisión con Andrés → **seguir manual por ahora** (arranque, poco volumen); activar GitHub Actions cuando el panel sea su vía principal para productos nuevos. Anotado en HANDOFF + memoria; Claude le avisa cuando note más volumen.
+- **Pre-ordenar solo en sellado:** era bug de CSS (el `display:flex` de `.btn` pisaba el atributo `hidden` → el botón aparecía en el quick-view de TODA carta). Fix: `[hidden]{display:none!important}` global.
+- **Stock visible en el cel:** una regla móvil ocultaba "N disponibles" en tarjetas y quick-view; ahora se muestra (compacto). En la vista 4-por-fila sigue oculto.
+- **Cantidad de una vez:** stepper compacto `− N +` junto a "Añadir" en tarjeta y quick-view → se agregan varias sin ir al carrito. `addToCart(id,foil,preorden,qty)`; respeta stock por variante; vuelve a 1 tras agregar.
+- **Panel ESPEJO (base ↔ catálogo):** el catálogo mostraba el precio de MERCADO, no el de Andrés. Ahora si la carta está en base muestra **su** precio (mercado chiquito de referencia si difiere) y `save()` refresca catálogo+base al instante. Auditoría en vivo (sembrando la base completa): precio/stock espejo, `+/−` sin duplicar, todo pasa por `save()`.
+- **Aviso por correo de reservas (Resend, opt-in):** `api/_lib.js sendMail()` best-effort vía Resend REST (sin dependencias; se activa solo si `RESEND_API_KEY` en Vercel). `api/pedido.js` manda correo a rerollhobbystore@gmail.com al crear la reserva (cliente, tel, pago, entrega/envío, items, total, marca pre-orden/foil). Andrés configuró la env var.
+- **🐞 Fix grande — juego.html tenía el checkout VIEJO:** el selector de envío con Correos + costos y el pago solo-SINPE solo estaban en index.html. El catálogo (juego.html, de donde compra la mayoría) tenía un `<select>` de entrega sin costos → `submitCheckout` buscaba radios inexistentes y TODO pedido caía a **retiro/₡0, sin sumar envío** (se vio en R-0003/04/05). Se sincronizó juego.html con index (selector `#coShip`, resumen con línea Envío + Total, solo-SINPE). Verificado: Subtotal ₡500 + Certificado ₡3.300 = Total ₡3.800.
+- **Regla nueva anti-repetición:** index.html y juego.html deben ser ESPEJO en checkout/carrito/buscador (comparten `app.js`) → editar AMBAS. Anotada en CLAUDE.md (Reglas SIEMPRE #2), HANDOFF y memoria.
+- Cache-busting `?v=68→71`. Verificado en preview (datos computados; el screenshot se cuelga por animaciones). Consola limpia en todo.
+
 ## 2026-07-11 (10) — Panel: sección 🚚 Preórdenes — control de apartados con 50% (pedido de Andrés, mockup aprobado)
 - Andrés: llevar control de preórdenes activas (ej. María preordenó ₡180k y abonó ₡90k) — nombre, teléfono, comprobante, producto, imagen, y al llegar el producto y cancelar el saldo → marcarla completada. Confirmó: (1) las pre-órdenes web ya NO se registran en Ventas al confirmar el pedido — van a Preórdenes y recién al completarse pasa la venta COMPLETA a Ventas; (2) comprobante = solo número de referencia del SINPE.
 - **`admin.html` — nueva sección acordeón "🚚 Preórdenes"** (entre 📦 Pedidos y Base de datos; storage `localStorage.reroll_preorders`):

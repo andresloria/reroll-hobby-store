@@ -34,6 +34,7 @@ Tienda TCG (Cartago, Costa Rica) de **Andrés** (`andresloria`). Vende singles +
 ## Reglas — SIEMPRE
 1. **Preview antes de tocar UI:** mostrar un mockup/preview visual y **esperar OK del usuario** antes de editar código de UI. (El `preview_screenshot` se cuelga con animaciones infinitas → inyectar `*{animation:none!important}` antes de capturar, o verificar por `preview_eval`/datos.)
 2. **Cache-busting OBLIGATORIO:** al cambiar `css/styles.css` o `js/app.js`, subir el `?v=N` en **index.html Y juego.html** (`sed -i 's/?v=NN/?v=MM/g' index.html juego.html`). Si se desincronizan, alinear ambos al mismo número.
+   - **REGLA DE ESPEJO (index ↔ juego):** las dos páginas cargan el MISMO `js/app.js`, así que todo lo compartido debe ser IDÉNTICO en ambas: el **modal de checkout** (`#checkoutModal` — selector de envío `#coShip`, resumen `#coSubtotal`/`#coEnvioLine`/`#coTotal`, opciones de pago), el buscador y el carrito. Ya rompió por desincronizarse (el selector de envío quedó solo en index → los pedidos del catálogo caían a retiro/₡0). **Al tocar checkout/carrito/buscador, editar AMBAS y verificar en juego.html** (la gente compra desde el catálogo).
 3. **Nombres de assets en minúscula-con-guion** (`magic.webp`, no `Magic.webp`): Vercel es Linux, sensible a mayúsculas; un mismatch da 404 en producción aunque funcione en Windows.
 4. **Push solo con OK explícito del usuario** (dispara deploy a producción).
 5. **No recrear arte/logos con copyright** — el usuario provee los archivos; yo los optimizo/cableo.
