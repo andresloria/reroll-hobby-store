@@ -1,5 +1,5 @@
 {
-  "seq": 5,
+  "seq": 6,
   "pedidos": [
     {
       "id": "R-0001",
@@ -136,6 +136,40 @@
       "envioCosto": 0,
       "items": [],
       "total": 0
+    },
+    {
+      "id": "R-0006",
+      "ts": 1783822621581,
+      "estado": "pendiente",
+      "nombre": "Carolina Elizondo",
+      "telefono": "60575210",
+      "entrega": "envio",
+      "provincia": "San José",
+      "direccion": "300m sur de la pops diagonal a plaza del sol. 50m oeste y 150m sur en Condo Prado #7",
+      "pago": "SINPE Móvil",
+      "canton": "Curridabat",
+      "distrito": "Curridabat",
+      "cedula": "114000384",
+      "recibeAlt": "",
+      "envioMetodo": "Certificado (Correos CR, con rastreo)",
+      "envioCosto": 3300,
+      "items": [
+        {
+          "id": 4,
+          "foil": false,
+          "qty": 2,
+          "name": "Cleave",
+          "price": 100
+        },
+        {
+          "id": 3,
+          "foil": false,
+          "qty": 1,
+          "name": "Chemtech Enforcer",
+          "price": 100
+        }
+      ],
+      "total": 300
     }
   ]
 }
