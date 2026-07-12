@@ -1,5 +1,5 @@
 {
-  "seq": 7,
+  "seq": 8,
   "pedidos": [
     {
       "id": "R-0001",
@@ -204,6 +204,33 @@
         }
       ],
       "total": 400
+    },
+    {
+      "id": "R-0008",
+      "ts": 1783824551432,
+      "estado": "pendiente",
+      "nombre": "Carolina Elizondo",
+      "telefono": "60575210",
+      "entrega": "envio",
+      "provincia": "San José",
+      "direccion": "300m sur de la pops diagonal a plaza del sol. 50m oeste y 150m sur en Condo Prado #7",
+      "pago": "SINPE Móvil",
+      "canton": "Curridabat",
+      "distrito": "Curridabat",
+      "cedula": "114000384",
+      "recibeAlt": "",
+      "envioMetodo": "Certificado (Correos CR, con rastreo)",
+      "envioCosto": 3300,
+      "items": [
+        {
+          "id": 1,
+          "foil": false,
+          "qty": 1,
+          "name": "Blazing Scorcher",
+          "price": 100
+        }
+      ],
+      "total": 100
     }
   ]
 }
