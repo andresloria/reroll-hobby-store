@@ -361,7 +361,7 @@
     {
       "id": "R-0012",
       "ts": 1783828305205,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "David Liang Ma",
       "telefono": "83882666",
       "entrega": "retiro",
@@ -425,7 +425,8 @@
           "price": 4000
         }
       ],
-      "total": 122500
+      "total": 122500,
+      "confirmadoTs": 1783840329117
     }
   ]
 }
