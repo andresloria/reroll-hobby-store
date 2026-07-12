@@ -170619,5 +170619,90 @@
 ]
 ]
 }
+},
+"3696": {
+"slug": "mind-rune-r03a-R03a",
+"number": "R03a",
+"code": "R03a",
+"type": "Rune",
+"rarity": "Showcase",
+"domains": "Mind",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Showcase"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"0"
+],
+[
+"Power",
+"0"
+],
+[
+"Might",
+"0"
+],
+[
+"N.º",
+"R03a"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3697": {
+"slug": "guardian-angel-champion-sfd-051",
+"number": "51",
+"code": "SFD-051/221",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[Equip]</b> <span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span> (<span class=\"fx-chip\" style=\"background:rgba(255,255,255,.05);border-color:#4FA86B;color:var(--cream)\"><span class=\"fx-dot\" style=\"background:#4FA86B\"></span>Calm</span>: Attach this to a unit you control.)",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"51 / 221"
+],
+[
+"Condición",
+"Near Mint"
+],
+[
+"Ilustrador",
+"黯荧岛Dark Glow"
+]
+]
+}
 }
 }
