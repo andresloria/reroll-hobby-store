@@ -125,7 +125,7 @@
     {
       "id": "R-0005",
       "ts": 1783818429107,
-      "estado": "pendiente",
+      "estado": "rechazado",
       "nombre": "Carolina Elizondo",
       "telefono": "60575210",
       "entrega": "retiro",
@@ -134,16 +134,8 @@
       "pago": "SINPE Móvil",
       "envioMetodo": "Retiro / entrega coordinada",
       "envioCosto": 0,
-      "items": [
-        {
-          "id": 2,
-          "foil": false,
-          "qty": 2,
-          "name": "Brazen Buccaneer",
-          "price": 100
-        }
-      ],
-      "total": 200
+      "items": [],
+      "total": 0
     }
   ]
 }
