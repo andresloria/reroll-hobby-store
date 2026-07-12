@@ -1,5 +1,5 @@
 {
-  "seq": 9,
+  "seq": 10,
   "pedidos": [
     {
       "id": "R-0001",
@@ -293,6 +293,40 @@
         }
       ],
       "total": 10600
+    },
+    {
+      "id": "R-0010",
+      "ts": 1783826216049,
+      "estado": "pendiente",
+      "nombre": "José González",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 199,
+          "foil": false,
+          "qty": 2,
+          "name": "Acceptable Losses",
+          "price": 400
+        },
+        {
+          "id": 724,
+          "foil": false,
+          "qty": 1,
+          "name": "Vex, Mocking",
+          "price": 800
+        }
+      ],
+      "total": 1600
     }
   ]
 }
