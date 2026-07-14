@@ -1,5 +1,5 @@
 {
-  "seq": 14,
+  "seq": 15,
   "pedidos": [
     {
       "id": "R-0001",
@@ -517,6 +517,257 @@
         }
       ],
       "total": 4500
+    },
+    {
+      "id": "R-0015",
+      "ts": 1784055835479,
+      "estado": "pendiente",
+      "nombre": "Proto Ramírez",
+      "telefono": "64299089",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 16,
+          "foil": true,
+          "qty": 1,
+          "name": "Captain Farron",
+          "price": 200
+        },
+        {
+          "id": 94,
+          "foil": true,
+          "qty": 2,
+          "name": "Eager Apprentice",
+          "price": 200
+        },
+        {
+          "id": 95,
+          "foil": true,
+          "qty": 2,
+          "name": "Falling Comet",
+          "price": 200
+        },
+        {
+          "id": 96,
+          "foil": true,
+          "qty": 1,
+          "name": "Jeweled Colossus",
+          "price": 300
+        },
+        {
+          "id": 98,
+          "foil": true,
+          "qty": 2,
+          "name": "Mega-Mech",
+          "price": 200
+        },
+        {
+          "id": 102,
+          "foil": true,
+          "qty": 1,
+          "name": "Pit Crew",
+          "price": 200
+        },
+        {
+          "id": 108,
+          "foil": true,
+          "qty": 1,
+          "name": "Blastcone Fae",
+          "price": 200
+        },
+        {
+          "id": 107,
+          "foil": true,
+          "qty": 2,
+          "name": "Watchful Sentry",
+          "price": 1000
+        },
+        {
+          "id": 110,
+          "foil": true,
+          "qty": 2,
+          "name": "Garbage Grabber",
+          "price": 300
+        },
+        {
+          "id": 109,
+          "foil": true,
+          "qty": 2,
+          "name": "Energy Conduit",
+          "price": 300
+        },
+        {
+          "id": 111,
+          "foil": true,
+          "qty": 2,
+          "name": "Gemcraft Seer",
+          "price": 200
+        },
+        {
+          "id": 113,
+          "foil": true,
+          "qty": 2,
+          "name": "Portal Rescue",
+          "price": 300
+        },
+        {
+          "id": 118,
+          "foil": false,
+          "qty": 1,
+          "name": "Ava Achiever",
+          "price": 100
+        },
+        {
+          "id": 120,
+          "foil": false,
+          "qty": 1,
+          "name": "Dr. Mundo, Expert",
+          "price": 500
+        },
+        {
+          "id": 122,
+          "foil": false,
+          "qty": 2,
+          "name": "Heimerdinger, Inventor",
+          "price": 200
+        },
+        {
+          "id": 123,
+          "foil": false,
+          "qty": 2,
+          "name": "Kai'Sa, Evolutionary",
+          "price": 1000
+        },
+        {
+          "id": 127,
+          "foil": false,
+          "qty": 2,
+          "name": "Promising Future",
+          "price": 500
+        },
+        {
+          "id": 445,
+          "foil": true,
+          "qty": 3,
+          "name": "Aspiring Engineer",
+          "price": 300
+        },
+        {
+          "id": 455,
+          "foil": true,
+          "qty": 1,
+          "name": "Breakneck Mech",
+          "price": 200
+        },
+        {
+          "id": 457,
+          "foil": true,
+          "qty": 2,
+          "name": "Experimental Hexplate",
+          "price": 200
+        },
+        {
+          "id": 187,
+          "foil": true,
+          "qty": 2,
+          "name": "Ember Monk",
+          "price": 200
+        },
+        {
+          "id": 208,
+          "foil": true,
+          "qty": 2,
+          "name": "Zaunite Bouncer",
+          "price": 200
+        },
+        {
+          "id": 521,
+          "foil": true,
+          "qty": 2,
+          "name": "Temptation",
+          "price": 300
+        },
+        {
+          "id": 530,
+          "foil": true,
+          "qty": 2,
+          "name": "Windsinger",
+          "price": 300
+        },
+        {
+          "id": 12,
+          "foil": true,
+          "qty": 3,
+          "name": "Magma Wurm",
+          "price": 200
+        },
+        {
+          "id": 15,
+          "foil": true,
+          "qty": 3,
+          "name": "Sky Splitter",
+          "price": 200
+        },
+        {
+          "id": 378,
+          "foil": true,
+          "qty": 2,
+          "name": "Blood Rush",
+          "price": 200
+        },
+        {
+          "id": 381,
+          "foil": true,
+          "qty": 1,
+          "name": "Detonate",
+          "price": 200
+        },
+        {
+          "id": 386,
+          "foil": true,
+          "qty": 1,
+          "name": "Void Drone",
+          "price": 200
+        },
+        {
+          "id": 390,
+          "foil": true,
+          "qty": 2,
+          "name": "Minotaur Reckoner",
+          "price": 500
+        },
+        {
+          "id": 392,
+          "foil": true,
+          "qty": 2,
+          "name": "Recurve Bow",
+          "price": 200
+        },
+        {
+          "id": 394,
+          "foil": true,
+          "qty": 2,
+          "name": "Void Hatchling",
+          "price": 200
+        },
+        {
+          "id": 681,
+          "foil": true,
+          "qty": 1,
+          "name": "Yeti Brawler",
+          "price": 200
+        }
+      ],
+      "total": 17800
     }
   ]
 }
