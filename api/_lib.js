@@ -91,13 +91,14 @@ function reservasDe(pedidos, now) {
   return map;
 }
 
-/* Stock efectivo de una variante: foil usa stockf si existe; si no, sigue el
-   normal. null = ilimitado (cartas sin campo stock). */
+/* Stock efectivo de una variante. ⚠️ El foil usa SOLO stockf: sin stockf = 0
+   (agotado) — NUNCA hereda el normal (creaba "foils fantasma" vendibles que
+   Andrés no tiene físicamente). null = ilimitado (cartas sin campo stock). */
 function stockVariante(prod, foil) {
   const norm = (s) => (s === undefined || s === null || s === "" ? null : Number(s));
   if (foil) {
     const sf = norm(prod.stockf);
-    if (sf !== null) return sf;
+    return sf === null ? 0 : sf;
   }
   return norm(prod.stock);
 }

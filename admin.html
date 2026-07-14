@@ -1176,9 +1176,9 @@ function render(){
         <input class="stk__i" type="number" min="0" value="${s===null?'':s}" placeholder="∞" />
         <button class="stk__b" data-d="1" aria-label="Más">+</button>
       </div>`;
-    const foilStk = !hasFoil ? '' : `<div class="stk stkf${sf!==null&&sf<=0?' stk--out':''}" title="Stock foil">
+    const foilStk = !hasFoil ? '' : `<div class="stk stkf${(sf===null||sf<=0)?' stk--out':''}" title="Stock foil (sin definir = 0, agotado)">
         <button class="stkf__b" data-d="-1" aria-label="Menos foil">−</button>
-        <input class="stkf__i" type="number" min="0" value="${sf===null?'':sf}" placeholder="∞" />
+        <input class="stkf__i" type="number" min="0" value="${sf===null?0:sf}" />
         <button class="stkf__b" data-d="1" aria-label="Más foil">+</button>
       </div>`;
     const stkBlock = !hasFoil ? normStk : `<div class="stkcol">

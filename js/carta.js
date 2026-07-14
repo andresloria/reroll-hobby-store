@@ -84,7 +84,7 @@
     if (!prod || String(l.id) !== String(prod.id)) return null;
     if (l.foil && prod.foil != null) {
       var sf = normStock(prod.stockf);
-      return sf === null ? normStock(prod.stock) : sf;   // foil sigue el normal si no tiene stockf
+      return sf === null ? 0 : sf;   // ⚠️ foil sin stockf = agotado (NUNCA hereda el normal)
     }
     return normStock(prod.stock);
   }
@@ -151,12 +151,13 @@
   var isFoil = false;
   var prod = null;
   function normStock(s) { return (s === undefined || s === null || s === "") ? null : Number(s); }
-  // stock de la variante elegida: el foil usa su propio stock (stockf) si está definido; si no, sigue el normal
+  // stock de la variante elegida. ⚠️ El foil usa SOLO stockf: sin stockf = agotado
+  // (nunca hereda el normal — eso creaba "foils fantasma" que Andrés no tiene).
   function variantAvail() {
     var sN = prod ? normStock(prod.stock) : null;
     if (isFoil && prod && prod.foil != null) {
       var sf = normStock(prod.stockf);
-      if (sf === null) return { count: sN, out: (sN !== null && sN <= 0) };
+      if (sf === null) return { count: 0, out: true };
       return { count: sf, out: sf <= 0 };
     }
     return { count: sN, out: (sN !== null && sN <= 0) };

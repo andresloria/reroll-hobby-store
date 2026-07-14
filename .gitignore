@@ -42,3 +42,4 @@ precios_semanal.log
 # Python bytecode
 __pycache__/
 *.pyc
+productos_backup_foilstock.json

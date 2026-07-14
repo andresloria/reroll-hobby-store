@@ -104,7 +104,9 @@ let showSoldOut = false;   // por defecto NO se muestran las cartas agotadas (st
 function stockVal(p){ const s=p.stock; return (s===undefined||s===null||s==="")?null:Number(s); }
 function stockValF(p){ const s=p.stockf; return (s===undefined||s===null||s==="")?null:Number(s); }
 // disponibilidad de la variante foil: usa su propio stock si está definido; si no, sigue el normal
-function foilAvailable(p){ if(p.foil==null) return false; const sf=stockValF(p); return sf===null ? isAvailable(p) : sf>0; }
+// ⚠️ El foil NUNCA hereda el stock normal: sin stockf definido = 0 (agotado).
+// (Heredar creaba "foils fantasma": cartas con precio foil que Andrés no tiene.)
+function foilAvailable(p){ if(p.foil==null) return false; const sf=stockValF(p); return sf!==null && sf>0; }
 // resta del stock visible las unidades reservadas por pedidos pendientes (map: {"id":n,"id_f":n})
 function applyReservas(map){
   for(const k in map){
@@ -227,7 +229,7 @@ function openQuickView(p){
   let qvFoil = false;
   const stockN = stockVal(p);
   const qvAvail = ()=>{
-    if(qvFoil){ const sf=stockValF(p); if(sf===null) return {count:stockN, out:(stockN!==null&&stockN<=0)}; return {count:sf, out:sf<=0}; }
+    if(qvFoil){ const sf=stockValF(p); if(sf===null) return {count:0, out:true}; return {count:sf, out:sf<=0}; }   // foil sin stockf = agotado
     return {count:stockN, out:(stockN!==null&&stockN<=0)};
   };
   // stepper de cantidad (se resetea a 1 en cada apertura)
@@ -729,7 +731,7 @@ function makeCard(p, i){
   const stockN = (p.stock===undefined || p.stock===null || p.stock==="") ? null : Number(p.stock);
   // disponibilidad según la variante elegida (normal / foil con su propio stock)
   const availOf = (foil)=>{
-    if(foil){ const sf=stockValF(p); if(sf===null) return {count:stockN, out:(stockN!==null&&stockN<=0)}; return {count:sf, out:sf<=0}; }
+    if(foil){ const sf=stockValF(p); if(sf===null) return {count:0, out:true}; return {count:sf, out:sf<=0}; }   // foil sin stockf = agotado
     return {count:stockN, out:(stockN!==null&&stockN<=0)};
   };
   const stockLineHTML = (a, foil)=>{
@@ -911,7 +913,7 @@ function addToCart(id, foil, preorden, qty){
   // tope de stock por variante (el foil usa su propio stock). La PRE-ORDEN no
   // valida stock: es producto que aún no llega.
   let st = stockOf(id);
-  if(foil){ const sf=stockValF(p); if(sf!==null) st=sf; }
+  if(foil){ const sf=stockValF(p); st = (sf===null ? 0 : sf); }   // foil sin stockf = agotado
   if(!preorden && st!==null && st<=0){ toast(`Agotado${foil?" en foil":""}: ${p.name}`); return; }
   const line = cart.find(c=>c.key===key);
   const enCarrito = line ? line.qty : 0;
@@ -929,7 +931,7 @@ function addToCart(id, foil, preorden, qty){
 function changeQty(key, delta){
   const line = cart.find(c=>c.key===key); if(!line) return;
   let st = line.preorden ? null : stockOf(line.id);   // pre-orden: sin tope de stock
-  if(!line.preorden && line.foil){ const p=PRODUCTS.find(x=>x.id===line.id); const sf=p?stockValF(p):null; if(sf!==null) st=sf; }
+  if(!line.preorden && line.foil){ const p=PRODUCTS.find(x=>x.id===line.id); const sf=p?stockValF(p):null; st = (sf===null ? 0 : sf); }   // foil sin stockf = agotado
   let q = line.qty + delta;
   if(st!==null && q>st){ q=st; toast(`Solo hay ${st}${line.foil?" foil":""} disponibles`); }
   if(q<=0){ cart = cart.filter(c=>c.key!==key); }
