@@ -1,5 +1,5 @@
 {
-  "seq": 13,
+  "seq": 14,
   "pedidos": [
     {
       "id": "R-0001",
@@ -455,6 +455,68 @@
       ],
       "total": 4200,
       "confirmadoTs": 1783993523342
+    },
+    {
+      "id": "R-0014",
+      "ts": 1783999621269,
+      "estado": "pendiente",
+      "nombre": "Renzo B",
+      "telefono": "86280556",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 33,
+          "foil": false,
+          "qty": 3,
+          "name": "Jinx, Demolitionist",
+          "price": 200
+        },
+        {
+          "id": 38,
+          "foil": false,
+          "qty": 3,
+          "name": "Vayne, Hunter",
+          "price": 200
+        },
+        {
+          "id": 62,
+          "foil": false,
+          "qty": 2,
+          "name": "Adaptatron",
+          "price": 200
+        },
+        {
+          "id": 74,
+          "foil": false,
+          "qty": 2,
+          "name": "Blitzcrank, Impassive",
+          "price": 400
+        },
+        {
+          "id": 229,
+          "foil": false,
+          "qty": 1,
+          "name": "Yasuo, Windrider",
+          "price": 1000
+        },
+        {
+          "id": 289,
+          "foil": false,
+          "qty": 1,
+          "name": "Last Breath",
+          "price": 1100
+        }
+      ],
+      "total": 4500
     }
   ]
 }
