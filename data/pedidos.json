@@ -773,7 +773,7 @@
     {
       "id": "R-0016",
       "ts": 1784076452475,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Angel",
       "telefono": "87495167",
       "entrega": "retiro",
@@ -802,7 +802,8 @@
           "price": 45000
         }
       ],
-      "total": 135000
+      "total": 135000,
+      "confirmadoTs": 1784076478237
     }
   ]
 }
