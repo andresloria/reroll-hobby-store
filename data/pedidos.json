@@ -459,7 +459,7 @@
     {
       "id": "R-0014",
       "ts": 1783999621269,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Renzo B",
       "telefono": "86280556",
       "entrega": "retiro",
@@ -516,7 +516,8 @@
           "price": 1100
         }
       ],
-      "total": 4500
+      "total": 4500,
+      "confirmadoTs": 1784076212207
     },
     {
       "id": "R-0015",
