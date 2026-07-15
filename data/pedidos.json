@@ -1,5 +1,5 @@
 {
-  "seq": 16,
+  "seq": 17,
   "pedidos": [
     {
       "id": "R-0001",
@@ -804,6 +804,145 @@
       ],
       "total": 135000,
       "confirmadoTs": 1784076478237
+    },
+    {
+      "id": "R-0017",
+      "ts": 1784082455614,
+      "estado": "pendiente",
+      "nombre": "Gabriel Sanchez Marin",
+      "telefono": "86346167",
+      "entrega": "envio",
+      "provincia": "San José",
+      "direccion": "Parque Empresarial del Este Calle Blancos Amazon SJO10",
+      "pago": "SINPE Móvil",
+      "canton": "Goicoechea",
+      "distrito": "Calle Blancos",
+      "cedula": "117770694",
+      "recibeAlt": "",
+      "envioMetodo": "Correo normal (Correos CR, sin rastreo)",
+      "envioCosto": 1700,
+      "items": [
+        {
+          "id": 539,
+          "foil": false,
+          "qty": 3,
+          "name": "Switcheroo",
+          "price": 600
+        },
+        {
+          "id": 219,
+          "foil": false,
+          "qty": 2,
+          "name": "Teemo, Scout",
+          "price": 700
+        },
+        {
+          "id": 307,
+          "foil": false,
+          "qty": 1,
+          "name": "Bandle Tree",
+          "price": 100
+        },
+        {
+          "id": 902,
+          "foil": false,
+          "qty": 1,
+          "name": "Dusk Rose Lab",
+          "price": 100
+        },
+        {
+          "id": 901,
+          "foil": false,
+          "qty": 1,
+          "name": "Black Flame Altar",
+          "price": 100
+        },
+        {
+          "id": 105,
+          "foil": false,
+          "qty": 3,
+          "name": "Sprite Call",
+          "price": 100
+        },
+        {
+          "id": 117,
+          "foil": false,
+          "qty": 2,
+          "name": "Sprite Mother",
+          "price": 200
+        },
+        {
+          "id": 742,
+          "foil": false,
+          "qty": 2,
+          "name": "Sprite Burst",
+          "price": 100
+        },
+        {
+          "id": 751,
+          "foil": false,
+          "qty": 3,
+          "name": "Sprite Fountain",
+          "price": 1200
+        },
+        {
+          "id": 759,
+          "foil": false,
+          "qty": 3,
+          "name": "Sprite Queen",
+          "price": 200
+        },
+        {
+          "id": 767,
+          "foil": false,
+          "qty": 2,
+          "name": "LeBlanc, Everywhere at Once",
+          "price": 1500
+        },
+        {
+          "id": 189,
+          "foil": false,
+          "qty": 2,
+          "name": "Gust",
+          "price": 200
+        },
+        {
+          "id": 106,
+          "foil": false,
+          "qty": 3,
+          "name": "Stupefy",
+          "price": 200
+        },
+        {
+          "id": 454,
+          "foil": false,
+          "qty": 3,
+          "name": "Wages of Pain",
+          "price": 100
+        },
+        {
+          "id": 811,
+          "foil": false,
+          "qty": 2,
+          "name": "Star-Crossed",
+          "price": 100
+        },
+        {
+          "id": 93,
+          "foil": false,
+          "qty": 3,
+          "name": "Consult the Past",
+          "price": 100
+        },
+        {
+          "id": 744,
+          "foil": false,
+          "qty": 2,
+          "name": "Chakram Dancer",
+          "price": 100
+        }
+      ],
+      "total": 13600
     }
   ]
 }
