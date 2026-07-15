@@ -1,5 +1,5 @@
 {
-  "seq": 15,
+  "seq": 16,
   "pedidos": [
     {
       "id": "R-0001",
@@ -769,6 +769,40 @@
         }
       ],
       "total": 17800
+    },
+    {
+      "id": "R-0016",
+      "ts": 1784076452475,
+      "estado": "pendiente",
+      "nombre": "Angel",
+      "telefono": "87495167",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 627,
+          "foil": false,
+          "qty": 1,
+          "name": "Irelia, Fervent",
+          "price": 90000
+        },
+        {
+          "id": 3693,
+          "foil": false,
+          "qty": 1,
+          "name": "Vayne - Hunter (Overnumbered)",
+          "price": 45000
+        }
+      ],
+      "total": 135000
     }
   ]
 }
