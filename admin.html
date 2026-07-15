@@ -219,8 +219,16 @@
   .ped__line .sm2{color:var(--muted);font-size:.76rem}
   /* miniatura para alistar la carta más rápido de forma visual */
   .ped__thumb{width:34px;height:46px;object-fit:cover;border-radius:5px;flex:0 0 auto;background:#241826;border:1px solid var(--line)}
+  img.ped__thumb{cursor:zoom-in;transition:transform .12s ease,border-color .12s ease}
+  img.ped__thumb:hover{transform:scale(1.06);border-color:var(--gold-bright)}
   .ped__thumb--none{display:grid;place-items:center;font-size:1.1rem}
   .ped__lnm{flex:1;min-width:0}
+  /* lightbox: ver la carta grande al tocar la miniatura */
+  .pedlb{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+  .pedlb.on{display:flex}
+  .pedlb img{max-width:min(92vw,440px);max-height:92vh;border-radius:14px;box-shadow:0 14px 44px rgba(0,0,0,.6)}
+  .pedlb__x{position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:2rem;line-height:1;cursor:pointer;opacity:.85}
+  .pedlb__x:hover{opacity:1}
   .ped__quitar{background:none;border:1px solid transparent;color:#c9a48d;cursor:pointer;font-size:.76rem;padding:3px 8px;border-radius:7px}
   .ped__quitar:hover{color:#e9a3ab;border-color:rgba(180,60,70,.4)}
   .ped__foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
@@ -1531,6 +1539,20 @@ function renderPedidos(){
       </span>
     </div>`;
   };
+  // lightbox: click en la miniatura → ver la carta grande (se crea una sola vez)
+  (function(){
+    const lb=document.createElement('div'); lb.className='pedlb';
+    lb.innerHTML='<button class="pedlb__x" aria-label="Cerrar">✕</button><img alt="Carta ampliada">';
+    document.body.appendChild(lb);
+    const lbImg=lb.querySelector('img');
+    const close=()=>{ lb.classList.remove('on'); lbImg.src=''; };
+    lb.addEventListener('click', e=>{ if(e.target!==lbImg) close(); });   // fuera de la img o la ✕
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && lb.classList.contains('on')) close(); });
+    document.addEventListener('click', e=>{
+      const t=e.target;
+      if(t && t.matches && t.matches('img.ped__thumb')){ lbImg.src=t.src; lb.classList.add('on'); }
+    });
+  })();
   const card = (p)=>{
     const badge = p.estado==='pendiente' ? '<span class="ped__badge">⏳ PENDIENTE</span>'
       : p.estado==='confirmado' ? '<span class="ped__badge ped__badge--ok">✓ CONFIRMADO</span>'
