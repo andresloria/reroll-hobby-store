@@ -215,8 +215,12 @@
   .ped__badge{font-size:.62rem;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(201,162,75,.15);color:var(--gold-bright);letter-spacing:.03em}
   .ped__badge--ok{background:rgba(60,140,80,.2);color:#a9d3a0}
   .ped__badge--off{background:rgba(180,60,70,.15);color:#e9a3ab}
-  .ped__line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:.86rem}
+  .ped__line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:.86rem}
   .ped__line .sm2{color:var(--muted);font-size:.76rem}
+  /* miniatura para alistar la carta más rápido de forma visual */
+  .ped__thumb{width:34px;height:46px;object-fit:cover;border-radius:5px;flex:0 0 auto;background:#241826;border:1px solid var(--line)}
+  .ped__thumb--none{display:grid;place-items:center;font-size:1.1rem}
+  .ped__lnm{flex:1;min-width:0}
   .ped__quitar{background:none;border:1px solid transparent;color:#c9a48d;cursor:pointer;font-size:.76rem;padding:3px 8px;border-radius:7px}
   .ped__quitar:hover{color:#e9a3ab;border-color:rgba(180,60,70,.4)}
   .ped__foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
@@ -1512,15 +1516,21 @@ function renderPedidos(){
   const resto = pedidosCache.filter(p=>p.estado!=='pendiente');
   $('#pedCount').textContent = pend.length;
   $('#pedInfo').textContent = pend.length ? (pend.length+' pendiente(s) por revisar') : 'Sin pedidos pendientes ✨';
-  const linea = (p,it)=>`
-    <div class="ped__line">
-      <span>${esc(it.name)}${it.foil?' <span style="color:var(--gold-bright)">✨ Foil</span>':''}${it.preorden?' <span style="color:#8fe0c6;font-weight:700;font-size:.72rem">📦 PRE-ORDEN · 50%</span>':''} ×${it.qty}
+  const linea = (p,it)=>{
+    const inv = items.find(x=>x.id===it.id);   // imagen desde el inventario (el pedido no la guarda)
+    const thumb = (inv && inv.img)
+      ? `<img class="ped__thumb" src="${esc(inv.img)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=\\'ped__thumb ped__thumb--none\\'>🎴</span>'">`
+      : `<span class="ped__thumb ped__thumb--none">🎴</span>`;
+    return `<div class="ped__line">
+      ${thumb}
+      <span class="ped__lnm">${esc(it.name)}${it.foil?' <span style="color:var(--gold-bright)">✨ Foil</span>':''}${it.preorden?' <span style="color:#8fe0c6;font-weight:700;font-size:.72rem">📦 PRE-ORDEN · 50%</span>':''} ×${it.qty}
         <span class="sm2">· ${fmt(it.price)} c/u</span></span>
-      <span style="display:flex;gap:10px;align-items:center">
+      <span style="display:flex;gap:10px;align-items:center;flex:0 0 auto">
         <b style="color:var(--gold-bright)">${fmt(it.price*it.qty)}</b>
         ${p.estado==='pendiente'?`<button class="ped__quitar" data-ped="${p.id}" data-lid="${it.id}" data-lfoil="${it.foil?1:''}" type="button">✕ quitar</button>`:''}
       </span>
     </div>`;
+  };
   const card = (p)=>{
     const badge = p.estado==='pendiente' ? '<span class="ped__badge">⏳ PENDIENTE</span>'
       : p.estado==='confirmado' ? '<span class="ped__badge ped__badge--ok">✓ CONFIRMADO</span>'
