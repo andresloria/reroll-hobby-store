@@ -1,5 +1,5 @@
 {
-  "seq": 18,
+  "seq": 19,
   "pedidos": [
     {
       "id": "R-0001",
@@ -965,6 +965,33 @@
       ],
       "total": 1500,
       "confirmadoTs": 1784252269000
+    },
+    {
+      "id": "R-0019",
+      "ts": 1784278710950,
+      "estado": "pendiente",
+      "nombre": "David Liang Ma",
+      "telefono": "83882666",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 193,
+          "foil": false,
+          "qty": 2,
+          "name": "Ride the Wind",
+          "price": 400
+        }
+      ],
+      "total": 800
     }
   ]
 }
