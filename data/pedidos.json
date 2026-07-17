@@ -879,13 +879,6 @@
           "price": 100
         },
         {
-          "id": 751,
-          "foil": false,
-          "qty": 3,
-          "name": "Sprite Fountain",
-          "price": 1200
-        },
-        {
           "id": 759,
           "foil": false,
           "qty": 3,
@@ -942,7 +935,7 @@
           "price": 100
         }
       ],
-      "total": 13600
+      "total": 10000
     }
   ]
 }
