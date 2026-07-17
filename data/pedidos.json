@@ -808,7 +808,7 @@
     {
       "id": "R-0017",
       "ts": 1784082455614,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Gabriel Sanchez Marin",
       "telefono": "86346167",
       "entrega": "envio",
@@ -935,7 +935,8 @@
           "price": 100
         }
       ],
-      "total": 10000
+      "total": 10000,
+      "confirmadoTs": 1784248999581
     }
   ]
 }
