@@ -1,5 +1,5 @@
 {
-  "seq": 17,
+  "seq": 18,
   "pedidos": [
     {
       "id": "R-0001",
@@ -937,6 +937,33 @@
       ],
       "total": 10000,
       "confirmadoTs": 1784248999581
+    },
+    {
+      "id": "R-0018",
+      "ts": 1784249041144,
+      "estado": "pendiente",
+      "nombre": "Adrián Molina Quiros",
+      "telefono": "85597231",
+      "entrega": "retiro",
+      "provincia": "Cartago",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 156,
+          "foil": true,
+          "qty": 3,
+          "name": "Herald of Scales",
+          "price": 500
+        }
+      ],
+      "total": 1500
     }
   ]
 }
