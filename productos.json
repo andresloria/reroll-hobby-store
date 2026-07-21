@@ -475,7 +475,7 @@
     "set": "Origins",
     "price": 300,
     "cond": "Near Mint",
-    "stock": 2,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/7ab52254ac49b8853fc7ae65b03aaee3f8c5994a-744x1039.png?accountingTag=RB"
   },
   {
@@ -589,7 +589,7 @@
     "price": 400,
     "foil": 2600,
     "cond": "Near Mint",
-    "stock": 9,
+    "stock": 6,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/62ae564505db8fcba70605eac2083ac2d4397b5a-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -628,7 +628,7 @@
     "price": 200,
     "foil": 500,
     "cond": "Near Mint",
-    "stock": 23,
+    "stock": 20,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/03c0ec7eaa5957a62869dad2a0ce40913fc874a9-744x1039.png?accountingTag=RB",
     "stockf": 1,
     "badge": ""
@@ -759,7 +759,7 @@
     "price": 200,
     "foil": 2000,
     "cond": "Near Mint",
-    "stock": 7,
+    "stock": 5,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a3ddb00a2a872eaceb96469739531414aa27455d-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -811,7 +811,7 @@
     "price": 200,
     "foil": 700,
     "cond": "Near Mint",
-    "stock": 6,
+    "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/03824709acbb4151d13b083a842c4702a3e61221-744x1039.png?accountingTag=RB",
     "stockf": 1
   },
@@ -2452,7 +2452,7 @@
     "price": 200,
     "foil": 2800,
     "cond": "Near Mint",
-    "stock": 4,
+    "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a0830f326c49abe7fb1d3c9787e7ce5d7b776eec-744x1039.png?accountingTag=RB",
     "stockf": 3
   },
@@ -2518,7 +2518,7 @@
     "price": 300,
     "foil": 2300,
     "cond": "Near Mint",
-    "stock": 5,
+    "stock": 2,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/682f5ee828ede4dbaf428cd0666db64ee8bae722-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -4819,7 +4819,7 @@
     "set": "Spiritforged",
     "price": 500,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 1,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e24eb3fb835c4762479da5608b018785ef22e02c-744x1039.png?accountingTag=RB"
   },
   {
@@ -4987,7 +4987,7 @@
     "price": 100,
     "foil": 300,
     "cond": "Near Mint",
-    "stock": 19,
+    "stock": 16,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f5ab933035b7a6d6bb1d35c10c13f58c7fbf3398-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -5080,7 +5080,7 @@
     "cond": "Near Mint",
     "stock": 7,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/80f367f06549d597c7b5a77be73eb647eab34f59-744x1039.png?accountingTag=RB",
-    "stockf": 2,
+    "stockf": 0,
     "badge": ""
   },
   {
@@ -7926,9 +7926,9 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 1,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5db9d66fc22887e8686a13ffdfe480106cbd3b35-744x1039.png?accountingTag=RB",
-    "stockf": 1
+    "stockf": 0
   },
   {
     "id": 666,
@@ -8190,7 +8190,7 @@
     "set": "Unleashed",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8da724a842cf61cb24c3c02dd99adc93a9222e06-744x1039.png?accountingTag=RB"
   },
   {
@@ -8477,7 +8477,7 @@
     "price": 100,
     "foil": 500,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a0e7f7fa55ae618f94fe48920f92406ddd7e3512-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -8677,7 +8677,7 @@
     "set": "Unleashed",
     "price": 600,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/39ec974dae18bf82fcc18a95044d8df04cc14d3c-744x1039.png?accountingTag=RB"
   },
   {
