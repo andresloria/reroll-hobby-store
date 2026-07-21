@@ -997,7 +997,7 @@
     {
       "id": "R-0020",
       "ts": 1784609255401,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Mario Cano",
       "telefono": "84635712",
       "entrega": "retiro",
@@ -1117,7 +1117,8 @@
           "price": 100
         }
       ],
-      "total": 8300
+      "total": 8300,
+      "confirmadoTs": 1784635918385
     }
   ]
 }
