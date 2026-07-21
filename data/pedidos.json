@@ -1,5 +1,5 @@
 {
-  "seq": 19,
+  "seq": 20,
   "pedidos": [
     {
       "id": "R-0001",
@@ -993,6 +993,131 @@
       ],
       "total": 800,
       "confirmadoTs": 1784352306076
+    },
+    {
+      "id": "R-0020",
+      "ts": 1784609255401,
+      "estado": "pendiente",
+      "nombre": "Mario Cano",
+      "telefono": "84635712",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 49,
+          "foil": false,
+          "qty": 3,
+          "name": "Charm",
+          "price": 400
+        },
+        {
+          "id": 39,
+          "foil": false,
+          "qty": 2,
+          "name": "Vi, Destructive",
+          "price": 300
+        },
+        {
+          "id": 710,
+          "foil": false,
+          "qty": 3,
+          "name": "Back Off",
+          "price": 100
+        },
+        {
+          "id": 727,
+          "foil": false,
+          "qty": 1,
+          "name": "Alpha Wildclaw",
+          "price": 600
+        },
+        {
+          "id": 686,
+          "foil": false,
+          "qty": 1,
+          "name": "Jhin, Murderous Artist",
+          "price": 200
+        },
+        {
+          "id": 52,
+          "foil": false,
+          "qty": 3,
+          "name": "En Garde",
+          "price": 200
+        },
+        {
+          "id": 62,
+          "foil": false,
+          "qty": 2,
+          "name": "Adaptatron",
+          "price": 200
+        },
+        {
+          "id": 66,
+          "foil": false,
+          "qty": 3,
+          "name": "Mask of Foresight",
+          "price": 200
+        },
+        {
+          "id": 206,
+          "foil": false,
+          "qty": 3,
+          "name": "Treasure Trove",
+          "price": 300
+        },
+        {
+          "id": 201,
+          "foil": false,
+          "qty": 1,
+          "name": "Pack of Wonders",
+          "price": 200
+        },
+        {
+          "id": 402,
+          "foil": false,
+          "qty": 2,
+          "name": "Rengar, Pouncing",
+          "price": 500
+        },
+        {
+          "id": 416,
+          "foil": false,
+          "qty": 3,
+          "name": "Lonely Poro",
+          "price": 100
+        },
+        {
+          "id": 423,
+          "foil": true,
+          "qty": 2,
+          "name": "Emperor's Divide",
+          "price": 500
+        },
+        {
+          "id": 665,
+          "foil": true,
+          "qty": 1,
+          "name": "Inferna",
+          "price": 200
+        },
+        {
+          "id": 665,
+          "foil": false,
+          "qty": 2,
+          "name": "Inferna",
+          "price": 100
+        }
+      ],
+      "total": 8300
     }
   ]
 }
