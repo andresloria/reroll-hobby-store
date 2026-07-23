@@ -1,5 +1,5 @@
 {
-  "seq": 20,
+  "seq": 21,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1119,6 +1119,152 @@
       ],
       "total": 8300,
       "confirmadoTs": 1784635918385
+    },
+    {
+      "id": "R-0021",
+      "ts": 1784828057094,
+      "estado": "pendiente",
+      "nombre": "Adrián Molina Quiros",
+      "telefono": "85597231",
+      "entrega": "retiro",
+      "provincia": "Cartago",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 139,
+          "foil": true,
+          "qty": 3,
+          "name": "Arena Bar",
+          "price": 200
+        },
+        {
+          "id": 145,
+          "foil": true,
+          "qty": 3,
+          "name": "Confront",
+          "price": 200
+        },
+        {
+          "id": 190,
+          "foil": true,
+          "qty": 1,
+          "name": "Morbid Return",
+          "price": 200
+        },
+        {
+          "id": 196,
+          "foil": true,
+          "qty": 1,
+          "name": "Sneaky Deckhand",
+          "price": 700
+        },
+        {
+          "id": 201,
+          "foil": false,
+          "qty": 3,
+          "name": "Pack of Wonders",
+          "price": 200
+        },
+        {
+          "id": 204,
+          "foil": true,
+          "qty": 1,
+          "name": "The Syren",
+          "price": 800
+        },
+        {
+          "id": 206,
+          "foil": false,
+          "qty": 2,
+          "name": "Treasure Trove",
+          "price": 300
+        },
+        {
+          "id": 411,
+          "foil": true,
+          "qty": 3,
+          "name": "Desert's Call",
+          "price": 500
+        },
+        {
+          "id": 412,
+          "foil": true,
+          "qty": 1,
+          "name": "Disarming Rake",
+          "price": 500
+        },
+        {
+          "id": 493,
+          "foil": true,
+          "qty": 1,
+          "name": "Ruin Runner",
+          "price": 1200
+        },
+        {
+          "id": 509,
+          "foil": false,
+          "qty": 2,
+          "name": "Jax, Unrelenting",
+          "price": 500
+        },
+        {
+          "id": 526,
+          "foil": true,
+          "qty": 1,
+          "name": "Cull",
+          "price": 200
+        },
+        {
+          "id": 510,
+          "foil": false,
+          "qty": 1,
+          "name": "Jax, Unrelenting",
+          "price": 600
+        },
+        {
+          "id": 682,
+          "foil": false,
+          "qty": 1,
+          "name": "Blighted Battleaxe",
+          "price": 200
+        },
+        {
+          "id": 704,
+          "foil": true,
+          "qty": 1,
+          "name": "Mutated Mouser",
+          "price": 200
+        },
+        {
+          "id": 773,
+          "foil": true,
+          "qty": 2,
+          "name": "Grim Resolve",
+          "price": 200
+        },
+        {
+          "id": 797,
+          "foil": false,
+          "qty": 1,
+          "name": "Arachnoid Horror",
+          "price": 1400
+        },
+        {
+          "id": 790,
+          "foil": false,
+          "qty": 1,
+          "name": "Irresistible Faefolk",
+          "price": 1400
+        }
+      ],
+      "total": 12700
     }
   ]
 }
