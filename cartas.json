@@ -170740,5 +170740,9770 @@
 ]
 ]
 }
+},
+"3699": {
+"slug": "ahri-inquisitive-SP3",
+"number": "SP3",
+"code": "SP3/006",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Mind",
+"d": {
+"fx": "When I attack or defend, give an enemy unit here -2 Might this turn, to a minimum of 1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ahri;Ionia"
+],
+[
+"N.º",
+"SP3 / 006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3700": {
+"slug": "akali-deadly-weapon-alternate-art-021a",
+"number": "021a",
+"code": "021a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 and 1 Fury<br><br>When I move, you may deal 1 to a unit at a battlefield I moved to or from. If I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b>, deal 2 instead.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might..",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Akali"
+],
+[
+"N.º",
+"021a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3701": {
+"slug": "akali-deadly-weapon-021",
+"number": "021",
+"code": "021/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 and 1 Fury <i>(2 and 1 Fury: Empower me. Use only if not Empowered.)</i><br><br>When I move, you may deal 1 to a unit at a battlefield I moved to or from. If I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b>, deal 2 instead.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ionia;Akali"
+],
+[
+"N.º",
+"021 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3702": {
+"slug": "akali-silent-alternate-art-038a",
+"number": "038a",
+"code": "038a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "I can&#x27;t be chosen by enemy spells and abilities unless I&#x27;m in combat.<br><br>When I move to a battlefield, give me +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Akali"
+],
+[
+"N.º",
+"038a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3703": {
+"slug": "akali-silent-038",
+"number": "038",
+"code": "038/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "I can&#x27;t be chosen by enemy spells and abilities unless I&#x27;m in combat.<br><br>When I move to a battlefield, give me +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Ionia;Akali"
+],
+[
+"N.º",
+"038 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3704": {
+"slug": "ambessa-respected-and-feared-136",
+"number": "136",
+"code": "136/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 1 and 1 OrderOrder <i>(1 and 1 OrderOrder: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[ASSAULT 2]</b>. <i>(+2 Might while I&#x27;m an attacker.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I attack, kill an enemy unit here with less Might than me.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Noxus;Ambessa"
+],
+[
+"N.º",
+"136 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3705": {
+"slug": "ambessa-respected-and-feared-alternate-art-136a",
+"number": "136a",
+"code": "136a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 1 and 1 OrderOrder<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[ASSAULT 2]</b>.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I attack, kill an enemy unit here with less Might than me.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Ambessa"
+],
+[
+"N.º",
+"136a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3706": {
+"slug": "apprentice-mage-047",
+"number": "047",
+"code": "047/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 <i>(2: Empower me. Use only if not Empowered.)</i><br><br>When I become <b class=\"fx-kw\">[EMPOWERED]</b>, <b class=\"fx-kw\">[Predict 2]</b>. <i>(Look at the top 2 cards of your Main Deck. Recycle any of them and put the rest back in any order.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Bilgewater"
+],
+[
+"N.º",
+"047 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3707": {
+"slug": "baccai-reaper-009",
+"number": "009",
+"code": "009/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "When I attack, you may pay Fury to give me <b class=\"fx-kw\">[ASSAULT 2]</b> this turn. <i>(+2 Might while I&#x27;m an attacker.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"009 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3708": {
+"slug": "blade-twirler-002",
+"number": "002",
+"code": "002/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "The first time I move each turn, choose a player. They <b class=\"fx-kw\">[BURN 1]</b>. <i>(They put the top card of their Main Deck into their trash.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Yordle;Ionia"
+],
+[
+"N.º",
+"002 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3709": {
+"slug": "body-rune-R04",
+"number": "R04",
+"code": "R04",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"N.º",
+"R04"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3710": {
+"slug": "bottled-constellation-067",
+"number": "067",
+"code": "067/166",
+"type": "Gear",
+"rarity": "Epic",
+"domains": "Mind",
+"d": {
+"fx": "At the start of your Main Phase, you may kill 3 other friendly units and/or gear to score 1 point.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"10"
+],
+[
+"Power",
+"2"
+],
+[
+"N.º",
+"067 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3711": {
+"slug": "renekton-butcher-of-the-sands-141",
+"number": "141",
+"code": "141/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury;Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> 1, Order, Order, Exhaust: <b class=\"fx-kw\">[ADD]</b> 2. Spend this Energy only to play units or activated abilities of units.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Body</span>"
+],
+[
+"Subtipos",
+"Renekton"
+],
+[
+"N.º",
+"141 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3712": {
+"slug": "renekton-butcher-of-the-sands-overnumbered-190",
+"number": "190",
+"code": "190/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury;Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> 1, Order, Order, Exhaust: <b class=\"fx-kw\">[ADD]</b> 2. Spend this Energy only to play units or activated abilities of units.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Body</span>"
+],
+[
+"Subtipos",
+"Renekton"
+],
+[
+"N.º",
+"190 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3713": {
+"slug": "calm-rune-R02",
+"number": "R02",
+"code": "R02",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"N.º",
+"R02"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3714": {
+"slug": "chaos-rune-R05",
+"number": "R05",
+"code": "R05",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"N.º",
+"R05"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3715": {
+"slug": "cloud-drake-048",
+"number": "048",
+"code": "048/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "When you play me, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Dragon;Demacia"
+],
+[
+"N.º",
+"048 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3716": {
+"slug": "corrupted-dragon-091",
+"number": "091",
+"code": "091/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "If your score is not within 3 points of the Victory Score, I enter ready.<br><br>When I attack, you may move any number of enemy units here each with 5 Might or less to their base.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"10"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"10"
+],
+[
+"Subtipos",
+"Dragon;Shadow Isles"
+],
+[
+"N.º",
+"091 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3717": {
+"slug": "nasus-curator-of-the-sands-overnumbered-192",
+"number": "192",
+"code": "192/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm;Mind",
+"d": {
+"fx": "When you play a unit, gear, or activated ability with Energy cost 7 or more, you may exhaust me to ready up to 2 runes.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Calm;Mind</span>"
+],
+[
+"Subtipos",
+"Nasus"
+],
+[
+"N.º",
+"192 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3718": {
+"slug": "nasus-curator-of-the-sands-145",
+"number": "145",
+"code": "145/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm;Mind",
+"d": {
+"fx": "When you play a unit, gear, or activated ability with Energy cost 7 or more, you may exhaust me to ready up to 2 runes.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Calm;Mind</span>"
+],
+[
+"Subtipos",
+"Nasus"
+],
+[
+"N.º",
+"145 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3719": {
+"slug": "dame-the-despoiler-079",
+"number": "079",
+"code": "079/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 5 and 1 Body <i>(5 and 1 Body: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I attack or defend, choose a unit here. Increase my Might to its Might this turn, then give me +1 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"079 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3720": {
+"slug": "death-mark-144",
+"number": "144",
+"code": "144/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Fury;Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[BURN 3]</b>. <i>(Put the top 3 cards of your Main Deck into your trash.)</i><br><br>Play a 0 Might Shadow Clone unit token. <i>(It has &quot;When I attack, you may banish a unit from your trash. If you do, give me <b class=\"fx-kw\">[ASSAULT 4]</b> this turn.&quot;)</i><br><br><b class=\"fx-kw\">[FLOW]</b> 1 and 2 Runes <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Subtipos",
+"Zed"
+],
+[
+"N.º",
+"144 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3721": {
+"slug": "decree-of-discord-107",
+"number": "107",
+"code": "107/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "Return any number of enemy Order <i>(Order)</i> units with total Might 5 or less to their owners&#x27; hands.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"107 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3722": {
+"slug": "decree-of-insight-061",
+"number": "061",
+"code": "061/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Ignore <b class=\"fx-kw\">[DEFLECT]</b> while paying this spell&#x27;s cost.<br><br>Give an enemy Body <i>(Body)</i> unit -5 Might this turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"061 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3723": {
+"slug": "jayce-defender-of-tomorrow-149",
+"number": "149",
+"code": "149/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind;Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 and 2 Runes <i>(2 and 2 Runes: Empower me. Use only if not Empowered.)</i><br><br>1, Exhaust: Ready a gear.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> 1, Exhaust: Ready 2 gear.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Mind;Body</span>"
+],
+[
+"Subtipos",
+"Jayce"
+],
+[
+"N.º",
+"149 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3724": {
+"slug": "dominus-142",
+"number": "142",
+"code": "142/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Fury;Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>This turn, double a unit&#x27;s Might and give it &quot;2 Runes: Ready me.&quot;",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Subtipos",
+"Renekton"
+],
+[
+"N.º",
+"142 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3725": {
+"slug": "eclipse-dragon-016",
+"number": "016",
+"code": "016/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACCELERATE]</b> <i>(You may pay 1 and 1 Fury as an additional cost to have me enter ready.)</i><br><br>When I move, if you control 4 or fewer runes, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"Might",
+"8"
+],
+[
+"Subtipos",
+"Dragon;Mount Targon"
+],
+[
+"N.º",
+"016 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3726": {
+"slug": "esteemed-hierophant-025",
+"number": "025",
+"code": "025/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "While you control 7 or more runes, prevent all damage that enemy spells and abilities would deal to me.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"025 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3727": {
+"slug": "shen-eye-of-twilight-overnumbered-193",
+"number": "193",
+"code": "193/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm;Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> Exhaust: Give a friendly unit <b class=\"fx-kw\">[TANK]</b> this turn.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Calm;Order</span>"
+],
+[
+"Subtipos",
+"Shen"
+],
+[
+"N.º",
+"193 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3728": {
+"slug": "shen-eye-of-twilight-147",
+"number": "147",
+"code": "147/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Calm;Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> Exhaust: Give a friendly unit <b class=\"fx-kw\">[TANK]</b> this turn. <i>(It must be assigned combat damage first.)</i>",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Calm;Order</span>"
+],
+[
+"Subtipos",
+"Shen"
+],
+[
+"N.º",
+"147 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3729": {
+"slug": "ezreal-prodigy-SP5",
+"number": "SP5",
+"code": "SP5/006",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "When you play me, discard 1, then draw 2.<br><br>Optional additional costs you pay cost 1 or Rune less.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ezreal;Piltover"
+],
+[
+"N.º",
+"SP5 / 006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3730": {
+"slug": "field-musicians-026",
+"number": "026",
+"code": "026/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "When you play me, give a unit +3 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"026 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3731": {
+"slug": "fury-rune-R01",
+"number": "R01",
+"code": "R01",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"N.º",
+"R01"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3732": {
+"slug": "gangplank-naval-overnumbered-181",
+"number": "181",
+"code": "181/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> BodyBody<br><br><b class=\"fx-kw\">[EMPOWERED]</b> If a spell or ability that chooses me would stun me, give me -Might, or return me to hand, give me +3 Might instead.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Gangplank"
+],
+[
+"N.º",
+"181 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3733": {
+"slug": "gangplank-naval-086",
+"number": "086",
+"code": "086/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> BodyBody <i>(BodyBody: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> If a spell or ability that chooses me would stun me, give me -Might, or return me to hand, give me +3 Might instead.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Bilgewater;Gangplank"
+],
+[
+"N.º",
+"086 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3734": {
+"slug": "glowstone-133",
+"number": "133",
+"code": "133/166",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 Runes <i>(2 Runes: Empower me. Use only if not Empowered.)</i><br><br>Disempower this, Exhaust: Choose a player. They gain control of this and recall it. <i>(Send it to their base.)</i><br><br>At the end of your turn, kill this and deal 5 to all units you control.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"133 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3735": {
+"slug": "gust-monk-101",
+"number": "101",
+"code": "101/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "You may pay 1 as an additional cost to play me.<br><br>When you play me, if you paid the additional cost, banish a card from any trash to give a unit <b class=\"fx-kw\">[ASSAULT 2]</b> this turn. <i>(+2 Might while it&#x27;s an attacker.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Yordle;Bandle City"
+],
+[
+"N.º",
+"101 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3736": {
+"slug": "yordle-kennen-heart-of-the-tempest-overnumbered-197",
+"number": "197",
+"code": "197/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Order;Chaos",
+"d": {
+"fx": "When you play a card from anywhere other than your hand, empower me.<br><br><b class=\"fx-kw\">[ACTION]</b> Disempower me, Exhaust: Give a unit <b class=\"fx-kw\">[ASSAULT 2]</b> this turn.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Order;Chaos</span>"
+],
+[
+"Subtipos",
+"Yordle;Kennen"
+],
+[
+"N.º",
+"197 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3737": {
+"slug": "yordle-kennen-heart-of-the-tempest-155",
+"number": "155",
+"code": "155/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Order;Chaos",
+"d": {
+"fx": "When you play a card from anywhere other than your hand, empower me.<br><br><b class=\"fx-kw\">[ACTION]</b> Disempower me, Exhaust: Give a unit <b class=\"fx-kw\">[ASSAULT 2]</b> this turn. <i>(+2 Might while it&#x27;s an attacker.)</i>",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Order;Chaos</span>"
+],
+[
+"Subtipos",
+"Yordle;Kennen"
+],
+[
+"N.º",
+"155 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3738": {
+"slug": "heisho-shell-of-the-world-158",
+"number": "158",
+"code": "158/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "Players ignore <b class=\"fx-kw\">[DEFLECT]</b> while paying for spells and abilities choosing something here.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"158 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3739": {
+"slug": "hextech-disc-087",
+"number": "087",
+"code": "087/166",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Exhaust <i>(Pay the cost: Empower this. Use only if not Empowered.)</i><br><br>Disempower this, 1, Exhaust: Play a 3 Might Mech unit token to your base.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"087 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3740": {
+"slug": "hextech-formula-062",
+"number": "062",
+"code": "062/166",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "This enters exhausted.<br><br>Exhaust: Empower another gear. <i>(It becomes Empowered if it&#x27;s not already.)</i>",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"062 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3741": {
+"slug": "horns-of-the-dragon-118",
+"number": "118",
+"code": "118/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[TANK]</b> <i>(I must be assigned combat damage first.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"118 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3742": {
+"slug": "illaoi-prophet-of-the-great-kraken-overnumbered-182",
+"number": "182",
+"code": "182/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When you play me or when I score, play a 1 Might Tentacle unit token from Bilgewater.<br><br>I have +1 Might for each token unit you control.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Illaoi"
+],
+[
+"N.º",
+"182 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3743": {
+"slug": "illaoi-prophet-of-the-great-kraken-109",
+"number": "109",
+"code": "109/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When you play me or when I score, play a 1 Might Tentacle unit token from Bilgewater.<br><br>I have +1 Might for each token unit you control.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Bilgewater;Illaoi"
+],
+[
+"N.º",
+"109 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3744": {
+"slug": "jagged-cutlass-073",
+"number": "073",
+"code": "073/166",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "Equip Body <i>(Body: Attach this to a unit you control.)</i>",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Subtipos",
+"Equipment"
+],
+[
+"N.º",
+"073 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3745": {
+"slug": "jayce-brilliant-inventor-068",
+"number": "068",
+"code": "068/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Mind",
+"d": {
+"fx": "When you play me or the first time you play a non-token gear each turn, you may ready something besides me that&#x27;s exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Jayce;Piltover"
+],
+[
+"N.º",
+"068 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3746": {
+"slug": "jayce-brilliant-inventor-alternate-art-068a",
+"number": "068a",
+"code": "068a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Mind",
+"d": {
+"fx": "When you play me or the first time you play a non-token gear each turn, you may ready something besides me that&#x27;s exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Jayce"
+],
+[
+"N.º",
+"068a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3747": {
+"slug": "jayce-hammer-in-hand-088",
+"number": "088",
+"code": "088/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "When I become ready, choose one to give me this turn —<b class=\"fx-kw\">[ASSAULT 2]</b> <i>(+2 Might while I&#x27;m an attacker.)</i><b class=\"fx-kw\">[DEFLECT 2]</b> <i>(Opponents must pay 2 Runes to choose me with a spell or ability.)</i><b class=\"fx-kw\">[GANKING]</b> <i>(I can move from battlefield to battlefield.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Jayce;Piltover"
+],
+[
+"N.º",
+"088 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3748": {
+"slug": "jayce-hammer-in-hand-alternate-art-088a",
+"number": "088a",
+"code": "088a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "When I become ready, choose one to give me this turn —<b class=\"fx-kw\">[ASSAULT 2]</b><b class=\"fx-kw\">[DEFLECT 2]</b><b class=\"fx-kw\">[GANKING]</b>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Jayce"
+],
+[
+"N.º",
+"088a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3749": {
+"slug": "jayce-man-of-progress-175",
+"number": "175",
+"code": "175/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "When you play me, you may kill a friendly gear. If you do, you may play a gear with Energy cost no more than 7 from hand this turn, ignoring its Energy cost.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Jayce;Piltover"
+],
+[
+"N.º",
+"175 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3750": {
+"slug": "jinx-demolitionist-overnumbered-168",
+"number": "168",
+"code": "168/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACCELERATE]</b><br><br><b class=\"fx-kw\">[ASSAULT 2]</b><br><br>When you play me, discard 2.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Jinx"
+],
+[
+"N.º",
+"168 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3751": {
+"slug": "keeper-of-law-119",
+"number": "119",
+"code": "119/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "I cost 2 and 1 Order less if you control a battlefield with exactly two units there.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"119 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3752": {
+"slug": "kennen-keeper-of-balance-alternate-art-135a",
+"number": "135a",
+"code": "135a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b><br><br>When you play me or I attack, you may pay 2 to <b class=\"fx-kw\">[Stun]</b> a unit.<br><br>While there&#x27;s a stunned enemy unit here, I have +2 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Yordle;Kennen"
+],
+[
+"N.º",
+"135a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3753": {
+"slug": "kennen-keeper-of-balance-135",
+"number": "135",
+"code": "135/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b> <i>(Hide now for Rune to react with later for 0.)</i><br><br>When you play me or I attack, you may pay 2 to <b class=\"fx-kw\">[Stun]</b> a unit. <i>(It doesn&#x27;t deal combat damage this turn.)</i><br><br>While there&#x27;s a stunned enemy unit here, I have +2 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Yordle;Ionia;Kennen"
+],
+[
+"N.º",
+"135 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3754": {
+"slug": "kennen-storm-of-shuriken-113",
+"number": "113",
+"code": "113/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "When you play me, <b class=\"fx-kw\">[BURN 2]</b>. <i>(Put the top 2 cards of your Main Deck into your trash.)</i><br><br>When I conquer, give a spell in your trash <b class=\"fx-kw\">[FLOW]</b> equal to its cost this turn. <i>(You may play it from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Yordle;Kennen"
+],
+[
+"N.º",
+"113 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3755": {
+"slug": "kha-zix-evolving-hunter-180",
+"number": "180",
+"code": "180/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[HUNT]</b><br><br>When I attack, you may spend 3 XP to deal damage equal to my Might to an enemy unit here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Kha&#x27;Zix;The Void"
+],
+[
+"N.º",
+"180 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3756": {
+"slug": "ki-barrier-126",
+"number": "126",
+"code": "126/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Choose a unit. Prevent the next 7 damage that would be dealt to it this turn. <i>(Opponents can assign it extra combat damage to kill it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"126 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3757": {
+"slug": "kinkou-lifeblade-093",
+"number": "093",
+"code": "093/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 <i>(2: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might and <b class=\"fx-kw\">[GANKING]</b>. <i>(I can move from battlefield to battlefield.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"093 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3758": {
+"slug": "lacerate-127",
+"number": "127",
+"code": "127/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "Choose a unit. If it&#x27;s <b class=\"fx-kw\">[EMPOWERED]</b>, disempower it. Then kill it if it has 3 Might or less.<br><br><b class=\"fx-kw\">[FLOW]</b> 4 and 1 OrderOrder <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"127 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3759": {
+"slug": "lightning-rush-156",
+"number": "156",
+"code": "156/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Order;Chaos",
+"d": {
+"fx": "Look at the top 3 cards of your Main Deck. You may choose a card from among them and draw it. Put the rest into your trash.<br><br><b class=\"fx-kw\">[FLOW]</b> 2Rune <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Order;Chaos</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Subtipos",
+"Kennen"
+],
+[
+"N.º",
+"156 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3760": {
+"slug": "lux-crownguard-SP6",
+"number": "SP6",
+"code": "SP6/006",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "Exhaust: <b class=\"fx-kw\">[REACTION]</b> — <b class=\"fx-kw\">[ADD]</b> 2. Spend this Energy only to play spells.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Lux"
+],
+[
+"N.º",
+"SP6 / 006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3761": {
+"slug": "zed-master-of-shadows-143",
+"number": "143",
+"code": "143/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury;Chaos",
+"d": {
+"fx": "When you banish a card you own, empower me. <i>(I become Empowered if I&#x27;m not already.)</i><br><br><b class=\"fx-kw\">[ACTION]</b> Disempower me, Exhaust: Discard 1, then draw 1.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Chaos</span>"
+],
+[
+"Subtipos",
+"Zed"
+],
+[
+"N.º",
+"143 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3762": {
+"slug": "zed-master-of-shadows-overnumbered-191",
+"number": "191",
+"code": "191/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury;Chaos",
+"d": {
+"fx": "When you banish a card you own, empower me.<br><br><b class=\"fx-kw\">[ACTION]</b> Disempower me, Exhaust: Discard 1, then draw 1.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Chaos</span>"
+],
+[
+"Subtipos",
+"Zed"
+],
+[
+"N.º",
+"191 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3763": {
+"slug": "ambessa-matriarch-of-war-153",
+"number": "153",
+"code": "153/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Body;Order",
+"d": {
+"fx": "When you empower something else, empower me. <i>(I become Empowered if I&#x27;m not already.)</i><br><br>Disempower me, Rune, Exhaust: Ready a unit.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Body;Order</span>"
+],
+[
+"Subtipos",
+"Ambessa"
+],
+[
+"N.º",
+"153 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3764": {
+"slug": "ambessa-matriarch-of-war-overnumbered-196",
+"number": "196",
+"code": "196/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Body;Order",
+"d": {
+"fx": "When you empower something else, empower me.<br><br>Disempower me, Rune, Exhaust: Ready a unit.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Body;Order</span>"
+],
+[
+"Subtipos",
+"Ambessa"
+],
+[
+"N.º",
+"196 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3765": {
+"slug": "mel-defiant-soul-alternate-art-110a",
+"number": "110a",
+"code": "110a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Discard a spell<br><br>When I become <b class=\"fx-kw\">[EMPOWERED]</b>, banish an enemy unit at a battlefield with 3 Might or less.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Mel"
+],
+[
+"N.º",
+"110a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3766": {
+"slug": "mel-defiant-soul-110",
+"number": "110",
+"code": "110/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Discard a spell <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br>When I become <b class=\"fx-kw\">[EMPOWERED]</b>, banish an enemy unit at a battlefield with 3 Might or less.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Noxus;Mel"
+],
+[
+"N.º",
+"110 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3767": {
+"slug": "mel-newly-awakened-069",
+"number": "069",
+"code": "069/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Mind",
+"d": {
+"fx": "When you play me, draw 1.<br><br><b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> Your spells and abilities can&#x27;t be countered. If a spell or ability you control would give -Might to a unit it chooses, it gives an additional -1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Noxus;Mel"
+],
+[
+"N.º",
+"069 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3768": {
+"slug": "mel-newly-awakened-alternate-art-069a",
+"number": "069a",
+"code": "069a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Mind",
+"d": {
+"fx": "When you play me, draw 1.<br><br><b class=\"fx-kw\">[EMPOWER]</b> 3<br><br><b class=\"fx-kw\">[EMPOWERED]</b> Your spells and abilities can&#x27;t be countered. If a spell or ability you control would give -Might to a unit it chooses, it gives an additional -1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Mel"
+],
+[
+"N.º",
+"069a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3769": {
+"slug": "mesmerize-052",
+"number": "052",
+"code": "052/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Choose one —Return a friendly unit to its owner&#x27;s hand.Give an enemy unit -2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"052 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3770": {
+"slug": "mind-rune-R03",
+"number": "R03",
+"code": "R03",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"N.º",
+"R03"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3771": {
+"slug": "morgana-vindictive-017",
+"number": "017",
+"code": "017/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[AMBUSH]</b> <i>(You may play me as a <b class=\"fx-kw\">[REACTION]</b> to a battlefield where you have units.)</i><br><br>When you play me, deal damage to a unit equal to the damage marked on it.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Demacia;Morgana"
+],
+[
+"N.º",
+"017 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3772": {
+"slug": "mournful-witness-028",
+"number": "028",
+"code": "028/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "When a combat that I was in ends, empower me. <i>(I become Empowered if I&#x27;m not already.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +2 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Fae;Ionia"
+],
+[
+"N.º",
+"028 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3773": {
+"slug": "nasus-ascended-046",
+"number": "046",
+"code": "046/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[DEFLECT 2]</b> <i>(Opponents must pay 2 Runes to choose me with a spell or ability.)</i><br><br><b class=\"fx-kw\">[EMPOWER]</b> 8 <i>(8: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I conquer, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"8"
+],
+[
+"Subtipos",
+"Dog;Shurima;Nasus"
+],
+[
+"N.º",
+"046 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3774": {
+"slug": "nasus-ascended-alternate-art-046a",
+"number": "046a",
+"code": "046a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[DEFLECT 2]</b><br><br><b class=\"fx-kw\">[EMPOWER]</b> 8<br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I conquer, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"8"
+],
+[
+"Subtipos",
+"Dog;Nasus"
+],
+[
+"N.º",
+"046a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3775": {
+"slug": "nasus-guardian-of-knowledge-063",
+"number": "063",
+"code": "063/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "Once each turn, when an enemy unit here dies, channel 1 rune exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Dog;Shurima;Nasus"
+],
+[
+"N.º",
+"063 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3776": {
+"slug": "nasus-guardian-of-knowledge-alternate-art-063a",
+"number": "063a",
+"code": "063a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "Once each turn, when an enemy unit here dies, channel 1 rune exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Dog;Nasus"
+],
+[
+"N.º",
+"063a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3777": {
+"slug": "noxian-demolitionist-080",
+"number": "080",
+"code": "080/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "When I conquer, you may kill a gear with Energy cost no more than my Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"080 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3778": {
+"slug": "oasis-raider-006",
+"number": "006",
+"code": "006/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "If you control fewer runes than an opponent at the start of your Beginning Phase, give me +2 Might and <b class=\"fx-kw\">[GANKING]</b> this turn. <i>(I can move from battlefield to battlefield.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"006 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3779": {
+"slug": "ocean-drake-115",
+"number": "115",
+"code": "115/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "You may play me to an open battlefield.<br><br>When you play me, you may return a non-Dragon unit to its owner&#x27;s hand.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"7"
+],
+[
+"Subtipos",
+"Dragon;Ionia"
+],
+[
+"N.º",
+"115 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3780": {
+"slug": "ol-poro-029",
+"number": "029",
+"code": "029/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "I can&#x27;t be played on your first, second, or third turns.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Poro;Bandle City"
+],
+[
+"N.º",
+"029 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3781": {
+"slug": "order-rune-R06",
+"number": "R06",
+"code": "R06",
+"type": "Rune",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"at": [
+[
+"Tipo",
+"Rune"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"N.º",
+"R06"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3782": {
+"slug": "patched-porobot-058",
+"number": "058",
+"code": "058/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<i>(I enter exhausted.)</i><br><br>When you play me, if you control 3 or more other gear, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Mech;Poro;Piltover"
+],
+[
+"N.º",
+"058 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3783": {
+"slug": "perfect-execution-012",
+"number": "012",
+"code": "012/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "Ready a unit and give it <b class=\"fx-kw\">[ASSAULT 3]</b> this turn. <i>(+3 Might while it&#x27;s an attacker.)</i><br><br><b class=\"fx-kw\">[FLOW]</b> 3 and 1 Fury <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"012 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3784": {
+"slug": "piltovan-forge-161",
+"number": "161",
+"code": "161/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "While you control this battlefield, the first friendly gear activated ability played each turn costs 1 less.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"161 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3785": {
+"slug": "punching-poro-007",
+"number": "007",
+"code": "007/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Discard 1 <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Poro;Ionia"
+],
+[
+"N.º",
+"007 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3786": {
+"slug": "questionable-tome-054",
+"number": "054",
+"code": "054/166",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Exhaust <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br>Disempower this, 1, Exhaust: Draw 1.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"054 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3787": {
+"slug": "rage-amplifier-018",
+"number": "018",
+"code": "018/166",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 6 and 1 Fury <i>(6 and 1 Fury: Empower this. Use only if not Empowered.)</i><br><br>Your units have +1 Might. If I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b>, they have +2 Might instead.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"018 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3788": {
+"slug": "rampage-083",
+"number": "083",
+"code": "083/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "As you play this, you may pay Body as an additional cost.<br><br>Choose a friendly unit and an enemy unit. If you paid the additional cost, give the friendly unit +2 Might this turn. They deal damage equal to their Mights to each other.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"083 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3789": {
+"slug": "ravenbloom-prefect-102",
+"number": "102",
+"code": "102/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "When an opponent plays a gear, you may banish me to banish it.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"102 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3790": {
+"slug": "rebuttal-152",
+"number": "152",
+"code": "152/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Mind;Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Choose a spell with Energy cost no more than 4. You may pay Rune. If you do, gain control of it and you may make new choices for it. Otherwise, counter it.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Mind;Chaos</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Power",
+"1"
+],
+[
+"Subtipos",
+"Mel"
+],
+[
+"N.º",
+"152 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3791": {
+"slug": "reluctant-leader-121",
+"number": "121",
+"code": "121/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "When you play another unit, give me +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"121 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3792": {
+"slug": "renekton-rage-fueled-019",
+"number": "019",
+"code": "019/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACCELERATE]</b> <i>(You may pay 1 and 1 Fury as an additional cost to have me enter ready.)</i><br><br>When I attack, if you control 4 or fewer runes, deal 2 to all enemy units here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Shurima;Renekton"
+],
+[
+"N.º",
+"019 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3793": {
+"slug": "renekton-rage-fueled-alternate-art-019a",
+"number": "019a",
+"code": "019a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACCELERATE]</b><br><br>When I attack, if you control 4 or fewer runes, deal 2 to all enemy units here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Renekton"
+],
+[
+"N.º",
+"019a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3794": {
+"slug": "rengar-trophy-hunter-179",
+"number": "179",
+"code": "179/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[AMBUSH]</b><br><br>I can be played to a battlefield where there are enemy units.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Cat;Rengar;Ixtal"
+],
+[
+"N.º",
+"179 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3795": {
+"slug": "risen-altar-163",
+"number": "163",
+"code": "163/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> costs of your units here cost 1 or Rune less.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"163 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3796": {
+"slug": "riven-shattered-041",
+"number": "041",
+"code": "041/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[WEAPONMASTER]</b> <i>(When you play me, you may <b class=\"fx-kw\">[EQUIP]</b> one of your Equipment to me for Rune less, even if it&#x27;s already attached.)</i><br><br>When I attack, choose an enemy unit here. Deal 2 to it for each Equipment attached to me.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Noxus;Riven"
+],
+[
+"N.º",
+"041 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3797": {
+"slug": "akali-rogue-assassin-139",
+"number": "139",
+"code": "139/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury;Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3Rune <i>(3Rune: Empower this. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[ACTION]</b> Exhaust: If it&#x27;s your turn, move a friendly unit in a showdown to base and if I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b>, ready it.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Calm</span>"
+],
+[
+"Subtipos",
+"Akali"
+],
+[
+"N.º",
+"139 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3798": {
+"slug": "akali-rogue-assassin-overnumbered-189",
+"number": "189",
+"code": "189/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Fury;Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3Rune<br><br><b class=\"fx-kw\">[ACTION]</b> Exhaust: If it&#x27;s your turn, move a friendly unit in a showdown to base and if I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b>, ready it.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Calm</span>"
+],
+[
+"Subtipos",
+"Akali"
+],
+[
+"N.º",
+"189 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3799": {
+"slug": "sacred-protector-129",
+"number": "129",
+"code": "129/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "I don&#x27;t deal combat damage unless I&#x27;m at a battlefield with exactly one other unit you control.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Fae;Ionia"
+],
+[
+"N.º",
+"129 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3800": {
+"slug": "sandswept-tomb-164",
+"number": "164",
+"code": "164/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "Each spell that chooses one or more units here that are friendly to it costs Rune less.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"164 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3801": {
+"slug": "sett-brawler-SP4",
+"number": "SP4",
+"code": "SP4/006",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "When you play me or when I conquer, buff me.<br><br>Spend my buff: Give me +4 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Sett"
+],
+[
+"N.º",
+"SP4 / 006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3802": {
+"slug": "shadow-assassin-013",
+"number": "013",
+"code": "013/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "I enter ready if you have a card with my name in your trash.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"013 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3803": {
+"slug": "shadow-order-disciple-095",
+"number": "095",
+"code": "095/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "When I move, you may <b class=\"fx-kw\">[BURN 1]</b> to give me +1 Might this turn. <i>(To Burn 1, put the top card of your Main Deck into your trash.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"095 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3804": {
+"slug": "shadows-of-the-past-103",
+"number": "103",
+"code": "103/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "Return up to 2 units from trashes to their owners&#x27; hands.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"103 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3805": {
+"slug": "shady-spectacles-137",
+"number": "137",
+"code": "137/166",
+"type": "Gear",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EQUIP]</b> 1 and 1 Order <i>(1 and 1 Order: Attach this to a unit you control.)</i><br><br>As this is attached to a unit, choose another friendly unit. The equipped unit becomes a copy of that unit for as long as this is attached to it.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Subtipos",
+"Equipment"
+],
+[
+"N.º",
+"137 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3806": {
+"slug": "shen-leader-of-the-kinkou-order-alternate-art-138a",
+"number": "138a",
+"code": "138a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[SHIELD]</b><br><br>When I hold, if there is exactly one other unit you control here, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"7"
+],
+[
+"Subtipos",
+"Shen;Ionia"
+],
+[
+"N.º",
+"138a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3807": {
+"slug": "shen-leader-of-the-kinkou-order-138",
+"number": "138",
+"code": "138/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[SHIELD]</b> <i>(+1 Might while I&#x27;m a defender.)</i><br><br>When I hold, if there is exactly one other unit you control here, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"7"
+],
+[
+"Subtipos",
+"Shen;Ionia"
+],
+[
+"N.º",
+"138 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3808": {
+"slug": "shen-scourge-of-shadows-alternate-art-042a",
+"number": "042a",
+"code": "042a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "When I hold, if there is exactly one other unit you control here, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Shen"
+],
+[
+"N.º",
+"042a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3809": {
+"slug": "shen-scourge-of-shadows-042",
+"number": "042",
+"code": "042/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "When I hold, if there is exactly one other unit you control here, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Shen;Ionia"
+],
+[
+"N.º",
+"042 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3810": {
+"slug": "shuriken-flip-140",
+"number": "140",
+"code": "140/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Fury;Calm",
+"d": {
+"fx": "Deal 2 to up to one enemy unit at a battlefield, then move a friendly unit.<br><br><b class=\"fx-kw\">[FLOW]</b> 3Rune <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Fury;Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Power",
+"1"
+],
+[
+"Subtipos",
+"Akali"
+],
+[
+"N.º",
+"140 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3811": {
+"slug": "siphoning-strike-146",
+"number": "146",
+"code": "146/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Calm;Mind",
+"d": {
+"fx": "Deal 4 to a unit at a battlefield. If you control 7 or more runes, deal 7 to it instead. When it dies this turn, channel 1 rune exhausted.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Calm;Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Subtipos",
+"Nasus"
+],
+[
+"N.º",
+"146 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3812": {
+"slug": "sky-cruiser-060",
+"number": "060",
+"code": "060/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "Discard a gear, 1, Exhaust: Deal 4 to a unit at a battlefield.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Piltover"
+],
+[
+"N.º",
+"060 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3813": {
+"slug": "sona-harmonious-SP2",
+"number": "SP2",
+"code": "SP2/006",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "At the end of your turn, if I&#x27;m at a battlefield, ready up to 4 friendly runes.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Sona"
+],
+[
+"N.º",
+"SP2 / 006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3814": {
+"slug": "mel-soul-s-reflection-overnumbered-195",
+"number": "195",
+"code": "195/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind;Chaos",
+"d": {
+"fx": "When you empower something else, empower me.<br><br>Disempower me, Exhaust: Give a unit at a battlefield -2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Mind;Chaos</span>"
+],
+[
+"Subtipos",
+"Mel"
+],
+[
+"N.º",
+"195 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3815": {
+"slug": "mel-soul-s-reflection-151",
+"number": "151",
+"code": "151/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind;Chaos",
+"d": {
+"fx": "When you empower something else, empower me. <i>(I become Empowered if I&#x27;m not already.)</i><br><br>Disempower me, Exhaust: Give a unit at a battlefield -2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Mind;Chaos</span>"
+],
+[
+"Subtipos",
+"Mel"
+],
+[
+"N.º",
+"151 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3816": {
+"slug": "steel-paws-043",
+"number": "043",
+"code": "043/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[DEFLECT]</b> <i>(Opponents must pay Rune to choose me with a spell or ability.)</i><br><br><b class=\"fx-kw\">[EMPOWER]</b> 7 <i>(7: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +7 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Might",
+"0"
+],
+[
+"Subtipos",
+"Cat;Piltover"
+],
+[
+"N.º",
+"043 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3817": {
+"slug": "temporal-breach-066",
+"number": "066",
+"code": "066/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b> <i>(Hide now for Rune to react with later for 0.)</i><br><br>Banish a unit, then its owner plays it to the same location, ignoring its cost.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"066 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3818": {
+"slug": "tomb-raider-barbara-037",
+"number": "037",
+"code": "037/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "When you play me, if you control 7 or more runes, choose an enemy gear. If it&#x27;s <b class=\"fx-kw\">[EMPOWERED]</b>, disempower it. Otherwise, kill it.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"037 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3819": {
+"slug": "tools-of-empire-077",
+"number": "077",
+"code": "077/166",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 <i>(2: Empower this. Use only if not Empowered.)</i><br><br>Exhaust: Give a unit +2 Might this turn. If this is <b class=\"fx-kw\">[EMPOWERED]</b>, give that unit +4 Might this turn instead.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"N.º",
+"077 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3820": {
+"slug": "twilight-shroud-031",
+"number": "031",
+"code": "031/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "Give a friendly unit +1 Might this turn. It can&#x27;t be chosen by enemy spells and abilities this turn.<br><br><b class=\"fx-kw\">[FLOW]</b> 2 <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"031 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3821": {
+"slug": "vi-destructive-167",
+"number": "167",
+"code": "167/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[GANKING]</b><br><br>Recycle 1 from your trash: Give me +1 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Vi"
+],
+[
+"N.º",
+"167 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3822": {
+"slug": "viktor-innovator-176",
+"number": "176",
+"code": "176/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "When you play a card on an opponent&#x27;s turn, play a 1 Might Recruit unit token to your base.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Viktor"
+],
+[
+"N.º",
+"176 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3823": {
+"slug": "wild-claw-089",
+"number": "089",
+"code": "089/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "Look at the top 5 cards of your Main Deck. You may banish a unit or gear from among them and play it, reducing its Energy cost by 5. Recycle the rest. Then you may do this: Empower it. <i>(It becomes Empowered if it&#x27;s not already.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"089 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3824": {
+"slug": "wind-and-ghosts-106",
+"number": "106",
+"code": "106/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>Choose a unit at a battlefield. If it has 3 Might or less, banish it. Otherwise, return it to its owner&#x27;s hand.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"106 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3825": {
+"slug": "zed-from-the-shadows-023",
+"number": "023",
+"code": "023/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "You may discard 1 as an additional cost to play me.<br><br>When you play me, if you paid the additional cost, play a 0 Might Shadow Clone unit token. <i>(It has &quot;When I attack, you may banish a unit from your trash. If you do, give me <b class=\"fx-kw\">[ASSAULT 4]</b> this turn.&quot;)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Ionia;Zed"
+],
+[
+"N.º",
+"023 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3826": {
+"slug": "zed-from-the-shadows-overnumbered-169",
+"number": "169",
+"code": "169/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "You may discard 1 as an additional cost to play me.<br><br>When you play me, if you paid the additional cost, play a 0 Might Shadow Clone unit token.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Zed"
+],
+[
+"N.º",
+"169 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3827": {
+"slug": "zed-from-the-shadows-alternate-art-023a",
+"number": "023a",
+"code": "023a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "You may discard 1 as an additional cost to play me.<br><br>When you play me, if you paid the additional cost, play a 0 Might Shadow Clone unit token.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Zed"
+],
+[
+"N.º",
+"023a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3828": {
+"slug": "zed-without-a-sound-112",
+"number": "112",
+"code": "112/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When I conquer, play a 0 Might Shadow Clone unit token to your base. <i>(It has &quot;When I attack, you may banish a unit from your trash. If you do, give me <b class=\"fx-kw\">[ASSAULT 4]</b> this turn.&quot;)</i><br><br><b class=\"fx-kw\">[ACTION]</b> 1 and 1 Chaos: Move me and a Shadow Clone you control to each other&#x27;s locations.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Ionia;Zed"
+],
+[
+"N.º",
+"112 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3829": {
+"slug": "zed-without-a-sound-alternate-art-112a",
+"number": "112a",
+"code": "112a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When I conquer, play a 0 Might Shadow Clone unit token to your base.<br><br><b class=\"fx-kw\">[ACTION]</b> 1 and 1 Chaos: Move me and a Shadow Clone you control to each other&#x27;s locations.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Zed"
+],
+[
+"N.º",
+"112a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3830": {
+"slug": "acceleration-gate-150",
+"number": "150",
+"code": "150/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Mind;Body",
+"d": {
+"fx": "Ready up to 4 units, gear, and/or runes.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Mind;Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Subtipos",
+"Jayce"
+],
+[
+"N.º",
+"150 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3831": {
+"slug": "affectionate-poro-024",
+"number": "024",
+"code": "024/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "When a combat that I was in ends, if I haven&#x27;t been dealt damage this turn, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Poro;Noxus"
+],
+[
+"N.º",
+"024 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3832": {
+"slug": "ambessa-respected-and-feared-overnumbered-187",
+"number": "187",
+"code": "187/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 1 and 2 Order<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[ASSAULT 2]</b>.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I attack, kill an enemy unit here with less Might than me.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Ambessa"
+],
+[
+"N.º",
+"187 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3833": {
+"slug": "ambessa-the-wolf-084",
+"number": "084",
+"code": "084/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 and 1 Body <i>(3 and 1 Body: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +3 Might and can&#x27;t be dealt damage unless I&#x27;m in combat.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Noxus;Ambessa"
+],
+[
+"N.º",
+"084 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3834": {
+"slug": "ambessa-the-wolf-alternate-art-084a",
+"number": "084a",
+"code": "084a/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 and 1 Body<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +3 Might and can&#x27;t be dealt damage unless I&#x27;m in combat.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Ambessa"
+],
+[
+"N.º",
+"084a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3835": {
+"slug": "applied-researchers-055",
+"number": "055",
+"code": "055/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> Your spells cost 1 and 1 Rune less, to a minimum of 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"055 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3836": {
+"slug": "astral-heron-044",
+"number": "044",
+"code": "044/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "When you play your first card each turn, if I&#x27;m at a battlefield, your next card costs 2 Runes less.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Might",
+"7"
+],
+[
+"Subtipos",
+"Bird;Mount Targon"
+],
+[
+"N.º",
+"044 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3837": {
+"slug": "aurok-general-130",
+"number": "130",
+"code": "130/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 and 1 Order <i>(3 and 1 Order: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> Your units that are <b class=\"fx-kw\">[EMPOWERED]</b> have +2 Might <i>(including me)</i>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Trifarian;Noxus"
+],
+[
+"N.º",
+"130 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3838": {
+"slug": "baccai-sandspinner-001",
+"number": "001",
+"code": "001/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 5. This ability costs 3 less if you control 4 or fewer runes. <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[DEFLECT]</b> and <b class=\"fx-kw\">[ASSAULT 2]</b>. <i>(Opponents must pay Rune to choose me with a spell or ability. +2 Might while I&#x27;m an attacker.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"001 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3839": {
+"slug": "baccai-witherclaw-078",
+"number": "078",
+"code": "078/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 1 and 1 RuneRune <i>(1 and 2 Runes: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +2 Might.<br><br><b class=\"fx-kw\">[EMPOWERED]</b><b class=\"fx-kw\">[DEATHKNELL]</b> Channel 2 runes exhausted. <i>(When I die while Empowered, get the effect.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"078 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3840": {
+"slug": "brittle-steel-003",
+"number": "003",
+"code": "003/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "Kill a gear.<br><br><b class=\"fx-kw\">[FLOW]</b> 4 and 1 Fury <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"003 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3841": {
+"slug": "brutal-hunter-070",
+"number": "070",
+"code": "070/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +2 Might and <b class=\"fx-kw\">[GANKING]</b>. <i>(I can move from battlefield to battlefield.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"070 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3842": {
+"slug": "cataclysmic-duel-090",
+"number": "090",
+"code": "090/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "Each player chooses a unit they control. Kill the rest.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"8"
+],
+[
+"Power",
+"3"
+],
+[
+"N.º",
+"090 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3843": {
+"slug": "clairvoyance-056",
+"number": "056",
+"code": "056/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br><b class=\"fx-kw\">[PREDICT 5]</b>. <i>(Look at the top 5 cards of your Main Deck. Recycle any of them and put the rest back in any order.)</i><br><br>Draw 2.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"N.º",
+"056 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3844": {
+"slug": "consuming-curse-010",
+"number": "010",
+"code": "010/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>Deal 2 to a unit at a battlefield. This deals 1 Bonus Damage for each card with this name in your trash.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"010 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3845": {
+"slug": "covert-informant-057",
+"number": "057",
+"code": "057/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> When I move, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"057 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3846": {
+"slug": "crumbling-sands-039",
+"number": "039",
+"code": "039/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Counter a spell if an opponent has played another spell this turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"039 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3847": {
+"slug": "decree-of-focus-040",
+"number": "040",
+"code": "040/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Choose a friendly unit that&#x27;s in combat with an enemy Fury <i>(Fury)</i> unit or that&#x27;s being chosen by an enemy Fury spell. Give it +4 Might this turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"040 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3848": {
+"slug": "decree-of-rage-015",
+"number": "015",
+"code": "015/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>This can&#x27;t be countered.<br><br>Deal 4 to an enemy Calm <i>(Calm)</i> unit.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"015 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3849": {
+"slug": "decree-of-strength-085",
+"number": "085",
+"code": "085/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Body",
+"d": {
+"fx": "Choose an opponent. They reveal their hand and you choose a Mind <i>(Mind)</i> card from it. They recycle that card.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"1"
+],
+[
+"N.º",
+"085 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3850": {
+"slug": "decree-of-unity-131",
+"number": "131",
+"code": "131/166",
+"type": "Spell",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "Kill an enemy Chaos <i>(Chaos)</i> unit or gear.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"131 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3851": {
+"slug": "jayce-defender-of-tomorrow-overnumbered-194",
+"number": "194",
+"code": "194/166",
+"type": "Legend",
+"rarity": "Rare",
+"domains": "Mind;Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2RuneRune<br><br>1, Exhaust: Ready a gear.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> 1, Exhaust: Ready 2 gear.",
+"at": [
+[
+"Tipo",
+"Legend"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Mind;Body</span>"
+],
+[
+"Subtipos",
+"Jayce"
+],
+[
+"N.º",
+"194 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3852": {
+"slug": "diana-no-longer-human-overnumbered-183",
+"number": "183",
+"code": "183/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[AMBUSH]</b><br><br>When you play a spell, give me +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Diana;Mount Targon"
+],
+[
+"N.º",
+"183 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3853": {
+"slug": "disciple-of-shen-117",
+"number": "117",
+"code": "117/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b> <i>(Hide now for Rune to react with later for 0.)</i><br><br>I have <b class=\"fx-kw\">[SHIELD 3]</b> while I&#x27;m at a battlefield with exactly one other unit you control. <i>(+3 Might while I&#x27;m a defender.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"1"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"117 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3854": {
+"slug": "dragon-form-116",
+"number": "116",
+"code": "116/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "Choose a unit. Its base Might becomes 5 this turn.<br><br><b class=\"fx-kw\">[FLOW]</b> 3 <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"116 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3855": {
+"slug": "dragon-roost-157",
+"number": "157",
+"code": "157/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "Any player may pay 2 Runes as an additional cost to play a Dragon. If they do, they play it to this battlefield.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"157 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3856": {
+"slug": "draven-showboat-172",
+"number": "172",
+"code": "172/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "My Might is increased by your points.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Draven"
+],
+[
+"N.º",
+"172 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3857": {
+"slug": "dredge-up-049",
+"number": "049",
+"code": "049/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "Draw 1.<br><br><b class=\"fx-kw\">[FLOW]</b> 2 <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"049 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3858": {
+"slug": "dune-surfer-004",
+"number": "004",
+"code": "004/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "You ignore <b class=\"fx-kw\">[TANK]</b> while assigning combat damage here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"004 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3859": {
+"slug": "endless-riches-022",
+"number": "022",
+"code": "022/166",
+"type": "Gear",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "When you play this, banish your hand and trash, then <b class=\"fx-kw\">[BURN 7]</b>.<br><br>Skip your Draw Phase.<br><br>You may play cards from your trash.<br><br>If a card would go to your trash from anywhere other than your Main Deck, banish it instead.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"022 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3860": {
+"slug": "escaped-grayback-124",
+"number": "124",
+"code": "124/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Kill a friendly unit <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +2 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"124 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3861": {
+"slug": "fallen-feline-132",
+"number": "132",
+"code": "132/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "When you play me, name a spell.<br><br>While I&#x27;m at a battlefield, opponents can&#x27;t play spells with that name.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Cat;Piltover"
+],
+[
+"N.º",
+"132 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3862": {
+"slug": "forgotten-relic-108",
+"number": "108",
+"code": "108/166",
+"type": "Gear",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When you play this or at the start of your Beginning Phase, <b class=\"fx-kw\">[BURN 1]</b>. When you burn a unit this way, do this: Give a friendly unit +Might equal to the burned card&#x27;s Might this turn. <i>(To Burn 1, put the top card of your Main Deck into your trash.)</i>",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"N.º",
+"108 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3863": {
+"slug": "forsaken-baccai-005",
+"number": "005",
+"code": "005/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "If you control fewer runes than an opponent at the start of your Beginning Phase, give me +1 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"005 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3864": {
+"slug": "fretful-feline-071",
+"number": "071",
+"code": "071/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "When I become ready, give me +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Cat;Piltover"
+],
+[
+"N.º",
+"071 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3865": {
+"slug": "frostcoat-mother-032",
+"number": "032",
+"code": "032/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER 12]</b>. This ability costs 1 less for each rune you control. <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +3 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Dog;Freljord"
+],
+[
+"N.º",
+"032 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3866": {
+"slug": "grumpy-rockbear-050",
+"number": "050",
+"code": "050/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER 12]</b>. This ability costs 1 less for each rune you control. <i>(Pay the cost: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[DEFLECT]</b> and <b class=\"fx-kw\">[SHIELD 3]</b>. <i>(Opponents must pay Rune to choose me with a spell or ability.+3 Might while I&#x27;m a defender.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"050 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3867": {
+"slug": "guttural-roar-072",
+"number": "072",
+"code": "072/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>Give a unit +2 Might this turn. If it&#x27;s <b class=\"fx-kw\">[EMPOWERED]</b>, give it +4 Might this turn instead.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"N.º",
+"072 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3868": {
+"slug": "hand-hammer-027",
+"number": "027",
+"code": "027/166",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[EQUIP]</b> Calm <i>(Calm: Attach this to a unit you control.)</i>",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Subtipos",
+"Equipment"
+],
+[
+"N.º",
+"027 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3869": {
+"slug": "helm-of-suppression-045",
+"number": "045",
+"code": "045/166",
+"type": "Gear",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 4 and 1 Calm <i>(4 and 1 Calm: Empower this. Use only if not Empowered.)</i><br><br>Opponents&#x27; spells cost 1 more. If this is <b class=\"fx-kw\">[EMPOWERED]</b>, they cost 1 and 1 Rune more instead.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"045 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3870": {
+"slug": "hungry-wolf-125",
+"number": "125",
+"code": "125/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "Order: Ready me and give me +1 Might this turn. Use only if you&#x27;ve chosen an enemy unit this turn and only once each turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Dog;Freljord"
+],
+[
+"N.º",
+"125 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3871": {
+"slug": "irelia-fervent-overnumbered-174",
+"number": "174",
+"code": "174/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[DEFLECT]</b><br><br>When you choose or ready me, give me +1 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Irelia;Ionia"
+],
+[
+"N.º",
+"174 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3872": {
+"slug": "iterative-design-051",
+"number": "051",
+"code": "051/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Mind",
+"d": {
+"fx": "Play a 3 Might Mech unit token.<br><br><b class=\"fx-kw\">[FLOW]</b> 2 and 1 Mind <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"N.º",
+"051 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3873": {
+"slug": "kai-sa-survivor-SP1",
+"number": "SP1",
+"code": "SP1/006",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACCELERATE]</b><br><br>When I conquer, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Kai&#x27;Sa"
+],
+[
+"N.º",
+"SP1 / 006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3874": {
+"slug": "kayle-justified-134",
+"number": "134",
+"code": "134/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me.)</i><br><br>I can be <b class=\"fx-kw\">[EMPOWERED]</b> up to three times.<br><br>I have +2 Might for each time I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b>.<br><br>While I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b> three times, I have <b class=\"fx-kw\">[DEFLECT 3]</b> and <b class=\"fx-kw\">[GANKING]</b>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Mount Targon;Kayle"
+],
+[
+"N.º",
+"134 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3875": {
+"slug": "kayle-justified-overnumbered-185",
+"number": "185",
+"code": "185/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me.)</i><br><br>I can be <b class=\"fx-kw\">[EMPOWERED]</b> up to three times.<br><br>I have +2 Might for each time I‚Äôm <b class=\"fx-kw\">[EMPOWERED]</b>.<br><br>While I&#x27;m <b class=\"fx-kw\">[EMPOWERED]</b> three times, I have <b class=\"fx-kw\">[DEFLECT 3]</b> and <b class=\"fx-kw\">[GANKING]</b>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Kayle"
+],
+[
+"N.º",
+"185 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3876": {
+"slug": "kennen-storm-of-shuriken-alternate-art-113a",
+"number": "113a",
+"code": "113a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "When you play me, <b class=\"fx-kw\">[BURN 2]</b>.<br><br>When I conquer, give a spell in your trash <b class=\"fx-kw\">[FLOW]</b> equal to its cost this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Yordle;Ionia;Kennen"
+],
+[
+"N.º",
+"113a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3877": {
+"slug": "kharox-114",
+"number": "114",
+"code": "114/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 6 and 1 ChaosChaos <i>(6 and 1 ChaosChaos: Empower me. Use only if not Empowered.)</i><br><br>When I become <b class=\"fx-kw\">[EMPOWERED]</b>, choose an opponent. They <b class=\"fx-kw\">[BURN 3]</b>. Then you may do this: Choose a unit in their trash and play it, ignoring its cost. <i>(To Burn 3, they put the top 3 cards of their Main Deck into their trash.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Spirit;Shadow Isles"
+],
+[
+"N.º",
+"114 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3878": {
+"slug": "kinkou-temple-159",
+"number": "159",
+"code": "159/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "Units here with <b class=\"fx-kw\">[TANK]</b> have +1 Might.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"159 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3879": {
+"slug": "legion-marauder-074",
+"number": "074",
+"code": "074/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — 1 or Body <i>(Pay either cost: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Trifarian;Noxus"
+],
+[
+"N.º",
+"074 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3880": {
+"slug": "leona-determined-184",
+"number": "184",
+"code": "184/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[SHIELD]</b><br><br>When I attack, stun an enemy unit here.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Leona"
+],
+[
+"N.º",
+"184 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3881": {
+"slug": "masa-crashing-thunder-120",
+"number": "120",
+"code": "120/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "You may pay Order as an additional cost to play me.<br><br>When you play me, if you paid the additional cost, <b class=\"fx-kw\">[Stun]</b> an enemy unit at a battlefield. <i>(It doesn&#x27;t deal combat damage this turn.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Yordle;Bandle City"
+],
+[
+"N.º",
+"120 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3882": {
+"slug": "mask-mother-094",
+"number": "094",
+"code": "094/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "When you discard me, you may pay 1 to give a friendly unit +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Spirit;Shadow Isles"
+],
+[
+"N.º",
+"094 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3883": {
+"slug": "mel-defiant-soul-overnumbered-188",
+"number": "188",
+"code": "188/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> — Discard a spell<br><br>When I become <b class=\"fx-kw\">[EMPOWERED]</b>, banish an enemy unit at a battlefield with 3 Might or less.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Mel"
+],
+[
+"N.º",
+"188 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3884": {
+"slug": "minah-swiftfoot-111",
+"number": "111",
+"code": "111/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Chaos",
+"d": {
+"fx": "When I move to a battlefield, choose one —Each player discards 1.Each player draws 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"111 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3885": {
+"slug": "morgana-vindictive-overnumbered-186",
+"number": "186",
+"code": "186/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[AMBUSH]</b><br><br>When you play me, deal damage to a unit equal to the damage marked on it.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Morgana"
+],
+[
+"N.º",
+"186 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3886": {
+"slug": "mystic-vortex-160",
+"number": "160",
+"code": "160/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "During showdowns here, cards with <b class=\"fx-kw\">[REACTION]</b> cost Rune more to play. <i>(Hidden cards have <b class=\"fx-kw\">[REACTION]</b>.)</i>",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"160 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3887": {
+"slug": "nasus-guardian-of-knowledge-overnumbered-178",
+"number": "178",
+"code": "178/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "Once each turn, when an enemy unit here dies, channel 1 rune exhausted.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Dog;Nasus"
+],
+[
+"N.º",
+"178 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3888": {
+"slug": "noxian-emissary-128",
+"number": "128",
+"code": "128/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 1 and 1 Order <i>(1 and 1 Order: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b><b class=\"fx-kw\">[DEATHKNELL]</b> Play two 1 Might Recruit unit tokens to your base. <i>(When I die while Empowered, get the effect.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Noxus"
+],
+[
+"N.º",
+"128 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3889": {
+"slug": "onslaught-081",
+"number": "081",
+"code": "081/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "Give a unit +6 Might this turn.<br><br><b class=\"fx-kw\">[FLOW]</b> 4 <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"N.º",
+"081 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3890": {
+"slug": "otterpus-053",
+"number": "053",
+"code": "053/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "If a player would score 1 point from conquering or holding during their first or second turn, they draw 1 instead.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Bandle City"
+],
+[
+"N.º",
+"053 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3891": {
+"slug": "pakaa-protector-033",
+"number": "033",
+"code": "033/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "When I move, reveal the top card of your Main Deck. If it&#x27;s a unit, draw it. Otherwise, put it in your trash and give me +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Cat;Shurima"
+],
+[
+"N.º",
+"033 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3892": {
+"slug": "pendulum-blade-011",
+"number": "011",
+"code": "011/166",
+"type": "Gear",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EQUIP]</b> Fury <i>(Fury: Attach this to a unit you control.)</i>",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Subtipos",
+"Equipment"
+],
+[
+"N.º",
+"011 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3893": {
+"slug": "platewyrm-egg-075",
+"number": "075",
+"code": "075/166",
+"type": "Gear",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "This enters exhausted.<br><br><b class=\"fx-kw\">[EMPOWER]</b> — 1, Exhaust <i>(Pay the cost: Empower this. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[REACTION]</b> Exhaust: <b class=\"fx-kw\">[ADD]</b> 1. If this is <b class=\"fx-kw\">[EMPOWERED]</b>, <b class=\"fx-kw\">[ADD]</b> 2 instead.",
+"at": [
+[
+"Tipo",
+"Gear"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"075 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3894": {
+"slug": "plaza-guardian-064",
+"number": "064",
+"code": "064/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "I cost 1 less for each gear you control.<br><br><b class=\"fx-kw\">[DEFLECT]</b> <i>(Opponents must pay Rune to choose me with a spell or ability.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"10"
+],
+[
+"Might",
+"8"
+],
+[
+"Subtipos",
+"Mech;Piltover"
+],
+[
+"N.º",
+"064 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3895": {
+"slug": "profiteer-082",
+"number": "082",
+"code": "082/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Body",
+"d": {
+"fx": "When you play me, you may disempower something you control to empower a legend, unit, or gear.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"082 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3896": {
+"slug": "protective-sands-162",
+"number": "162",
+"code": "162/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "When you conquer here, if you control 4 or fewer runes, you may pay 1 to draw 1.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"162 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3897": {
+"slug": "public-execution-154",
+"number": "154",
+"code": "154/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Body;Order",
+"d": {
+"fx": "Choose a friendly unit. Kill an enemy unit with less Might than it.<br><br><b class=\"fx-kw\">[FLOW]</b> 5RuneRune <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Body;Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Subtipos",
+"Ambessa"
+],
+[
+"N.º",
+"154 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3898": {
+"slug": "renekton-brute-alternate-art-092a",
+"number": "092a",
+"code": "092a/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "1: Give me +1 Might this turn.<br><br>When my Might becomes 10 or more, empower me.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[DEFLECT]</b> and <b class=\"fx-kw\">[GANKING]</b>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Renekton"
+],
+[
+"N.º",
+"092a / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3899": {
+"slug": "renekton-brute-092",
+"number": "092",
+"code": "092/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "1: Give me +1 Might this turn.<br><br>When my Might becomes 10 or more, empower me. <i>(I become Empowered if I&#x27;m not already.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[DEFLECT]</b> and <b class=\"fx-kw\">[GANKING]</b>. <i>(Opponents must pay Rune to choose me with a spell or ability. I can move from battlefield to battlefield.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Shurima;Renekton"
+],
+[
+"N.º",
+"092 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3900": {
+"slug": "renekton-brute-overnumbered-177",
+"number": "177",
+"code": "177/166",
+"type": "Unit",
+"rarity": "Epic",
+"domains": "Body",
+"d": {
+"fx": "1: Give me +1 Might this turn.<br><br>When my Might becomes 10 or more, empower me.<br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[GANKING]</b> and <b class=\"fx-kw\">[DEFLECT]</b>.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Renekton"
+],
+[
+"N.º",
+"177 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3901": {
+"slug": "repair-specialist-076",
+"number": "076",
+"code": "076/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Body",
+"d": {
+"fx": "I have <b class=\"fx-kw\">[ASSAULT]</b> equal to the number of gear you control. <i>(+1 Might while I&#x27;m an attacker for each instance of Assault.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C98A3E\"></span>Body</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Zaun"
+],
+[
+"N.º",
+"076 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3902": {
+"slug": "resonating-strike-034",
+"number": "034",
+"code": "034/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b> <i>(Hide now for Rune to react with later for 0.)</i><br><br><b class=\"fx-kw\">[REACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>Choose a battlefield you control and a unit you control at a different location. Move that unit to that battlefield and give it +2 Might this turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"034 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3903": {
+"slug": "riven-shattered-overnumbered-171",
+"number": "171",
+"code": "171/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[WEAPONMASTER]</b><br><br>When I attack, choose an enemy unit here. Deal 2 to it for each Equipment attached to me.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Riven"
+],
+[
+"N.º",
+"171 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3904": {
+"slug": "ruthless-strike-008",
+"number": "008",
+"code": "008/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>As an additional cost to play this, you may discard 1.<br><br>Deal 3 to a unit at a battlefield. If you paid the additional cost, deal 5 to it instead.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"008 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3905": {
+"slug": "sanction-035",
+"number": "035",
+"code": "035/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[REACTION]</b> <i>(Play any time, even before spells and abilities resolve.)</i><br><br>Choose one —Empower a unit. Disempower it at end of turn.Disempower a unit that&#x27;s <b class=\"fx-kw\">[EMPOWERED]</b>. Empower it at end of turn.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"035 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3906": {
+"slug": "sandstone-chimera-036",
+"number": "036",
+"code": "036/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Calm",
+"d": {
+"fx": "While I&#x27;m at a battlefield, players only channel 1 rune at the start of their Channel Phase.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"7"
+],
+[
+"Power",
+"2"
+],
+[
+"Might",
+"8"
+],
+[
+"Subtipos",
+"Shurima"
+],
+[
+"N.º",
+"036 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3907": {
+"slug": "serene-ascetic-030",
+"number": "030",
+"code": "030/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Calm",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 3 <i>(3: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[DEFLECT]</b> and <b class=\"fx-kw\">[SHIELD 3]</b>. <i>(Opponents must pay Rune to choose me with a spell or ability.+3 Might while I&#x27;m a defender.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"030 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3908": {
+"slug": "shadow-dash-148",
+"number": "148",
+"code": "148/166",
+"type": "Spell",
+"rarity": "Epic",
+"domains": "Calm;Order",
+"d": {
+"fx": "Move an enemy unit to a battlefield where you have units. If you have exactly two units there, they each get +1 Might this turn.<br><br><b class=\"fx-kw\">[FLOW]</b> 5 and 2 Runes <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Epic"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C9A24B\"></span>Calm;Order</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"Subtipos",
+"Shen"
+],
+[
+"N.º",
+"148 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3909": {
+"slug": "shadow-fiend-014",
+"number": "014",
+"code": "014/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Fury",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 and 1 Fury <i>(2 and 1 Fury: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have <b class=\"fx-kw\">[ASSAULT 3]</b>. <i>(+3 Might while I&#x27;m an attacker.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Might",
+"2"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"014 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3910": {
+"slug": "shadow-temple-165",
+"number": "165",
+"code": "165/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "When you hold here, <b class=\"fx-kw\">[BURN 3]</b>. <i>(Put the top 3 cards of your Main Deck into your trash.)</i>",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"165 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3911": {
+"slug": "shadowblade-lurker-096",
+"number": "096",
+"code": "096/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "I cost 2 less for each card with my name in your trash.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"5"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"096 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3912": {
+"slug": "shen-scourge-of-shadows-overnumbered-170",
+"number": "170",
+"code": "170/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Calm",
+"d": {
+"fx": "When I hold, if there is exactly one other unit you control here, draw 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4FA86B\"></span>Calm</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Shen"
+],
+[
+"N.º",
+"170 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3913": {
+"slug": "shock-blast-059",
+"number": "059",
+"code": "059/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[ACTION]</b> <i>(Play on your turn or in showdowns.)</i><br><br>This costs 2 less if you control something that&#x27;s <b class=\"fx-kw\">[EMPOWERED]</b>.<br><br>Deal 4 to a unit at a battlefield.",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"059 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3914": {
+"slug": "solari-sunhawk-122",
+"number": "122",
+"code": "122/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 <i>(2: Empower me. Use only if not Empowered.)</i><br><br><b class=\"fx-kw\">[EMPOWERED]</b> I have +1 Might and <b class=\"fx-kw\">[DEFLECT 2]</b>. <i>(Opponents must pay RuneRune to choose me with a spell or ability.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Bird;Mount Targon"
+],
+[
+"N.º",
+"122 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3915": {
+"slug": "soulspinner-123",
+"number": "123",
+"code": "123/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Order",
+"d": {
+"fx": "<b class=\"fx-kw\">[AMBUSH]</b> <i>(You may play me as a <b class=\"fx-kw\">[REACTION]</b> to a battlefield where you have units.)</i>",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#D9C56A\"></span>Order</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Shadow Isles;Spider"
+],
+[
+"N.º",
+"123 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3916": {
+"slug": "spiderling-097",
+"number": "097",
+"code": "097/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b> <i>(Hide now for Rune to react with later for 0.)</i><br><br>I have +1 Might for each other unit you control here with my name.<br><br>Your deck can have any number of cards named Spiderling.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"1"
+],
+[
+"Subtipos",
+"Shadow Isles;Spider"
+],
+[
+"N.º",
+"097 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3917": {
+"slug": "stargazer-098",
+"number": "098",
+"code": "098/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "Spells with <b class=\"fx-kw\">[FLOW]</b> you play from your trash cost 2 less, to a minimum of 1.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"5"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Mount Targon"
+],
+[
+"N.º",
+"098 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3918": {
+"slug": "swain-visionary-overnumbered-173",
+"number": "173",
+"code": "173/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[VISION]</b><br><br>When I conquer, if you&#x27;ve played a non-token unit, a non-token gear, and a spell this turn, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Swain"
+],
+[
+"N.º",
+"173 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3919": {
+"slug": "swain-visionary-065",
+"number": "065",
+"code": "065/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Mind",
+"d": {
+"fx": "<b class=\"fx-kw\">[VISION]</b> <i>(When you play me, look at the top card of your Main Deck. You may recycle it.)</i><br><br>When I conquer, if you&#x27;ve played a non-token unit, a non-token gear, and a spell this turn, you score 1 point.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#4A86C9\"></span>Mind</span>"
+],
+[
+"Energía",
+"6"
+],
+[
+"Power",
+"1"
+],
+[
+"Might",
+"6"
+],
+[
+"Subtipos",
+"Noxus;Swain;Demon"
+],
+[
+"N.º",
+"065 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3920": {
+"slug": "tail-cloaked-matriarch-104",
+"number": "104",
+"code": "104/166",
+"type": "Unit",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[EMPOWER]</b> 2 and 1 Chaos <i>(2 and 1 Chaos: Empower me. Use only if not Empowered.)</i><br><br>When I become <b class=\"fx-kw\">[EMPOWERED]</b>, you may choose a unit in your trash with Energy cost no more than 3 and Power cost no more than Rune. Play it to your base, ignoring its cost.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"4"
+],
+[
+"Might",
+"4"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"104 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3921": {
+"slug": "threshold-of-the-gray-166",
+"number": "166",
+"code": "166/166",
+"type": "Battlefield",
+"rarity": "Uncommon",
+"domains": "",
+"d": {
+"fx": "When combat starts here, the attacker and defender each <b class=\"fx-kw\">[ADD]</b> 1.",
+"at": [
+[
+"Tipo",
+"Battlefield"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"N.º",
+"166 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3922": {
+"slug": "tornado-warrior-099",
+"number": "099",
+"code": "099/166",
+"type": "Unit",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "<b class=\"fx-kw\">[HIDDEN]</b> <i>(Hide now for Rune to react with later for 0.)</i><br><br>When you play me from face down, you may empower something here. Disempower it at end of turn.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Yordle;Bandle City"
+],
+[
+"N.º",
+"099 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3923": {
+"slug": "twilight-reveler-020",
+"number": "020",
+"code": "020/166",
+"type": "Unit",
+"rarity": "Rare",
+"domains": "Fury",
+"d": {
+"fx": "When I attack, ready another friendly unit.",
+"at": [
+[
+"Tipo",
+"Unit"
+],
+[
+"Rareza",
+"Rare"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#C13B26\"></span>Fury</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"Might",
+"3"
+],
+[
+"Subtipos",
+"Ionia"
+],
+[
+"N.º",
+"020 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3924": {
+"slug": "twilight-step-105",
+"number": "105",
+"code": "105/166",
+"type": "Spell",
+"rarity": "Uncommon",
+"domains": "Chaos",
+"d": {
+"fx": "Move a unit with 3 Might or less.<br><br><b class=\"fx-kw\">[FLOW]</b> 4 and 1 Chaos <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Uncommon"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"2"
+],
+[
+"Power",
+"1"
+],
+[
+"N.º",
+"105 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"3925": {
+"slug": "up-from-the-deep-100",
+"number": "100",
+"code": "100/166",
+"type": "Spell",
+"rarity": "Common",
+"domains": "Chaos",
+"d": {
+"fx": "Play two 1 Might Tentacle unit tokens from Bilgewater.<br><br><b class=\"fx-kw\">[FLOW]</b> 3 <i>(You may play this from your trash for its Flow cost. Then banish it.)</i>",
+"at": [
+[
+"Tipo",
+"Spell"
+],
+[
+"Rareza",
+"Common"
+],
+[
+"Dominio",
+"<span class=\"dom\"><span class=\"dom__dot\" style=\"background:#9B5BB0\"></span>Chaos</span>"
+],
+[
+"Energía",
+"3"
+],
+[
+"N.º",
+"100 / 166"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
 }
 }

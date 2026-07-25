@@ -43,3 +43,4 @@ precios_semanal.log
 __pycache__/
 *.pyc
 productos_backup_foilstock.json
+productos_backup_vendetta.json
