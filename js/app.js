@@ -99,6 +99,14 @@ function activeFilterCount(){ return selSets.size+selRars.size+selCTs.size+selDo
 let sortMode    = "rel";
 let query       = "";
 let showSoldOut = false;   // por defecto NO se muestran las cartas agotadas (stock 0)
+/* REGLA DE VISIBILIDAD (decidida con Andrés):
+   - Navegar el catálogo sin pedir nada → solo lo COMPRABLE (stock > 0).
+   - Buscar o filtrar algo específico → se ve TODO, con las agotadas marcadas
+     "Agotado" (para que un set nuevo como Vendetta, aún sin stock, se pueda
+     encontrar y el cliente pida "avisame cuando llegue").
+   Los CONTEOS de los dropdowns siempre incluyen las agotadas, si no una
+   expansión entera sin stock desaparecería del filtro. */
+function userNarrowed(){ return !!(query && query.trim()) || activeFilterCount() > 0; }
 
 // stock de un producto: null = ilimitado (sin campo), número = unidades
 function stockVal(p){ const s=p.stock; return (s===undefined||s===null||s==="")?null:Number(s); }
@@ -696,8 +704,11 @@ let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la p�
 // except: omite UN grupo de filtros ("set"|"rar"|"ct"|"dom"|"foil"|"cond"|"price")
 // para calcular los conteos contextuales de ese dropdown (estilo TCGplayer).
 function getFiltered(except){
+  // agotadas: siempre en los conteos de los dropdowns (except), y en la grilla
+  // solo si el cliente buscó/filtró algo específico o activó "Mostrar agotadas"
+  const incluirAgotadas = showSoldOut || !!except || userNarrowed();
   let items = PRODUCTS.filter(p=>{
-    if(!showSoldOut && !isAvailable(p)) return false;   // por defecto, solo disponibles
+    if(!incluirAgotadas && !isAvailable(p)) return false;   // navegación normal: solo comprables
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
     if(activeType!=="all" && (p.type||"single")!==activeType) return false;
     if(except!=="set"  && selSets.size  && !selSets.has(p.set)) return false;
@@ -1260,7 +1271,10 @@ function renderSearchResults(){
   srActive = -1; if(inp) inp.removeAttribute("aria-activedescendant");
   const q = query.trim().toLowerCase();
   if(!q){ box.hidden = true; box.innerHTML = ""; inp && inp.setAttribute("aria-expanded","false"); return; }
-  const all = PRODUCTS.filter(p=> (showSoldOut || isAvailable(p)) && matchQuery(p, query));
+  // el buscador SIEMPRE incluye agotadas (van marcadas): si no, un set nuevo sin
+  // stock —ej. Vendetta— sería imposible de encontrar. Primero las disponibles.
+  const all = PRODUCTS.filter(p=> matchQuery(p, query))
+                      .sort((a,b)=> (isAvailable(b)?1:0) - (isAvailable(a)?1:0));
   const matches = all.slice(0,5);   // 5 en el desplegable; el resto via "Ver todos" (evita que lo corte la sección de abajo)
   box.hidden = false; inp && inp.setAttribute("aria-expanded","true");
   if(!matches.length){ box.innerHTML = `<div class="sr__empty">Sin resultados para “${query}”. Probá otro nombre o juego.</div>`; return; }
@@ -1269,7 +1283,7 @@ function renderSearchResults(){
       <span class="sr__media">${p.img?`<img src="${imgURL(p.img,120)}" alt="" loading="lazy">`:`<span class="sr__emoji">${p.emoji||SVG_CARD}</span>`}</span>
       <span class="sr__info">
         <span class="sr__name">${p.name}</span>
-        <span class="sr__meta">${p.cat}${p.set?" · "+p.set:""} · ${p.type==="sealed"?"Sellado":p.cond}</span>
+        <span class="sr__meta">${p.cat}${p.set?" · "+p.set:""} · ${p.type==="sealed"?"Sellado":p.cond}${isAvailable(p)?"":' <span class="sr__out">Agotado</span>'}</span>
       </span>
       <span class="sr__price">${fmt(p.price)}</span>
     </button>`).join("")

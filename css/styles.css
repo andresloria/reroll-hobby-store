@@ -277,6 +277,9 @@ h2{font-size:clamp(2rem,4vw,3.1rem)}
 .sr__info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .sr__name{color:var(--cream);font-weight:600;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sr__meta{color:var(--muted);font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* marca de agotado en el buscador (las agotadas SÍ se buscan, pero se avisan) */
+.sr__out{display:inline-block;margin-left:4px;padding:1px 6px;border-radius:999px;font-size:.66rem;font-weight:700;
+  background:rgba(194,85,85,.18);color:#d98a92;border:1px solid rgba(194,85,85,.35)}
 .sr__price{color:var(--gold-bright);font-family:var(--font-serif);font-size:1.05rem;flex-shrink:0}
 .sr__empty{padding:16px;color:var(--muted);font-size:.9rem;text-align:center}
 
