@@ -8,6 +8,33 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-24 (16) — Expansión VENDETTA + regla de cartas nuevas buscables (pedido de Andrés)
+- **Vendetta de Riftbound agregada completa** (TCGplayer la publicó el 2026-07-31 como groupId 24698): `rm catalogo/_cache/riftbound_*` + `make_catalogo.py riftbound` → **227 singles** agregados a `productos.json` a **stock 0** (Andrés sube el stock desde el panel según lo físico). Imágenes de TCGplayer (Vendetta aún no tiene CSV de Riot — el pipeline ya tenía ese fallback). **227 fichas** con efecto + atributos (dominio, energía, might, tipo, subtipos) desde el `Description` de TCGplayer. Chase: **Ahri, Inquisitive** (Epic SP3/006) ₡275.000. Cero foils fantasma (TCGplayer aún no separa precio foil en el set). Espejo verificado: **227/227** reconocidas por `img` en el catálogo del panel.
+- **Precios:** 150 subidas aplicadas (Riftbound 30, One Piece 120). Destacada: **The Ruination** foil ₡4.300 → **₡16.000** (+272%) — verificado directo contra TCGplayer ($30,35 market), no era glitch.
+- **🐞 Vendetta no salía en el filtro de expansión.** Causa: el filtro Y el buscador excluían las agotadas, y las 227 estaban en stock 0 (en realidad **2.896 de 3.920 cartas, 74%, eran invisibles e imposibles de buscar**). Chocaba con la regla vieja de Andrés ("stock 0 no aparece"), así que se le presentaron opciones y eligió el punto medio:
+  - **Navegar el catálogo → solo lo comprable** (regla vieja intacta). **Buscar o filtrar algo específico → TODAS**, con las agotadas marcadas «Agotado». Implementado con `userNarrowed()` en `js/app.js`; los conteos de los dropdowns siempre incluyen agotadas (si no, un set entero sin stock desaparece del filtro); el buscador nunca las excluye (disponibles primero + tag `.sr__out`). Verificado 11/11.
+- **📘 Nuevo `EXPANSIONES.md`** — playbook completo para agregar una expansión (TCGCSV → catálogo → productos.json a stock 0 → fichas → integridad → precios → push → qué hace Andrés después), con checklist. Enlazado desde CLAUDE.md (regla #9, nueva).
+- `?v=74 → 75`. Commits `5920cada`, `e1d15914`.
+
+## 2026-07-20 (15) — Revisión semanal de precios
+- 247 subidas aplicadas (Riftbound 50, One Piece 197). Riftbound con stock: Ahri Inquisitive +67%, Spinning Axe +56%, Nine-Tailed Fox +43%, Rhasa +42%, Imperial Decree foil +38%, Cull the Weak foil +30%, Last Rites +22%.
+- Fix recurrente: **Falling Comet** quedó con foil = normal (₡200) → ₡300. (Pasa cada vez que suben normales sin subir foils; el chequeo ya es parte de la rutina.)
+- Andrés decide **solo subidas, nunca bajadas**. Quedan pendientes 297 bajadas de Riftbound con stock (ojo con las que no roten: Punch First ×21, Baited Hook). Commit `afe9bcaa`.
+
+## 2026-07-16 (14) — Rutina de precios TCGplayer
+- 268 subidas aplicadas. Riftbound 56 (45 con stock): Rhasa +71%, Sprite Fountain +42%, Order Rune foil +24%. One Piece 212 (todas stock 0) = corrección de placeholders al valor real; **Gol.D.Roger (Manga)** ₡100 → ₡2.860.000, verificado real ($5.500 USD market).
+- Fix: **Overheat** con foil = normal → ₡300. Commit `dc4531f0`.
+
+## 2026-07-14 (13) — Panel Pedidos: miniaturas + preview grande (pedido de Andrés)
+- Cada línea del pedido muestra la **miniatura de la carta** (34×46, imagen cruzada del inventario por `id`; el pedido no la guarda). Fallback a emoji 🎴 si no hay imagen. Objetivo: alistar los pedidos más rápido de forma visual.
+- **Click en la miniatura → lightbox** con la carta grande (hasta 440px). Cierra por fondo, ✕ o Escape; hover con `zoom-in`. Commits `0b187df1`, `9bb5d79c`.
+
+## 2026-07-13 (12) — 👻 Fix de "foils fantasma" + barrido QA completo (preocupación de Andrés)
+- **El problema:** Andrés vio que la tienda ofrecía foils que él nunca registró (ej. Defy). Causa: la rutina de precios le puso precio foil a 421 cartas, y una regla vieja decía que *"si no hay stock foil definido, el foil hereda el stock normal"* → **118 cartas** se veían comprables en foil usando el stock de las normales. Un cliente podía pedirlas.
+- **Doble candado:** (1) datos — `stockf: 0` explícito en las 125 con precio foil sin stockf; (2) semántica nueva en TODO el sistema (`app.js` foilAvailable/quick-view/tarjeta/addToCart/changeQty, `carta.js`, `api/_lib.js stockVariante`): **foil sin `stockf` = AGOTADO, nunca hereda el normal**. Panel: el stepper ✨ FOIL muestra 0 en vez del "∞" confuso.
+- **Barrido QA (~50 pruebas, todo verde):** datos (0 duplicados, 0 stock negativo), lógica de las 3.693 cartas (0 violaciones), 14 pruebas de compra (topes de stock, foil real, foil fantasma bloqueado, agotada, pre-orden bypass, stepper, quick-view, carrito mixto), 5 de checkout (cascada en las 7 provincias, validaciones), 9 de panel (agregar/editar/borrar, espejo, sin stockf fantasma al crear), 11 de API en Node. Único hallazgo: **Maddened Marauder** con foil = normal y stockf=1 → ₡300. Commits `5273d213`, `a5820460`.
+- ⚠️ Regla documentada en CLAUDE.md. **Nunca volver a hacer que el foil herede el stock normal.**
+
 ## 2026-07-11 (11) — Tanda de ajustes y fixes de tienda/panel (varias peticiones de Andrés)
 - **Home:** etiqueta de One Piece "Foco de lanzamiento" → **"Próximamente"**; sección "Cartas destacadas" → **"Productos destacados"** (más general, incluye sellado).
 - **Ficha de sellado:** el Booster Display Case (subido por panel) no abría su detalle (no estaba en `cartas.json`). Se mejoró `make_cartas.py` para sellado (imagen `contain` sobre fondo premium, bloque "Sellado" + nota preventa 50%, atributos propios, `NewCondition`) y se regeneraron las fichas. **`ASSET_V 48→70`** (las fichas cargaban CSS viejo — pendiente viejo resuelto).

@@ -1,6 +1,18 @@
-# HANDOFF — estado de la sesión (act. 2026-07-11)
+# HANDOFF — estado de la sesión (act. 2026-07-24)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=71`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v6**; `ASSET_V=71` en fichas). Tienda: **~3.692 cartas** (One Piece sigue en **stock 0** temporal). Último commit `8ea7b78b`. Historial completo en [SESSIONS.md](SESSIONS.md).
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=75`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; Vendetta entró completa a stock 0). Último commit `e1d15914`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
+
+> 🎉 **La tienda está VENDIENDO de verdad:** pedidos reales R-0017 a R-0021 (jul 14–23), varios ya confirmados con descuento de stock.
+
+**Novedades 2026-07-24 (LIVE):**
+- **📘 `EXPANSIONES.md`** — playbook del proceso completo para agregar una expansión nueva (probado con Vendetta). Enlazado desde CLAUDE.md regla #9.
+- **Vendetta de Riftbound completa:** 227 singles a **stock 0** + 227 fichas con efecto/atributos + catálogo del panel (espejo 227/227). Chase: Ahri Inquisitive ₡275.000. **Andrés sube el stock desde el panel** a medida que abre sobres.
+- **Cartas nuevas ahora se pueden BUSCAR aunque estén en 0:** navegar el catálogo sigue mostrando solo lo comprable, pero **buscar o filtrar** muestra todas con las agotadas marcadas «Agotado» (`userNarrowed()` en `js/app.js`). Antes 2.896 de 3.920 cartas (74%) eran invisibles e imposibles de encontrar.
+- **Precios:** 150 subidas (The Ruination foil ₡4.300→₡16.000, verificado real).
+
+**Novedades 2026-07-13/14 (LIVE):**
+- **👻 Fix de "foils fantasma":** 118 cartas se veían comprables en foil sin que Andrés las tuviera (el foil heredaba el stock normal). Ahora **foil sin `stockf` = AGOTADO** en tienda, ficha, carrito, API y panel. Barrido QA de ~50 pruebas, todo verde.
+- **Panel Pedidos: miniatura de cada carta** + click para verla grande (lightbox) — para alistar pedidos más rápido.
 
 **Novedades 2026-07-11 — tanda tarde (todas LIVE):**
 - **🐞 juego.html tenía el checkout VIEJO** → los pedidos del catálogo caían a retiro/₡0 sin sumar envío. Sincronizado con index (selector `#coShip`, resumen con Envío+Total, solo-SINPE). **Regla nueva: index ↔ juego son espejo, editar AMBAS.**
@@ -29,13 +41,16 @@ Todo verificado en preview y pusheado:
 - **Skills de Reroll Design:** los 3 (básico/profesional/tienda) ahora exigen la súper-revisión de diseño con ui-ux-pro-max + frontend-design + emil-design-eng antes de entregar.
 - **PENDIENTES / OJO:**
   - ⚠️ **REGLA DE ESPEJO — `index.html` Y `juego.html` deben ser IDÉNTICOS en lo compartido:** ambas cargan el mismo `js/app.js`, así que el **modal de checkout** (`#checkoutModal`: selector de envío `#coShip`, resumen `#coSubtotal`/`#coEnvioLine`/`#coTotal`, opciones de pago), el buscador, el carrito y el `?v=` TIENEN que estar iguales en las dos. Ya mordió DOS veces: (1) el selector de envío quedó solo en index → los pedidos del catálogo caían a retiro/₡0 (arreglado 2026-07-11, commit 8ea7b78b); (2) solo-SINPE quedó solo en index. **Al tocar cualquier cosa del checkout/carrito/buscador, editar AMBAS páginas y verificar en juego.html también** (la gente compra desde el catálogo).
-  - ✅ **`ASSET_V` alineado (2026-07-11):** subido a **70** en `make_cartas.py` (= `?v=70` de index/juego). Las fichas ya cargan el CSS actual (motion de Emil, fix touch y estilos de sellado). Pendiente viejo RESUELTO.
+  - ⚠️ **NUNCA hacer que el foil herede el stock normal.** `foil` sin `stockf` = **AGOTADO** (0), en tienda/ficha/carrito/API/panel. La regla vieja de heredar creó 118 "foils fantasma" comprables que Andrés no tenía (arreglado 2026-07-13, commit `5273d213`). Al agregar cartas con precio foil, **siempre** poner `stockf: 0` explícito.
+  - 💸 **Precios: Andrés aplica SOLO SUBIDAS** (`check_precios.py --aplicar-subidas`), nunca bajadas. Consecuencia a vigilar: queda **por encima del mercado** en las que bajaron (≈297 de Riftbound con stock). Si nota cartas que no rotan —ej. **Punch First ×21**, **Baited Hook**— bajar esas puntuales. Tras aplicar subidas, **re-chequear `foil <= normal`**: casi siempre aparece 1 o 2 (se corrigen a `precio+100`).
+  - ✅ **`ASSET_V` alineado (2026-07-24):** **75** en `make_cartas.py` = `?v=75` de index/juego; `carta.js` en v7.
   - 🔮 **Auto-rebuild de fichas (A FUTURO, cuando haya más volumen):** hoy, agregar un producto NUEVO desde el panel NO genera su ficha `/carta/` sola (el panel no corre Python) → hay que correr `python make_cartas.py` + push. Precios/stock SÍ se leen en vivo, no necesitan rebuild. Decisión con Andrés (2026-07-11): **seguir manual por ahora** (arranque, poco volumen, el inventario se mete en sesiones donde Claude ya corre el rebuild). **Activar la automatización cuando el panel sea su vía principal para productos nuevos, solo, seguido.** Opción recomendada = **GitHub Actions** (robot en la nube que corre `make_cartas.py` al publicar `productos.json`, commitea las fichas solo; no usa la PC, no necesita token nuevo, la tienda no se cae si falla; ~15 min de setup, datos ya están en el repo). Alternativa: build en Vercel (más simple pero si falla, el deploy entero falla). **Claude: recordarle a Andrés cuando note más volumen.**
   - **Preórdenes = solo local** (`localStorage.reroll_preorders` en el navegador del panel). Igual que Ventas: es control personal de Andrés, no se publica ni se sincroniza entre dispositivos. Si cambia de PC, no las ve (aceptable por ahora; migrar a `api/` si algún día hace falta multi-dispositivo).
   - ✅ **SINPE de pagos = `8780-7813` (CONFIRMADO por Andrés, se mantiene).** El WhatsApp cambió a 6038-7738 pero el SINPE se queda en el número personal (atado a la cuenta bancaria). NO cambiar `SINPE_NUMERO` en `js/app.js` — ya lleva comentario de advertencia.
   - Token de GitHub expuesto hace días → **regenerar** y actualizar el Value en Vercel.
   - Cartas subidas por el panel necesitan `python make_cartas.py` + push para su ficha de detalle.
   - One Piece en stock 0 (backup `productos_backup_op_stock0.json`) — restaurar cuando se quiera mostrar.
+  - 🎴 **Vendetta está a stock 0 esperando que Andrés suba lo físico** desde el panel (Agregar del catálogo → filtro Vendetta → `+` → Publicar). Aparece en el filtro/buscador marcada «Agotado» hasta entonces.
   - ~29 cartas legado Riftbound (Showcase viejas que TCGplayer no lista) se manejan a mano en la base de abajo.
 
 ## (histórico) sesiones 2026-07-08/09 — promos, panel a prueba de pérdidas, catálogo 5 juegos, carrito en fichas, steppers foil
