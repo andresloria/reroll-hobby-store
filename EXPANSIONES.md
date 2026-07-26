@@ -135,8 +135,42 @@ Además, en el preview (`juego.html`), con la consola:
 
 ## 5. Precios
 
-Las cartas entran con el precio de mercado del momento (`make_catalogo.py`).
-Después se mantienen con la rutina normal:
+### ⚠️ Set en presale: casi todo cae al piso de ₡100
+
+`make_catalogo.py` solo lee `marketPrice`, y **un set recién anunciado todavía no
+tiene mercado** (nadie ha vendido) → esas cartas caen al piso de ₡100, incluidas
+las Epic y Rare caras. Pasó con Vendetta: **178 de 228 en ₡100**.
+
+**Siempre revisar cuántas quedaron en el piso:**
+
+```python
+import json
+v = [p for p in json.load(open("productos.json", encoding="utf-8")) if p.get("set") == "<SET>"]
+print("en 100:", len([p for p in v if p["price"] == 100]), "de", len(v))
+```
+
+Si son muchas, traer los precios **en vivo** de TCGplayer (no del snapshot de
+TCGCSV) — el `productId` sale de la URL de la imagen (`/product/<pid>_400w.jpg`):
+
+```
+https://mpapi.tcgplayer.com/v2/product/<pid>/pricepoints   (User-Agent de navegador)
+```
+
+Devuelve por acabado `marketPrice` y `listedMedianPrice`. Prioridad:
+`marketPrice` → `listedMedianPrice` (la mediana de listados, que es lo que
+TCGplayer enseña en presale) → `midPrice` de TCGCSV. Después `round_crc()`.
+
+**Antes de escribir, comprobar que ninguna carta tenga precio Normal Y Foil a la
+vez** — si no, se le pondría a la carta normal el precio de la foil. En Riftbound
+las Common/Uncommon son solo normal y las Rare/Epic son foil-only (su `price`
+ES el precio foil, sin campo `foil`), así que nunca se cruzan.
+
+Las que **no tengan ni un listado** quedan en ₡100: anotarlas y avisarle a Andrés
+que les ponga precio a mano antes de subirles stock.
+
+### Mantenimiento normal
+
+Después se mantienen con la rutina de siempre:
 
 ```bash
 python check_precios.py                    # solo reporta
@@ -199,7 +233,8 @@ Implementado con `userNarrowed()` en `js/app.js`.
 - [ ] `python make_cartas.py` (§3)
 - [ ] Integridad: sin ficha / fantasmas / foil≤normal / stock negativo = **0** (§4)
 - [ ] Verificado en preview: filtro, buscador, ficha (§4)
-- [ ] Precios al día (§5)
+- [ ] Precios al día — **contar cuántas quedaron en ₡100**; si el set está en
+      presale, traerlos en vivo de `mpapi` (§5)
 - [ ] Cache-busting `?v=N` si se tocó `css/styles.css` o `js/app.js` (index **Y** juego)
 - [ ] Commit + push **con OK de Andrés** (§6)
 - [ ] Avisarle que ya puede subir stock desde el panel (§7)

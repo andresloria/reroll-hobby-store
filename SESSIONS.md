@@ -8,6 +8,14 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-26 (17) — Precios de presale de Vendetta (pedido de Andrés)
+- **🐞 178 de 228 cartas de Vendetta estaban en el piso de ₡100** — incluidas Epic y Rare caras. Causa: al correr `make_catalogo.py` el 24/07 la caché de TCGplayer venía **sin `marketPrice`** (set en presale, todavía sin ventas) y el catálogo solo lee ese campo → caían al piso. Si Andrés les subía stock, se vendían en ₡100.
+- **Precios traídos EN VIVO** de la API de TCGplayer (`mpapi.tcgplayer.com/v2/product/<id>/pricepoints`, 228 productos) en vez del snapshot de TCGCSV. Prioridad: `marketPrice` → `listedMedianPrice` (la mediana de listados, que es lo que TCGplayer muestra en presale) → `midPrice` de TCGCSV.
+- **191 cartas actualizadas:** 161 suben, 30 bajan (Andrés OK con las bajas: eran placeholders de un set aún sin stock físico). Fuentes: 116 mercado real · 105 mediana de listados · 1 snapshot. Top: **Swain, Visionary (Overnumbered) ₡1.040.000**, Gangplank/Zed/Riven/Kennen Overnumbered ₡260.000, Ahri Inquisitive ₡275.000 → ₡240.000.
+- **⚠️ 6 cartas siguen en ₡100 porque no tienen NI UN listado en TCGplayer** (Viktor Innovator, Zed From the Shadows, Jayce Defender of Tomorrow, Diana No Longer Human, Irelia Fervent, Renekton Brute) → **ponerles precio a mano en el panel antes de subirles stock**. (Otras 14 quedan en ₡100 legítimamente: commons por debajo del piso mínimo de la tienda.)
+- **Verificación clave:** se comprobó que **ninguna carta existe en normal Y foil a la vez** antes de escribir — era el riesgo real de ponerle a una carta normal el precio de la foil. Cuadra con Riftbound: 100 Common/Uncommon solo normal, 121 Rare/Epic foil-only. Cero foils fantasma.
+- Espejo `productos.json` ↔ `catalogo/riftbound.json` al día (191 precios) + fichas regeneradas. Integridad: 0 sin ficha · 0 foils fantasma · 0 foil≤normal. Todo sigue en **stock 0**.
+
 ## 2026-07-24 (16) — Expansión VENDETTA + regla de cartas nuevas buscables (pedido de Andrés)
 - **Vendetta de Riftbound agregada completa** (TCGplayer la publicó el 2026-07-31 como groupId 24698): `rm catalogo/_cache/riftbound_*` + `make_catalogo.py riftbound` → **227 singles** agregados a `productos.json` a **stock 0** (Andrés sube el stock desde el panel según lo físico). Imágenes de TCGplayer (Vendetta aún no tiene CSV de Riot — el pipeline ya tenía ese fallback). **227 fichas** con efecto + atributos (dominio, energía, might, tipo, subtipos) desde el `Description` de TCGplayer. Chase: **Ahri, Inquisitive** (Epic SP3/006) ₡275.000. Cero foils fantasma (TCGplayer aún no separa precio foil en el set). Espejo verificado: **227/227** reconocidas por `img` en el catálogo del panel.
 - **Precios:** 150 subidas aplicadas (Riftbound 30, One Piece 120). Destacada: **The Ruination** foil ₡4.300 → **₡16.000** (+272%) — verificado directo contra TCGplayer ($30,35 market), no era glitch.
