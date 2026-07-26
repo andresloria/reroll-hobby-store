@@ -44,3 +44,4 @@ __pycache__/
 *.pyc
 productos_backup_foilstock.json
 productos_backup_vendetta.json
+productos_backup_vendetta_presale.json
