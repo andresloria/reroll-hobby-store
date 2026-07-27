@@ -1,5 +1,5 @@
 {
-  "seq": 21,
+  "seq": 22,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1265,6 +1265,33 @@
         }
       ],
       "total": 12700
+    },
+    {
+      "id": "R-0022",
+      "ts": 1785121899805,
+      "estado": "pendiente",
+      "nombre": "José González",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 127,
+          "foil": false,
+          "qty": 3,
+          "name": "Promising Future",
+          "price": 500
+        }
+      ],
+      "total": 1500
     }
   ]
 }
