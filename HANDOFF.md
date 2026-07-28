@@ -1,8 +1,15 @@
-# HANDOFF — estado de la sesión (act. 2026-07-24)
+# HANDOFF — estado de la sesión (act. 2026-07-27)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=75`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; Vendetta entró completa a stock 0). Último commit `e1d15914`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=77`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; **Vendetta YA con stock: 175 cartas, 1.088 unidades**). Último commit `f199b107`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
 
-> 🎉 **La tienda está VENDIENDO de verdad:** pedidos reales R-0017 a R-0021 (jul 14–23), varios ya confirmados con descuento de stock.
+> 🎉 **La tienda está VENDIENDO de verdad:** pedidos reales R-0017 a R-0022 (jul 14–27), varios ya confirmados con descuento de stock.
+
+**Novedades 2026-07-27 (LIVE):**
+- **🎴 VENDETTA A LA VENTA:** Andrés subió el stock físico desde el panel (**175 cartas, 1.088 unidades**). Precios de presale al día (227/228 con precio en TCGplayer).
+- **🖼️ Imágenes de Vendetta = las OFICIALES de Riot.** El CDN de TCGplayer servía **la carta anterior** en el bloque de productIds `707605-707700` → 96 cartas con el arte equivocado (Disciple of Shen mostraba a Diana). Se sacan del payload de la galería `playriftbound.com/en-us/card-gallery/` (cada carta trae `id` tipo `ven-117-166` + `cardImage`). ⚠️ Al cambiar la img hay que **re-keyear `catalogo/riftbound_rich.json`**, si no cambian todos los slugs.
+- **🚨 El `marketPrice` de TCGplayer MIENTE en sets de presale** (valores centinela de `$0.25` con los listados reales en ~$300). Se descarta si es < 40% de la mediana. Documentado en `EXPANSIONES.md` §5.
+- **👁️ La casilla «Mostrar agotadas» manda siempre** (reemplaza la regla del 24/07). Sin marcar = solo lo comprable, también al filtrar/buscar. Los conteos de los dropdowns y el buscador del hero siguen incluyéndolas.
+- **🔢 Grilla y panel ordenan por número de carta** (Riftbound 1.288 · One Piece 2.577). En el índice, One Piece cae a la llave `number`; **el `num` del slug NO se toca** (renombraría 2.629 fichas).
 
 **Novedades 2026-07-24 (LIVE):**
 - **📘 `EXPANSIONES.md`** — playbook del proceso completo para agregar una expansión nueva (probado con Vendetta). Enlazado desde CLAUDE.md regla #9.
@@ -131,9 +138,10 @@ Cerrando la sección **"Cartas destacadas"** (abanico de cartas tipo cardnexus) 
 - **Gamebar slim** en juego.html; tiles "Elegí tu juego" pasaron a `<a href>` reales (SEO).
 
 ## Pendiente / próximos pasos concretos
-- **🎴 Vendetta — 2 cosas que Andrés dejó para después (2026-07-27):**
+- **🎴 Vendetta — YA ESTÁ A LA VENTA** (175 cartas con stock, 1.088 unidades, subidas por Andrés el 27/07). Quedan 2 cosas que él dejó para después:
   1. **`Renekton, Brute (Overnumbered)` (Epic, 177/166) sigue en ₡100** — es la única del set sin un solo listado en TCGplayer. **Ponerle precio a mano antes de subirle stock**, o se vende en ₡100.
   2. **Foils de las Common/Uncommon:** TCGplayer todavía no abre listados foil aparte en Vendetta (cada producto tiene precio normal *o* foil, nunca los dos). Las 126 Rare/Epic ya SON foil (su `price` es el precio foil, sin campo `foil`). Cuando TCGplayer los abra, la revisión de precios los agarra y ahí sí aparece el toggle ✨ — recordárselo.
+- **🖼️ Ojo con las imágenes de TCGplayer en sets recién salidos:** en Vendetta el CDN servía la carta ANTERIOR en todo un bloque de productIds (96 cartas con el arte equivocado). Vendetta ya usa las imágenes oficiales de Riot. **Si entra otra expansión nueva sin CSV de Riot, verificar el arte antes de publicar** — se sacan del payload de la galería `playriftbound.com/en-us/card-gallery/` (cada carta trae su `id` tipo `ven-117-166` y su `cardImage`).
 - **Poblar inventario de otros juegos** (One Piece foco, Pokémon, Magic, Yu-Gi-Oh) + sellado. Hoy solo Riftbound (943 cartas) está en vivo → el abanico y los contadores hoy son todo Riftbound.
 - **Contador de visitas / analytics:** RESUELTO con **Google Analytics 4** (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas. admin.html excluido a propósito. Datos en GA → propiedad "Reroll Hobby Store" → Reports/Realtime. (Translíos usa `G-CVMH80KDPJ`.) Pendiente opcional: banner de consentimiento de cookies (no obligatorio en CR; sí si hay tráfico UE).
 - **SEO de indexación:** `robots.txt` + `sitemap.xml` (945 URLs: home + juego.html?g=Riftbound + 943 cartas) generados por `make_cartas.py` (`write_sitemap`). Solo juegos CON inventario (no páginas vacías). Pendiente: dar de alta el sitemap en Google Search Console.
