@@ -1,5 +1,5 @@
 {
-  "seq": 22,
+  "seq": 23,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1293,6 +1293,33 @@
       ],
       "total": 1500,
       "confirmadoTs": 1785212215034
+    },
+    {
+      "id": "R-0023",
+      "ts": 1785253065412,
+      "estado": "pendiente",
+      "nombre": "Felipe Montoya",
+      "telefono": "87259337",
+      "entrega": "envio",
+      "provincia": "Heredia",
+      "direccion": "Av. 3,  C. Central y C. 1, casa blanca a mano derecha, contiguo a Sabores Quincho",
+      "pago": "SINPE Móvil",
+      "canton": "Flores",
+      "distrito": "San Joaquín",
+      "cedula": "800940153",
+      "recibeAlt": "Elizabeth Ramírez",
+      "envioMetodo": "Correo normal (Correos CR, sin rastreo)",
+      "envioCosto": 1700,
+      "items": [
+        {
+          "id": 92,
+          "foil": false,
+          "qty": 1,
+          "name": "Whiteflame Protector",
+          "price": 2200
+        }
+      ],
+      "total": 2200
     }
   ]
 }
