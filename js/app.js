@@ -530,6 +530,7 @@ function enrichProducts(){
     const dm = e.domains || atFrom(p,"Dominio") || atFrom(p,"Color") || "";
     p._doms = dm ? dm.split(/\s*\|\s*|;/).map(s=>s.trim()).filter(Boolean) : [];
   });
+  buildSetPos();   // para el orden por número de carta
 }
 // orden canónico de rarezas por juego (lo demás va al final, alfabético)
 const RAR_ORDER = {
@@ -730,7 +731,56 @@ function getFiltered(except){
   if(sortMode==="price-asc")  items.sort((a,b)=>a.price-b.price);
   else if(sortMode==="price-desc") items.sort((a,b)=>b.price-a.price);
   else if(sortMode==="name")  items.sort((a,b)=>a.name.localeCompare(b.name,"es"));
+  else items.sort(byCardNumber);   // por defecto: orden de colección (001, 001a, 002…)
   return items;
+}
+
+/* ORDEN POR NÚMERO DE CARTA — como la galería oficial del juego.
+   No reordena las expansiones entre sí (respeta el orden en que están en el
+   inventario); solo ordena DENTRO de cada una. El número sale de cartas.json
+   (SLUGS[id].code): "021/166", "021a/166" (arte alternativo), "SP3/006",
+   "R01", "ST30-005" en One Piece. Se parte en trozos texto/número y se
+   comparan en orden, así "019/166" < "019a/166" y "ST30-005" < "ST30-010". */
+function numKey(p){
+  const e = SLUGS[p.id] || {};
+  const raw = String(e.code || e.number || "").split("//")[0].trim().toUpperCase();
+  if(!/\d/.test(raw)) return null;            // sellado / sin número
+  return raw.match(/\d+|\D+/g).map(t=> /\d/.test(t) ? Number(t) : t);
+}
+function cmpNumKey(ka, kb){
+  for(let i=0; i<Math.max(ka.length, kb.length); i++){
+    const a=ka[i], b=kb[i];
+    if(a===undefined) return -1;
+    if(b===undefined) return 1;
+    const an=typeof a==="number", bn=typeof b==="number";
+    if(an && bn){ if(a!==b) return a-b; }
+    else if(an!==bn) return an ? -1 : 1;      // "001/166" antes que "SP1/006"
+    else if(a!==b) return a<b ? -1 : 1;
+  }
+  return 0;
+}
+function byCardNumber(a, b){
+  if(a.cat!==b.cat) return (SET_POS[a.cat]??0) - (SET_POS[b.cat]??0);
+  if(a.set!==b.set) return (SET_POS[a.cat+"|"+a.set]??0) - (SET_POS[b.cat+"|"+b.set]??0);
+  const ka=numKey(a), kb=numKey(b);
+  // ninguna tiene número (p.ej. One Piece, que aún no trae nº en cartas.json):
+  // se deja el orden del inventario, no se reacomoda nada
+  if(!ka && !kb) return (a._pos??0) - (b._pos??0);
+  if(!ka) return -1;                          // sellado arriba de las cartas
+  if(!kb) return 1;
+  return cmpNumKey(ka,kb) || ((a._pos??0) - (b._pos??0));
+}
+// posición de cada juego/expansión (y de cada carta) según el orden del
+// inventario, para que el orden por número NO reacomode nada de más
+let SET_POS = {};
+function buildSetPos(){
+  SET_POS = {};
+  PRODUCTS.forEach((p,i)=>{
+    p._pos = i;
+    if(SET_POS[p.cat]===undefined) SET_POS[p.cat] = i;
+    const k = p.cat+"|"+p.set;
+    if(SET_POS[k]===undefined) SET_POS[k] = i;
+  });
 }
 // crea el <article> de una carta (factorizado para poder APPEND-ear en "Cargar más")
 function makeCard(p, i){
