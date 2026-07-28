@@ -1840,7 +1840,7 @@ function poAction(po, act){
   function fillSets(){
     const sets=[...new Set(cur.map(e=>e.set))].sort();
     setSel.innerHTML='<option value="all">Todas las expansiones</option>'+sets.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
-    buildCatMaps();
+    buildCatMaps(); buildSetPos();
   }
   // mapas del catálogo activo: cuántas entradas usan cada imagen, y el set de
   // TODAS las imágenes del catálogo (para saber qué cartas del inventario ya
@@ -1928,15 +1928,50 @@ function poAction(po, act){
     return fit[0];
   }
   const CAT_VAR_EXCL_FULL = /\((metal|prize wall|champion|top 8|overnumbered|signature|serialized)[^)]*\)/ig;
+  // Orden por número de coleccionista, como la galería oficial del juego
+  // (001, 001a, 002…). Formatos que llegan de TCGplayer: "021/166",
+  // "021a/166" (arte alternativo), "SP3/006", "R12b", "T01 // T02", "123*/166",
+  // "ST30-005" (One Piece). Se parte en trozos texto/número y se comparan en
+  // orden — así "ST30-005" < "ST30-010" y "019/166" < "019a/166".
+  // -> array de trozos, o null si no tiene número (sellado).
+  function numKey(e){
+    const raw = String(e.number||'').split('//')[0].trim().toUpperCase();
+    if(!/\d/.test(raw)) return null;
+    return raw.match(/\d+|\D+/g).map(t=> /\d/.test(t) ? Number(t) : t);
+  }
+  function cmpKey(ka,kb){
+    for(let i=0; i<Math.max(ka.length,kb.length); i++){
+      const a=ka[i], b=kb[i];
+      if(a===undefined) return -1;
+      if(b===undefined) return 1;
+      const an=typeof a==='number', bn=typeof b==='number';
+      if(an && bn){ if(a!==b) return a-b; }
+      else if(an!==bn) return an ? -1 : 1;    // "001/166" antes que "SP1/006"
+      else if(a!==b) return a<b ? -1 : 1;
+    }
+    return 0;
+  }
+  // posición de cada expansión en el catálogo, para no reordenar los sets
+  // entre sí (solo se ordena DENTRO de cada uno)
+  let setPos={};
+  function buildSetPos(){ setPos={}; cur.forEach((e,i)=>{ if(setPos[e.set]===undefined) setPos[e.set]=i; }); }
   function filtered(){
     const q=norm(search.value), ty=typeSel.value, st=setSel.value, fi=finishSel.value;
     const toks=q.split(' ').filter(Boolean);
-    return cur.filter(e=>{
+    const list = cur.filter(e=>{
       if(ty!=='all' && e.type!==ty) return false;
       if(st!=='all' && e.set!==st) return false;
       if(fi==='foil' && e.foil==null) return false;
       if(toks.length){ const hay=norm(e.name+' '+e.set+' '+(e.number||'')); if(!toks.every(t=>hay.includes(t))) return false; }
       return true;
+    });
+    return list.sort((a,b)=>{
+      if(a.set!==b.set) return (setPos[a.set]||0)-(setPos[b.set]||0);
+      const ka=numKey(a), kb=numKey(b);
+      if(!ka && !kb) return (a.name||'').localeCompare(b.name||'','es');
+      if(!ka) return -1;                       // sellado arriba de las cartas
+      if(!kb) return 1;
+      return cmpKey(ka,kb) || (a.name||'').localeCompare(b.name||'','es');
     });
   }
   function render(){
