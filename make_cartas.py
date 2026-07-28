@@ -221,10 +221,14 @@ def build():
         if ability: d["fx"] = rfx(ability)
         at = attr_rows(r, p)
         if at: d["at"] = [[k, v] for k, v in at]
+        # Nº para el ÍNDICE (no para el slug): One Piece lo guarda como
+        # "number" ("ST30-005"), Riftbound como "collector_number" + "code".
+        # La tienda lo usa para ordenar la grilla por número de carta.
+        # ⚠️ `num` (el del slug) NO se toca: cambiarlo renombraría las fichas.
         index[str(p["id"])] = {
             "slug": slug,
-            "number": num,
-            "code": r.get("code", ""),
+            "number": num or r.get("number", ""),
+            "code": r.get("code") or r.get("number", ""),
             "type": r.get("type", ""),
             "rarity": r.get("rarity", ""),
             "domains": r.get("domains", ""),
