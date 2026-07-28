@@ -168,6 +168,33 @@ ES el precio foil, sin campo `foil`), así que nunca se cruzan.
 Las que **no tengan ni un listado** quedan en ₡100: anotarlas y avisarle a Andrés
 que les ponga precio a mano antes de subirles stock.
 
+### 🚨 El `marketPrice` de un set en presale MIENTE
+
+En presale TCGplayer devuelve **precios de mercado centinela**. Caso real de
+Vendetta (2026-07-26): `Mel, Defiant Soul (Overnumbered)` reportaba
+`marketPrice = $0.25` mientras **todos** los listados estaban en ~$300 — de
+haberlo aplicado, una carta de ₡160.000 quedaba en **₡200**. Aparecieron 12 así
+en un solo set, cuatro con el valor exacto `$0.25`.
+
+**Nunca aplicar el market a ciegas en un set nuevo.** Compararlo contra la
+mediana de listados y descartarlo si es absurdamente menor:
+
+```python
+mk  = row.get("marketPrice")
+med = row.get("listedMedianPrice") or csv.get("midPrice") or csv.get("lowPrice")
+if mk and med and mk < med * 0.40:
+    usd = med          # market basura -> manda la mediana de listados
+else:
+    usd = mk or med
+```
+
+Después de aplicar, **revisar que ninguna Rare/Epic haya quedado en un precio
+ridículo** (agrupar por rareza y mirar el mínimo). Una Common en ₡200 es normal;
+una Epic en ₡200 es una alarma.
+
+> La rutina semanal (`check_precios.py`) no corre este riesgo mientras se use
+> `--aplicar-subidas`: un market basura es siempre más bajo, así que se ignora.
+
 ### Mantenimiento normal
 
 Después se mantienen con la rutina de siempre:

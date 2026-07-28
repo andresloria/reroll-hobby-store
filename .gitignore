@@ -45,3 +45,5 @@ __pycache__/
 productos_backup_foilstock.json
 productos_backup_vendetta.json
 productos_backup_vendetta_presale.json
+vendetta_precios.csv
+productos_backup_vendetta_rev.json
