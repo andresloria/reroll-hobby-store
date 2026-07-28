@@ -1269,7 +1269,7 @@
     {
       "id": "R-0022",
       "ts": 1785121899805,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "José González",
       "telefono": "85584485",
       "entrega": "retiro",
@@ -1291,7 +1291,8 @@
           "price": 500
         }
       ],
-      "total": 1500
+      "total": 1500,
+      "confirmadoTs": 1785212215034
     }
   ]
 }
