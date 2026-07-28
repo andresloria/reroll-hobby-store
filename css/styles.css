@@ -914,8 +914,10 @@ select option, select optgroup{background:#211816;color:#FAF6EF}
 .gridpager__dots{color:var(--muted);padding:0 2px}
 .gridpager__info{flex-basis:100%;text-align:center;margin-top:8px;font-family:var(--font-mono);font-size:.78rem;color:var(--muted)}
 .empty{text-align:center;color:var(--muted);padding:50px 18px;font-family:var(--font-body);font-size:1.05rem;line-height:1.7}
+/* sirve para <a> y para <button> (el estado "todo agotado" usa botón) */
 .empty__cta{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-weight:700;font-size:.86rem;
   color:var(--negro);background:var(--amarillo);padding:9px 16px;border-radius:999px;text-decoration:none;
+  border:0;cursor:pointer;line-height:1.2;
   transition:transform .2s var(--ease)}
 .empty__cta:hover{transform:translateY(-2px)}
 

@@ -99,14 +99,15 @@ function activeFilterCount(){ return selSets.size+selRars.size+selCTs.size+selDo
 let sortMode    = "rel";
 let query       = "";
 let showSoldOut = false;   // por defecto NO se muestran las cartas agotadas (stock 0)
-/* REGLA DE VISIBILIDAD (decidida con Andrés):
-   - Navegar el catálogo sin pedir nada → solo lo COMPRABLE (stock > 0).
-   - Buscar o filtrar algo específico → se ve TODO, con las agotadas marcadas
-     "Agotado" (para que un set nuevo como Vendetta, aún sin stock, se pueda
-     encontrar y el cliente pida "avisame cuando llegue").
-   Los CONTEOS de los dropdowns siempre incluyen las agotadas, si no una
-   expansión entera sin stock desaparecería del filtro. */
-function userNarrowed(){ return !!(query && query.trim()) || activeFilterCount() > 0; }
+/* REGLA DE VISIBILIDAD (decidida con Andrés, 2026-07-27):
+   MANDA LA CASILLA "Mostrar agotadas". Sin marcar, la grilla enseña SOLO lo
+   comprable — también cuando el cliente filtra o busca. (Antes filtrar/buscar
+   las mostraba igual: la casilla decía "no" y salían de todos modos, y se veía
+   roto.) Dos cosas que NO cambian, y son las que evitan que un set sin stock
+   desaparezca de la tienda:
+     - los CONTEOS de los dropdowns siempre incluyen las agotadas (`except`),
+       si no una expansión entera en stock 0 se caería del filtro;
+     - el BUSCADOR del hero las sigue encontrando, con su tag «Agotado». */
 
 // stock de un producto: null = ilimitado (sin campo), número = unidades
 function stockVal(p){ const s=p.stock; return (s===undefined||s===null||s==="")?null:Number(s); }
@@ -704,9 +705,9 @@ let _lastFilterSig = "";     // para detectar cambios de filtro y volver a la p�
 // except: omite UN grupo de filtros ("set"|"rar"|"ct"|"dom"|"foil"|"cond"|"price")
 // para calcular los conteos contextuales de ese dropdown (estilo TCGplayer).
 function getFiltered(except){
-  // agotadas: siempre en los conteos de los dropdowns (except), y en la grilla
-  // solo si el cliente buscó/filtró algo específico o activó "Mostrar agotadas"
-  const incluirAgotadas = showSoldOut || !!except || userNarrowed();
+  // agotadas: siempre en los conteos de los dropdowns (except); en la grilla,
+  // solo si el cliente activó "Mostrar agotadas" (la casilla manda)
+  const incluirAgotadas = showSoldOut || !!except;
   let items = PRODUCTS.filter(p=>{
     if(!incluirAgotadas && !isAvailable(p)) return false;   // navegación normal: solo comprables
     if(activeCat!=="Todas" && p.cat!==activeCat) return false;
@@ -842,9 +843,17 @@ function renderGrid(){
   if(empty){
     empty.hidden = items.length>0;
     if(!items.length){
+      // ¿está vacío solo porque lo que calza está AGOTADO? (pasa con una
+      // expansión nueva entera en stock 0). Decirlo tal cual y ofrecer verlas,
+      // en vez de mentir con "no encontramos eso".
+      const conAgotadas = showSoldOut ? 0 : getFiltered("none").length;
       empty.innerHTML = (PRODUCTS.length < CATALOG_MIN)
         ? `Catálogo en preparación<br><a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20%C2%BFTen%C3%A9s%20esto%3A%20" target="_blank" rel="noopener" class="empty__cta">Escribinos por WhatsApp y te conseguimos lo que buscás →</a>`
-        : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
+        : conAgotadas
+          ? `Ahora mismo no tenemos disponible nada de esto.<br><button type="button" class="empty__cta" id="emptyShowOut">Ver ${conAgotadas} carta${conAgotadas!==1?"s":""} agotada${conAgotadas!==1?"s":""} →</button>`
+          : `No encontramos eso en este filtro. <a href="https://wa.me/${WHATSAPP}?text=%C2%A1Hola%20Reroll!%20Busco%3A%20" target="_blank" rel="noopener" class="empty__cta">Pedilo por WhatsApp →</a>`;
+      const bOut = $("#emptyShowOut");
+      if(bOut) bOut.onclick = ()=> setShowSoldOut(true);
     }
   }
   // paginación: 25 por página; vuelve a la pág. 1 si cambió algún filtro/orden/búsqueda
