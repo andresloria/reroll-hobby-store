@@ -131,6 +131,9 @@ Cerrando la sección **"Cartas destacadas"** (abanico de cartas tipo cardnexus) 
 - **Gamebar slim** en juego.html; tiles "Elegí tu juego" pasaron a `<a href>` reales (SEO).
 
 ## Pendiente / próximos pasos concretos
+- **🎴 Vendetta — 2 cosas que Andrés dejó para después (2026-07-27):**
+  1. **`Renekton, Brute (Overnumbered)` (Epic, 177/166) sigue en ₡100** — es la única del set sin un solo listado en TCGplayer. **Ponerle precio a mano antes de subirle stock**, o se vende en ₡100.
+  2. **Foils de las Common/Uncommon:** TCGplayer todavía no abre listados foil aparte en Vendetta (cada producto tiene precio normal *o* foil, nunca los dos). Las 126 Rare/Epic ya SON foil (su `price` es el precio foil, sin campo `foil`). Cuando TCGplayer los abra, la revisión de precios los agarra y ahí sí aparece el toggle ✨ — recordárselo.
 - **Poblar inventario de otros juegos** (One Piece foco, Pokémon, Magic, Yu-Gi-Oh) + sellado. Hoy solo Riftbound (943 cartas) está en vivo → el abanico y los contadores hoy son todo Riftbound.
 - **Contador de visitas / analytics:** RESUELTO con **Google Analytics 4** (gtag.js, ID `G-X6LMX9VR0Y`) en el `<head>` de index/juego/404 + plantilla de cartas. admin.html excluido a propósito. Datos en GA → propiedad "Reroll Hobby Store" → Reports/Realtime. (Translíos usa `G-CVMH80KDPJ`.) Pendiente opcional: banner de consentimiento de cookies (no obligatorio en CR; sí si hay tráfico UE).
 - **SEO de indexación:** `robots.txt` + `sitemap.xml` (945 URLs: home + juego.html?g=Riftbound + 943 cartas) generados por `make_cartas.py` (`write_sitemap`). Solo juegos CON inventario (no páginas vacías). Pendiente: dar de alta el sitemap en Google Search Console.
