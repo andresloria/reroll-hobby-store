@@ -1297,7 +1297,7 @@
     {
       "id": "R-0023",
       "ts": 1785253065412,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Felipe Montoya",
       "telefono": "87259337",
       "entrega": "envio",
@@ -1319,7 +1319,8 @@
           "price": 2200
         }
       ],
-      "total": 2200
+      "total": 2200,
+      "confirmadoTs": 1785295841120
     }
   ]
 }
