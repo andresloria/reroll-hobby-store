@@ -89,6 +89,13 @@ def build_price_index():
             for pr in prices:
                 mp = pr.get("marketPrice")
                 if mp is None: continue
+                # 🚨 En sets recién salidos TCGplayer devuelve MARKET PRICES BASURA:
+                # valores centinela (visto $0.25 exacto) mientras TODOS los listados
+                # reales están en ~$300. Aplicarlos dejaría una carta de ₡160.000 en
+                # ₡200. Si el market está absurdamente por debajo de la mediana de
+                # listados, manda la mediana. (Detectado en Vendetta, 2026-07-27.)
+                ref = pr.get("midPrice") or pr.get("lowPrice")
+                if ref and mp < ref * 0.40: mp = ref
                 pm.setdefault(pr["productId"], {})[pr["subTypeName"]] = mp
             for p in prods:
                 pid = p["productId"]; name = p["name"]
