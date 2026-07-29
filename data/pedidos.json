@@ -1,5 +1,5 @@
 {
-  "seq": 23,
+  "seq": 24,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1321,6 +1321,40 @@
       ],
       "total": 2200,
       "confirmadoTs": 1785295841120
+    },
+    {
+      "id": "R-0024",
+      "ts": 1785354515740,
+      "estado": "pendiente",
+      "nombre": "Kevin Fonseca",
+      "telefono": "88443361",
+      "entrega": "retiro",
+      "provincia": "Cartago",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 203,
+          "foil": false,
+          "qty": 3,
+          "name": "Stacked Deck",
+          "price": 3900
+        },
+        {
+          "id": 546,
+          "foil": false,
+          "qty": 1,
+          "name": "Last Rites",
+          "price": 27000
+        }
+      ],
+      "total": 38700
     }
   ]
 }
