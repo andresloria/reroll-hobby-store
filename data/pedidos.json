@@ -1,5 +1,5 @@
 {
-  "seq": 25,
+  "seq": 26,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1571,6 +1571,173 @@
         }
       ],
       "total": 36000
+    },
+    {
+      "id": "R-0026",
+      "ts": 1785478795769,
+      "estado": "pendiente",
+      "nombre": "Proto Ramírez",
+      "telefono": "64299089",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 110,
+          "foil": true,
+          "qty": 1,
+          "name": "Garbage Grabber",
+          "price": 300
+        },
+        {
+          "id": 108,
+          "foil": true,
+          "qty": 1,
+          "name": "Blastcone Fae",
+          "price": 200
+        },
+        {
+          "id": 97,
+          "foil": true,
+          "qty": 1,
+          "name": "Lecturing Yordle",
+          "price": 600
+        },
+        {
+          "id": 122,
+          "foil": false,
+          "qty": 1,
+          "name": "Heimerdinger, Inventor",
+          "price": 200
+        },
+        {
+          "id": 113,
+          "foil": true,
+          "qty": 1,
+          "name": "Portal Rescue",
+          "price": 300
+        },
+        {
+          "id": 116,
+          "foil": true,
+          "qty": 1,
+          "name": "Singularity",
+          "price": 3000
+        },
+        {
+          "id": 446,
+          "foil": true,
+          "qty": 1,
+          "name": "Bubble Bot",
+          "price": 300
+        },
+        {
+          "id": 459,
+          "foil": true,
+          "qty": 1,
+          "name": "Prize of Progress",
+          "price": 200
+        },
+        {
+          "id": 281,
+          "foil": false,
+          "qty": 1,
+          "name": "Super Mega Death Rocket!",
+          "price": 2600
+        },
+        {
+          "id": 461,
+          "foil": true,
+          "qty": 2,
+          "name": "Rocket Barrage",
+          "price": 500
+        },
+        {
+          "id": 455,
+          "foil": true,
+          "qty": 1,
+          "name": "Breakneck Mech",
+          "price": 200
+        },
+        {
+          "id": 201,
+          "foil": true,
+          "qty": 2,
+          "name": "Pack of Wonders",
+          "price": 3000
+        },
+        {
+          "id": 530,
+          "foil": true,
+          "qty": 1,
+          "name": "Windsinger",
+          "price": 300
+        },
+        {
+          "id": 519,
+          "foil": true,
+          "qty": 1,
+          "name": "Master Bingwen",
+          "price": 300
+        },
+        {
+          "id": 524,
+          "foil": true,
+          "qty": 1,
+          "name": "Beast Below",
+          "price": 200
+        },
+        {
+          "id": 11,
+          "foil": true,
+          "qty": 1,
+          "name": "Legion Rearguard",
+          "price": 200
+        },
+        {
+          "id": 21,
+          "foil": true,
+          "qty": 1,
+          "name": "Scrapyard Champion",
+          "price": 200
+        },
+        {
+          "id": 2,
+          "foil": true,
+          "qty": 1,
+          "name": "Brazen Buccaneer",
+          "price": 300
+        },
+        {
+          "id": 394,
+          "foil": true,
+          "qty": 1,
+          "name": "Void Hatchling",
+          "price": 200
+        },
+        {
+          "id": 410,
+          "foil": false,
+          "qty": 1,
+          "name": "Skyfall of Areion",
+          "price": 3100
+        },
+        {
+          "id": 681,
+          "foil": true,
+          "qty": 1,
+          "name": "Yeti Brawler",
+          "price": 200
+        }
+      ],
+      "total": 19900
     }
   ]
 }
