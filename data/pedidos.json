@@ -1,5 +1,5 @@
 {
-  "seq": 24,
+  "seq": 25,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1355,6 +1355,222 @@
         }
       ],
       "total": 38700
+    },
+    {
+      "id": "R-0025",
+      "ts": 1785478044921,
+      "estado": "pendiente",
+      "nombre": "Jean Pierre Mirault",
+      "telefono": "88668993",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 49,
+          "foil": false,
+          "qty": 1,
+          "name": "Charm",
+          "price": 500
+        },
+        {
+          "id": 51,
+          "foil": false,
+          "qty": 3,
+          "name": "Defy",
+          "price": 1400
+        },
+        {
+          "id": 54,
+          "foil": false,
+          "qty": 3,
+          "name": "Meditation",
+          "price": 100
+        },
+        {
+          "id": 58,
+          "foil": true,
+          "qty": 1,
+          "name": "Stalwart Poro",
+          "price": 300
+        },
+        {
+          "id": 58,
+          "foil": false,
+          "qty": 5,
+          "name": "Stalwart Poro",
+          "price": 100
+        },
+        {
+          "id": 64,
+          "foil": false,
+          "qty": 3,
+          "name": "Discipline",
+          "price": 1000
+        },
+        {
+          "id": 66,
+          "foil": false,
+          "qty": 3,
+          "name": "Mask of Foresight",
+          "price": 200
+        },
+        {
+          "id": 103,
+          "foil": true,
+          "qty": 2,
+          "name": "Riptide Rex",
+          "price": 200
+        },
+        {
+          "id": 104,
+          "foil": true,
+          "qty": 2,
+          "name": "Smoke Screen",
+          "price": 500
+        },
+        {
+          "id": 106,
+          "foil": true,
+          "qty": 3,
+          "name": "Stupefy",
+          "price": 500
+        },
+        {
+          "id": 114,
+          "foil": false,
+          "qty": 3,
+          "name": "Ravenbloom Student",
+          "price": 200
+        },
+        {
+          "id": 237,
+          "foil": false,
+          "qty": 3,
+          "name": "Hidden Blade",
+          "price": 500
+        },
+        {
+          "id": 324,
+          "foil": false,
+          "qty": 1,
+          "name": "Vilemaw's Lair",
+          "price": 200
+        },
+        {
+          "id": 412,
+          "foil": true,
+          "qty": 1,
+          "name": "Disarming Rake",
+          "price": 500
+        },
+        {
+          "id": 423,
+          "foil": false,
+          "qty": 3,
+          "name": "Emperor's Divide",
+          "price": 200
+        },
+        {
+          "id": 425,
+          "foil": false,
+          "qty": 1,
+          "name": "Not So Fast",
+          "price": 600
+        },
+        {
+          "id": 433,
+          "foil": false,
+          "qty": 1,
+          "name": "Heart of Dark Ice",
+          "price": 200
+        },
+        {
+          "id": 434,
+          "foil": false,
+          "qty": 1,
+          "name": "Janna, Savior",
+          "price": 200
+        },
+        {
+          "id": 555,
+          "foil": true,
+          "qty": 3,
+          "name": "Trusty Ramhound",
+          "price": 200
+        },
+        {
+          "id": 616,
+          "foil": true,
+          "qty": 1,
+          "name": "Rockfall Path",
+          "price": 300
+        },
+        {
+          "id": 616,
+          "foil": false,
+          "qty": 1,
+          "name": "Rockfall Path",
+          "price": 100
+        },
+        {
+          "id": 617,
+          "foil": true,
+          "qty": 1,
+          "name": "Seat of Power",
+          "price": 300
+        },
+        {
+          "id": 743,
+          "foil": false,
+          "qty": 2,
+          "name": "Turn to Dust",
+          "price": 100
+        },
+        {
+          "id": 751,
+          "foil": true,
+          "qty": 3,
+          "name": "Sprite Fountain",
+          "price": 2700
+        },
+        {
+          "id": 865,
+          "foil": false,
+          "qty": 2,
+          "name": "Vi, Peacekeeper",
+          "price": 1400
+        },
+        {
+          "id": 912,
+          "foil": false,
+          "qty": 1,
+          "name": "Vaults of Helia",
+          "price": 100
+        },
+        {
+          "id": 576,
+          "foil": false,
+          "qty": 2,
+          "name": "Azir, Sovereign",
+          "price": 3200
+        },
+        {
+          "id": 758,
+          "foil": false,
+          "qty": 2,
+          "name": "Smoke and Mirrors",
+          "price": 200
+        }
+      ],
+      "total": 36000
     }
   ]
 }
