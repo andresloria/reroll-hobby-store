@@ -135,6 +135,37 @@ Además, en el preview (`juego.html`), con la consola:
 
 ## 5. Precios
 
+### 📉 LO MÁS IMPORTANTE: el precio de preventa está inflado y se desploma
+
+Aprendido con Vendetta, y es la lección que más plata mueve. La preventa es lo
+que la gente **pide** antes de que el set exista; el día del lanzamiento oficial
+entran los sobres de verdad y el precio se derrumba. Recorrido real de
+**Ahri, Inquisitive (SP3/006)** en una semana:
+
+| Fecha | Precio | Qué era |
+|---|---|---|
+| 2026-07-24 | ₡275.000 | carga inicial del catálogo |
+| 2026-07-26 | ₡240.000 | mediana de listados de preventa |
+| 2026-07-30 | ₡155.000 | primeras ventas reales |
+| **2026-07-31** | **₡51.000** | **release oficial** |
+
+De ₡275.000 a ₡51.000: **−81%**. Y no fue solo esa — al release bajaron **125 de
+128** cartas de Vendetta con stock (−₡642.700 en el valor del inventario).
+
+**Por eso el orden correcto es:**
+
+1. Subir la expansión **a stock 0** apenas esté en TCGCSV (así se puede buscar y
+   la gente pide «avisame cuando llegue»).
+2. **NO tomarse en serio los precios de preventa.** Sirven para que la carta no
+   quede en ₡100, nada más.
+3. **Esperar al lanzamiento oficial** y recién ahí correr la revisión de precios
+   de verdad. Ese es el primer número confiable.
+4. Volver a revisar **una o dos semanas después**: el mercado sigue asentándose.
+
+⚠️ Si Andrés abre sobres y sube stock **antes** del release, sus cartas quedan
+con precio de preventa. Hay que avisarle y re-revisar el día del lanzamiento —
+si no, publica precios que nadie va a pagar y el set no rota.
+
 ### ⚠️ Set en presale: casi todo cae al piso de ₡100
 
 `make_catalogo.py` solo lee `marketPrice`, y **un set recién anunciado todavía no
@@ -262,6 +293,8 @@ Implementado con `userNarrowed()` en `js/app.js`.
 - [ ] Verificado en preview: filtro, buscador, ficha (§4)
 - [ ] Precios al día — **contar cuántas quedaron en ₡100**; si el set está en
       presale, traerlos en vivo de `mpapi` (§5)
+- [ ] 📉 **Anotar el día del lanzamiento oficial y re-revisar precios ESE día**:
+      la preventa se desploma (Ahri: ₡275.000 → ₡51.000 en una semana) (§5)
 - [ ] Cache-busting `?v=N` si se tocó `css/styles.css` o `js/app.js` (index **Y** juego)
 - [ ] Commit + push **con OK de Andrés** (§6)
 - [ ] Avisarle que ya puede subir stock desde el panel (§7)

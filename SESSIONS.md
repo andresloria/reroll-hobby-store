@@ -8,6 +8,17 @@ Repo: `github.com/andresloria/reroll-hobby-store` · LIVE en rerollhobbystore.co
 
 ---
 
+## 2026-07-31 (19) — Release de Vendetta, Lighthouse 96 y el enredo de los pedidos de Proto
+- **⚡ Lighthouse 75 → 96.** Andrés corrió Lighthouse (Performance 75, Best Practices 73). El diagnóstico sobre producción: **no existía `vercel.json`, y sin ese archivo Vercel sirve TODO con `max-age=0, must-revalidate`** — fuentes, CSS, JS e imágenes incluidas. Cada visitante revalidaba las 50 peticiones en cada visita. Se creó `vercel.json` (assets/css/js con `immutable` a 1 año; `productos.json`/`cartas.json` siguen revalidando; `/api/` `no-store`) + HSTS, `nosniff`, `Referrer-Policy`, `X-Frame-Options`. **Visita repetida: 1.361 KB → 203 KB (−85%).** Sin CSP por ahora (rompería GA y las imágenes de Riot).
+  - **`optimizar_logos.py`** (nuevo): los tiles se servían a 640-1001 px para verse a 124×46 (pokemon-tile.png pesaba 102 KB). Reescalados al tamaño real, eligiendo entre WebP y PNG el más liviano: **352 KB → 141 KB**. `magic-tile` se dejó en PNG porque ahí WebP pesaba más. Verificado que los `lw`/`lh` de `js/app.js` coincidan con el archivo real (si no, hay CLS).
+  - ⚠️ **Regla nueva:** con caché inmutable, cambiar una imagen sin renombrarla NO le llega a quien ya la tenga. Documentado en CLAUDE.md.
+- **📉 RELEASE OFICIAL DE VENDETTA: la burbuja de preventa reventó.** Dos revisiones de precios el mismo día. **Ahri, Inquisitive: ₡275.000 (24/07) → ₡240.000 → ₡155.000 → ₡51.000 (31/07), −81%.** Al release bajaron 125 de 128 cartas de Vendetta con stock. Verificado en vivo (tcgcsv + mpapi) antes de aplicar: no era glitch. En paralelo los sets viejos SUBEN (87 cartas de Origins/Spiritforged/Unleashed, +₡57.600). Total aplicado en el día: 246 + 247 precios, siempre **sin tocar la variante ✨ Foil** (decisión de Andrés, verificado 0 foils modificados contra backup). Inventario Riftbound ₡3.837.200 → ₡2.649.400.
+  - **📘 Lección al playbook** (`EXPANSIONES.md` §5, nueva sección al inicio): subir la expansión a stock 0, **NO fiarse de los precios de preventa**, esperar al lanzamiento oficial para la primera revisión de verdad, y volver a revisar 1-2 semanas después.
+  - **🚨 `check_precios.py` blindado**: el reporte traía Dominus ₡13.000 → ₡200 (el centinela `$0.25` de TCGplayer). Con `--aplicar-subidas` no entraban, pero con `--aplicar` a secas arrasaban precios. Ahora descarta el market si es < 40% de la mediana de listados.
+- **🧩 El enredo de los dos pedidos de Proto Ramírez.** R-0015 (14 jul, ₡17.800) era una venta **real ya pagada y entregada** que nunca se confirmó en el panel → su stock nunca se descontó → la tienda siguió ofreciendo cartas que Proto ya tenía → volvió a pedir varias de las mismas en R-0026. Se detectó porque confirmar ambos dejaba 8 líneas en negativo.
+  - Andrés confirmó R-0026 completo desde el panel mientras se preparaban los ajustes → **el rebase chocó y se descartó el commit** (habría revertido su confirmación). Se repusieron las 9 unidades que faltaban para poder confirmar R-0015 completo.
+  - ⚠️ **`data/pedidos.json` no se toca a mano**: el ✓ del panel es el que descuenta stock **y** registra la venta en Ventas. Si se edita por fuera, la venta no queda en la caja.
+
 ## 2026-07-27 (18) — VENDETTA A LA VENTA: imágenes de Riot, orden por número, precios y visibilidad
 > 🎴 **Andrés subió el stock físico de Vendetta desde el panel: 175 cartas, 1.088 unidades.** El set ya está comprable.
 

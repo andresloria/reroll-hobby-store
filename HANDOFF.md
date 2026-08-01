@@ -1,8 +1,15 @@
-# HANDOFF — estado de la sesión (act. 2026-07-27)
+# HANDOFF — estado de la sesión (act. 2026-07-31)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=77`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; **Vendetta YA con stock: 175 cartas, 1.088 unidades**). Último commit `f199b107`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=78`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; **Vendetta YA con stock: 175 cartas, 1.088 unidades**). Último commit `87d8a794`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
 
 > 🎉 **La tienda está VENDIENDO de verdad:** pedidos reales R-0017 a R-0022 (jul 14–27), varios ya confirmados con descuento de stock.
+
+**Novedades 2026-07-31 (LIVE):**
+- **⚡ Lighthouse 75 → 96.** Faltaba `vercel.json`: Vercel servía TODO con `max-age=0`. Ahora assets/css/js con caché inmutable de 1 año + HSTS/nosniff/Referrer-Policy. Visita repetida **1.361 KB → 203 KB**. Logos reescalados con `optimizar_logos.py` (352 → 141 KB). ⚠️ Con caché inmutable, **cambiar una imagen exige renombrarla**.
+- **📉 Release oficial de Vendetta: la preventa se desplomó.** Ahri Inquisitive ₡275.000 → **₡51.000** en una semana (−81%); 125 de 128 cartas con stock bajaron. Inventario Riftbound ₡3.837.200 → **₡2.649.400**. Los sets viejos en cambio SUBEN. Lección documentada en `EXPANSIONES.md` §5: **no fiarse de los precios de preventa, esperar al release oficial**.
+- **Foils intactas** por decisión de Andrés en las dos rondas de precios (verificado 0 modificados contra backup).
+- **`check_precios.py` blindado** contra el `marketPrice` basura de TCGplayer (centinela `$0.25`).
+- ⏳ **PENDIENTE DE ANDRÉS: confirmar R-0015 (Proto Ramírez, ₡17.800) en el panel.** Es una venta real ya pagada que nunca se confirmó; ya se le repusieron las 9 unidades que faltaban, así que el ✓ funciona. Mientras no lo haga, esas cartas se ven disponibles en la tienda.
 
 **Novedades 2026-07-27 (LIVE):**
 - **🎴 VENDETTA A LA VENTA:** Andrés subió el stock físico desde el panel (**175 cartas, 1.088 unidades**). Precios de presale al día (227/228 con precio en TCGplayer).
