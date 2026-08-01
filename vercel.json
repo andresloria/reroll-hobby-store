@@ -1,9 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
 
-  "//": "Confirmar un pedido lee productos.json (1.4 MB) y lo reescribe con un PUT de 1.9 MB en base64: 5-11 s en total, contra el limite POR DEFECTO de 10 s -> se cortaba a la mitad y el pedido quedaba pendiente. Con 60 s hay margen de sobra.",
+  "//": "Confirmar un pedido lee productos.json (1.4 MB) y lo reescribe con un PUT de 1.9 MB en base64: 5-11 s en total, contra el limite POR DEFECTO de 10 s -> se cortaba a la mitad y el pedido quedaba pendiente. Con 60 s hay margen de sobra. OJO: se listan los archivos UNO POR UNO, no 'api/*.js': ese patron tambien agarra api/_lib.js, que Vercel NO considera una funcion (empieza con guion bajo) y el build falla.",
   "functions": {
-    "api/*.js": { "maxDuration": 60 }
+    "api/pedido.js": { "maxDuration": 60 },
+    "api/pedidos.js": { "maxDuration": 60 },
+    "api/pedido-accion.js": { "maxDuration": 60 },
+    "api/reservas.js": { "maxDuration": 60 }
   },
 
   "headers": [
