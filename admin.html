@@ -1637,7 +1637,21 @@ async function pedConfirmar(id){
     toast(nuevasPo ? `¡Confirmado! ${nuevasPo} preórden(es) creada(s) en 🚚 Preórdenes — registrale el abono del 50% ahí.` : '¡Venta confirmada! Stock descontado y registrado en Ventas 🎉');
     loadPedidos();
   }catch(e){
-    if(!e.silent) alert('No se pudo confirmar: '+(e.message||e));
+    if(e.silent) return;
+    const m = String(e.message||e);
+    // 504/502 = la función se cortó a medias. NO reintentar a ciegas: si el
+    // stock alcanzó a descontarse, un segundo intento lo descontaría dos veces.
+    if(/50[24]|timeout|Failed to fetch|NetworkError/i.test(m)){
+      alert('La confirmación se cortó a medias ('+m+').\n\n'+
+            'ANTES de reintentar: refrescá con el botón ↻ y mirá el pedido.\n'+
+            '• Si ya aparece ✓ CONFIRMADO → listo, no hagas nada más.\n'+
+            '• Si sigue pendiente → revisá el stock de una carta del pedido:\n'+
+            '   – si NO bajó, reintentá tranquilo;\n'+
+            '   – si SÍ bajó, avisá antes de reintentar (se descontaría doble).');
+    } else {
+      alert('No se pudo confirmar: '+m);
+    }
+    loadPedidos();
   }
 }
 (function(){

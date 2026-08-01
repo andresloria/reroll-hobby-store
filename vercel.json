@@ -1,5 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "//": "Confirmar un pedido lee productos.json (1.4 MB) y lo reescribe con un PUT de 1.9 MB en base64: 5-11 s en total, contra el limite POR DEFECTO de 10 s -> se cortaba a la mitad y el pedido quedaba pendiente. Con 60 s hay margen de sobra.",
+  "functions": {
+    "api/*.js": { "maxDuration": 60 }
+  },
+
   "headers": [
     {
       "source": "/(.*)",
