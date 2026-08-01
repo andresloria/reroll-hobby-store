@@ -522,7 +522,7 @@
     {
       "id": "R-0015",
       "ts": 1784055835479,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Proto Ramírez",
       "telefono": "64299089",
       "entrega": "retiro",
@@ -768,7 +768,8 @@
           "price": 200
         }
       ],
-      "total": 17800
+      "total": 17800,
+      "confirmadoTs": 1785554267900
     },
     {
       "id": "R-0016",
