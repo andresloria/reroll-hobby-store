@@ -31,16 +31,39 @@ function gh(path, opts = {}) {
    así que el contenido se pide aparte con el media type raw). */
 async function readJsonFile(path) {
   const dir = path.includes("/") ? path.slice(0, path.lastIndexOf("/")) : "";
-  const lr = await gh(`/repos/${REPO}/contents/${dir}?ref=${BRANCH}`);
+  // Las dos peticiones son independientes (el contenido no necesita el sha),
+  // así que van EN PARALELO: confirmar un pedido hace dos lecturas y esto le
+  // saca ~1 s al total, que estaba rozando el límite de tiempo de Vercel.
+  const [lr, rr] = await Promise.all([
+    gh(`/repos/${REPO}/contents/${dir}?ref=${BRANCH}`),
+    gh(`/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
+      headers: { Accept: "application/vnd.github.raw" },
+    }),
+  ]);
   if (!lr.ok) throw new Error("github list " + lr.status);
   const listing = await lr.json();
   const entry = Array.isArray(listing) ? listing.find((e) => e.path === path) : null;
   if (!entry) return { data: null, sha: null };
-  const rr = await gh(`/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
-    headers: { Accept: "application/vnd.github.raw" },
-  });
   if (!rr.ok) throw new Error("github raw " + rr.status);
   return { data: JSON.parse(await rr.text()), sha: entry.sha };
+}
+
+/* ¿El stock de este pedido YA se descontó?  Se mira el historial de commits de
+   productos.json buscando el mensaje que deja la confirmación. Sirve de seguro:
+   si la función se corta DESPUÉS de escribir el stock pero ANTES de marcar el
+   pedido, al reintentar NO se vuelve a descontar (antes se descontaba doble).
+   Ante cualquier duda devuelve false → sigue el camino normal. */
+async function stockYaDescontado(pedId) {
+  try {
+    const r = await gh(`/repos/${REPO}/commits?sha=${BRANCH}&path=productos.json&per_page=20`);
+    if (!r.ok) return false;
+    const commits = await r.json();
+    if (!Array.isArray(commits)) return false;
+    const marca = `Pedido ${pedId} confirmado:`;
+    return commits.some((c) => String((c.commit && c.commit.message) || "").startsWith(marca));
+  } catch (e) {
+    return false;
+  }
 }
 
 /* Escribe un JSON al repo (indent 2, igual que el resto del proyecto).
@@ -147,7 +170,7 @@ function json(res, status, obj) {
 }
 
 module.exports = {
-  readJsonFile, writeJsonFile, readPedidos, writePedidos,
+  readJsonFile, writeJsonFile, readPedidos, writePedidos, stockYaDescontado,
   isActivo, lineKey, reservasDe, stockVariante, prune, panelOk, json, sendMail,
   EXP_MS, PEDIDOS_PATH,
 };

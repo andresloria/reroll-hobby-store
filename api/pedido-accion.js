@@ -49,8 +49,12 @@ module.exports = async function handler(req, res) {
     if (b.accion === "confirmar") {
       if (ped.estado === "confirmado") return L.json(res, 400, { error: "ya estaba confirmado" });
 
+      // SEGURO: si un intento anterior alcanzó a escribir el stock pero se cortó
+      // antes de marcar el pedido, NO se vuelve a descontar — solo se re-marca.
+      const yaDescontado = await L.stockYaDescontado(ped.id);
+
       // descuenta stock en productos.json (con validación contra reservas AJENAS)
-      for (let pi = 0; pi < 3; pi++) {
+      for (let pi = 0; !yaDescontado && pi < 3; pi++) {
         const { data: productos, sha: psha } = await L.readJsonFile("productos.json");
         if (!Array.isArray(productos)) return L.json(res, 500, { error: "inventario no disponible" });
         const otros = L.reservasDe(db.pedidos.filter((p) => p.id !== ped.id));
