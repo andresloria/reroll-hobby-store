@@ -1124,7 +1124,7 @@
     {
       "id": "R-0021",
       "ts": 1784828057094,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Adrián Molina Quiros",
       "telefono": "85597231",
       "entrega": "retiro",
@@ -1265,7 +1265,8 @@
           "price": 1400
         }
       ],
-      "total": 12700
+      "total": 12700,
+      "confirmadoTs": 1785554333108
     },
     {
       "id": "R-0022",
