@@ -1,6 +1,6 @@
 # HANDOFF — estado de la sesión (act. 2026-07-31)
 
-Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=78`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; **Vendetta YA con stock: 175 cartas, 1.088 unidades**). Último commit `0a3c8218`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
+Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). Cache en **`?v=78`** (index.html y juego.html alineados: `styles.css` y `app.js`; `carta.js` en **v7**; `ASSET_V=75` en fichas). Tienda: **3.920 productos** (One Piece sigue en **stock 0** temporal; **Vendetta YA con stock: 175 cartas, 1.088 unidades**). Último commit `e366816c`. Historial completo en [SESSIONS.md](SESSIONS.md) · **proceso de expansiones en [EXPANSIONES.md](EXPANSIONES.md)**.
 
 > 🎉 **La tienda está VENDIENDO de verdad:** 17 pedidos confirmados (R-0015 a R-0026, jul 14–31), con descuento de stock real.
 
@@ -11,7 +11,8 @@ Todo lo de abajo está **en vivo en rerollhobbystore.com** (salvo lo marcado). C
 - **`check_precios.py` blindado** contra el `marketPrice` basura de TCGplayer (centinela `$0.25`).
 - **🔧 El ✓ del panel no completaba — arreglado.** Confirmar tarda 5-11 s (lee productos.json de 1.4 MB y lo reescribe con un PUT de 1.9 MB) contra el límite de 10 s del plan. Fix: lecturas en paralelo (~1 s menos) + **`L.stockYaDescontado()`** que evita el DOBLE DESCUENTO si un intento se corta a medias + el panel re-consulta y avisa el estado real. **Reintentar ya es seguro.**
   - 🚫 **NO volver a poner `functions.maxDuration` en `vercel.json`:** el plan lo rechaza, el build falla y NINGÚN push llega a producción (el sitio se queda en el deploy viejo). Ya documentado en CLAUDE.md.
-- ✅ **R-0015 (₡17.800) y R-0021 (₡12.700) confirmados** por script. Queda pendiente SOLO R-0024 (Kevin Fonseca, ₡38.700), que Andrés rechazó.
+- ✅ **Bandeja de pedidos LIMPIA: 0 pendientes** (17 confirmados · 9 rechazados). R-0015 (₡17.800) y R-0021 (₡12.700) confirmados por script; R-0024 (Kevin) rechazado.
+- **🐞 El botón «Rechazar» solo salía en pedidos PENDIENTES**, así que un pedido EXPIRADO no se podía limpiar desde el panel — solo ofrecía «Confirmar venta». Por eso Andrés pidió varias veces quitar el de Kevin y no podía. Ahora el botón ✕ Rechazar aparece también en expirados (la API ya lo aceptaba: solo bloquea rechazar los confirmados).
 - ⏳ **PENDIENTE DE ANDRÉS: anotar ₡30.500 a mano en la sección Ventas** (R-0015 + R-0021). Al confirmarse por script, la venta no pasó por el navegador, que es quien escribe Ventas.
 - ⏳ **PENDIENTE: refrescar el panel (Ctrl+Shift+R) antes de publicar**, para que su copia local tome el stock descontado y no lo pise.
 
