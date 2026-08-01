@@ -589,7 +589,7 @@
     "price": 500,
     "foil": 2600,
     "cond": "Near Mint",
-    "stock": 6,
+    "stock": 5,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/62ae564505db8fcba70605eac2083ac2d4397b5a-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -615,7 +615,7 @@
     "price": 1400,
     "foil": 3200,
     "cond": "Near Mint",
-    "stock": 8,
+    "stock": 5,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4989bfcc4bd7be77051f0c2c349a981ba9c273e0-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -655,7 +655,7 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 22,
+    "stock": 19,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/7103336ab0d7f7bebdaa4155e4258d8d9beb06de-744x1039.png?accountingTag=RB",
     "stockf": 2
   },
@@ -707,9 +707,9 @@
     "price": 100,
     "foil": 300,
     "cond": "Near Mint",
-    "stock": 31,
+    "stock": 26,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c4a5d7178e783c3975749271b6df333a82a2328a-744x1039.png?accountingTag=RB",
-    "stockf": 1
+    "stockf": 0
   },
   {
     "id": 59,
@@ -785,7 +785,7 @@
     "price": 1000,
     "foil": 1400,
     "cond": "Near Mint",
-    "stock": 11,
+    "stock": 8,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8b9613970b505e3ad6abe2d51d091778314a7d48-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -811,7 +811,7 @@
     "price": 200,
     "foil": 800,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/03824709acbb4151d13b083a842c4702a3e61221-744x1039.png?accountingTag=RB",
     "stockf": 1
   },
@@ -1253,7 +1253,7 @@
     "cond": "Near Mint",
     "stock": 19,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e09bf1fb6d72da31d415ea31ae7413fe7f02d650-744x1039.png?accountingTag=RB",
-    "stockf": 2
+    "stockf": 0
   },
   {
     "id": 104,
@@ -1266,7 +1266,7 @@
     "cond": "Near Mint",
     "stock": 19,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/06c34457afd09b828ee0b2862ed51eb31004d888-744x1039.png?accountingTag=RB",
-    "stockf": 3
+    "stockf": 1
   },
   {
     "id": 105,
@@ -1292,7 +1292,7 @@
     "cond": "Near Mint",
     "stock": 16,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/837a5976192bbf8bdb4086429802167548ecc119-744x1039.png?accountingTag=RB",
-    "stockf": 6
+    "stockf": 3
   },
   {
     "id": 107,
@@ -1394,7 +1394,7 @@
     "price": 200,
     "foil": 300,
     "cond": "Near Mint",
-    "stock": 16,
+    "stock": 13,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b98b1ff793b6eb263957258742cc83d50fda6537-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -2884,7 +2884,7 @@
     "price": 500,
     "foil": 2100,
     "cond": "Near Mint",
-    "stock": 21,
+    "stock": 18,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0437ab8a0b67f43ef5483a103bbae9e57fd05822-744x1039.png?accountingTag=RB",
     "stockf": 2
   },
@@ -3923,7 +3923,7 @@
     "price": 200,
     "foil": 1700,
     "cond": "Near Mint",
-    "stock": 4,
+    "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f374b90a0bec11a5f423e7d4ebd869ab1a146471-1038x744.png?accountingTag=RB",
     "stockf": 0
   },
@@ -4936,7 +4936,7 @@
     "cond": "Near Mint",
     "stock": 25,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/523732db17d8cf3c7c55f57c5dfb397b73e2b116-744x1039.png?accountingTag=RB",
-    "stockf": 1,
+    "stockf": 0,
     "badge": ""
   },
   {
@@ -5078,7 +5078,7 @@
     "price": 200,
     "foil": 500,
     "cond": "Near Mint",
-    "stock": 7,
+    "stock": 4,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/80f367f06549d597c7b5a77be73eb647eab34f59-744x1039.png?accountingTag=RB",
     "stockf": 0,
     "badge": ""
@@ -5105,7 +5105,7 @@
     "price": 600,
     "foil": 2800,
     "cond": "Near Mint",
-    "stock": 4,
+    "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e576fefdce72ad862a7e374bf8c0fd509f359da9-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -5201,7 +5201,7 @@
     "set": "Spiritforged",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 5,
+    "stock": 4,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/73d8251c3bd8f7cd77010e9628515cd7fa462386-744x1039.png?accountingTag=RB"
   },
   {
@@ -5212,7 +5212,7 @@
     "set": "Spiritforged",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 2,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/191f04059bbfd69dfe63d36010586597bb3549b2-744x1039.png?accountingTag=RB"
   },
   {
@@ -6682,7 +6682,7 @@
     "cond": "Near Mint",
     "stock": 24,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0bd3f82ebe45a4dc09204582d06900916e6c0480-744x1039.png?accountingTag=RB",
-    "stockf": 3
+    "stockf": 0
   },
   {
     "id": 556,
@@ -6931,7 +6931,7 @@
     "set": "Spiritforged",
     "price": 3200,
     "cond": "Near Mint",
-    "stock": 2,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/088970936fc800bd2c4b36636734e16c83e1c8f9-744x1039.png?accountingTag=RB",
     "badge": ""
   },
@@ -7395,9 +7395,9 @@
     "price": 100,
     "foil": 300,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a1bde66bccf2786e7c0b9d44fcdcdaa6b59f0328-1039x744.png?accountingTag=RB",
-    "stockf": 1
+    "stockf": 0
   },
   {
     "id": 617,
@@ -7410,7 +7410,7 @@
     "cond": "Near Mint",
     "stock": 1,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8b9db30f8eedd5e5463a0fceaeaf90069bce39ae-1039x744.png?accountingTag=RB",
-    "stockf": 1
+    "stockf": 0
   },
   {
     "id": 618,
@@ -8872,7 +8872,7 @@
     "price": 100,
     "foil": 500,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 1,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4986c0c2fea96d9a88d736789d604374a64d03fb-744x1039.png?accountingTag=RB",
     "stockf": 0
   },
@@ -8978,7 +8978,7 @@
     "cond": "Near Mint",
     "stock": 3,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fcb3ea3e8f829b8dc845fbf49080552d635bb47b-744x1039.png?accountingTag=RB",
-    "stockf": 3
+    "stockf": 0
   },
   {
     "id": 752,
@@ -9054,7 +9054,7 @@
     "set": "Unleashed",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 1,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/38886634ee8646707d9c26020f977f14c934a4c0-744x1039.png?accountingTag=RB"
   },
   {
@@ -10344,7 +10344,7 @@
     "set": "Unleashed",
     "price": 1400,
     "cond": "Near Mint",
-    "stock": 4,
+    "stock": 2,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/51610bbdecd77b15f58b9a968611e536ebdf445e-744x1039.png?accountingTag=RB"
   },
   {
@@ -10890,7 +10890,7 @@
     "price": 100,
     "foil": 200,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9fc7b9a8294665881eece0dacaf3fc70e39f19e4-1039x744.png?accountingTag=RB",
     "stockf": 0
   },
