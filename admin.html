@@ -1580,7 +1580,7 @@ function renderPedidos(){
         <span class="ped__total">Total ${fmt(p.total)}${p.envioCosto?` <small style="color:#9b8d83;font-weight:400">+ envío ${fmt(p.envioCosto)} = ${fmt(Number(p.total)+Number(p.envioCosto))}</small>`:''}</span>
         ${p.estado==='pendiente'||p.estado==='expirado'?`<span style="display:flex;gap:8px">
           <button class="btn btn--gold ped__conf" data-ped="${p.id}" type="button">✓ Confirmar venta</button>
-          ${p.estado==='pendiente'?`<button class="btn btn--ghost ped__rej" data-ped="${p.id}" type="button">Rechazar</button>`:''}
+          <button class="btn btn--ghost ped__rej" data-ped="${p.id}" type="button">✕ Rechazar</button>
         </span>`:''}
       </div>
     </div>`;
