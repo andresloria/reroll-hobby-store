@@ -1,5 +1,5 @@
 {
-  "seq": 27,
+  "seq": 28,
   "pedidos": [
     {
       "id": "R-0001",
@@ -1868,6 +1868,138 @@
       ],
       "total": 26600,
       "confirmadoTs": 1785727082631
+    },
+    {
+      "id": "R-0028",
+      "ts": 1785733768640,
+      "estado": "pendiente",
+      "nombre": "Michael Cheng",
+      "telefono": "87308811",
+      "entrega": "retiro",
+      "provincia": "San José",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 3690,
+          "foil": false,
+          "qty": 1,
+          "name": "Sett - The Boss (Overnumbered)",
+          "price": 32000
+        },
+        {
+          "id": 269,
+          "foil": false,
+          "qty": 1,
+          "name": "Baited Hook",
+          "price": 27000
+        },
+        {
+          "id": 3692,
+          "foil": false,
+          "qty": 1,
+          "name": "Lucian - Purifier (Overnumbered)",
+          "price": 20000
+        },
+        {
+          "id": 3813,
+          "foil": false,
+          "qty": 1,
+          "name": "Sona, Harmonious",
+          "price": 16500
+        },
+        {
+          "id": 544,
+          "foil": false,
+          "qty": 1,
+          "name": "Ezreal, Prodigy",
+          "price": 6500
+        },
+        {
+          "id": 545,
+          "foil": false,
+          "qty": 1,
+          "name": "Ezreal, Prodigy",
+          "price": 4700
+        },
+        {
+          "id": 473,
+          "foil": false,
+          "qty": 1,
+          "name": "Premonition",
+          "price": 3900
+        },
+        {
+          "id": 3897,
+          "foil": false,
+          "qty": 2,
+          "name": "Public Execution",
+          "price": 3800
+        },
+        {
+          "id": 3705,
+          "foil": false,
+          "qty": 1,
+          "name": "Ambessa, Respected and Feared (Alternate Art)",
+          "price": 3600
+        },
+        {
+          "id": 579,
+          "foil": false,
+          "qty": 1,
+          "name": "Fiora, Worthy",
+          "price": 2200
+        },
+        {
+          "id": 46,
+          "foil": false,
+          "qty": 1,
+          "name": "Volibear, Furious",
+          "price": 1300
+        },
+        {
+          "id": 3825,
+          "foil": false,
+          "qty": 2,
+          "name": "Zed, From the Shadows",
+          "price": 1100
+        },
+        {
+          "id": 3765,
+          "foil": false,
+          "qty": 1,
+          "name": "Mel, Defiant Soul (Alternate Art)",
+          "price": 1000
+        },
+        {
+          "id": 130,
+          "foil": false,
+          "qty": 1,
+          "name": "Viktor, Innovator",
+          "price": 700
+        },
+        {
+          "id": 3702,
+          "foil": false,
+          "qty": 1,
+          "name": "Akali, Silent (Alternate Art)",
+          "price": 8500
+        },
+        {
+          "id": 181,
+          "foil": false,
+          "qty": 1,
+          "name": "Miss Fortune, Captain",
+          "price": 2500
+        }
+      ],
+      "total": 140200
     }
   ]
 }
