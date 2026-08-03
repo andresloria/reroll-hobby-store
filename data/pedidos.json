@@ -1746,7 +1746,7 @@
     {
       "id": "R-0027",
       "ts": 1785630824695,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Michael Cheng",
       "telefono": "87308811",
       "entrega": "retiro",
@@ -1866,7 +1866,8 @@
           "price": 600
         }
       ],
-      "total": 26600
+      "total": 26600,
+      "confirmadoTs": 1785727082631
     }
   ]
 }
