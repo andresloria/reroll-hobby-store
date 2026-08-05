@@ -1,5 +1,5 @@
 {
-  "seq": 28,
+  "seq": 29,
   "pedidos": [
     {
       "id": "R-0001",
@@ -2001,6 +2001,110 @@
       ],
       "total": 140200,
       "confirmadoTs": 1785817332046
+    },
+    {
+      "id": "R-0029",
+      "ts": 1785899971073,
+      "estado": "pendiente",
+      "nombre": "Renzo B",
+      "telefono": "86280556",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 3779,
+          "foil": false,
+          "qty": 2,
+          "name": "Ocean Drake",
+          "price": 1700
+        },
+        {
+          "id": 3825,
+          "foil": false,
+          "qty": 1,
+          "name": "Zed, From the Shadows",
+          "price": 1100
+        },
+        {
+          "id": 3771,
+          "foil": false,
+          "qty": 3,
+          "name": "Morgana, Vindictive",
+          "price": 200
+        },
+        {
+          "id": 3796,
+          "foil": false,
+          "qty": 3,
+          "name": "Riven, Shattered",
+          "price": 200
+        },
+        {
+          "id": 3816,
+          "foil": false,
+          "qty": 3,
+          "name": "Steel Paws",
+          "price": 200
+        },
+        {
+          "id": 3824,
+          "foil": false,
+          "qty": 3,
+          "name": "Wind and Ghosts",
+          "price": 200
+        },
+        {
+          "id": 3923,
+          "foil": false,
+          "qty": 2,
+          "name": "Twilight Reveler",
+          "price": 200
+        },
+        {
+          "id": 4,
+          "foil": true,
+          "qty": 3,
+          "name": "Cleave",
+          "price": 200
+        },
+        {
+          "id": 13,
+          "foil": true,
+          "qty": 3,
+          "name": "Noxus Hopeful",
+          "price": 1700
+        },
+        {
+          "id": 205,
+          "foil": true,
+          "qty": 3,
+          "name": "Traveling Merchant",
+          "price": 1000
+        },
+        {
+          "id": 381,
+          "foil": true,
+          "qty": 2,
+          "name": "Detonate",
+          "price": 200
+        },
+        {
+          "id": 821,
+          "foil": true,
+          "qty": 3,
+          "name": "The List",
+          "price": 400
+        }
+      ],
+      "total": 17600
     }
   ]
 }
