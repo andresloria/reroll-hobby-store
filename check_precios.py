@@ -89,13 +89,20 @@ def build_price_index():
             for pr in prices:
                 mp = pr.get("marketPrice")
                 if mp is None: continue
-                # 🚨 En sets recién salidos TCGplayer devuelve MARKET PRICES BASURA:
-                # valores centinela (visto $0.25 exacto) mientras TODOS los listados
-                # reales están en ~$300. Aplicarlos dejaría una carta de ₡160.000 en
-                # ₡200. Si el market está absurdamente por debajo de la mediana de
-                # listados, manda la mediana. (Detectado en Vendetta, 2026-07-27.)
-                ref = pr.get("midPrice") or pr.get("lowPrice")
-                if ref and mp < ref * 0.40: mp = ref
+                # 🚨 CENTINELA: TCGplayer a veces devuelve un market de CENTAVOS
+                # para cartas cuyos listados reales están en cientos de dólares
+                # (visto $0.25 en Mel Defiant Soul con listados en ~$300). Aplicarlo
+                # dejaría una carta de ₡160.000 en ₡200.
+                # ⚠️ La regla NO puede ser por ratio contra midPrice: en cartas
+                # ultra-raras con pocos listados el "mid" es una oferta absurda
+                # ($9.999 en una carta que se vende a $995) y el ratio hacía que el
+                # guardián SUBIERA precios legítimos por 10x. (Boa Hancock salió
+                # ₡500.000 → ₡7.800.000 en el reporte del 2026-08-04.)
+                # La firma real del centinela es ABSOLUTA: market irrisorio mientras
+                # el piso de listados está en decenas de dólares. Con este criterio
+                # dispara 2 veces en todo el catálogo, en vez de 756.
+                piso = pr.get("lowPrice") or pr.get("midPrice")
+                if mp < 1.0 and piso and piso >= 20: mp = piso
                 pm.setdefault(pr["productId"], {})[pr["subTypeName"]] = mp
             for p in prods:
                 pid = p["productId"]; name = p["name"]
