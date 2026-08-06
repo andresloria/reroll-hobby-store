@@ -1,5 +1,5 @@
 {
-  "seq": 29,
+  "seq": 30,
   "pedidos": [
     {
       "id": "R-0001",
@@ -2105,6 +2105,61 @@
         }
       ],
       "total": 17600
+    },
+    {
+      "id": "R-0030",
+      "ts": 1785982989274,
+      "estado": "pendiente",
+      "nombre": "Jean Pierre Mirault",
+      "telefono": "88668993",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 104,
+          "foil": true,
+          "qty": 1,
+          "name": "Smoke Screen",
+          "price": 500
+        },
+        {
+          "id": 210,
+          "foil": false,
+          "qty": 1,
+          "name": "Kog'Maw, Caustic",
+          "price": 200
+        },
+        {
+          "id": 549,
+          "foil": true,
+          "qty": 1,
+          "name": "Eye of the Herald",
+          "price": 200
+        },
+        {
+          "id": 549,
+          "foil": false,
+          "qty": 1,
+          "name": "Eye of the Herald",
+          "price": 100
+        },
+        {
+          "id": 580,
+          "foil": false,
+          "qty": 1,
+          "name": "Fiora, Worthy",
+          "price": 400
+        }
+      ],
+      "total": 1400
     }
   ]
 }
