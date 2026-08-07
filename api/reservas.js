@@ -8,11 +8,15 @@ const L = require("./_lib.js");
 
 module.exports = async function handler(req, res) {
   if (req.method !== "GET") return L.json(res, 405, { error: "método no permitido" });
-  if (!process.env.GITHUB_TOKEN) return L.json(res, 200, { reservas: {} }); // sin configurar: tienda sigue normal
+  // Siempre 200 con `reservas`: la tienda NO se rompe pase lo que pase. El
+  // campo `err` es solo para diagnóstico (un `{}` mudo hacía indistinguible
+  // "no hay reservas" de "no pude leerlas"); nunca incluye el token.
+  if (!process.env.GITHUB_TOKEN)
+    return L.json(res, 200, { reservas: {}, err: "sin GITHUB_TOKEN" });
   try {
     const { db } = await L.readPedidos();
     return L.json(res, 200, { reservas: L.reservasDe(db.pedidos), ts: Date.now() });
   } catch (e) {
-    return L.json(res, 200, { reservas: {} }); // ante cualquier fallo, no romper la tienda
+    return L.json(res, 200, { reservas: {}, err: String(e.message || e) });
   }
 };
