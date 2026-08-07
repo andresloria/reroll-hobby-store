@@ -1,5 +1,5 @@
 {
-  "seq": 30,
+  "seq": 31,
   "pedidos": [
     {
       "id": "R-0001",
@@ -2160,6 +2160,40 @@
         }
       ],
       "total": 1400
+    },
+    {
+      "id": "R-0031",
+      "ts": 1786068585892,
+      "estado": "pendiente",
+      "nombre": "José González",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 756,
+          "foil": false,
+          "qty": 3,
+          "name": "Lillia, Fae Fawn",
+          "price": 200
+        },
+        {
+          "id": 105,
+          "foil": false,
+          "qty": 3,
+          "name": "Sprite Call",
+          "price": 100
+        }
+      ],
+      "total": 900
     }
   ]
 }
