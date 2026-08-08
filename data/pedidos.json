@@ -2020,13 +2020,6 @@
       "envioCosto": 0,
       "items": [
         {
-          "id": 3779,
-          "foil": false,
-          "qty": 2,
-          "name": "Ocean Drake",
-          "price": 1700
-        },
-        {
           "id": 3825,
           "foil": false,
           "qty": 1,
@@ -2104,7 +2097,7 @@
           "price": 400
         }
       ],
-      "total": 17600,
+      "total": 14200,
       "tsOriginal": 1785899971073
     },
     {
