@@ -49,7 +49,7 @@
     "cond": "Near Mint",
     "stock": 25,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/95d476a1e88ff547fb846149619177bc7e3cea9f-744x1039.png?accountingTag=RB",
-    "stockf": 3
+    "stockf": 0
   },
   {
     "id": 5,
@@ -162,7 +162,7 @@
     "cond": "Near Mint",
     "stock": 10,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c3bb6f4cb58feeb50e396d12ec9865c5434025af-744x1039.png?accountingTag=RB",
-    "stockf": 4,
+    "stockf": 1,
     "badge": ""
   },
   {
@@ -2506,7 +2506,7 @@
     "cond": "Near Mint",
     "stock": 15,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b7dbebe2bf5691391c8e4146e478b8bd2ac40aef-744x1039.png?accountingTag=RB",
-    "stockf": 4,
+    "stockf": 1,
     "badge": ""
   },
   {
@@ -4561,7 +4561,7 @@
     "cond": "Near Mint",
     "stock": 20,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e837fbd6aeeb1293386dcfa284aae5a4baca10ef-744x1039.png?accountingTag=RB",
-    "stockf": 2
+    "stockf": 0
   },
   {
     "id": 382,
@@ -9826,7 +9826,7 @@
     "cond": "Near Mint",
     "stock": 1,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f35b49faeb444071445662c9af13710c00a4569c-744x1039.png?accountingTag=RB",
-    "stockf": 3
+    "stockf": 0
   },
   {
     "id": 822,
@@ -42708,7 +42708,7 @@
     "set": "Vendetta",
     "price": 100,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/04f3ff3a25b08c9af33090e7a533396583f5e433-744x1039.png?accountingTag=RB"
   },
   {
@@ -43007,7 +43007,7 @@
     "set": "Vendetta",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8c16a53ee243e468f3c337de4354668665f3b386-744x1039.png?accountingTag=RB"
   },
   {
@@ -43237,7 +43237,7 @@
     "set": "Vendetta",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 3,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/79d9b6583ed8e7d5a1486f1c15b66b19fb7f69a5-744x1039.png?accountingTag=RB"
   },
   {
@@ -43331,7 +43331,7 @@
     "set": "Vendetta",
     "price": 100,
     "cond": "Near Mint",
-    "stock": 8,
+    "stock": 5,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ef118660422af84f6183d375b68ce1872acb1e2e-744x1039.png?accountingTag=RB",
     "foil": 700,
     "stockf": 0
@@ -43344,7 +43344,7 @@
     "set": "Vendetta",
     "price": 600,
     "cond": "Near Mint",
-    "stock": 1,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/06793f17adbd827e468db40d644eb273a3932c7e-744x1039.png?accountingTag=RB"
   },
   {
@@ -44508,7 +44508,7 @@
     "set": "Vendetta",
     "price": 200,
     "cond": "Near Mint",
-    "stock": 2,
+    "stock": 0,
     "img": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c9b3acfc3f996d784d1b5f98ab87ba4d1c6136ce-744x1039.png?accountingTag=RB"
   },
   {
