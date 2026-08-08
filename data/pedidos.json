@@ -2005,7 +2005,7 @@
     {
       "id": "R-0029",
       "ts": 1786073751042,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Renzo B",
       "telefono": "86280556",
       "entrega": "retiro",
@@ -2098,7 +2098,8 @@
         }
       ],
       "total": 14200,
-      "tsOriginal": 1785899971073
+      "tsOriginal": 1785899971073,
+      "confirmadoTs": 1786150043354
     },
     {
       "id": "R-0030",
