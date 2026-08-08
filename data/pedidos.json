@@ -2104,7 +2104,7 @@
     {
       "id": "R-0030",
       "ts": 1785982989274,
-      "estado": "pendiente",
+      "estado": "confirmado",
       "nombre": "Jean Pierre Mirault",
       "telefono": "88668993",
       "entrega": "retiro",
@@ -2154,7 +2154,8 @@
           "price": 400
         }
       ],
-      "total": 1400
+      "total": 1400,
+      "confirmadoTs": 1786150675156
     },
     {
       "id": "R-0031",
