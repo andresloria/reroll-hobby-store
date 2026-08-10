@@ -1,46 +1,6 @@
 {
-  "seq": 31,
+  "seq": 32,
   "pedidos": [
-    {
-      "id": "R-0001",
-      "ts": 1783479023412,
-      "estado": "rechazado",
-      "nombre": "PRUEBA (borrar)",
-      "entrega": "retiro",
-      "provincia": "",
-      "direccion": "",
-      "pago": "SINPE M�vil",
-      "items": [
-        {
-          "id": 154,
-          "foil": false,
-          "qty": 1,
-          "name": "Catalyst of Aeons",
-          "price": 500
-        }
-      ],
-      "total": 500
-    },
-    {
-      "id": "R-0002",
-      "ts": 1783479610120,
-      "estado": "rechazado",
-      "nombre": "PRUEBA TOKEN (borrar)",
-      "entrega": "retiro",
-      "provincia": "",
-      "direccion": "",
-      "pago": "SINPE M�vil",
-      "items": [
-        {
-          "id": 154,
-          "foil": false,
-          "qty": 1,
-          "name": "Catalyst of Aeons",
-          "price": 500
-        }
-      ],
-      "total": 500
-    },
     {
       "id": "R-0003",
       "ts": 1783817323801,
@@ -2191,6 +2151,54 @@
       ],
       "total": 900,
       "confirmadoTs": 1786211986219
+    },
+    {
+      "id": "R-0032",
+      "ts": 1786392380253,
+      "estado": "pendiente",
+      "nombre": "José González",
+      "telefono": "85584485",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 106,
+          "foil": false,
+          "qty": 3,
+          "name": "Stupefy",
+          "price": 200
+        },
+        {
+          "id": 755,
+          "foil": false,
+          "qty": 2,
+          "name": "Keeper of Masks",
+          "price": 200
+        },
+        {
+          "id": 758,
+          "foil": false,
+          "qty": 1,
+          "name": "Smoke and Mirrors",
+          "price": 300
+        },
+        {
+          "id": 3773,
+          "foil": false,
+          "qty": 1,
+          "name": "Nasus, Ascended",
+          "price": 500
+        }
+      ],
+      "total": 1800
     }
   ]
 }
