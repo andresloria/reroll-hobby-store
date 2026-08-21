@@ -86,7 +86,9 @@ def build_price_index():
             prods  = results(fetch_cached(f"https://tcgcsv.com/tcgplayer/{cat}/{gid}/products", f"{key}_{gid}_p"))
             prices = results(_get(f"https://tcgcsv.com/tcgplayer/{cat}/{gid}/prices"))  # FRESCO
             pm = {}
+            impresiones = {}   # productId -> {subtipos que EXISTEN} (aunque hoy no tengan market)
             for pr in prices:
+                impresiones.setdefault(pr["productId"], set()).add(pr["subTypeName"])
                 mp = pr.get("marketPrice")
                 if mp is None: continue
                 # 🚨 CENTINELA: TCGplayer a veces devuelve un market de CENTAVOS
@@ -109,7 +111,9 @@ def build_price_index():
                 is_single = bool(p.get("extendedData"))
                 subs = pm.get(pid, {})
                 by_pid[pid] = {"normal": subs.get("Normal"), "foil": subs.get("Foil"),
-                               "name": name, "set": setn, "single": is_single}
+                               "name": name, "set": setn, "single": is_single,
+                               # ¿existe impresión Normal? (distinto de "hoy no tiene precio")
+                               "hay_normal": "Normal" in impresiones.get(pid, set())}
                 # solo indexamos cartas BASE (sin sufijo de variante entre paréntesis:
                 # (Signature)/(Overnumbered)/(Metal)/(Alternate Art)… son premium y NO
                 # se pueden desambiguar contra productos.json, que no guarda la variante)
@@ -184,7 +188,17 @@ def main():
         px = by_pid.get(pid)
         if not px or (px["normal"] is None and px["foil"] is None):
             sinprecio.append((it, motivo)); continue
-        base = px["normal"] if px["normal"] else px["foil"]
+        # 🚨 El precio base es el de la impresión NORMAL. Solo se usa el foil
+        # cuando la carta es foil-only de verdad (Rare/Epic/Showcase de Riftbound
+        # no tienen impresión normal). Si la carta SÍ tiene normal pero hoy
+        # TCGplayer no le publicó market, NO se cae al foil: eso escribía el
+        # precio foil dentro de `price` e inflaba la carta. (Stacked Deck quedó
+        # con normal ₡9.500 = su foil, cuando el normal valía ₡6.000.)
+        base = px["normal"]
+        if base is None:
+            if px["hay_normal"]:
+                sinprecio.append((it, motivo)); continue
+            base = px["foil"]
         new_price = round_crc(base)
         old_price = it.get("price", 0)
         row = {"id": it["id"], "name": it["name"], "cat": it["cat"], "set": it.get("set", ""),
