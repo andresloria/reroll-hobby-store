@@ -193596,5 +193596,3807 @@
 ]
 ]
 }
+},
+"4200": {
+"slug": "kouzuki-oden-9",
+"number": "EB01-001",
+"code": "EB01-001",
+"type": "Leader",
+"rarity": "L",
+"domains": "",
+"d": {
+"fx": "All of your <b class=\"fx-kw\">[Land of Wano]</b> type Character cards without a Counter have a +1000 Counter, according to the rules.<br><br><br><b class=\"fx-kw\">[DON!! x1]</b> <b class=\"fx-kw\">[When Attacking]</b> If you have a <b class=\"fx-kw\">[Land of Wano]</b> type Character with a cost of 5 or more, this Leader gains +1000 power until the start of your next turn.",
+"at": [
+[
+"Tipo",
+"Leader"
+],
+[
+"Rareza",
+"L"
+],
+[
+"Color",
+"Green;Red"
+],
+[
+"Vida",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Land of Wano;Kouzuki Clan"
+],
+[
+"N.º",
+"EB01-001"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4201": {
+"slug": "kouzuki-oden-alternate-art-2",
+"number": "EB01-001",
+"code": "EB01-001",
+"type": "Leader",
+"rarity": "L",
+"domains": "",
+"d": {
+"fx": "All of your <b class=\"fx-kw\">[Land of Wano]</b> type Character cards without a Counter have a +1000 Counter, according to the rules.<br><br><br><b class=\"fx-kw\">[DON!! x1]</b> <b class=\"fx-kw\">[When Attacking]</b> If you have a <b class=\"fx-kw\">[Land of Wano]</b> type Character with a cost of 5 or more, this Leader gains +1000 power until the start of your next turn.",
+"at": [
+[
+"Tipo",
+"Leader"
+],
+[
+"Rareza",
+"L"
+],
+[
+"Color",
+"Green;Red"
+],
+[
+"Vida",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Land of Wano;Kouzuki Clan"
+],
+[
+"N.º",
+"EB01-001"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4202": {
+"slug": "izo-7",
+"number": "EB01-002",
+"code": "EB01-002",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> Give up to 1 rested DON!! card to your Leader or 1 of your Characters.<br><br><br><b class=\"fx-kw\">[On Your Opponent&#x27;s Attack]</b> <b class=\"fx-kw\">[Once Per Turn]</b> <b class=\"fx-kw\">You may trash 1 card from your hand</b>: If your Leader has the <b class=\"fx-kw\">[Land of Wano]</b> or <b class=\"fx-kw\">[Whitebeard Pirates]</b> type, give up to 1 of your opponent&#x27;s Leader or Character cards -2000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Ranged"
+],
+[
+"Power",
+"7000"
+],
+[
+"Subtipos",
+"Land of Wano;Whitebeard Pirates"
+],
+[
+"N.º",
+"EB01-002"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4203": {
+"slug": "kid-killer",
+"number": "EB01-003",
+"code": "EB01-003",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Rush]</b> <i>(This card can attack on the turn in which it is played.)</i><br><br><br><b class=\"fx-kw\">[When Attacking]</b> If your opponent has 2 or less Life cards, this Character gains +2000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Slash;Special"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Kid Pirates;Supernovas"
+],
+[
+"N.º",
+"EB01-003"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4204": {
+"slug": "kid-killer-alternate-art",
+"number": "EB01-003",
+"code": "EB01-003",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Rush]</b> <i>(This card can attack on the turn in which it is played.)</i><br><br><br><b class=\"fx-kw\">[When Attacking]</b> If your opponent has 2 or less Life cards, this Character gains +2000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Slash;Special"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Kid Pirates;Supernovas"
+],
+[
+"N.º",
+"EB01-003"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4205": {
+"slug": "koza-2",
+"number": "EB01-004",
+"code": "EB01-004",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[When Attacking]</b> <b class=\"fx-kw\">You may give your 1 active Leader -5000 power during this turn</b>: Give up to 1 of your opponent&#x27;s Characters -3000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Ranged"
+],
+[
+"Power",
+"3000"
+],
+[
+"Subtipos",
+"Alabasta"
+],
+[
+"N.º",
+"EB01-004"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4206": {
+"slug": "doma",
+"number": "EB01-005",
+"code": "EB01-005",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"1"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"3000"
+],
+[
+"Subtipos",
+"Whitebeard Pirates Allies"
+],
+[
+"N.º",
+"EB01-005"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4207": {
+"slug": "tony-tony-chopper-10",
+"number": "EB01-006",
+"code": "EB01-006",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[DON!! x2]</b><b class=\"fx-kw\">[When Attacking]</b> Give up to 1 of your opponent&#x27;s Characters -3000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Animal;Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4208": {
+"slug": "tony-tony-chopper-alternate-art-2",
+"number": "EB01-006",
+"code": "EB01-006",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[DON!! x2]</b><b class=\"fx-kw\">[When Attacking]</b> Give up to 1 of your opponent&#x27;s Characters -3000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Animal;Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4209": {
+"slug": "tony-tony-chopper-alternate-art-manga",
+"number": "EB01-006",
+"code": "EB01-006",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[DON!! x2]</b><b class=\"fx-kw\">[When Attacking]</b> Give up to 1 of your opponent&#x27;s Characters -3000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Animal;Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-006"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4210": {
+"slug": "yamato-8",
+"number": "EB01-007",
+"code": "EB01-007",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">[Once Per Turn]</b> Give up to 1 rested DON!! card to your Leader or 1 of your Characters.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Land of Wano"
+],
+[
+"N.º",
+"EB01-007"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4211": {
+"slug": "littleoars-jr-4",
+"number": "EB01-008",
+"code": "EB01-008",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Once Per Turn]</b> If this Character would be K.O.&#x27;d by an effect, you may trash 1 Event or Stage card from your hand instead.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"6"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"7000"
+],
+[
+"Subtipos",
+"Giant;Whitebeard Pirates Allies"
+],
+[
+"N.º",
+"EB01-008"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4212": {
+"slug": "just-shut-up-and-come-with-us",
+"number": "EB01-009",
+"code": "EB01-009",
+"type": "Event",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> Look at 5 cards from the top of your deck and play up to 1 <b class=\"fx-kw\">[Animal]</b> type Character card with a cost of 3 or less. Then, place the rest at the bottom of your deck in any order.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"1"
+],
+[
+"Subtipos",
+"Straw Hat Crew;Drum Kingdom"
+],
+[
+"N.º",
+"EB01-009"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4213": {
+"slug": "there-s-no-way-you-could-defeat-me",
+"number": "EB01-010",
+"code": "EB01-010",
+"type": "Event",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> K.O. up to 1 of your opponent&#x27;s Characters with 6000 base power or less.<br><br><br><b class=\"fx-kw\">[Trigger]</b> K.O. up to 1 of your opponent&#x27;s Characters with 5000 base power or less.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"3"
+],
+[
+"Subtipos",
+"Straw Hat Crew;Water Seven"
+],
+[
+"N.º",
+"EB01-010"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4214": {
+"slug": "mini-merry",
+"number": "EB01-011",
+"code": "EB01-011",
+"type": "Stage",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may rest this card and place 1 of your Characters with 1000 base power at the bottom of your deck</b>: Draw 1 card.",
+"at": [
+[
+"Tipo",
+"Stage"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Red"
+],
+[
+"Costo",
+"1"
+],
+[
+"Subtipos",
+"Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-011"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4215": {
+"slug": "cavendish-5",
+"number": "EB01-012",
+"code": "EB01-012",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b>/<b class=\"fx-kw\">[When Attacking]</b> If your Leader has the <b class=\"fx-kw\">[Supernovas]</b> type and you have no other <b class=\"fx-kw\">[Cavendish]</b> Characters, set up to 2 of your DON!! cards as active.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"6000"
+],
+[
+"Subtipos",
+"Beautiful Pirates;Supernovas"
+],
+[
+"N.º",
+"EB01-012"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4216": {
+"slug": "cavendish-alternate-art",
+"number": "EB01-012",
+"code": "EB01-012",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b>/<b class=\"fx-kw\">[When Attacking]</b> If your Leader has the <b class=\"fx-kw\">[Supernovas]</b> type and you have no other <b class=\"fx-kw\">[Cavendish]</b> Characters, set up to 2 of your DON!! cards as active.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"6000"
+],
+[
+"Subtipos",
+"Beautiful Pirates;Supernovas"
+],
+[
+"N.º",
+"EB01-012"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4217": {
+"slug": "kouzuki-hiyori-5",
+"number": "EB01-013",
+"code": "EB01-013",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may trash this Character</b>: Play up to 1 <b class=\"fx-kw\">[Land of Wano]</b> type Character card with a cost of 5 or less other than <b class=\"fx-kw\">[Kouzuki Hiyori]</b> from your hand. Then, draw 1 card.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Land of Wano;Kouzuki Clan"
+],
+[
+"N.º",
+"EB01-013"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4218": {
+"slug": "kouzuki-hiyori-alternate-art-2",
+"number": "EB01-013",
+"code": "EB01-013",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may trash this Character</b>: Play up to 1 <b class=\"fx-kw\">[Land of Wano]</b> type Character card with a cost of 5 or less other than <b class=\"fx-kw\">[Kouzuki Hiyori]</b> from your hand. Then, draw 1 card.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Land of Wano;Kouzuki Clan"
+],
+[
+"N.º",
+"EB01-013"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4219": {
+"slug": "sanji-12",
+"number": "EB01-014",
+"code": "EB01-014",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[DON!! x1]</b> <b class=\"fx-kw\">[Your Turn]</b> This Character gains +1000 power for every 3 of your rested DON!! cards.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"FILM;Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-014"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4220": {
+"slug": "scratchmen-apoo-7",
+"number": "EB01-015",
+"code": "EB01-015",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> Rest up to 1 of your opponent&#x27;s Characters with a cost of 2 or less.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"1"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"1000"
+],
+[
+"Subtipos",
+"On-Air Pirates;Supernovas"
+],
+[
+"N.º",
+"EB01-015"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4221": {
+"slug": "bingoh",
+"number": "EB01-016",
+"code": "EB01-016",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may rest this Character</b>: K.O. up to 1 of your opponent&#x27;s rested Characters with a cost of 1 or less.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"1"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Land of Wano"
+],
+[
+"N.º",
+"EB01-016"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4222": {
+"slug": "blueno-017",
+"number": "EB01-017",
+"code": "EB01-017",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i>",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"2000"
+],
+[
+"Subtipos",
+"FILM;CP0"
+],
+[
+"N.º",
+"EB01-017"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4223": {
+"slug": "mountain-god",
+"number": "EB01-018",
+"code": "EB01-018",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"7000"
+],
+[
+"Subtipos",
+"Animal;Land of Wano"
+],
+[
+"N.º",
+"EB01-018"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4224": {
+"slug": "off-white",
+"number": "EB01-019",
+"code": "EB01-019",
+"type": "Event",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, look at 3 cards from the top of your deck; reveal up to 1 <b class=\"fx-kw\">[Donquixote Pirates]</b> type Character card and add it to your hand. Then, place the rest at the bottom of your deck in any order.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"2"
+],
+[
+"Subtipos",
+"Donquixote Pirates;The Seven Warlords of the Sea"
+],
+[
+"N.º",
+"EB01-019"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4225": {
+"slug": "chambres-2",
+"number": "EB01-020",
+"code": "EB01-020",
+"type": "Event",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Main]</b> If your Leader has the <b class=\"fx-kw\">[Supernovas]</b> type, return 1 of your Characters to the owner&#x27;s hand, and play up to 1 Character card with a cost of 2 or less from your hand that is a different color than the returned Character.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Activate this card&#x27;s <b class=\"fx-kw\">[Main]</b> effect.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Green"
+],
+[
+"Costo",
+"1"
+],
+[
+"Subtipos",
+"Heart Pirates;Supernovas"
+],
+[
+"N.º",
+"EB01-020"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4226": {
+"slug": "hannyabal-5",
+"number": "EB01-021",
+"code": "EB01-021",
+"type": "Leader",
+"rarity": "L",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[End of Your Turn]</b> <b class=\"fx-kw\">You may return 1 of your <b class=\"fx-kw\">[Impel Down]</b> type Characters with a cost of 2 or more to the owner&#x27;s hand</b>: Add up to 1 DON!! card from your DON!! deck and set it as active.",
+"at": [
+[
+"Tipo",
+"Leader"
+],
+[
+"Rareza",
+"L"
+],
+[
+"Color",
+"Blue;Purple"
+],
+[
+"Vida",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Impel Down"
+],
+[
+"N.º",
+"EB01-021"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4227": {
+"slug": "hannyabal-alternate-art",
+"number": "EB01-021",
+"code": "EB01-021",
+"type": "Leader",
+"rarity": "L",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[End of Your Turn]</b> <b class=\"fx-kw\">You may return 1 of your <b class=\"fx-kw\">[Impel Down]</b> type Characters with a cost of 2 or more to the owner&#x27;s hand</b>: Add up to 1 DON!! card from your DON!! deck and set it as active.",
+"at": [
+[
+"Tipo",
+"Leader"
+],
+[
+"Rareza",
+"L"
+],
+[
+"Color",
+"Blue;Purple"
+],
+[
+"Vida",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Impel Down"
+],
+[
+"N.º",
+"EB01-021"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4228": {
+"slug": "inazuma-8",
+"number": "EB01-022",
+"code": "EB01-022",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[End of Your Turn]</b> If you have 2 or less cards in your hand, draw 2 cards.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"6"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"7000"
+],
+[
+"Subtipos",
+"Revolutionary Army;Impel Down"
+],
+[
+"N.º",
+"EB01-022"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4229": {
+"slug": "inazuma-alternate-art",
+"number": "EB01-022",
+"code": "EB01-022",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[End of Your Turn]</b> If you have 2 or less cards in your hand, draw 2 cards.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"6"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"7000"
+],
+[
+"Subtipos",
+"Revolutionary Army;Impel Down"
+],
+[
+"N.º",
+"EB01-022"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4230": {
+"slug": "edward-weevil-3",
+"number": "EB01-023",
+"code": "EB01-023",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> Draw 1 card.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"6000"
+],
+[
+"Subtipos",
+"The Seven Warlords of the Sea"
+],
+[
+"N.º",
+"EB01-023"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4231": {
+"slug": "hamlet-2",
+"number": "EB01-024",
+"code": "EB01-024",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "If you have 4 or less cards in your hand, all of your <b class=\"fx-kw\">[SMILE]</b> type Characters gain +1000 power.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Animal Kingdom Pirates;SMILE"
+],
+[
+"N.º",
+"EB01-024"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4232": {
+"slug": "fourtricks",
+"number": "EB01-025",
+"code": "EB01-025",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Animal Kingdom Pirates;SMILE"
+],
+[
+"N.º",
+"EB01-025"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4233": {
+"slug": "prince-bellett",
+"number": "EB01-026",
+"code": "EB01-026",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[DON!! x1]</b> <b class=\"fx-kw\">[When Attacking]</b> If you have 1 or less cards in your hand, return up to 1 Character with a cost of 3 or less to the owner&#x27;s hand.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Ranged"
+],
+[
+"Power",
+"2000"
+],
+[
+"Subtipos",
+"Impel Down"
+],
+[
+"N.º",
+"EB01-026"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4234": {
+"slug": "mr-1-daz-bonez-7",
+"number": "EB01-027",
+"code": "EB01-027",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "If your Leader&#x27;s type includes &quot;Baroque Works&quot;, this Character gains +1000 power for every 2 Events in your trash.<br><br><br><b class=\"fx-kw\">[On Play]</b> Draw 2 cards and trash 1 card from your hand.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"6000"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-027"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4235": {
+"slug": "mr-1-daz-bonez-alternate-art-2",
+"number": "EB01-027",
+"code": "EB01-027",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "If your Leader&#x27;s type includes &quot;Baroque Works&quot;, this Character gains +1000 power for every 2 Events in your trash.<br><br><br><b class=\"fx-kw\">[On Play]</b> Draw 2 cards and trash 1 card from your hand.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"6000"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-027"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4236": {
+"slug": "gum-gum-champion-rifle",
+"number": "EB01-028",
+"code": "EB01-028",
+"type": "Event",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> If your Leader has the <b class=\"fx-kw\">[Impel Down]</b> type, up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, your opponent returns 1 of their active Characters to the owner&#x27;s hand.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Return up to 1 Character with a cost of 3 or less to the bottom of the owner&#x27;s deck.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"1"
+],
+[
+"Subtipos",
+"Straw Hat Crew;Impel Down"
+],
+[
+"N.º",
+"EB01-028"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4237": {
+"slug": "sorry-i-m-a-goner",
+"number": "EB01-029",
+"code": "EB01-029",
+"type": "Event",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> Reveal 1 card from the top of your deck. If the revealed card has a cost of 4 or more, return up to 1 of your Characters to the owner&#x27;s hand. Then, place the revealed card at the bottom of your deck.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Return up to 1 Character with a cost of 8 or less to the owner&#x27;s hand.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"1"
+],
+[
+"Subtipos",
+"Straw Hat Crew;East Blue"
+],
+[
+"N.º",
+"EB01-029"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4238": {
+"slug": "loguetown",
+"number": "EB01-030",
+"code": "EB01-030",
+"type": "Stage",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may place this card and 1 card from your hand at the bottom of your deck in any order</b>: Draw 2 cards.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Play this card.",
+"at": [
+[
+"Tipo",
+"Stage"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Blue"
+],
+[
+"Costo",
+"2"
+],
+[
+"Subtipos",
+"East Blue"
+],
+[
+"N.º",
+"EB01-030"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4239": {
+"slug": "kalifa-2",
+"number": "EB01-031",
+"code": "EB01-031",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: If your Leader has the <b class=\"fx-kw\">[Water Seven]</b> type, add up to 2 Character cards with a cost of 4 or less from your trash to your hand.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Galley-La Company;Water Seven"
+],
+[
+"N.º",
+"EB01-031"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4240": {
+"slug": "kalifa-alternate-art",
+"number": "EB01-031",
+"code": "EB01-031",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: If your Leader has the <b class=\"fx-kw\">[Water Seven]</b> type, add up to 2 Character cards with a cost of 4 or less from your trash to your hand.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Galley-La Company;Water Seven"
+],
+[
+"N.º",
+"EB01-031"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4241": {
+"slug": "army-wolves",
+"number": "EB01-032",
+"code": "EB01-032",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"7000"
+],
+[
+"Subtipos",
+"Animal;Impel Down"
+],
+[
+"N.º",
+"EB01-032"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4242": {
+"slug": "blueno-033",
+"number": "EB01-033",
+"code": "EB01-033",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: If your Leader has the <b class=\"fx-kw\">[Water Seven]</b> type, play up to 1 <b class=\"fx-kw\">[Water Seven]</b> type Character card with a cost of 5 other than <b class=\"fx-kw\">[Blueno]</b> from your hand or trash.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Water Seven"
+],
+[
+"N.º",
+"EB01-033"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4243": {
+"slug": "ms-wednesday-2",
+"number": "EB01-034",
+"code": "EB01-034",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[On Your Opponent&#x27;s Attack]</b><b class=\"fx-kw\">[Once Per Turn]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: If your Leader&#x27;s type includes &quot;Baroque Works&quot;, add up to 1 DON!! card from your DON!! deck and set it as active.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-034"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4244": {
+"slug": "ms-wednesday-alternate-art",
+"number": "EB01-034",
+"code": "EB01-034",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[On Your Opponent&#x27;s Attack]</b><b class=\"fx-kw\">[Once Per Turn]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: If your Leader&#x27;s type includes &quot;Baroque Works&quot;, add up to 1 DON!! card from your DON!! deck and set it as active.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-034"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4245": {
+"slug": "ms-monday",
+"number": "EB01-035",
+"code": "EB01-035",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> If your Leader&#x27;s type includes &quot;Baroque Works&quot;, up to 1 of your Leader or Character cards gains +1000 power during this turn.<br><br><br><b class=\"fx-kw\">[Trigger]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: Play this card.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-035"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4246": {
+"slug": "minochihuahua",
+"number": "EB01-036",
+"code": "EB01-036",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Rush]</b> <i>(This card can attack on the turn in which it is played.)</i><br><br><br><b class=\"fx-kw\">[On K.O.]</b> If your Leader has the <b class=\"fx-kw\">[Impel Down]</b> type, add up to 1 DON!! card from your DON!! deck and rest it.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Baroque Works;Impel Down;Jailer Beast"
+],
+[
+"N.º",
+"EB01-036"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4247": {
+"slug": "mr-9-2",
+"number": "EB01-037",
+"code": "EB01-037",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Your Opponent&#x27;s Attack]</b> <b class=\"fx-kw\">[Once Per Turn]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: K.O. up to 1 of your opponent&#x27;s Characters with a cost of 2 or less.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-037"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4248": {
+"slug": "oh-come-my-way",
+"number": "EB01-038",
+"code": "EB01-038",
+"type": "Event",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: If your Leader&#x27;s type includes &quot;Baroque Works&quot;, select 1 of your Characters. Change the attack target to the selected Character.<br><br><br><b class=\"fx-kw\">[Trigger]</b> DON!! -1: Draw 2 cards.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"1"
+],
+[
+"Subtipos",
+"Baroque Works"
+],
+[
+"N.º",
+"EB01-038"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4249": {
+"slug": "conquerer-of-three-worlds-ragnaraku",
+"number": "EB01-039",
+"code": "EB01-039",
+"type": "Event",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Main]</b> DON!! -1 <i>(You may return the specified number of DON!! cards from your field to your DON!! deck.)</i>: K.O. up to 1 of your opponent&#x27;s Characters with a cost of 8 or less.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Ad up to 1 DON!! card from your DON!! deck and set it as active.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"5"
+],
+[
+"Subtipos",
+"Animal Kingdom Pirates;The Four Emperors"
+],
+[
+"N.º",
+"EB01-039"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4250": {
+"slug": "kyros-4",
+"number": "EB01-040",
+"code": "EB01-040",
+"type": "Leader",
+"rarity": "L",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">[Once Per Turn]</b> <b class=\"fx-kw\">You may turn 1 card from the top of your Life cards face-up</b>: K.O. up to 1 of your opponent&#x27;s Characters with a cost of 0.",
+"at": [
+[
+"Tipo",
+"Leader"
+],
+[
+"Rareza",
+"L"
+],
+[
+"Color",
+"Black;Yellow"
+],
+[
+"Vida",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Dressrosa"
+],
+[
+"N.º",
+"EB01-040"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4251": {
+"slug": "kyros-alternate-art-2",
+"number": "EB01-040",
+"code": "EB01-040",
+"type": "Leader",
+"rarity": "L",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">[Once Per Turn]</b> <b class=\"fx-kw\">You may turn 1 card from the top of your Life cards face-up</b>: K.O. up to 1 of your opponent&#x27;s Characters with a cost of 0.",
+"at": [
+[
+"Tipo",
+"Leader"
+],
+[
+"Rareza",
+"L"
+],
+[
+"Color",
+"Black;Yellow"
+],
+[
+"Vida",
+"4"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Dressrosa"
+],
+[
+"N.º",
+"EB01-040"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4252": {
+"slug": "crocus-3",
+"number": "EB01-041",
+"code": "EB01-041",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"6"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"8000"
+],
+[
+"Subtipos",
+"Former Roger Pirates"
+],
+[
+"N.º",
+"EB01-041"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4253": {
+"slug": "scarlet",
+"number": "EB01-042",
+"code": "EB01-042",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may trash this Character</b>: Play up to 1 <b class=\"fx-kw\">[Dressrosa]</b> type Character card with a cost of 3 or less other than <b class=\"fx-kw\">[Scarlet]</b> from your hand rested. Then, give up to 1 of your opponent&#x27;s Characters -2 cost during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Dressrosa"
+],
+[
+"N.º",
+"EB01-042"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4254": {
+"slug": "spandine",
+"number": "EB01-043",
+"code": "EB01-043",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> <b class=\"fx-kw\">You may place 3 cards with a type including &quot;CP&quot; from your trash at the bottom of your deck in any order</b>: Play up to 1 Character card with a type including &quot;CP&quot; and a cost of 4 or less other than <b class=\"fx-kw\">[Spandine]</b> from your trash rested.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"2000"
+],
+[
+"Subtipos",
+"CP9"
+],
+[
+"N.º",
+"EB01-043"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4255": {
+"slug": "funkfreed",
+"number": "EB01-044",
+"code": "EB01-044",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b> <b class=\"fx-kw\">You may rest this Character</b>: Up to 1 of your <b class=\"fx-kw\">[Spandam]</b> Characters gains +3000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"1"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"1000"
+],
+[
+"Subtipos",
+"CP9"
+],
+[
+"N.º",
+"EB01-044"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4256": {
+"slug": "brook-045",
+"number": "EB01-045",
+"code": "EB01-045",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> If your opponent has a Character with a cost of 0, this Character gains <b class=\"fx-kw\">[Rush]</b> during this turn.<br><br><br><i>(This card can attack on the turn in which it is played.)</i>",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Rumbar Pirates"
+],
+[
+"N.º",
+"EB01-045"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4257": {
+"slug": "brook-046",
+"number": "EB01-046",
+"code": "EB01-046",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b>/<b class=\"fx-kw\">[When Attacking]</b> Give up to 1 of your opponent&#x27;s Characters -1 cost during this turn. Then, K.O. up to 1 of your opponent&#x27;s Characters with a cost of 0.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-046"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4258": {
+"slug": "brook-046-alternate-art",
+"number": "EB01-046",
+"code": "EB01-046",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b>/<b class=\"fx-kw\">[When Attacking]</b> Give up to 1 of your opponent&#x27;s Characters -1 cost during this turn. Then, K.O. up to 1 of your opponent&#x27;s Characters with a cost of 0.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-046"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4259": {
+"slug": "laboon-047",
+"number": "EB01-047",
+"code": "EB01-047",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Once Per Turn]</b> When a Character is K.O.&#x27;d, draw 1 card and trash 1 card from your hand.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Animal"
+],
+[
+"N.º",
+"EB01-047"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4260": {
+"slug": "laboon-048",
+"number": "EB01-048",
+"code": "EB01-048",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b><b class=\"fx-kw\">You may rest this Character</b>: Give up to 1 of your opponent&#x27;s Characters -4 cost during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Animal"
+],
+[
+"N.º",
+"EB01-048"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4261": {
+"slug": "laboon-048-alternate-art",
+"number": "EB01-048",
+"code": "EB01-048",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Activate:Main]</b><b class=\"fx-kw\">You may rest this Character</b>: Give up to 1 of your opponent&#x27;s Characters -4 cost during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Animal"
+],
+[
+"N.º",
+"EB01-048"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4262": {
+"slug": "t-bone",
+"number": "EB01-049",
+"code": "EB01-049",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> K.O. up to 1 of your opponent&#x27;s Characters with a cost of 2 or less.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Navy;Water Seven"
+],
+[
+"N.º",
+"EB01-049"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4263": {
+"slug": "t-bone-alternate-art",
+"number": "EB01-049",
+"code": "EB01-049",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> K.O. up to 1 of your opponent&#x27;s Characters with a cost of 2 or less.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"5"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Navy;Water Seven"
+],
+[
+"N.º",
+"EB01-049"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4264": {
+"slug": "i-want-to-live",
+"number": "EB01-050",
+"code": "EB01-050",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Counter]</b> If you have 30 or more cards in your trash, add up to 1 card from the top of your deck to the top of your Life cards.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"3"
+],
+[
+"Subtipos",
+"Straw Hat Crew"
+],
+[
+"N.º",
+"EB01-050"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4265": {
+"slug": "finger-pistol",
+"number": "EB01-051",
+"code": "EB01-051",
+"type": "Event",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Main]</b> <b class=\"fx-kw\">You may trash 2 cards from the top of your deck</b>: K.O. up to 1 of your opponent&#x27;s Characters with a cost of 5 or less.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Black"
+],
+[
+"Costo",
+"4"
+],
+[
+"Subtipos",
+"CP9"
+],
+[
+"N.º",
+"EB01-051"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4266": {
+"slug": "viola-4",
+"number": "EB01-052",
+"code": "EB01-052",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[On Play]</b>Choose one:<br><br><br>• Look at all of your opponent&#x27;s Life cards and place them back in their Life area in any order.<br><br><br>• Turn all of your Life cards face-down.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Dressrosa"
+],
+[
+"N.º",
+"EB01-052"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4267": {
+"slug": "viola-alternate-art",
+"number": "EB01-052",
+"code": "EB01-052",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[On Play]</b>Choose one:<br><br><br>• Look at all of your opponent&#x27;s Life cards and place them back in their Life area in any order.<br><br><br>• Turn all of your Life cards face-down.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Dressrosa"
+],
+[
+"N.º",
+"EB01-052"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4268": {
+"slug": "gastino",
+"number": "EB01-053",
+"code": "EB01-053",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> Place up to 1 of your opponent&#x27;s Characters with a cost of 3 or less at the top or bottom of your opponent&#x27;s Life cards face-up.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Give up to a total of 2 of your opponent&#x27;s Leader or Character cards -3000 power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"5000"
+],
+[
+"Subtipos",
+"Scientist"
+],
+[
+"N.º",
+"EB01-053"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4269": {
+"slug": "gan-fall-2",
+"number": "EB01-054",
+"code": "EB01-054",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i><br><br><br><b class=\"fx-kw\">[On Play]</b> If your opponent has 1 or less Life cards, K.O. up to 1 of your opponent&#x27;s Characters with a cost of 3 or less.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"3"
+],
+[
+"Atributo",
+"Slash"
+],
+[
+"Power",
+"4000"
+],
+[
+"Subtipos",
+"Sky Island"
+],
+[
+"N.º",
+"EB01-054"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4270": {
+"slug": "charlotte-compote",
+"number": "EB01-055",
+"code": "EB01-055",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"7"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"9000"
+],
+[
+"Subtipos",
+"Big Mom Pirates"
+],
+[
+"N.º",
+"EB01-055"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4271": {
+"slug": "charlotte-flampe",
+"number": "EB01-056",
+"code": "EB01-056",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b><b class=\"fx-kw\">You may add 1 card from the top or bottom of your Life cards to your hand</b>: Draw 1 card.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"1"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"1000"
+],
+[
+"Subtipos",
+"Big Mom Pirates"
+],
+[
+"N.º",
+"EB01-056"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4272": {
+"slug": "charlotte-flampe-alternate-art",
+"number": "EB01-056",
+"code": "EB01-056",
+"type": "Character",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b><b class=\"fx-kw\">You may add 1 card from the top or bottom of your Life cards to your hand</b>: Draw 1 card.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"1"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"1000"
+],
+[
+"Subtipos",
+"Big Mom Pirates"
+],
+[
+"N.º",
+"EB01-056"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4273": {
+"slug": "shirahoshi-5",
+"number": "EB01-057",
+"code": "EB01-057",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "When this Character is K.O.&#x27;d by your opponent&#x27;s effect, add up to 1 card from the top of your deck to the top of your Life cards.<br><br><br><b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i>",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Merfolk"
+],
+[
+"N.º",
+"EB01-057"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4274": {
+"slug": "shirahoshi-alternate-art-2",
+"number": "EB01-057",
+"code": "EB01-057",
+"type": "Character",
+"rarity": "SR",
+"domains": "",
+"d": {
+"fx": "When this Character is K.O.&#x27;d by your opponent&#x27;s effect, add up to 1 card from the top of your deck to the top of your Life cards.<br><br><br><b class=\"fx-kw\">[Blocker]</b> <i>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</i>",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SR"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Wisdom"
+],
+[
+"Power",
+"0"
+],
+[
+"Subtipos",
+"Merfolk"
+],
+[
+"N.º",
+"EB01-057"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4275": {
+"slug": "mont-blanc-cricket-2",
+"number": "EB01-058",
+"code": "EB01-058",
+"type": "Character",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[DON!! x1]</b> <b class=\"fx-kw\">[Your Turn]</b> If you have 2 or less Life cards, this Character gains +2000 power.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"2"
+],
+[
+"Atributo",
+"Strike"
+],
+[
+"Power",
+"3000"
+],
+[
+"Subtipos",
+"Monkey Mountain Alliance"
+],
+[
+"N.º",
+"EB01-058"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4276": {
+"slug": "kingdom-come",
+"number": "EB01-059",
+"code": "EB01-059",
+"type": "Event",
+"rarity": "R",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Main]</b> K.O. up to 1 of your opponent&#x27;s Characters. Then, trash cards from the top of your Life cards until you have 1 Life card.<br><br><br><b class=\"fx-kw\">[Trigger]</b> K.O. up to 1 of your opponent&#x27;s Characters with a cost equal to or less than the total of your and your opponent&#x27;s Life cards.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"R"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"6"
+],
+[
+"Subtipos",
+"Sky Island"
+],
+[
+"N.º",
+"EB01-059"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4277": {
+"slug": "did-someone-say-kami",
+"number": "EB01-060",
+"code": "EB01-060",
+"type": "Event",
+"rarity": "C",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[Main]</b> Play up to 1 <b class=\"fx-kw\">[Enel]</b> with a cost of 7 or less life from your hand or trash. Then, trash cards from the top of your Life cards until you have 1 Life card.<br><br><br><b class=\"fx-kw\">[Trigger]</b> Draw 2 cards and trash 1 card from your hand.",
+"at": [
+[
+"Tipo",
+"Event"
+],
+[
+"Rareza",
+"C"
+],
+[
+"Color",
+"Yellow"
+],
+[
+"Costo",
+"4"
+],
+[
+"Subtipos",
+"Sky Island"
+],
+[
+"N.º",
+"EB01-060"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4278": {
+"slug": "mr-2-bon-kurei-bentham-5",
+"number": "EB01-061",
+"code": "EB01-061",
+"type": "Character",
+"rarity": "SEC",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> Add up to 1 DON!! card from your DON!! deck and set it as active.<br><br><br><b class=\"fx-kw\">[When Attacking]</b> Select up to 1 of your opponent&#x27;s Characters. This Character&#x27;s base power becomes the same as the selected Character&#x27;s power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SEC"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"1000"
+],
+[
+"Subtipos",
+"Former Baroque Works"
+],
+[
+"N.º",
+"EB01-061"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
+},
+"4279": {
+"slug": "mr-2-bon-kurei-bentham-alternate-art-2",
+"number": "EB01-061",
+"code": "EB01-061",
+"type": "Character",
+"rarity": "SEC",
+"domains": "",
+"d": {
+"fx": "<b class=\"fx-kw\">[On Play]</b> Add up to 1 DON!! card from your DON!! deck and set it as active.<br><br><br><b class=\"fx-kw\">[When Attacking]</b> Select up to 1 of your opponent&#x27;s Characters. This Character&#x27;s base power becomes the same as the selected Character&#x27;s power during this turn.",
+"at": [
+[
+"Tipo",
+"Character"
+],
+[
+"Rareza",
+"SEC"
+],
+[
+"Color",
+"Purple"
+],
+[
+"Costo",
+"4"
+],
+[
+"Atributo",
+"Special"
+],
+[
+"Power",
+"1000"
+],
+[
+"Subtipos",
+"Former Baroque Works"
+],
+[
+"N.º",
+"EB01-061"
+],
+[
+"Condición",
+"Near Mint"
+]
+]
+}
 }
 }
