@@ -43,10 +43,22 @@ OP_SET_CODES = {
     "A Fist of Divine Speed": "OP11", "Legacy of the Master": "OP12",
     "Carrying On His Will": "OP13", "The Azure Sea's Seven": "OP14",
     "Adventure on Kami's Island": "OP15", "The Time of Battle": "OP16",
+    "The World's Strongest Warriors": "OP17",
+    # Extra Boosters: el nombre de TCGplayer ya trae "Extra Booster:" adelante,
+    # así que se renombra abajo para no quedar "EB02: Extra Booster: ..."
+    "Extra Booster: Memorial Collection": "EB01",
+    "Extra Booster: Anime 25th Collection": "EB02",
+    "Extra Booster: One Piece Heroines Edition": "EB03",
+}
+# nombre a mostrar cuando el de TCGplayer es redundante con el código
+OP_SET_NAMES = {
+    "Extra Booster: Memorial Collection": "Memorial Collection",
+    "Extra Booster: Anime 25th Collection": "Anime 25th Collection",
+    "Extra Booster: One Piece Heroines Edition": "One Piece Heroines Edition",
 }
 def set_label(key, name):
     if key == "one-piece" and name in OP_SET_CODES:
-        return f"{OP_SET_CODES[name]}: {name}"
+        return f"{OP_SET_CODES[name]}: {OP_SET_NAMES.get(name, name)}"
     return name
 
 # ---- redondeo escalonado del proyecto (ceil, piso ₡100) --------------------
