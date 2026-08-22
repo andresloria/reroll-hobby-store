@@ -38,15 +38,47 @@ def leer_prod():
         return json.load(f)
 
 
-def construir(prod):
-    """productos.json -> dict {id: [stock, stockf]}"""
+def leer_stock_actual():
+    if not os.path.exists(STOCK):
+        return {}
+    with open(STOCK, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def construir(prod, previo):
+    """productos.json + el stock ACTUAL -> dict {id: [stock, stockf]}
+
+    Precedencia, en este orden:
+      1. Si productos.json todavía trae `stock` (solo en la migración inicial),
+         ese valor manda.
+      2. Si la carta ya tiene entrada en stock.json, se RESPETA tal cual.
+         (Acá vive el stock real: el script nunca lo pisa.)
+      3. Carta nueva -> 0. Nunca null.
+
+    ⚠️ `stock` siempre es un número. `null` significaba "ilimitado" y ya no se
+    usa: una regeneración descuidada dejaba TODO el catálogo en ilimitado y
+    vendible. `stockf` sí puede ser null = la carta no tiene variante foil.
+    """
     out = {}
     for p in prod:
-        s = p.get("stock")
-        f = p.get("stockf")
-        if s in ("",): s = None
-        if f in ("",): f = None
-        out[str(p["id"])] = [s, None if f is None else int(f)]
+        k = str(p["id"])
+        ant = previo.get(k)
+        # --- stock normal ---
+        if "stock" in p and p["stock"] not in (None, ""):
+            s = int(p["stock"])
+        elif ant is not None and ant[0] is not None:
+            s = int(ant[0])
+        else:
+            s = 0
+        # --- stock foil: solo existe si la carta tiene precio foil ---
+        tiene_foil = p.get("foil") is not None
+        if "stockf" in p and p["stockf"] not in (None, ""):
+            f = int(p["stockf"])
+        elif ant is not None and len(ant) > 1 and ant[1] is not None:
+            f = int(ant[1])
+        else:
+            f = 0 if tiene_foil else None
+        out[k] = [s, f]
     return out
 
 
@@ -60,12 +92,13 @@ def escribir(stock):
 
 def main():
     prod = leer_prod()
-    nuevo = construir(prod)
+    previo = leer_stock_actual()
+    nuevo = construir(prod, previo)
 
     if "--verificar" in sys.argv:
         if not os.path.exists(STOCK):
             print("data/stock.json no existe todavía"); return 1
-        actual = json.load(open(STOCK, encoding="utf-8"))
+        actual = leer_stock_actual()
         faltan = [k for k in nuevo if k not in actual]
         sobran = [k for k in actual if k not in nuevo]
         print(f"productos.json: {len(nuevo)} cartas · stock.json: {len(actual)} entradas")
@@ -74,9 +107,25 @@ def main():
         if sobran: print("   ⚠ primeras huérfanas:", sobran[:8])
         return 0 if not (faltan or sobran) else 1
 
+    # RED DE SEGURIDAD: avisar (y no escribir) si esto le bajaría el stock a
+    # cartas que hoy lo tienen. Regenerar mal ya dejó una vez todo el catálogo
+    # en "ilimitado"; que nunca vuelva a pasar en silencio.
+    perdidas = [k for k, v in previo.items()
+                if v[0] and k in nuevo and (nuevo[k][0] or 0) < v[0]]
+    if perdidas and "--forzar" not in sys.argv:
+        print(f"⚠️  ABORTADO: {len(perdidas)} carta(s) perderían stock. Ejemplos:")
+        for k in perdidas[:6]:
+            print(f"     id {k}: {previo[k][0]} → {nuevo[k][0]}")
+        print("   Si de verdad querés eso, corré con --forzar.")
+        return 1
+
+    nuevas = [k for k in nuevo if k not in previo]
     escribir(nuevo)
     kb = os.path.getsize(STOCK) / 1024
-    print(f"data/stock.json escrito: {len(nuevo)} entradas · {kb:.0f} KB")
+    print(f"data/stock.json escrito: {len(nuevo)} entradas · {kb:.0f} KB"
+          + (f" · {len(nuevas)} carta(s) nuevas en 0" if nuevas else ""))
+    print(f"  unidades: {sum(int(v[0] or 0) for v in nuevo.values())} normal · "
+          f"{sum(int(v[1] or 0) for v in nuevo.values())} foil")
 
     if "--limpiar" in sys.argv:
         shutil.copy(PROD, os.path.join(ROOT, "productos_backup_stock_split.json"))
