@@ -116,6 +116,20 @@ function stockValF(p){ const s=p.stockf; return (s===undefined||s===null||s===""
 // ⚠️ El foil NUNCA hereda el stock normal: sin stockf definido = 0 (agotado).
 // (Heredar creaba "foils fantasma": cartas con precio foil que Andrés no tiene.)
 function foilAvailable(p){ if(p.foil==null) return false; const sf=stockValF(p); return sf!==null && sf>0; }
+// El STOCK no vive en productos.json sino en data/stock.json ({"id":[stock,stockf]}).
+// Se separó porque la API, al confirmar un pedido, tenía que reescribir productos.json
+// entero (1,6 MB) contra el límite de 10 s de Vercel; ahora escribe ~66 KB.
+// ⚠️ Si el archivo de stock NO carga, todo queda en 0 (agotado) a propósito: es
+// preferible mostrar de menos que vender algo que no existe.
+function applyStock(map){
+  const ok = map && typeof map === "object";
+  PRODUCTS.forEach(p=>{
+    const e = ok ? map[String(p.id)] : null;
+    if(!e){ p.stock = 0; delete p.stockf; return; }
+    p.stock = e[0];
+    if(e[1] === null || e[1] === undefined) delete p.stockf; else p.stockf = e[1];
+  });
+}
 // resta del stock visible las unidades reservadas por pedidos pendientes (map: {"id":n,"id_f":n})
 function applyReservas(map){
   for(const k in map){
@@ -1691,6 +1705,11 @@ async function loadCatalog(){
       }
     }
   }catch(e){ /* usamos la lista de ejemplo */ }
+  try{
+    // stock real (archivo chico y aparte, ver applyStock)
+    const stres = await fetch("data/stock.json", { cache: "no-cache" });
+    applyStock(stres.ok ? await stres.json() : null);
+  }catch(e){ applyStock(null); }   // sin stock legible: todo agotado, nunca ilimitado
   try{
     // reservas de pedidos pendientes (48 h): se restan del stock que ve el cliente.
     // En local no existe /api → se ignora y la tienda funciona igual.

@@ -3,7 +3,7 @@
 make_cartas.py — Genera las páginas de detalle por carta (opción B, estático).
 
 Qué hace:
-  1. Lee productos.json (fuente de verdad del inventario; NO se modifica).
+  1. Lee productos.json + data/stock.json (fuente de verdad; NO se modifican).
   2. Cruza con los CSV ricos de Riftbound_Cards/<Set>/<Set>_<CODE>_cards.csv
      por image_url (match exacto) para sumar: número de coleccionista, tipo,
      rareza, dominio (color), energía (costo), power, might, tags (subtipos),
@@ -27,8 +27,8 @@ INDEX_OUT = os.path.join(ROOT, "cartas.json")
 # --- Config espejada de js/app.js (mantener en sync) ---
 WHATSAPP    = "50660387738"
 SITE        = "https://rerollhobbystore.com"
-ASSET_V     = 75   # debe coincidir con el ?v= de styles.css en index/juego
-CARTA_JS_V  = 7
+ASSET_V     = 79   # debe coincidir con el ?v= de styles.css en index/juego
+CARTA_JS_V  = 8
 
 # Colores por dominio de Riftbound (chips del efecto y del atributo "Dominio")
 DOMAIN_HEX = {
@@ -177,6 +177,21 @@ def load_rich():
 
 def build():
     products = json.load(open(PROD_JSON, encoding="utf-8"))
+    # El stock vive APARTE en data/stock.json ({"id": [stock, stockf]}) — ver
+    # make_stock.py. Se fusiona acá para hornear el badge de disponibilidad en
+    # la ficha; carta.js igual lo re-hidrata al abrirla.
+    stock_path = os.path.join(ROOT, "data", "stock.json")
+    if os.path.exists(stock_path):
+        with open(stock_path, encoding="utf-8") as f:
+            smap = json.load(f)
+        for p in products:
+            e = smap.get(str(p.get("id")))
+            if e is None:
+                p["stock"] = 0; p.pop("stockf", None)   # sin entrada = agotado
+                continue
+            p["stock"] = e[0]
+            if e[1] is None: p.pop("stockf", None)
+            else: p["stockf"] = e[1]
     rich_by_img = load_rich()
     # datos ricos de One Piece (derivados de TCGplayer/TCGCSV), keyed por img url
     op_path = os.path.join(ROOT, "onepiece_rich.json")

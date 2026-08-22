@@ -153,7 +153,8 @@ def main():
             nuevos.append({
                 "id": next_id, "name": name, "cat": "Riftbound", "type": "single",
                 "set": "Promos", "price": round_crc(usd), "cond": "Near Mint",
-                "stock": 0, "img": img, "badge": "Promo",   # distingue del arte base en la tienda
+                "img": img, "badge": "Promo",   # distingue del arte base en la tienda
+                # ⚠️ el stock NO va acá: vive en data/stock.json → correr make_stock.py después
             })
             ya.add((name, "Promos"))
             next_id += 1

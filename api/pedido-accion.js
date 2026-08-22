@@ -6,7 +6,7 @@
         queda vacío pasa a "rechazado").
      { id, accion: "rechazar" }                     → libera todo el pedido.
      { id, accion: "confirmar" }                    → VENTA: descuenta el
-        stock (normal o foil) en productos.json del repo —dispara deploy—
+        stock (normal o foil) en data/stock.json del repo —dispara deploy—
         y marca el pedido como "confirmado".
    ============================================================ */
 "use strict";
@@ -53,34 +53,29 @@ module.exports = async function handler(req, res) {
       // antes de marcar el pedido, NO se vuelve a descontar — solo se re-marca.
       const yaDescontado = await L.stockYaDescontado(ped.id);
 
-      // descuenta stock en productos.json (con validación contra reservas AJENAS)
+      // descuenta stock en data/stock.json (con validación contra reservas AJENAS).
+      // Antes esto reescribía productos.json entero y tardaba 6-12 s contra el
+      // límite de 10 s de Vercel; el archivo de stock son ~66 KB.
       for (let pi = 0; !yaDescontado && pi < 3; pi++) {
-        const { data: productos, sha: psha } = await L.readJsonFile("productos.json");
-        if (!Array.isArray(productos)) return L.json(res, 500, { error: "inventario no disponible" });
+        const { stock, sha: psha } = await L.readStock();
+        if (!stock || typeof stock !== "object") return L.json(res, 500, { error: "stock no disponible" });
         const otros = L.reservasDe(db.pedidos.filter((p) => p.id !== ped.id));
         const faltantes = [];
         for (const it of ped.items) {
           if (it.preorden) continue;   // pre-orden: no valida stock (aún no llega)
-          const p = productos.find((x) => x.id === it.id);
-          if (!p) { faltantes.push({ name: it.name, disponible: 0 }); continue; }
-          const st = L.stockVariante(p, it.foil);
+          const st = L.stockVariante(L.stockDe(stock, it.id), it.foil);
           if (st !== null && st - (otros[L.lineKey(it.id, it.foil)] || 0) < it.qty)
             faltantes.push({ name: it.name, disponible: Math.max(0, st - (otros[L.lineKey(it.id, it.foil)] || 0)) });
         }
         if (faltantes.length) return L.json(res, 409, { error: "stock", faltantes });
         for (const it of ped.items) {
           if (it.preorden) continue;   // pre-orden: no descuenta stock
-          const p = productos.find((x) => x.id === it.id);
-          if (!p) continue;
-          if (it.foil && p.stockf !== undefined && p.stockf !== null && p.stockf !== "")
-            p.stockf = Math.max(0, Number(p.stockf) - it.qty);
-          else if (p.stock !== undefined && p.stock !== null && p.stock !== "")
-            p.stock = Math.max(0, Number(p.stock) - it.qty);
+          L.restarStock(stock, it.id, it.foil, it.qty);
         }
-        const wok = await L.writeJsonFile("productos.json", productos, psha,
+        const wok = await L.writeStock(stock, psha,
           `Pedido ${ped.id} confirmado: descuenta stock (${ped.items.length} línea/s)`);
         if (wok) break;
-        if (pi === 2) return L.json(res, 503, { error: "no se pudo escribir el inventario" });
+        if (pi === 2) return L.json(res, 503, { error: "no se pudo escribir el stock" });
       }
 
       ped.estado = "confirmado";

@@ -43,7 +43,12 @@ module.exports = async function handler(req, res) {
   }
 
   // ---- inventario actual (solo lectura) ----
-  const { data: productos } = await L.readJsonFile("productos.json");
+  // productos.json trae nombre/precio; el stock vive aparte en data/stock.json
+  // (ver make_stock.py). Las dos lecturas son independientes → en paralelo.
+  const [{ data: productos }, { stock }] = await Promise.all([
+    L.readJsonFile("productos.json"),
+    L.readStock(),
+  ]);
   if (!Array.isArray(productos)) return L.json(res, 500, { error: "inventario no disponible" });
   const byId = new Map(productos.map((p) => [p.id, p]));
 
@@ -62,7 +67,7 @@ module.exports = async function handler(req, res) {
       // PRE-ORDEN: producto que aún no llega → no valida stock ni reserva
       if (ln.preorden) { items.push({ id: ln.id, foil: ln.foil, qty: ln.qty, preorden: true, name: p.name, price: ln.foil ? p.foil : p.price }); continue; }
       if (ln.foil && p.foil == null) { faltantes.push({ id: ln.id, foil: true, name: p.name, disponible: 0 }); continue; }
-      const st = L.stockVariante(p, ln.foil);
+      const st = L.stockVariante(L.stockDe(stock, ln.id), ln.foil);
       const disp = st === null ? null : Math.max(0, st - (reservas[L.lineKey(ln.id, ln.foil)] || 0));
       if (disp !== null && ln.qty > disp) { faltantes.push({ id: ln.id, foil: ln.foil, name: p.name, disponible: disp }); continue; }
       items.push({ id: ln.id, foil: ln.foil, qty: ln.qty, name: p.name, price: ln.foil ? p.foil : p.price });

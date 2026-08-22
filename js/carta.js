@@ -264,13 +264,23 @@
   // en local la API no existe y se ignora)
   Promise.all([
     fetch("../productos.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }),
-    fetch("../api/reservas", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    fetch("../api/reservas", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+    // el stock vive aparte en data/stock.json ({"id":[stock,stockf]}), ver make_stock.py
+    fetch("../data/stock.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
   ])
     .then(function (rs) {
-      var data = rs[0], rj = rs[1];
+      var data = rs[0], rj = rs[1], stock = rs[2];
       if (!Array.isArray(data)) return;
       var p = data.find(function (x) { return String(x.id) === String(pid); });
       if (!p) return;
+      // stock desde el archivo aparte. ⚠️ Si no cargó, 0 (agotado) — nunca ilimitado.
+      var e = (stock && typeof stock === "object") ? stock[String(p.id)] : null;
+      if (e) {
+        p.stock = e[0];
+        if (e[1] === null || e[1] === undefined) delete p.stockf; else p.stockf = e[1];
+      } else {
+        p.stock = 0; delete p.stockf;
+      }
       // restar unidades reservadas de esta carta (normal y foil)
       var res = (rj && rj.reservas) || {};
       var has = function (v) { return v !== undefined && v !== null && v !== ""; };

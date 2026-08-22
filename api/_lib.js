@@ -55,7 +55,7 @@ async function readJsonFile(path) {
    Ante cualquier duda devuelve false → sigue el camino normal. */
 async function stockYaDescontado(pedId) {
   try {
-    const r = await gh(`/repos/${REPO}/commits?sha=${BRANCH}&path=productos.json&per_page=20`);
+    const r = await gh(`/repos/${REPO}/commits?sha=${BRANCH}&path=${STOCK_PATH}&per_page=20`);
     if (!r.ok) return false;
     const commits = await r.json();
     if (!Array.isArray(commits)) return false;
@@ -92,6 +92,39 @@ async function readPedidos() {
 }
 function writePedidos(db, sha, message) {
   return writeJsonFile(PEDIDOS_PATH, db, sha, message);
+}
+
+/* ---- stock: vive APARTE de productos.json ----------------------------------
+   Formato: {"<id>": [stock, stockf]}  ·  stockf null = la carta no tiene foil.
+   Se separó porque confirmar un pedido reescribía productos.json entero
+   (1,6 MB → PUT de 2,1 MB en base64) contra el límite de 10 s de Vercel:
+   tardaba 6-12 s y a veces se cortaba. Ahora el PUT es de ~66 KB y el tiempo
+   ya no depende de cuántas cartas tenga el catálogo. Ver make_stock.py. */
+const STOCK_PATH = "data/stock.json";
+async function readStock() {
+  const { data, sha } = await readJsonFile(STOCK_PATH);
+  return { stock: data || {}, sha };
+}
+function writeStock(stock, sha, message) {
+  return writeJsonFile(STOCK_PATH, stock, sha, message);
+}
+/* Entrada de stock como objeto {stock, stockf}, para pasársela a stockVariante.
+   ⚠️ Sin entrada = AGOTADO (0), nunca "ilimitado": preferimos no vender algo
+   que quizá no exista antes que vender de más. */
+function stockDe(stock, id) {
+  const e = stock && stock[String(id)];
+  if (!e) return { stock: 0 };
+  const o = { stock: e[0] };
+  if (e[1] !== null && e[1] !== undefined) o.stockf = e[1];
+  return o;
+}
+/* Descuenta `qty` de la variante y deja la entrada lista para guardar. */
+function restarStock(stock, id, foil, qty) {
+  const k = String(id);
+  const e = stock[k] || [0, null];
+  if (foil && e[1] !== null && e[1] !== undefined) e[1] = Math.max(0, Number(e[1]) - qty);
+  else if (e[0] !== null && e[0] !== undefined) e[0] = Math.max(0, Number(e[0]) - qty);
+  stock[k] = e;
 }
 
 /* ---- reglas de negocio ---- */
@@ -171,6 +204,7 @@ function json(res, status, obj) {
 
 module.exports = {
   readJsonFile, writeJsonFile, readPedidos, writePedidos, stockYaDescontado,
+  readStock, writeStock, stockDe, restarStock, STOCK_PATH,
   isActivo, lineKey, reservasDe, stockVariante, prune, panelOk, json, sendMail,
   EXP_MS, PEDIDOS_PATH,
 };

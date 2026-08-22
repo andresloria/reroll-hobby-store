@@ -1045,6 +1045,20 @@ $('#jsonFile').onchange=()=>{
 
 /* ====== Exportar (sin los _flags internos del panel) ====== */
 const SIN_FLAGS = (k,v)=> (k && k[0]==='_') ? undefined : v;
+// productos.json ya NO lleva stock: eso vive en data/stock.json (ver make_stock.py)
+const SIN_FLAGS_NI_STOCK = (k,v)=> (k && (k[0]==='_' || k==='stock' || k==='stockf')) ? undefined : v;
+// mapa {"id":[stock,stockf]} con el MISMO formato que make_stock.py (claves
+// ordenadas como texto y sin espacios) para que los diffs de git queden limpios
+function stockMapJSON(list){
+  const m = {};
+  list.forEach(p=>{
+    const sf = p.stockf;
+    m[String(p.id)] = [ (p.stock===undefined||p.stock===null||p.stock==='') ? null : Number(p.stock),
+                        (sf===undefined||sf===null||sf==='') ? null : Number(sf) ];
+  });
+  const keys = Object.keys(m).sort();
+  return '{' + keys.map(k=> JSON.stringify(k)+':'+JSON.stringify(m[k])).join(',') + '}' + String.fromCharCode(10);
+}
 $('#exportBtn').onclick=()=>{
   if(!items.length){ toast('No hay nada que exportar'); return; }
   download('productos.json', JSON.stringify(items,SIN_FLAGS,2), 'application/json');
@@ -1057,6 +1071,7 @@ function download(name, content, type){
 
 /* ====== Publicar a la tienda (commit productos.json a GitHub -> Vercel publica solo) ====== */
 const GH_OWNER="andresloria", GH_REPO="reroll-hobby-store", GH_PATH="productos.json", GH_BRANCH="main";
+const GH_STOCK_PATH="data/stock.json";   // el stock se publica aparte (ver make_stock.py)
 const ghInput = $('#ghToken');
 ghInput.value = localStorage.getItem('reroll_gh_token') || '';
 ghInput.addEventListener('change', ()=> localStorage.setItem('reroll_gh_token', ghInput.value.trim()));
@@ -1080,21 +1095,31 @@ async function publishToStore(){
   if(!confirm(`¿Publicar a la tienda en vivo?\n${nd ? nd+' cambio(s) tuyos · ' : ''}${items.length} cartas en total.\nLa tienda se actualiza sola en ~1 minuto.`)) return;
   const btns=[$('#publishBtn'),$('#stickyPublish')].filter(Boolean); btns.forEach(b=>b.disabled=true);
   const H = { Authorization:'Bearer '+token, Accept:'application/vnd.github+json' };
-  const base = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
-  try{
-    pubStatus('Conectando con GitHub…'); toast('Publicando…');
+  const urlDe = (path)=> `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`;
+  // Sube un archivo al repo. Devuelve al terminar; tira error con mensaje claro.
+  async function subir(path, contenido, mensaje){
     let sha;
-    const g = await fetch(`${base}?ref=${GH_BRANCH}&t=${Date.now()}`, { headers:H });
+    const g = await fetch(`${urlDe(path)}?ref=${GH_BRANCH}&t=${Date.now()}`, { headers:H });
     if(g.ok){ sha = (await g.json()).sha; }
     else if(g.status!==404){ throw new Error(g.status===401?'Token inválido o sin permiso.':'GitHub respondió '+g.status); }
-    pubStatus('Subiendo tu inventario…');
-    const body = { message:'Actualizar inventario desde el panel', content: toB64(JSON.stringify(items,SIN_FLAGS,2)), branch: GH_BRANCH };
+    const body = { message:mensaje, content: toB64(contenido), branch: GH_BRANCH };
     if(sha) body.sha = sha;
-    const p = await fetch(base, { method:'PUT', headers:{...H,'Content-Type':'application/json'}, body: JSON.stringify(body) });
-    if(!p.ok){
-      const e = await p.json().catch(()=>({}));
-      throw new Error(p.status===403||p.status===401 ? 'El token no tiene permiso de escritura (Contents: Read and write).' : ('GitHub: '+(e.message||p.status)));
+    const r = await fetch(urlDe(path), { method:'PUT', headers:{...H,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    if(!r.ok){
+      const e = await r.json().catch(()=>({}));
+      throw new Error(r.status===403||r.status===401
+        ? 'El token no tiene permiso de escritura (Contents: Read and write).'
+        : ('GitHub: '+(e.message||r.status)+' al subir '+path));
     }
+  }
+  try{
+    pubStatus('Conectando con GitHub…'); toast('Publicando…');
+    // El STOCK va primero y aparte: es lo que la API toca al confirmar pedidos,
+    // y es un archivo chico. El catálogo (productos.json) va después.
+    pubStatus('Subiendo el stock…');
+    await subir(GH_STOCK_PATH, stockMapJSON(items), 'Actualizar stock desde el panel');
+    pubStatus('Subiendo tu inventario…');
+    await subir(GH_PATH, JSON.stringify(items,SIN_FLAGS_NI_STOCK,2)+String.fromCharCode(10), 'Actualizar inventario desde el panel');
     // publicado: los cambios locales ya están en la tienda → limpiar el contador
     items.forEach(p2=>{ delete p2._dirty; delete p2._new; });
     deletedIds = []; saveDeleted();
@@ -1399,10 +1424,24 @@ renderSales();
 async function syncFromStore(announce){
   const hint = $('#syncHint');
   try{
-    const r = await fetch('productos.json?t='+Date.now());
+    const [r, rs] = await Promise.all([
+      fetch('productos.json?t='+Date.now()),
+      fetch('data/stock.json?t='+Date.now()).catch(()=>null)
+    ]);
     if(!r.ok) throw new Error('no se pudo leer la tienda');
     const live = await r.json();
     if(!Array.isArray(live)) throw new Error('formato inesperado');
+    // El stock vive APARTE (data/stock.json). Se fusiona acá para que todo el
+    // panel siga trabajando con p.stock / p.stockf como siempre; al publicar se
+    // vuelve a separar. Si el archivo no carga, NO se inventa stock: queda 0.
+    if(!rs || !rs.ok) throw new Error('no se pudo leer el stock (data/stock.json)');
+    const stMap = await rs.json();
+    live.forEach(p2=>{
+      const e = stMap && stMap[String(p2.id)];
+      if(!e){ p2.stock = 0; delete p2.stockf; return; }
+      p2.stock = e[0];
+      if(e[1]===null || e[1]===undefined) delete p2.stockf; else p2.stockf = e[1];
+    });
     const nDirty = dirtyCount();
     if(!nDirty){
       items = live;                        // sin cambios locales: la tienda manda
