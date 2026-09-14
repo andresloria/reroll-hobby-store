@@ -1,55 +1,6 @@
 {
-  "seq": 33,
+  "seq": 34,
   "pedidos": [
-    {
-      "id": "R-0032",
-      "ts": 1786392380253,
-      "estado": "confirmado",
-      "nombre": "José González",
-      "telefono": "85584485",
-      "entrega": "retiro",
-      "provincia": "",
-      "direccion": "",
-      "pago": "SINPE Móvil",
-      "canton": "",
-      "distrito": "",
-      "cedula": "",
-      "recibeAlt": "",
-      "envioMetodo": "Retiro / entrega coordinada",
-      "envioCosto": 0,
-      "items": [
-        {
-          "id": 106,
-          "foil": false,
-          "qty": 3,
-          "name": "Stupefy",
-          "price": 200
-        },
-        {
-          "id": 755,
-          "foil": false,
-          "qty": 2,
-          "name": "Keeper of Masks",
-          "price": 200
-        },
-        {
-          "id": 758,
-          "foil": false,
-          "qty": 1,
-          "name": "Smoke and Mirrors",
-          "price": 300
-        },
-        {
-          "id": 3773,
-          "foil": false,
-          "qty": 1,
-          "name": "Nasus, Ascended",
-          "price": 500
-        }
-      ],
-      "total": 1800,
-      "confirmadoTs": 1786896848036
-    },
     {
       "id": "R-0033",
       "ts": 1788886096529,
@@ -104,6 +55,68 @@
         }
       ],
       "total": 4800
+    },
+    {
+      "id": "R-0034",
+      "ts": 1789410152513,
+      "estado": "pendiente",
+      "nombre": "Julio Arias",
+      "telefono": "88495981",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 453,
+          "foil": false,
+          "qty": 1,
+          "name": "Plundering Poro",
+          "price": 100
+        },
+        {
+          "id": 454,
+          "foil": false,
+          "qty": 3,
+          "name": "Wages of Pain",
+          "price": 100
+        },
+        {
+          "id": 456,
+          "foil": false,
+          "qty": 3,
+          "name": "Dropboarder",
+          "price": 100
+        },
+        {
+          "id": 3850,
+          "foil": false,
+          "qty": 2,
+          "name": "Decree of Unity",
+          "price": 200
+        },
+        {
+          "id": 458,
+          "foil": false,
+          "qty": 2,
+          "name": "Pickpocket",
+          "price": 200
+        },
+        {
+          "id": 736,
+          "foil": false,
+          "qty": 1,
+          "name": "Eclipse",
+          "price": 100
+        }
+      ],
+      "total": 1600
     }
   ]
 }
