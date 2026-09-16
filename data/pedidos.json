@@ -1,5 +1,5 @@
 {
-  "seq": 34,
+  "seq": 35,
   "pedidos": [
     {
       "id": "R-0033",
@@ -117,6 +117,89 @@
         }
       ],
       "total": 1600
+    },
+    {
+      "id": "R-0035",
+      "ts": 1789594608177,
+      "estado": "pendiente",
+      "nombre": "Jean Pierre Mirault",
+      "telefono": "88668993",
+      "entrega": "retiro",
+      "provincia": "",
+      "direccion": "",
+      "pago": "SINPE Móvil",
+      "canton": "",
+      "distrito": "",
+      "cedula": "",
+      "recibeAlt": "",
+      "envioMetodo": "Retiro / entrega coordinada",
+      "envioCosto": 0,
+      "items": [
+        {
+          "id": 148,
+          "foil": false,
+          "qty": 2,
+          "name": "First Mate",
+          "price": 200
+        },
+        {
+          "id": 380,
+          "foil": true,
+          "qty": 2,
+          "name": "Bushwhack",
+          "price": 200
+        },
+        {
+          "id": 520,
+          "foil": true,
+          "qty": 3,
+          "name": "Overzealous Fan",
+          "price": 200
+        },
+        {
+          "id": 784,
+          "foil": false,
+          "qty": 1,
+          "name": "Repulse",
+          "price": 300
+        },
+        {
+          "id": 3739,
+          "foil": false,
+          "qty": 2,
+          "name": "Hextech Disc",
+          "price": 100
+        },
+        {
+          "id": 144,
+          "foil": false,
+          "qty": 2,
+          "name": "Challenge",
+          "price": 200
+        },
+        {
+          "id": 3729,
+          "foil": false,
+          "qty": 2,
+          "name": "Ezreal, Prodigy",
+          "price": 9500
+        },
+        {
+          "id": 205,
+          "foil": false,
+          "qty": 1,
+          "name": "Traveling Merchant",
+          "price": 200
+        },
+        {
+          "id": 395,
+          "foil": false,
+          "qty": 2,
+          "name": "Assembly Rig",
+          "price": 100
+        }
+      ],
+      "total": 21700
     }
   ]
 }
